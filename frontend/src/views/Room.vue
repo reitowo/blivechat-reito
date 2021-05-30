@@ -137,6 +137,7 @@ export default {
       if (!this.config.showGift) {
         return
       }
+      
       let price = (data.coinType == 'gold') ? (data.totalCoin / 1000) : 0
       if (this.mergeSimilarGift(data.authorName, price, data.giftName, data.num)) {
         return
@@ -145,6 +146,7 @@ export default {
       if (price < this.config.minGiftPrice && data.coinType == 'gold') {
        return
       }
+      
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_GIFT,
@@ -181,6 +183,7 @@ export default {
       if (data.price < this.config.minGiftPrice) { // 丢人
         return
       }
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
