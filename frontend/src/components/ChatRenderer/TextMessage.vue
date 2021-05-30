@@ -17,7 +17,8 @@
           ></author-badge>
         </span>
       </yt-live-chat-author-chip>
-      <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
+      <img v-if="content == '钱' || content == '明白' || content == '二次元是不会背叛你的' " height="192" width="auto" :src="require('D:/code/blivechat/frontend/dist/static/img/icons/' + content + '.png' )" />
+      <span v-else id="message" class="style-scope yt-live-chat-text-message-renderer">{{
         content
         }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
           :style="{'--repeated-mark-color': repeatedMarkColor}"
