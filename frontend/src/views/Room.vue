@@ -141,8 +141,9 @@ export default {
       if (this.mergeSimilarGift(data.authorName, price, data.giftName, data.num)) {
         return
       }
-      if (price < this.config.minGiftPrice) { // 丢人
-        return
+      // 银瓜子礼物不丢人
+      if (price < this.config.minGiftPrice && data.coinType == 'gold') {
+       return
       }
       let message = {
         id: data.id,
