@@ -1,3 +1,21 @@
+# 自定义弹幕图片功能
+在blivechat的frontend/dist 宣告一个danmu_pic.json (该文件路径为: blivechat/dist/danmu_pic.json)
+json 内容格式如下
+1. keyword为你想要替换的弹幕
+2. image为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
+3. height 为图片的高度
+```json
+[
+    { "keyword": "明白.png", "image" : "明白.png", "height" : "128" },
+    { "keyword": "明白.jpg", "image" : "明白.png", "height" : "128" },
+    { "keyword": "二次元是不会背叛你的.png", "image" : "二次元是不会背叛你的.png", "height" : "192" },
+    { "keyword": "二次元是不会背叛你的.jpg", "image" : "二次元是不会背叛你的.png", "height" : "192" },
+    { "keyword": "钱.png", "image" : "钱.png", "height" : "64" },
+    { "keyword": "钱.jpg", "image" : "钱.png", "height" : "64" },
+    { "keyword": "见没见过黑手.gif", "image" : "见没见过黑手.gif", "height" : "128" },
+    { "keyword": "美兔3D.gif", "image" : "美兔3D.gif", "height" : "128" }
+]
+```
 # blivechat
 用于OBS的仿YouTube风格的bilibili直播评论栏
 
