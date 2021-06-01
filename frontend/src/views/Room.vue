@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import {mergeConfig, toBool, toInt} from '@/utils'
+import {mergeConfig, toBool, toInt, toFloat} from '@/utils'
 import * as pronunciation from '@/utils/pronunciation'
 import * as chatConfig from '@/api/chatConfig'
 import ChatClientTest from '@/api/chat/ChatClientTest'
@@ -71,8 +71,8 @@ export default {
         }
       }
       cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
-
-      cfg.minGiftPrice = toInt(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
+  
+      cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.showDanmaku = toBool(cfg.showDanmaku)
       cfg.showGift = toBool(cfg.showGift)
       cfg.showGiftName = toBool(cfg.showGiftName)
@@ -143,7 +143,7 @@ export default {
         return
       }
       // 银瓜子礼物不丢人
-      if (price < this.config.minGiftPrice && data.coinType == 'gold') {
+      if (price < this.config.minGiftPrice) {
        return
       }
       
