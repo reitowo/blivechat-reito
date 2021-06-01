@@ -163,7 +163,7 @@ export default {
     },
     getText(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
-        return 'Member'
+        return '上舰'
       }
       return 'CN¥' + formatCurrency(message.price)
     },

@@ -18,10 +18,10 @@
         </span>
       </yt-live-chat-author-chip>
       <!-- 用户自定的弹幕图片 -->
-      <div v-for="(item, index) in danmu_pic" :index="index" :key="index" :myLog="myLog">
-        <img :name="keyword" v-if="content == item.keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+      <div v-if="filter_danmu_pic.length != 0" >
+        <img v-for="(item, index) in filter_danmu_pic" :index="index" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
       </div>
-
+     
       <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
         content
         }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
@@ -39,6 +39,7 @@ import * as constants from './constants'
 import * as utils from '@/utils'
 
 var json
+
 window.onload = function () {
   var url = "/danmu_pic.json" /*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
   var request = new XMLHttpRequest();
@@ -61,7 +62,7 @@ const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
 export default {
   name: 'TextMessage',
-   data() {
+  data() {
     return {
       danmu_pic:json
     }
@@ -80,6 +81,12 @@ export default {
     repeated: Number
   },
   computed: {
+    // 判断是否显示图片
+    filter_danmu_pic() {
+      return this.danmu_pic.filter((pic) => {
+        return pic.keyword == this.content
+      })
+    },
     timeText() {
       return utils.getTimeTextHourMin(this.time)
     },
