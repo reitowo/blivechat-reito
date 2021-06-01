@@ -39,19 +39,23 @@ import * as utils from '@/utils'
 
 
 var face = {
-    // 由 danmu_pic.json 自动生成，下面为生成按例
+    // 由 danmu_pic.json 自动生成，下面为生成案例
     // '[希望之花]': '</span>' + '<img height="128" width="auto" src="/static/希望之花.gif" />' + '<span>',
-    
 }
+//* 这样怎么打都不会错了吧(), 可以【】也可以【]，各种奇妙组合，但】【不行，(话说这么打的真的人才)
+// 中文单双引号会交替出现所以做了容错
+var reg = /(“|”|"|'|‘|’|\[|【|{).+?(”|“|"|'|’|‘|\]|】|})/g
 
-// 把原本的 content 中的 [xx]换为标签元素
-function my_replace(str) {
-  var reg = /\[.+?\]/g
+// 使用正则表达式把原本的 content 中的[xx]换为标签元素
+function regexReplace(str) {
     
+  // 如果存在则替换
   str = str.replace(reg,function(keyword){ 
-    // 如果存在则替换
-    if(face[keyword])
-      return face[keyword]
+    // 下方可选, 主要是将 [  钱  ], 等前后空白的情况替换为 [钱] 的容错机制
+    var new_str = keyword.substring(1, keyword.length - 1);
+    new_str = new_str.trim();
+    if(face[new_str])
+      return face[new_str]
     else {
       return keyword
     }
@@ -60,18 +64,14 @@ function my_replace(str) {
 }
 
 function convertTextToImg(from_str) {
-    // var temp = document.getElementById("temp");
     // 把原本的 content 中的 [xx]换为标签元素
-    var to_str = my_replace(from_str);
-    //若内容不存在即返回
-    // this.content = this.content.split(str).join('<span>'+str1+'</span>')
-    
+    var to_str = regexReplace(from_str);
     return '<span>'+ to_str +'</span>'
-
 }
 
 var json
 
+// 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
 window.onload = function () {
   var url = "/danmu_pic.json" /*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
   var request = new XMLHttpRequest();
@@ -82,7 +82,7 @@ window.onload = function () {
           json = JSON.parse(request.responseText);
           for(var i=0;i<json.length;i++){
               //* 从 json 读取数据, 创建 keyword 和 image 的对应关系
-              var _from = '[' + json[i].keyword +']';
+              var _from = json[i].keyword;
               var _to = `</span><img height="${json[i].height}" width="auto" src="/static/${json[i].image}" /><span>` 
               face[_from] = _to;
               console.log(json[i].keyword);
@@ -130,7 +130,8 @@ export default {
       return utils.getTimeTextHourMin(this.time)
     },
     authorTypeText() {
-      return constants.AUTHOR_TYPE_TO_TEXT[this.authorType]
+      // 优先判断舰长
+      return this.privilegeType > 0 ? 'member' : constants.AUTHOR_TYPE_TO_TEXT[this.authorType]
     },
     repeatedMarkColor() {
       let color

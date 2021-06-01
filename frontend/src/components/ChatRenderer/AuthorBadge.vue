@@ -2,6 +2,10 @@
   <yt-live-chat-author-badge-renderer :type="authorTypeText" v-if="isAdmin || privilegeType > 0">
     <el-tooltip :content="readableAuthorTypeText" placement="top">
       <div id="image" class="style-scope yt-live-chat-author-badge-renderer">
+        
+        <img v-if="privilegeType > 0" :src="`/static/img/icons/guard-level-${privilegeType}.png`"
+          class="style-scope yt-live-chat-author-badge-renderer" :alt="readableAuthorTypeText">
+        
         <yt-icon v-if="isAdmin" class="style-scope yt-live-chat-author-badge-renderer">
           <svg viewBox="0 0 16 16" class="style-scope yt-icon" preserveAspectRatio="xMidYMid meet" focusable="false"
             style="pointer-events: none; display: block; width: 100%; height: 100%;"
@@ -13,8 +17,6 @@
             </g>
           </svg>
         </yt-icon>
-        <img v-else :src="`/static/img/icons/guard-level-${privilegeType}.png`"
-          class="style-scope yt-live-chat-author-badge-renderer" :alt="readableAuthorTypeText">
       </div>
     </el-tooltip>
   </yt-live-chat-author-badge-renderer>
@@ -31,16 +33,26 @@ export default {
   },
   computed: {
     authorTypeText() {
-      return this.privilegeType > 0 ? 'member' : ''
-      if (this.isAdmin) {
-        return 'moderator'
+      // 优先判断舰长
+      if(this.privilegeType > 0) {
+        return 'member'
       }
+
+      return this.isAdmin ? 'moderator' : ''
+      // if (this.isAdmin) {
+      //   return 'moderator'
+      // }
+      // return this.privilegeType > 0 ? 'member' : ''
     },
     readableAuthorTypeText() {
-      if (this.isAdmin) {
-        return '管理员'
+      if (!this.isAdmin) {
+        return constants.GUARD_LEVEL_TO_TEXT[this.privilegeType]
       }
-      return constants.GUARD_LEVEL_TO_TEXT[this.privilegeType]
+      return '管理员'
+      // if (this.isAdmin) {
+      //   return '管理员'
+      // }
+      // return constants.GUARD_LEVEL_TO_TEXT[this.privilegeType]
     }
   }
 }
