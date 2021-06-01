@@ -18,12 +18,11 @@
         </span>
       </yt-live-chat-author-chip>
       <!-- 用户自定的弹幕图片 -->
-      <div v-if="filter_danmu_pic.length != 0" >
-        <img v-for="(item, index) in filter_danmu_pic" :index="index" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+      <div v-html="contents" >
+        
       </div>
      
       <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
-        content
         }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
           :style="{'--repeated-mark-color': repeatedMarkColor}"
         ></el-badge>
@@ -38,6 +37,39 @@ import AuthorBadge from './AuthorBadge.vue'
 import * as constants from './constants'
 import * as utils from '@/utils'
 
+
+var face = {
+    // 由 danmu_pic.json 自动生成，下面为生成按例
+    // '[希望之花]': '</span>' + '<img height="128" width="auto" src="/static/希望之花.gif" />' + '<span>',
+    
+}
+
+// 把原本的 content 中的 [xx]换为标签元素
+function my_replace(str) {
+  var reg = /\[.+?\]/g
+    
+  str = str.replace(reg,function(keyword){ 
+    // 如果存在则替换
+    if(face[keyword])
+      return face[keyword]
+    else {
+      return keyword
+    }
+  })
+  return str
+}
+
+function convertTextToImg(from_str) {
+    // var temp = document.getElementById("temp");
+    // 把原本的 content 中的 [xx]换为标签元素
+    var to_str = my_replace(from_str);
+    //若内容不存在即返回
+    // this.content = this.content.split(str).join('<span>'+str1+'</span>')
+    
+    return '<span>'+ to_str +'</span>'
+
+}
+
 var json
 
 window.onload = function () {
@@ -49,7 +81,11 @@ window.onload = function () {
       if (request.status == 200) {/*返回状态为200，即为数据获取成功*/
           json = JSON.parse(request.responseText);
           for(var i=0;i<json.length;i++){
-              console.log(json[i].name);
+              //* 从 json 读取数据, 创建 keyword 和 image 的对应关系
+              var _from = '[' + json[i].keyword +']';
+              var _to = `</span><img height="${json[i].height}" width="auto" src="/static/${json[i].image}" /><span>` 
+              face[_from] = _to;
+              console.log(json[i].keyword);
           }
           console.log(json);
       }
@@ -81,8 +117,11 @@ export default {
     repeated: Number
   },
   computed: {
-    // 判断是否显示图片
+    contents() {
+      return convertTextToImg(this.content)
+    },
     filter_danmu_pic() {
+      // 判断是否显示图片
       return this.danmu_pic.filter((pic) => {
         return pic.keyword == this.content
       })

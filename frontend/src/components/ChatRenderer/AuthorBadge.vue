@@ -31,10 +31,10 @@ export default {
   },
   computed: {
     authorTypeText() {
+      return this.privilegeType > 0 ? 'member' : ''
       if (this.isAdmin) {
         return 'moderator'
       }
-      return this.privilegeType > 0 ? 'member' : ''
     },
     readableAuthorTypeText() {
       if (this.isAdmin) {
