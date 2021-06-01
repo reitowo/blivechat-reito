@@ -31,6 +31,7 @@ export const PRICE_CONFIGS = [
     price: 1000,
     colors: {
       contentBg: 'rgba(230,33,23,1)',
+      dividerColor: 'rgba(150,33,23,1)',
       headerBg: 'rgba(208,0,0,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
@@ -43,6 +44,7 @@ export const PRICE_CONFIGS = [
     price: 100,
     colors: {
       contentBg: 'rgba(245,124,0,1)',
+      dividerColor: 'rgba(180,100,0,1)',
       headerBg: 'rgba(230,81,0,1)',
       header: 'rgba(255,255,255,0.87451)',
       authorName: 'rgba(255,255,255,0.701961)',
@@ -55,6 +57,7 @@ export const PRICE_CONFIGS = [
     price: 30,
     colors: {
       contentBg: 'rgba(255,202,40,1)',
+      dividerColor: 'rgba(200,140,10,1)',
       headerBg: 'rgba(255,179,0,1)',
       header: 'rgba(0,0,0,0.87451)',
       authorName: 'rgba(0,0,0,0.541176)',
@@ -67,6 +70,7 @@ export const PRICE_CONFIGS = [
     price: 5,
     colors: {
       contentBg: 'rgba(29,233,182,1)',
+      dividerColor: 'rgba(0,150,120,1)',
       headerBg: 'rgba(0,191,165,1)',
       header: 'rgba(0,0,0,1)',
       authorName: 'rgba(0,0,0,0.541176)',
@@ -78,8 +82,9 @@ export const PRICE_CONFIGS = [
   { // RMB 0.1蓝
     price: 0.1,
     colors: {
-      contentBg: 'rgba(135,206,235,1)',
-      headerBg: 'rgba(176,224,230,1)',
+      contentBg: 'rgba(30,136,229,1)',
+      dividerColor: 'rgba(10,70,160,1)',
+      headerBg: 'rgba(21,101,192,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',
@@ -90,8 +95,9 @@ export const PRICE_CONFIGS = [
   { // RMB 0 淡蓝
     price: 0,
     colors: {
-      contentBg: 'rgba(135,206,235,1)',
-      headerBg: 'rgba(176,224,230,1)',
+      contentBg: 'rgba(176,224,230,1)',
+      dividerColor: 'rgba(100,170,233,1)',
+      headerBg: 'rgba(135,206,235,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',

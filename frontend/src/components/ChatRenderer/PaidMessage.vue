@@ -2,6 +2,7 @@
   <yt-live-chat-paid-message-renderer class="style-scope yt-live-chat-item-list-renderer" allow-animations
     :show-only-header="!content" :style="{
       '--yt-live-chat-paid-message-primary-color': color.contentBg,
+      '--yt-live-chat-paid-message-divider-color': color.dividerColor,
       '--yt-live-chat-paid-message-secondary-color': color.headerBg,
       '--yt-live-chat-paid-message-header-color': color.header,
       '--yt-live-chat-paid-message-author-name-color': color.authorName,
@@ -53,8 +54,8 @@ export default {
       return constants.getPriceConfig(this.price).colors
     },
     priceText() {
-      let price = this.price > 0 ? ('CN¥' + utils.formatCurrency(this.price)) : '银瓜子礼物'
-      return price
+      let price_str = this.price > 0 ? ('CN¥' + utils.formatCurrency(this.price)) : '银瓜子礼物'
+      return price_str
     },
     timeText() {
       return utils.getTimeTextHourMin(this.time)
