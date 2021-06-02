@@ -165,11 +165,11 @@ export default {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
         return ''
       }
-      return formatCurrency(message.price)
+      return 'CN¥' + formatCurrency(message.price)
     },
     getPinTime(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
-        return 2
+        return 8
       }
       return constants.getPriceConfig(message.price).pinTime
     },

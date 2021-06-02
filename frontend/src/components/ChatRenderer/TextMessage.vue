@@ -91,7 +91,7 @@ export default {
             } // 不存在关键词
             else {
               let _face = json[str_arr[i + 1]]
-              if((this.privilegeType > 0 && this.privilegeType < _face.rank) || _face.rank==0) {
+              if((this.privilegeType > 0 && this.privilegeType <= _face.rank) || _face.rank==0) {
                 render_arr[index] = {
                   type: 'image',
                   content : _face.image,

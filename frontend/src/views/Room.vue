@@ -172,7 +172,7 @@ export default {
         authorName: data.authorName,
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
-        title: 'New member'
+        title: '欢迎上舰'
       }
       this.$refs.renderer.addMessage(message)
     },
