@@ -29,6 +29,14 @@ yt-live-chat-author-badge-renderer[type='verified'] {
   color: #999;
 }
 
+#message-photo.yt-live-chat-text-message-renderer {
+  display: inline ;
+}
+#image.yt-live-chat-author-badge-renderer {
+  display: flex;
+  float: left;
+}
+
 img.yt-live-chat-author-badge-renderer, yt-icon.yt-live-chat-author-badge-renderer {
   display: block;
   width: 16px;

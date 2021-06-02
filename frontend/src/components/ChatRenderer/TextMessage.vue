@@ -18,7 +18,7 @@
         </span>
       </yt-live-chat-author-chip>
       <!-- 用户自定的弹幕图片 -->
-      <div v-html="contents" >
+      <div id="message-photo" class="style-scope yt-live-chat-text-message-renderer" v-html="contents" >
         
       </div>
      
@@ -66,7 +66,7 @@ function regexReplace(str) {
 function convertTextToImg(from_str) {
     // 把原本的 content 中的 [xx]换为标签元素
     var to_str = regexReplace(from_str);
-    return '<span>'+ to_str +'</span>'
+    return '<span id="message" class="style-scope yt-live-chat-text-message-renderer">'+ to_str +'</span>'
 }
 
 var json
