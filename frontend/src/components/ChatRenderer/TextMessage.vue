@@ -20,7 +20,7 @@
       <!-- 用户自定的弹幕图片 -->
       <span v-for="(item, index) in contents" :key="index" >
         <img v-if="item.type == 'image'" :height="item.height" width="auto" :src="`/static/${item.content}`" />
-        <span v-else>{{item.content}}</span>
+        <span id="message" class="style-scope yt-live-chat-text-message-renderer" v-else>{{item.content}}</span>
       </span>
 
       <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{

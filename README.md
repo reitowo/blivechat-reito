@@ -1,3 +1,52 @@
+# 自定义弹幕图片功能
+![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/danmu_to_img.gif)  
+
+1. 在 `/frontend/dist/static` 放置你需要的图片，并命名好
+2. 在 `/frontend/dist` 写一份 `danmu_pic.json` (其文件路径为: `/frontend/dist/danmu_pic.json`)
+
+![文件位置截图](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/danmu_file.jpg) 
+
+### `danmu_pic.json` 的编辑格式如下
+2. `image` 为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
+3. `height` 为图片的高度
+
+ #### 如何设置
+ 
+```json
+"触发弹幕" : { 
+	"image" : "图片完整名称", "height" : "图片高度" , "rank": "舰长等级"
+	},
+```
+
+ 1. `rank = 0` `所有人`都能用的表情包
+ 2. `rank = 4` `舰长`以上包括`舰长`能用
+ 3. `rank = 3` `提督`以上包括`提督`能用
+ 4. `rank = 2` `总督`以上包括`总督`能用
+```json
+
+{
+    "喝茶" :{
+         "image" : "喝茶.gif", "height" : "128" , "rank": 0
+    },
+    "希望の花" :{
+        "image" : "希望之花.gif", "height" : "128" , "rank": 2
+    },
+    "希望之花" :{
+        "image" : "希望之花.gif", "height" : "128" , "rank": 4
+    }
+}
+
+```
+### 实际使用时候的触发条件
+此外，因为支持全弹幕匹配关键字，用到了正则表达式`(“|”|"|'|‘|’|\[|【|{).+?(”|“|"|'|’|‘|\]|】|})`，当关键词为 "钱" 的时候
+
+以下几种情况都会触发
+1. `【钱】`、`“钱”` 
+`我超级有【钱】的` 会替换为 `我超级有[钱的图片]的`
+2. 只发图片的时候，可以只打 `【钱`、`“钱`，即左边的符号 
+
+有时候没必要用`xxx.jpg`做关键词，因为加上双引号 `“xxx”` 就和`xxx`做了区分
+
 # 自定义银瓜子显示与否
 
 在网页里设定【最低显示打赏价格】时候，对应的是人民币RMB
@@ -8,48 +57,6 @@
 
 同理，设置最低金额为 0元, 则所有礼物都会显示(银瓜子礼物价值0元)
 ![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/least_rmb.jpg) 
-# 自定义弹幕图片功能
-![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/danmu_to_img.gif)  
-
-![对应B站弹幕](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/bilibili_chat.jpg )
-
-1. 在 `/frontend/dist/static` 放置你需要的图片，并命名好
-2. 在 `/frontend/dist` 写一份 `danmu_pic.json` (其文件路径为: `/frontend/dist/danmu_pic.json`)
-
-![文件位置截图](https://github.com/DoodleBears/blivechat/blob/blivechat_doodlebear/screenshots/danmu_file.jpg) 
-
-### `danmu_pic.json` 的编辑格式如下
-1. `keyword` 为你想要替换的弹幕
-2. `image` 为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
-3. `height` 为图片的高度
-
-`{ "keyword": "触发弹幕", "image" : "图片完整名称", "height" : "图片高度" },`
-
-```json
-[
-    { "keyword": "喝茶", "image" : "喝茶.gif", "height" : "192" },
-    { "keyword": "高兴起来了", "image" : "高兴起来了.gif", "height" : "128" },
-    { "keyword": "希望の花", "image" : "希望之花.gif", "height" : "128" },
-    { "keyword": "希望之花", "image" : "希望之花.gif", "height" : "128" },
-    { "keyword": "明白", "image" : "明白.png", "height" : "128" },
-    { "keyword": "二次元是不会背叛你的", "image" : "二次元是不会背叛你的.png", "height" : "192" },
-    { "keyword": "钱", "image" : "钱.png", "height" : "64" },
-    { "keyword": "见没见过黑手", "image" : "见没见过黑手.gif", "height" : "128" },
-    { "keyword": "美兔3D", "image" : "美兔3D.gif", "height" : "128" }
-]
-
-```
-### 实际使用时候的触发条件
-此外，因为支持全弹幕匹配关键字，用到了正则表达式`(“|”|"|'|‘|’|\[|【|{).+?(”|“|"|'|’|‘|\]|】|})`，当关键词为 "钱" 的时候
-
-以下几种情况都会触发
-1. `[钱]`、`【钱】`、`“钱”`、`‘钱’`、`[钱]`、`'钱'`
-2. 关键词前后有空格时候也会触发: `[   钱   ]`
-
-有时候没必要用`xxx.jpg`做关键词，因为加上双引号 `“xxx”` 就和`xxx`做了区分
-1. `{ "keyword": "钱.png", "image" : "钱.png", "height" : "64" }`
-2. `{ "keyword": "钱", "image" : "钱.png", "height" : "64" }`
-
 # blivechat
 用于OBS的仿YouTube风格的bilibili直播评论栏
 
