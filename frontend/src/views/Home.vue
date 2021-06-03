@@ -131,6 +131,7 @@
             <el-button type="primary" @click="copyUrl">{{$t('home.copy')}}</el-button>
           </el-form-item>
           <el-form-item>
+            <el-button type="primary" @click="enterBilibili">{{$t('home.enterBilibili')}}</el-button>
             <el-button type="primary" :disabled="!roomUrl" @click="enterRoom">{{$t('home.enterRoom')}}</el-button>
             <el-button :disabled="!roomUrl" @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
             <el-button @click="exportConfig">{{$t('home.exportConfig')}}</el-button>
@@ -196,6 +197,9 @@ export default {
       } catch (e) {
         this.$message.error('Failed to fetch server information: ' + e)
       }
+    },
+    enterBilibili() {
+      window.open(`https://live.bilibili.com/${this.form.roomId}`, '_blank')
     },
     enterRoom() {
       window.open(this.roomUrl, `room ${this.form.roomId}`, 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')

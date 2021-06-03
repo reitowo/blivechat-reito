@@ -41,6 +41,7 @@ export default {
 
     roomUrl: 'Room URL',
     copy: 'Copy',
+    enterBilibili: 'Enter bilibili room',
     enterRoom: 'Enter room',
     enterTestRoom: 'Enter test room',
     exportConfig: 'Export config',

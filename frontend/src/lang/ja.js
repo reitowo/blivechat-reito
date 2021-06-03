@@ -41,6 +41,7 @@ export default {
 
     roomUrl: 'ルームのURL',
     copy: 'コピー',
+    enterBilibili: 'Bilibiliルームに入る',
     enterRoom: 'ルームに入る',
     enterTestRoom: 'テストルームに入る',
     exportConfig: 'コンフィグの導出',
