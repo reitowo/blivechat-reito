@@ -1,6 +1,6 @@
 <template>
   <yt-live-chat-paid-message-renderer class="style-scope yt-live-chat-item-list-renderer" allow-animations
-    :show-only-header="!content" :style="{
+    :show-only-header="priceText == '银瓜子礼物'" :style="{
       '--yt-live-chat-paid-message-primary-color': color.contentBg,
       '--yt-live-chat-paid-message-divider-color': color.dividerColor,
       '--yt-live-chat-paid-message-secondary-color': color.headerBg,
@@ -18,7 +18,7 @@
         <div id="header-content" class="style-scope yt-live-chat-paid-message-renderer">
           <div id="header-content-primary-column" class="style-scope yt-live-chat-paid-message-renderer">
             <div id="author-name" class="style-scope yt-live-chat-paid-message-renderer">{{authorName}}</div>
-            <div id="purchase-amount" class="style-scope yt-live-chat-paid-message-renderer">{{priceText}}</div>
+            <div id="purchase-amount" class="style-scope yt-live-chat-paid-message-renderer">{{priceText == '银瓜子礼物'? content : priceText}}</div>
           </div>
           <span id="timestamp" class="style-scope yt-live-chat-paid-message-renderer">{{timeText}}</span>
         </div>
