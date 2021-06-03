@@ -1,7 +1,8 @@
 import {mergeConfig} from '@/utils'
 
 export const DEFAULT_CONFIG = {
-  minGiftPrice: 0.1, // ￥0.1
+  minGiftPrice: 0, // ￥0.0
+  minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
   showGift: true,
   showGiftName: false,

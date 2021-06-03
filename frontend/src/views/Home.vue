@@ -48,6 +48,11 @@
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.minTickerPrice')">
+                  <el-input v-model.number="form.minTickerPrice" type="number" min="0.1"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.maxNumber')">
                   <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
                 </el-form-item>

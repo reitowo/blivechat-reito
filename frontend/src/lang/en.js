@@ -18,6 +18,7 @@ export default {
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
     minGiftPrice: 'Min price of Super Chats to show (CNY)',
+    minTickerPrice: 'Min price of Super Chats to keep on top (CNY)',
     maxNumber: 'Max number of messages',
 
     block: 'Block',

@@ -73,6 +73,7 @@ export default {
       cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
   
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
+      cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
       cfg.showDanmaku = toBool(cfg.showDanmaku)
       cfg.showGift = toBool(cfg.showGift)
       cfg.showGiftName = toBool(cfg.showGiftName)
