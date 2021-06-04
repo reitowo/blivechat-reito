@@ -45,7 +45,7 @@ import axios from 'axios'
 const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
 const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
-const split_regex = /(“|”|【|】)/g
+const split_regex = /(“|”|【|】|\[|\])/g
 // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
 window.onload = function () {
   axios.get('/danmu_pic.json')
@@ -80,7 +80,7 @@ export default {
         let index = 0
         // * 解析 split 出来的 string array
         for(let i = 0; i < str_arr.length; i++) {
-          if((str_arr[i] == '“' || str_arr[i] == '【') && i + 1 < str_arr.length) {
+          if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && i + 1 < str_arr.length) {
             if(!json[str_arr[i + 1]]) {
               render_arr[index] = {
                 type: 'text',

@@ -73,7 +73,7 @@ def _do_get_avatar_url_from_database(user_id):
             avatar_url = user.avatar_url
 
             # 如果离上次更新太久就更新所有缓存
-            if (datetime.datetime.now() - user.update_time).days >= 3:
+            if (datetime.datetime.now() - user.update_time).days >= 1:
                 def refresh_cache():
                     _avatar_url_cache.pop(user_id, None)
                     get_avatar_url_from_web(user_id)

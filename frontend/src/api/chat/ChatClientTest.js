@@ -5,11 +5,15 @@ import * as avatar from './avatar'
 const NAMES = [
   'xfgryujk', 'Simon', 'Il Harper', 'Kinori', 'shugen', 'yuyuyzl', '3Shain', '光羊', '黑炎', 'Misty', '孤梦星影',
   'ジョナサン・ジョースター', 'ジョセフ・ジョースター', 'ディオ・ブランドー', '空條承太郎', '博丽灵梦', '雾雨魔理沙',
-  'Rick Astley'
+  '只熊KUMA', 'doodlebear', '椅子_Official' , '星界璃海' ,'Rick Astley'
 ]
 
 const CONTENTS = [
-  '草', 'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
+  '三点几嘞[喝茶]先嘞', '我很有[钱][钱][钱]', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '【美兔3D】', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '三点几嘞[喝茶]先嘞', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '我很有[钱][钱][钱]', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '草',  'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
   'The quick brown fox jumps over the lazy dog', "I can eat glass, it doesn't hurt me",
   '我不做人了，JOJO', '無駄無駄無駄無駄無駄無駄無駄無駄', '欧啦欧啦欧啦欧啦欧啦欧啦欧啦欧啦', '逃げるんだよォ！',
   '嚯，朝我走过来了吗，没有选择逃跑而是主动接近我么', '不要停下来啊', '已经没有什么好怕的了',
@@ -20,9 +24,9 @@ const CONTENTS = [
 ]
 
 const AUTHOR_TYPES = [
-  {weight: 10, value: constants.AUTHRO_TYPE_NORMAL},
-  {weight: 5, value: constants.AUTHRO_TYPE_MEMBER},
-  {weight: 2, value: constants.AUTHRO_TYPE_ADMIN},
+  {weight: 2, value: constants.AUTHRO_TYPE_NORMAL},
+  {weight: 2, value: constants.AUTHRO_TYPE_MEMBER},
+  {weight: 1, value: constants.AUTHRO_TYPE_ADMIN},
   {weight: 1, value: constants.AUTHRO_TYPE_OWNER}
 ]
 
@@ -38,16 +42,23 @@ function randGuardInfo () {
 }
 
 const GIFT_INFO_LIST = [
-  {giftName: 'B坷垃', totalCoin: 9900},
-  {giftName: '礼花', totalCoin: 28000},
-  {giftName: '花式夸夸', totalCoin: 39000},
-  {giftName: '天空之翼', totalCoin: 100000},
-  {giftName: '摩天大楼', totalCoin: 450000},
-  {giftName: '小电视飞船', totalCoin: 1245000}
+  {giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10},
+  {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24},
+  {giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 2},
+  {giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 3},
+  {giftName: '给大佬递茶', price: 2, totalCoin: 2000, coinType: 'gold', num: 5},
+  {giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
+  {giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
+  {giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
+  {giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', num: 1 },
+  {giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
+  {giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
+  {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
+  {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 10}
 ]
 
 const SC_PRICES = [
-  30, 50, 100, 200, 500, 1000
+  30, 50, 100, 200, 500, 1000, 2000
 ]
 
 const MESSAGE_GENERATORS = [
@@ -76,7 +87,7 @@ const MESSAGE_GENERATORS = [
   },
   // 礼物
   {
-    weight: 1,
+    weight: 10,
     value() {
       return {
         type: constants.MESSAGE_TYPE_GIFT,
@@ -85,15 +96,15 @@ const MESSAGE_GENERATORS = [
           id: getUuid4Hex(),
           avatarUrl: avatar.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
-          authorName: randomChoose(NAMES),
-          num: 1
+          authorName: randomChoose(NAMES)
+          // num: 1
         }
       }
     }
   },
   // SC
   {
-    weight: 3,
+    weight: 5,
     value() {
       return {
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
@@ -111,7 +122,7 @@ const MESSAGE_GENERATORS = [
   },
   // 新舰长
   {
-    weight: 1,
+    weight: 3,
     value() {
       return {
         type: constants.MESSAGE_TYPE_MEMBER,
