@@ -108,3 +108,4 @@ venv.bak/
 data/*
 !data/config.example.ini
 log/*
+.eslint.js

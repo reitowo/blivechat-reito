@@ -9,9 +9,10 @@ const NAMES = [
 ]
 
 const CONTENTS = [
-  '三点几嘞[喝茶]先嘞', '我很有[钱][钱][钱]', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
   '【美兔3D】', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
   '三点几嘞[喝茶]先嘞', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】', '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】',
   '我很有[钱][钱][钱]', '三点几嘞【喝茶】先嘞', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
   '草',  'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
   'The quick brown fox jumps over the lazy dog', "I can eat glass, it doesn't hurt me",
@@ -64,7 +65,7 @@ const SC_PRICES = [
 const MESSAGE_GENERATORS = [
   // 文字
   {
-    weight: 20,
+    weight: 4,
     value() {
       return {
         type: constants.MESSAGE_TYPE_TEXT,
@@ -87,7 +88,7 @@ const MESSAGE_GENERATORS = [
   },
   // 礼物
   {
-    weight: 10,
+    weight: 3,
     value() {
       return {
         type: constants.MESSAGE_TYPE_GIFT,
@@ -104,7 +105,7 @@ const MESSAGE_GENERATORS = [
   },
   // SC
   {
-    weight: 5,
+    weight: 2,
     value() {
       return {
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
@@ -122,7 +123,7 @@ const MESSAGE_GENERATORS = [
   },
   // 新舰长
   {
-    weight: 3,
+    weight: 1,
     value() {
       return {
         type: constants.MESSAGE_TYPE_MEMBER,

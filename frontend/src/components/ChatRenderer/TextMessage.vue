@@ -18,11 +18,13 @@
         </span>
       </yt-live-chat-author-chip>
       <!-- 用户自定的弹幕图片 -->
-      <span v-for="(item, index) in contents" :key="index" >
-        <img v-if="item.type == 'image'" :height="item.height" width="auto" :src="`/static/${item.content}`" />
-        <span id="message" class="style-scope yt-live-chat-text-message-renderer" v-else>{{item.content}}</span>
-      </span>
-
+      <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+        <template v-for="(item, index) in contents"  >
+          <img :key="index" v-if="item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
+          <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
+        </template>
+      </div>
+      <!-- 合并弹幕数字 -->
       <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
         }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
           :style="{'--repeated-mark-color': repeatedMarkColor}"
@@ -46,18 +48,21 @@ const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
 const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
 const split_regex = /(“|”|【|】|\[|\])/g
+let json
 // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
 window.onload = function () {
   axios.get('/danmu_pic.json')
   .then((res) => {
     json = res.data
+    console.log(json)
   })
 }
-let json
+
 
 export default {
   name: 'TextMessage',
   data() {
+    return {}
   },
   components: {
     ImgShadow,
