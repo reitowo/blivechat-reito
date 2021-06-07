@@ -75,7 +75,8 @@ export default {
     authorType: Number,
     content: String,
     privilegeType: Number,
-    repeated: Number
+    repeated: Number,
+    maxImage: Number
   },
   computed: {
     contents() {
@@ -83,10 +84,14 @@ export default {
         let str_arr = this.content.split(split_regex) // 切分原字段
         let render_arr = [] // 存切分后转换出的渲染data
         let index = 0
+        let imageNumber = 0
         // * 解析 split 出来的 string array
         for(let i = 0; i < str_arr.length; i++) {
-          if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && i + 1 < str_arr.length) {
+          if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && imageNumber < this.maxImage) {
             if(!json[str_arr[i + 1]]) {
+              if(str_arr[i] == '【') {
+                str_arr[i] = '['
+              } //未触发关键词的时候，将中文括号转为英文括号
               render_arr[index] = {
                 type: 'text',
                 content : str_arr[i]
@@ -95,6 +100,7 @@ export default {
               continue
             } // 不存在关键词
             else {
+              imageNumber++;
               let _face = json[str_arr[i + 1]]
               if((this.privilegeType > 0 && this.privilegeType <= _face.rank) || _face.rank==0) {
                 render_arr[index] = {
@@ -108,6 +114,11 @@ export default {
               } // 判断是否有权限使用表情包
             } // 存在关键词
           } // 判断触发关键字
+          if(str_arr[i] == '【') {
+            str_arr[i] = '['
+          } else if (str_arr[i] == '】') {
+            str_arr[i] = ']'
+          } //未触发关键词的时候，将中文括号转为英文括号
           render_arr[index] = {
             type: 'text',
             content : str_arr[i]

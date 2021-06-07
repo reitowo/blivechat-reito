@@ -9,6 +9,7 @@ export const DEFAULT_CONFIG = {
   mergeSimilarDanmaku: false,
   mergeGift: true,
   maxNumber: 60,
+  maxImage: 2,
 
   blockGiftDanmaku: true,
   blockLevel: 0,

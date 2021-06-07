@@ -14,7 +14,7 @@
                 class="style-scope yt-live-chat-item-list-renderer"
                 :avatarUrl="message.avatarUrl" :time="message.time" :authorName="message.authorName"
                 :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
-                :repeated="message.repeated"
+                :repeated="message.repeated" :maxImage="maxImage"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT && message.price >= minGiftPrice"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -76,6 +76,10 @@ export default {
     maxNumber: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.maxNumber
+    },
+    maxImage: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.maxImage
     },
     minGiftPrice: {
       type: Number,
