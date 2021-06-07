@@ -47,7 +47,7 @@ export default {
     authorName: String,
     price: Number, // 价格，人民币
     time: Date,
-    content: String
+    content: String,
   },
   computed: {
     color() {

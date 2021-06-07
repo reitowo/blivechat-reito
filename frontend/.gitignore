@@ -2,7 +2,7 @@
 node_modules
 /dist
 .eslint
-
+*.zip
 # local env files
 .env.local
 .env.*.local

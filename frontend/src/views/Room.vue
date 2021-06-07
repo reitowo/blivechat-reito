@@ -1,5 +1,5 @@
 <template>
-  <chat-renderer ref="renderer" :maxNumber="config.maxNumber" :showGiftName="config.showGiftName"></chat-renderer>
+  <chat-renderer ref="renderer" :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" :maxNumber="config.maxNumber" :showGiftName="config.showGiftName"></chat-renderer>
 </template>
 
 <script>
@@ -144,9 +144,9 @@ export default {
         return
       }
       // 银瓜子礼物不丢人
-      if (price < this.config.minGiftPrice) {
-       return
-      }
+      // if (price < this.config.minGiftPrice) {
+      //  return
+      // }
       
       let message = {
         id: data.id,

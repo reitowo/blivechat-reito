@@ -2,7 +2,7 @@
   <yt-live-chat-renderer class="style-scope yt-live-chat-app" style="--scrollbar-width:11px;" hide-timestamps
     @mousemove="refreshCantScrollStartTime"
   >
-    <ticker class="style-scope yt-live-chat-renderer" :messages="paidMessages" :showGiftName="showGiftName"></ticker>
+    <ticker class="style-scope yt-live-chat-renderer" :minTickerPrice="minTickerPrice" :messages="paidMessages" :showGiftName="showGiftName"></ticker>
     <yt-live-chat-item-list-renderer class="style-scope yt-live-chat-renderer" allow-scroll>
       <div ref="scroller" id="item-scroller" class="style-scope yt-live-chat-item-list-renderer animated" @scroll="onScroll">
         <div ref="itemOffset" id="item-offset" class="style-scope yt-live-chat-item-list-renderer" style="height: 0px;">
@@ -16,10 +16,10 @@
                 :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
                 :repeated="message.repeated"
               ></text-message>
-              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
+              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT && message.price >= minGiftPrice"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getGiftShowContent(message)"
+                :time="message.time" :content="getGiftShowContent(message)" :minGiftPrice="minGiftPrice"
               ></paid-message>
               <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -76,6 +76,14 @@ export default {
     maxNumber: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.maxNumber
+    },
+    minGiftPrice: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.minGiftPrice
+    },
+    minTickerPrice: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.minTickerPrice
     },
     showGiftName: {
       type: Boolean,
