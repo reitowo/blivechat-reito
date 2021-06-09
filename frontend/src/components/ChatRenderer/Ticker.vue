@@ -60,10 +60,6 @@ export default {
   },
   props: {
     messages: Array,
-    minTickerPrice: {
-      type: Number,
-      default: chatConfig.DEFAULT_CONFIG.minTickerPrice
-    },
     showGiftName: {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.showGiftName
@@ -176,9 +172,7 @@ export default {
         return 8
       }
       // 价格小于最小置顶常驻礼物价格时, 不显示
-      if (message.price < this.minTickerPrice) {
-        return 0
-      }
+
       return constants.getPriceConfig(message.price).pinTime
     },
     updateProgress() {

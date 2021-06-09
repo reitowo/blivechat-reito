@@ -2,7 +2,7 @@
   <yt-live-chat-renderer class="style-scope yt-live-chat-app" style="--scrollbar-width:11px;" hide-timestamps
     @mousemove="refreshCantScrollStartTime"
   >
-    <ticker class="style-scope yt-live-chat-renderer" :minTickerPrice="minTickerPrice" :messages="paidMessages" :showGiftName="showGiftName"></ticker>
+    <ticker class="style-scope yt-live-chat-renderer" :messages="paidMessages" :showGiftName="showGiftName"></ticker>
     <yt-live-chat-item-list-renderer class="style-scope yt-live-chat-renderer" allow-scroll>
       <div ref="scroller" id="item-scroller" class="style-scope yt-live-chat-item-list-renderer animated" @scroll="onScroll">
         <div ref="itemOffset" id="item-offset" class="style-scope yt-live-chat-item-list-renderer" style="height: 0px;">
@@ -16,10 +16,10 @@
                 :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
                 :repeated="message.repeated" :maxImage="maxImage"
               ></text-message>
-              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT && message.price >= minGiftPrice"
+              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getGiftShowContent(message)" :minGiftPrice="minGiftPrice"
+                :time="message.time" :content="getGiftShowContent(message)" 
               ></paid-message>
               <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -60,7 +60,7 @@ const MESSAGE_MAX_INTERVAL = 1000
 
 // 每次发送消息后增加的动画时间，要比MESSAGE_MIN_INTERVAL稍微大一点，太小了动画不连续，太大了发送消息时会中断动画
 // 84 = ceil((1000 / 60) * 5)
-const CHAT_SMOOTH_ANIMATION_TIME_MS = 90
+const CHAT_SMOOTH_ANIMATION_TIME_MS = 86
 // 滚动条距离底部小于多少像素则认为在底部
 const SCROLLED_TO_BOTTOM_EPSILON = 15
 
@@ -386,14 +386,23 @@ export default {
       this.flushMessagesBuffer()
       this.$nextTick(this.maybeScrollToBottom)
     },
+    //* 处理新信息的消息入栈
     handleAddMessage(message) {
       message = {
         ...message,
         addTime: new Date() // 添加一个本地时间给Ticker用，防止本地时间和服务器时间相差很大的情况
       }
-      this.messagesBuffer.push(message)
+      //* 判断是否要加入到弹幕队列，如果是打赏但价格低于最低打赏价格则不加入
+      if (message.price == undefined || message.price >= this.minGiftPrice ) {
+        this.messagesBuffer.push(message)
+      }
 
       if (message.type !== constants.MESSAGE_TYPE_TEXT) {
+        //* 判断是否要加入到顶部固定贴纸，如果小于最低ticker价格就不加入
+        if(message.price != undefined) {
+          if(message.price < this.minTickerPrice) return
+        }
+        // unshift() push message 到 front
         this.paidMessages.unshift(message)
         const MAX_PAID_MESSAGE_NUM = 100
         if (this.paidMessages.length > MAX_PAID_MESSAGE_NUM) {
