@@ -31,7 +31,7 @@ export function toFloat (val, _default) {
 
 export function formatCurrency (price) {
   return new Intl.NumberFormat('zh-CN', {
-    minimumFractionDigits: price < 100 ? 2 : 0
+    minimumFractionDigits: price < 100 ? 1 : 0
   }).format(price)
 }
 

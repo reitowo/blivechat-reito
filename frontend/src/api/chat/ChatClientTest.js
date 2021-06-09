@@ -7,6 +7,12 @@ const NAMES = [
   'ジョナサン・ジョースター', 'ジョセフ・ジョースター', 'ディオ・ブランドー', '空條承太郎', '博丽灵梦', '雾雨魔理沙',
   '只熊KUMA', 'doodlebear', '椅子_Official' , '星界璃海' ,'Rick Astley'
 ]
+const SC_CONTENTS = [
+  '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
+  '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】', '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】',
+  '草',  'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
+  ' ',' ',' ',' ',' ',' ',' ',' ','   ',' '
+]
 
 const CONTENTS = [
   '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '没见过黑手？【见没见过黑手】', '“希望之花”', '【二次元是不会背叛你的】',
@@ -45,9 +51,9 @@ function randGuardInfo () {
 const GIFT_INFO_LIST = [
   {giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10},
   {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24},
-  {giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 2},
-  {giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 3},
-  {giftName: '给大佬递茶', price: 2, totalCoin: 2000, coinType: 'gold', num: 5},
+  {giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2},
+  {giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3},
+  {giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5},
   {giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
   {giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
   {giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
@@ -55,7 +61,7 @@ const GIFT_INFO_LIST = [
   {giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
   {giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
   {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
-  {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 10}
+  {giftName: '小电视飞船', price: 1245, totalCoin: 12450000, coinType: 'gold', num: 10}
 ]
 
 const SC_PRICES = [
@@ -115,7 +121,7 @@ const MESSAGE_GENERATORS = [
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
           price: randomChoose(SC_PRICES),
-          content: randomChoose(CONTENTS),
+          content: randomChoose(SC_CONTENTS),
           translation: ''
         }
       }

@@ -60,7 +60,7 @@ const MESSAGE_MAX_INTERVAL = 1000
 
 // 每次发送消息后增加的动画时间，要比MESSAGE_MIN_INTERVAL稍微大一点，太小了动画不连续，太大了发送消息时会中断动画
 // 84 = ceil((1000 / 60) * 5)
-const CHAT_SMOOTH_ANIMATION_TIME_MS = 84
+const CHAT_SMOOTH_ANIMATION_TIME_MS = 90
 // 滚动条距离底部小于多少像素则认为在底部
 const SCROLLED_TO_BOTTOM_EPSILON = 15
 
