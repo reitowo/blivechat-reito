@@ -136,6 +136,10 @@ yt-live-chat-text-message-renderer[author-is-owner] {
   background-color: var(--yt-live-chat-message-highlight-background-color);
 }
 
+#card.yt-live-chat-text-message-renderer {
+  display: flex;
+}
+
 #content.yt-live-chat-text-message-renderer {
   -ms-align-self: center;
   -webkit-align-self: center;
