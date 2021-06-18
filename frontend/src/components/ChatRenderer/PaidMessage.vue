@@ -1,14 +1,15 @@
 <template>
   <yt-live-chat-paid-message-renderer class="style-scope yt-live-chat-item-list-renderer" allow-animations
     :show-only-header="priceText == '银瓜子礼物'" :style="{
+      '--yt-live-chat-paid-message-secondary-color': color.headerBg,
       '--yt-live-chat-paid-message-primary-color': color.contentBg,
       '--yt-live-chat-paid-message-divider-color': color.dividerColor,
-      '--yt-live-chat-paid-message-secondary-color': color.headerBg,
       '--yt-live-chat-paid-message-header-color': color.header,
       '--yt-live-chat-paid-message-author-name-color': color.authorName,
       '--yt-live-chat-paid-message-timestamp-color': color.time,
       '--yt-live-chat-paid-message-color': color.content
     }"
+    :giftName="giftName" :price="price"
   >
     <div id="card" class="style-scope yt-live-chat-paid-message-renderer">
       <div id="header" class="style-scope yt-live-chat-paid-message-renderer">
@@ -45,6 +46,7 @@ export default {
   props: {
     avatarUrl: String,
     authorName: String,
+    giftName: String,
     price: Number, // 价格，人民币
     time: Date,
     content: String,

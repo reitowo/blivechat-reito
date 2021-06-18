@@ -19,7 +19,7 @@
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getGiftShowContent(message)" 
+                :time="message.time" :content="getGiftShowContent(message)" :giftName="message.giftName"
               ></paid-message>
               <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -29,7 +29,7 @@
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getShowContent(message)"
+                :time="message.time" :content="getShowContent(message)" giftName="superchat"
               ></paid-message>
             </template>
           </div>
