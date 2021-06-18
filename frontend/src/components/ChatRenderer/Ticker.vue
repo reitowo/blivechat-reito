@@ -6,12 +6,13 @@
       >
         <yt-live-chat-ticker-paid-message-item-renderer v-for="message in showMessages" :key="message.raw.id"
           tabindex="0" class="style-scope yt-live-chat-ticker-renderer" style="overflow: hidden;"
-          @click="onItemClick(message.raw)"
+          @click="onItemClick(message.raw.type)"
+          :type="message.raw.type" :price="message.raw.price" :giftName="message.raw.giftName"
         >
           <div id="container" dir="ltr" class="style-scope yt-live-chat-ticker-paid-message-item-renderer" :style="{
             background: message.bgColor,
           }">
-            <div id="content" :type="message.raw.type === 2 ? 2 : 3" class="style-scope yt-live-chat-ticker-paid-message-item-renderer" :style="{
+            <div id="content" :type="message.raw.type === MESSAGE_TYPE_MEMBER ? MESSAGE_TYPE_MEMBER : MESSAGE_TYPE_SUPER_CHAT" class="style-scope yt-live-chat-ticker-paid-message-item-renderer" :style="{
               color: message.color
             }">
               <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-ticker-paid-message-item-renderer"

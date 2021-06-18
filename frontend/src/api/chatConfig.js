@@ -4,8 +4,10 @@ export const DEFAULT_CONFIG = {
   minGiftPrice: 0, // ￥0.0
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
+  showSuperchat: true,
+  showNewMember: true,
   showGift: true,
-  showGiftName: true,
+  showGiftInfo: true,
   mergeSimilarDanmaku: false,
   mergeGift: true,
   maxNumber: 60,

@@ -19,13 +19,25 @@
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.showSuperchat')">
+                  <el-switch v-model="form.showSuperchat"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.showNewMember')">
+                  <el-switch v-model="form.showNewMember"></el-switch>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.showGift')">
                   <el-switch v-model="form.showGift"></el-switch>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.showGiftName')">
-                  <el-switch v-model="form.showGiftName"></el-switch>
+                <el-form-item :label="$t('home.showGiftInfo')">
+                  <el-switch v-model="form.showGiftInfo"></el-switch>
                 </el-form-item>
               </el-col>
             </el-row>

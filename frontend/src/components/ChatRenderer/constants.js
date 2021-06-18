@@ -136,8 +136,8 @@ export function getShowContent (message) {
   return message.content
 }
 
-export function getGiftShowContent (message, showGiftName) {
-  if (!showGiftName) {
+export function getGiftShowContent (message, showGiftInfo) {
+  if (!showGiftInfo) {
     return ''
   }
   return `投喂 ${message.giftName}x${message.num}`

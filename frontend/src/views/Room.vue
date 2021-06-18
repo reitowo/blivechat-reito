@@ -1,5 +1,5 @@
 <template>
-  <chat-renderer ref="renderer" :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" :maxNumber="config.maxNumber" :maxImage="config.maxImage" :showGiftName="config.showGiftName"></chat-renderer>
+  <chat-renderer ref="renderer" :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" :maxNumber="config.maxNumber" :maxImage="config.maxImage" :showGiftInfo="config.showGiftInfo"></chat-renderer>
 </template>
 
 <script>
@@ -75,8 +75,10 @@ export default {
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
       cfg.showDanmaku = toBool(cfg.showDanmaku)
+      cfg.showSuperchat = toBool(cfg.showSuperchat)
+      cfg.showNewMember = toBool(cfg.showNewMember)
       cfg.showGift = toBool(cfg.showGift)
-      cfg.showGiftName = toBool(cfg.showGiftName)
+      cfg.showGiftInfo = toBool(cfg.showGiftInfo)
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
@@ -163,7 +165,7 @@ export default {
       this.$refs.renderer.addMessage(message)
     },
     onAddMember(data) {
-      if (!this.config.showGift || !this.filterNewMemberMessage(data)) {
+      if (!this.config.showNewMember || !this.filterNewMemberMessage(data)) {
         return
       }
       let message = {
@@ -179,7 +181,7 @@ export default {
       this.$refs.renderer.addMessage(message)
     },
     onAddSuperChat(data) {
-      if (!this.config.showGift || !this.filterSuperChatMessage(data)) {
+      if (!this.config.showSuperchat || !this.filterSuperChatMessage(data)) {
         return
       }
       if (data.price < this.config.minGiftPrice) { // 丢人

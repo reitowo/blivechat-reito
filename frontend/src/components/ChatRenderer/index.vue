@@ -2,7 +2,7 @@
   <yt-live-chat-renderer class="style-scope yt-live-chat-app" style="--scrollbar-width:11px;" hide-timestamps
     @mousemove="refreshCantScrollStartTime"
   >
-    <ticker class="style-scope yt-live-chat-renderer" :messages="paidMessages" :showGiftName="showGiftName"></ticker>
+    <ticker class="style-scope yt-live-chat-renderer" :messages="paidMessages" :showGiftInfo="showGiftInfo"></ticker>
     <yt-live-chat-item-list-renderer class="style-scope yt-live-chat-renderer" allow-scroll>
       <div ref="scroller" id="item-scroller" class="style-scope yt-live-chat-item-list-renderer animated" @scroll="onScroll">
         <div ref="itemOffset" id="item-offset" class="style-scope yt-live-chat-item-list-renderer" style="height: 0px;">
@@ -89,9 +89,9 @@ export default {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.minTickerPrice
     },
-    showGiftName: {
+    showGiftInfo: {
       type: Boolean,
-      default: chatConfig.DEFAULT_CONFIG.showGiftName
+      default: chatConfig.DEFAULT_CONFIG.showGiftInfo
     }
   },
   data() {
@@ -146,7 +146,7 @@ export default {
   },
   methods: {
     getGiftShowContent(message) {
-      return constants.getGiftShowContent(message, this.showGiftName)
+      return constants.getGiftShowContent(message, this.showGiftInfo)
     },
     getShowContent: constants.getShowContent,
     getShowAuthorName: constants.getShowAuthorName,
