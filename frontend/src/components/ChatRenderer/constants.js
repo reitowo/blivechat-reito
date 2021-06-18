@@ -30,9 +30,9 @@ export const PRICE_CONFIGS = [
   { // RMB 1000红
     price: 1000,
     colors: {
+      headerBg: 'rgba(208,0,0,1)',
       contentBg: 'rgba(230,33,23,1)',
       dividerColor: 'rgba(150,33,23,1)',
-      headerBg: 'rgba(208,0,0,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',
@@ -43,9 +43,9 @@ export const PRICE_CONFIGS = [
   { // RMB 200 橙
     price: 100,
     colors: {
+      headerBg: 'rgba(230,81,0,1)',
       contentBg: 'rgba(245,124,0,1)',
       dividerColor: 'rgba(180,100,0,1)',
-      headerBg: 'rgba(230,81,0,1)',
       header: 'rgba(255,255,255,0.87451)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',
@@ -53,12 +53,12 @@ export const PRICE_CONFIGS = [
     },
     pinTime: 8
   },
-  { // RMB 100 黄
-    price: 30,
+  { // RMB 50 黄
+    price: 50,
     colors: {
+      headerBg: 'rgba(255,179,0,1)',
       contentBg: 'rgba(255,202,40,1)',
       dividerColor: 'rgba(200,140,10,1)',
-      headerBg: 'rgba(255,179,0,1)',
       header: 'rgba(0,0,0,0.87451)',
       authorName: 'rgba(0,0,0,0.541176)',
       time: 'rgba(0,0,0,0.501961)',
@@ -66,12 +66,12 @@ export const PRICE_CONFIGS = [
     },
     pinTime: 5
   },
-  { // RMB 5绿
-    price: 5,
+  { // RMB 30 青绿色
+    price: 30,
     colors: {
+      headerBg: 'rgba(0,191,165,1)',
       contentBg: 'rgba(29,233,182,1)',
       dividerColor: 'rgba(0,150,120,1)',
-      headerBg: 'rgba(0,191,165,1)',
       header: 'rgba(0,0,0,1)',
       authorName: 'rgba(0,0,0,0.541176)',
       time: 'rgba(0,0,0,0.501961)',
@@ -79,25 +79,38 @@ export const PRICE_CONFIGS = [
     },
     pinTime: 3
   },
-  { // RMB 0.1蓝
-    price: 0.1,
+  { // RMB 1 蓝色
+    price: 1,
     colors: {
+      headerBg: 'rgba(21,101,192,1)',
       contentBg: 'rgba(30,136,229,1)',
       dividerColor: 'rgba(10,70,160,1)',
-      headerBg: 'rgba(21,101,192,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',
       content: 'rgba(255,255,255,1)'
     },
-    pinTime: 1
+    pinTime: 0.4
+  },
+  { // RMB 0.1 青色
+    price: 0.1,
+    colors: {
+      headerBg: 'rgba(119, 255, 246, 1)',
+      contentBg: 'rgba(69, 230, 227, 1)',
+      dividerColor: 'rgba(10,70,160,1)',
+      header: 'rgba(255,255,255,1)',
+      authorName: 'rgba(255,255,255,0.701961)',
+      time: 'rgba(255,255,255,0.501961)',
+      content: 'rgba(255,255,255,1)'
+    },
+    pinTime: 0.2
   },
   { // RMB 0 淡蓝
     price: 0,
     colors: {
-      contentBg: 'rgba(176,224,230,1)',
+      headerBg: 'rgba(153, 236, 255, 1)',
+      contentBg: 'rgba(153, 236, 255, 1)',
       dividerColor: 'rgba(100,170,233,1)',
-      headerBg: 'rgba(135,206,235,1)',
       header: 'rgba(255,255,255,1)',
       authorName: 'rgba(255,255,255,0.701961)',
       time: 'rgba(255,255,255,0.501961)',
@@ -127,7 +140,7 @@ export function getGiftShowContent (message, showGiftName) {
   if (!showGiftName) {
     return ''
   }
-  return `Sent ${message.giftName}x${message.num}`
+  return `投喂 ${message.giftName}x${message.num}`
 }
 
 export function getShowAuthorName (message) {
