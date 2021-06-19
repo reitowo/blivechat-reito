@@ -249,6 +249,14 @@ yt-live-chat-membership-item-renderer[dashboard-money-feed] yt-live-chat-author-
   font-size: 15px;
 }
 
+yt-live-chat-membership-item-renderer #header-subtext::before {
+  content: "欢迎";
+}
+
+yt-live-chat-membership-item-renderer #header-subtext::after {
+  content: "上舰";
+}
+
 #header-subtext.yt-live-chat-membership-item-renderer:empty {
   display: none;
 }

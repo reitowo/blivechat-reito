@@ -69,6 +69,14 @@ yt-img-shadow.yt-live-chat-ticker-paid-message-item-renderer {
   -webkit-align-items: center;
   align-items: center;
 }
+#content.yt-live-chat-ticker-paid-message-item-renderer[type="2"] {
+  padding-right: 14px !important;
+  line-height: 18px !important;
+}
+#content.yt-live-chat-ticker-paid-message-item-renderer[type="2"]::after {
+  content: '上舰' !important;
+  font-size: 18px !important;
+}
 
 #text.yt-live-chat-ticker-paid-message-item-renderer {
   margin: 0 8px;

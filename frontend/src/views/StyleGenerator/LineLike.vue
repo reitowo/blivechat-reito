@@ -487,7 +487,9 @@ yt-live-chat-author-medal-renderer[is-fan-group] {
   ${this.form.showMedal ? `display: flex;` : ''}
 }
 #medal-name.yt-live-chat-author-medal-renderer {
-  ${this.form.showMedalLevel ? `border-right: none;` : ''}
+  ${this.form.showMedalLevel ? `border-right: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;` : 'border-radius: 4px'}
   ${this.form.showMedalName ? '' :  `visibility: hidden;
   width: 0;
   height: 0;
@@ -496,7 +498,9 @@ yt-live-chat-author-medal-renderer[is-fan-group] {
 }
 
 #medal-level.yt-live-chat-author-medal-renderer {
-  ${this.form.showMedalName ? `border-left: none;` : ''}
+  ${this.form.showMedalName ? `border-left: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;` : 'border-radius: 4px'}
   ${this.form.showMedalLevel ? '' : `visibility: hidden;
   width: 0;
   height: 0;
