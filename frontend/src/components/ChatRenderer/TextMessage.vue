@@ -12,7 +12,7 @@
             }}<!-- 这里是已验证勋章 -->
             <span id="chip-badges" class="style-scope yt-live-chat-author-chip"></span>
           </span>
-          <span v-if="medalLevel != 0" id="chat-medal" class="style-scope yt-live-chat-author-chip">
+          <span id="chat-medal" class="style-scope yt-live-chat-author-chip">
             <author-medal class="style-scope yt-live-chat-author-chip"
               :medalLevel="medalLevel" :medalName="medalName" :isFanGroup="isFanGroup" 
             ></author-medal>
