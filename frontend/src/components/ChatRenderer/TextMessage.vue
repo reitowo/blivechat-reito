@@ -12,6 +12,11 @@
             }}<!-- 这里是已验证勋章 -->
             <span id="chip-badges" class="style-scope yt-live-chat-author-chip"></span>
           </span>
+          <span v-if="medalLevel != 0" id="chat-medal" class="style-scope yt-live-chat-author-chip">
+            <author-medal class="style-scope yt-live-chat-author-chip"
+              :medalLevel="medalLevel" :medalName="medalName" :isFanGroup="isFanGroup" 
+            ></author-medal>
+          </span>
           <span id="chat-badges" class="style-scope yt-live-chat-author-chip">
             <author-badge class="style-scope yt-live-chat-author-chip"
               :isAdmin="authorType === 2" :privilegeType="privilegeType"
@@ -36,6 +41,7 @@
 
 <script>
 import ImgShadow from './ImgShadow.vue'
+import AuthorMedal from './AuthorMedal.vue'
 import AuthorBadge from './AuthorBadge.vue'
 import * as constants from './constants'
 import * as utils from '@/utils'
@@ -71,6 +77,7 @@ export default {
   },
   components: {
     ImgShadow,
+    AuthorMedal,
     AuthorBadge
   },
   props: {
@@ -78,6 +85,10 @@ export default {
     time: Date,
     authorName: String,
     authorType: Number,
+    // TODO: 增加牌子名和牌子等级显示，思考显示在哪里合适
+    medalName: String,
+    medalLevel: Number,
+    isFanGroup: Boolean,
     content: String,
     privilegeType: Number,
     repeated: Number,

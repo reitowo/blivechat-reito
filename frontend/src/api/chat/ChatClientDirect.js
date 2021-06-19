@@ -247,19 +247,20 @@ export default class ChatClientDirect {
       handler.call(this, command)
     }
   }
-
+  // TODO: 获取弹幕后增加勋章等级&勋章名信息
   async onReceiveDanmaku (command) {
     if (!this.onAddText) {
       return
     }
     let info = command.info
 
-    let roomId, medalLevel
+    let roomId, medalLevel, medalName
     if (info[3]) {
       roomId = info[3][3]
       medalLevel = info[3][0]
+      medalName = info[3][1]
     } else {
-      roomId = medalLevel = 0
+      medalName = roomId = medalLevel = 0
     }
 
     let uid = info[2][0]
@@ -288,7 +289,10 @@ export default class ChatClientDirect {
       authorLevel: info[4][0],
       isNewbie: urank < 10000,
       isMobileVerified: !!info[2][6],
-      medalLevel: roomId === this.roomId ? medalLevel : 0,
+      // TODO: 在message的data处添加 medalName, medalLevel, isFanGroup  
+      medalName: medalName,
+      medalLevel: medalLevel,
+      isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
       translation: ''
     }

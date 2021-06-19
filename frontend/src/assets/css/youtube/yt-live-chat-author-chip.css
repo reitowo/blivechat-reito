@@ -11,9 +11,9 @@ canvas.yt-live-chat-author-chip, caption.yt-live-chat-author-chip, center.yt-liv
 
 yt-live-chat-author-chip {
   display: inline-flex;
-  -ms-flex-align: baseline;
-  -webkit-align-items: baseline;
-  align-items: baseline;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 
 #author-name.yt-live-chat-author-chip {

@@ -15,6 +15,7 @@
                 :avatarUrl="message.avatarUrl" :time="message.time" :authorName="message.authorName"
                 :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
                 :repeated="message.repeated" :maxImage="maxImage"
+                :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"

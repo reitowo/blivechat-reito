@@ -132,6 +132,9 @@ export default {
         authorType: data.authorType,
         content: data.content,
         privilegeType: data.privilegeType,
+        medalName: data.medalName,
+        medalLevel: data.medalLevel,
+        isFanGroup: data.isFanGroup,
         repeated: 1,
         translation: data.translation
       }
