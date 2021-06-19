@@ -1,19 +1,15 @@
-# 自定义弹幕图片功能
-![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/danmu_add_img.jpg)  
+# 相比[原版blivechat](https://github.com/xfgryujk/blivechat)新增的功能
+## 自定义弹幕图片功能(适配样式生成器)
+1. [替换弹幕关键词文字版本](https://github.com/DoodleBears/blivechat) 
+2. [新增在弹幕文字后方版本](https://github.com/DoodleBears/blivechat/tree/add-danmu-image)
+
+![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/danmu_add_img.jpg) 
 
 1. 在 `/frontend/dist/static` 放置你需要的图片，并命名好
 2. 编辑在 `/frontend/dist`文件夹内的 `danmu_pic_old.json`
 
-![文件位置截图](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/danmu_file.jpg) 
-
-### `danmu_pic_old.json` 的编辑格式如下
-1. `keyword` 为关键词，弹幕中含关键词则会触发图片添加在后方
-2. `image` 为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
-3. `height` 为图片的高度
-4. `rank` 限定发表情包用户的等级，分为4级（普通，舰长，提督，总督）
-
-
- #### 如何设置
+![文件位置截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/danmu_file.jpg) 
+### 如何设置
  
 ```json
 { 
@@ -21,12 +17,20 @@
 },
 ```
 
+1. `keyword` 为关键词，弹幕中含关键词则会触发图片添加在后方
+2. `image` 为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
+3. `height` 为图片的高度
+4. `rank` 限定发表情包用户的等级，分为4级（所有人，舰长，提督，总督）
+	1. `rank = 0` `所有人`都能用的表情包
+	2. `rank = 3` `舰长`以上包括`舰长`能用
+	3. `rank = 2` `提督`以上包括`提督`能用
+	4. `rank = 1` `总督`以上包括`总督`能用
+### 实例
 ```json
-// json文件的修改注意事项：英文符号，括号，逗号
+// 所有符号需采用英文符号
+// 关键词不能重复
+// 尽量使用英文命名图片文件
 [
-    {
-       "keyword" : "不过如此", "image" : "不过如此.jpg", "height" : "128" , "rank": 0
-    },
     {
        "keyword" : "整不明白了", "image" : "整不明白了.jpg", "height" : "128" , "rank": 0
     },
@@ -35,39 +39,53 @@
     }	// 注意这里没有逗号
 ]
 ```
-### 实际使用时候的触发条件
+### 表情包触发原理
+1. 检查弹幕内容里是否存在表情包的关键词
+2. 优先显示`.json`中**靠前**设置的关键词对应的表情包（假设最大图片数为2，触发10个关键词，优先显示json文件中靠前的2个）
+3. 最终只保留检测出的前`最大图片数`个表情包显示
+## 其他自定义设置
 
-当设置最大图片数为2的时候，弹幕中触发的关键词最多显示2张
-假设触发10个关键词，优先显示json文件下**靠前**的关键词
+![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/replace-danmu-image/screenshots/web-page-setting.jpg) 
 
-# 其他自定义设置
-
-![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/web-page-setting.jpg) 
-
-### 最低显示打赏价格（RMB/CNY/元）
-
+### 1.自定义分别显示不同弹幕
+1. 普通弹幕(Message)
+2. 醒目留言(Super Chat)
+3. 上舰信息(Member)
+4. 礼物信息(Gift)
+### 2.最低显示打赏价格（RMB/CNY/元）
 1. 最低打赏价格（元） —— 弹幕区域的最低价格
-2. 最低顶部停驻打赏价格（元） —— 顶部ticker倒计时贴纸区域的最低价格
+2. 最低顶部停驻打赏价格（元） —— 顶部倒计时贴纸区域的最低价格
+
+精确到小数点后1位，区分银瓜子，金瓜子礼物
 
 - `银瓜子礼物`：价格为 `0元`
 - `金瓜子礼物`：根据B站设定，最低为 `0.1元`
 
-所以设置 0.1, 则会显示所有金瓜子礼物, 但不会显示银瓜子礼物
+设置为 0.1, 则只显示金瓜子礼物, 不显示银瓜子礼物
 
-同理，设置最低金额为 0元, 则所有礼物都会显示(银瓜子礼物价值0元)
-
-### 最大图片数
+### 3.最大图片数(表情包相关功能)
 
 `弹幕关键词`转换为图片的最大数量（防止大量关键词出现时，图片刷屏）
 默认为2，可填入非负整数
-# blivechat
+
+### 4.粉丝牌子显示(适配样式生成器)
+
+![粉丝牌子设置](https://github.com/DoodleBears/blivechat/blob/replace-danmu-image/screenshots/fan-medal.jpg) 
+
+1. 自定义是否显示粉丝勋章
+2. 是否只显示直播主的直播间勋章
+3. 是否显示勋章名
+4. 是否显示勋章等级
+
+# blivechat(以下为原文档)
 用于OBS的仿YouTube风格的bilibili直播评论栏
 
 最近喜欢看VTuber，想为此写些程序，于是有了这个东西。~~写到一半发现有类似项目了：[bilibili-live-chat](https://github.com/Tsuk1ko/bilibili-live-chat)、[BiliChat](https://github.com/3Shain/BiliChat)~~
 
-![OBS截图](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/obs.png)  
-![Chrome截图](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/chrome.png)  
-![样式生成器截图](https://github.com/DoodleBears/blivechat/blob/direct-danmu-image/screenshots/stylegen.png)  
+![OBS截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/obs.png)  
+![Chrome截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/chrome.png)  
+![样式生成器截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/stylegen.png)  
+
 
 ## 特性
 * 兼容YouTube直播评论栏的样式
