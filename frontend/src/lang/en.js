@@ -77,8 +77,14 @@ export default {
     ownerColor: 'Owner color',
     moderatorColor: 'Moderator color',
     memberColor: 'Member color',
-    showBadges: 'Show badges',
+    showBadges: 'Show user badges',
     showColon: 'Show colon after name',
+
+    medal: 'Fan badge',
+    showMedal: 'Show fan badge',
+    showOnlyOwnerMedal: 'Show only owner badge',
+    showMedalName: 'Show badge name',
+    showMedalLevel: 'Show badge level',
 
     messages: 'Messages',
     color: 'Color',

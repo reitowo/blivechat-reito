@@ -100,6 +100,34 @@
         </el-row>
       </el-card>
 
+      <h3>{{$t('stylegen.medal')}}</h3>
+      <el-card shadow="never">
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedal')">
+              <el-switch v-model="form.showMedal"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showOnlyOwnerMedal')">
+              <el-switch v-model="form.showOnlyOwnerMedal"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedalName')">
+              <el-switch v-model="form.showMedalName"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedalLevel')">
+              <el-switch v-model="form.showMedalLevel"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-card>
+
       <h3>{{$t('stylegen.messages')}}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
@@ -371,6 +399,11 @@ export const DEFAULT_CONFIG = {
   showBadges: true,
   showColon: true,
 
+  showMedal: true,
+  showOnlyOwnerMedal: true,
+  showMedalName: true,
+  showMedalLevel: true,
+
   messageFont: 'Imprima',
   messageFontSize: 18,
   messageLineHeight: 0,
@@ -441,6 +474,8 @@ ${this.outlineStyle}
 ${this.avatarStyle}
 
 ${this.userNameStyle}
+
+${this.medalStyle}
 
 ${this.messageStyle}
 
@@ -527,6 +562,34 @@ yt-live-chat-text-message-renderer #chat-badges {
   ${this.form.showBadges ? '' : 'display: none !important;'}
   vertical-align: text-top !important;
 }`
+    },
+        medalStyle() {
+      return `/* Medal */
+yt-live-chat-author-medal-renderer {
+    ${this.form.showMedal ? (this.form.showOnlyOwnerMedal ? `display: none;`: `display: flex;`) : 'display: none;'}
+    
+}
+yt-live-chat-author-medal-renderer[is-fan-group] {
+  ${this.form.showMedal ? `display: flex;` : ''}
+}
+#medal-name.yt-live-chat-author-medal-renderer {
+  ${this.form.showMedalLevel ? `border-right: none;` : ''}
+  ${this.form.showMedalName ? '' :  `visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;`}
+}
+
+#medal-level.yt-live-chat-author-medal-renderer {
+  ${this.form.showMedalName ? `border-left: none;` : ''}
+  ${this.form.showMedalLevel ? '' : `visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;`}
+}
+`
     },
     messageStyle() {
       return `/* Messages */

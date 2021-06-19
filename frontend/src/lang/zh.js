@@ -77,8 +77,14 @@ export default {
     ownerColor: '主播颜色',
     moderatorColor: '房管颜色',
     memberColor: '舰长颜色',
-    showBadges: '显示勋章',
+    showBadges: '显示用户勋章',
     showColon: '用户名后显示冒号',
+
+    medal: '粉丝勋章(牌子)',
+    showMedal: '显示勋章',
+    showOnlyOwnerMedal: '只显示直播主勋章',
+    showMedalName: '显示勋章名',
+    showMedalLevel: '显示勋章等级',
 
     messages: '消息',
     color: '颜色',

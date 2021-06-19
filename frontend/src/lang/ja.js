@@ -80,6 +80,12 @@ export default {
     showBadges: '勲章を見せる',
     showColon: 'ユーザー名の後にコロンが表示されます',
 
+    medal: 'ファン勲章',
+    showMedal: 'ファン勲章を表示する',
+    showOnlyOwnerMedal: 'オーナーのファン勲章だけを表示する',
+    showMedalName: 'ファン勲章名を表示する',
+    showMedalLevel: 'ファン勲章レベルを表示する',
+
     messages: 'コメント',
     color: '色',
     onNewLine: '新しい行に表示する',

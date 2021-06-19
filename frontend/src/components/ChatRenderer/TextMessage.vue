@@ -23,16 +23,18 @@
             ></author-badge>
           </span>
         </yt-live-chat-author-chip>
-        <!-- 合并弹幕数字 -->
-        <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
-          content
-          }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{'--repeated-mark-color': repeatedMarkColor}"
-          ></el-badge>
-        </span>
-        <!-- 用户自定的弹幕图片 -->
-        <div id="images" v-if="filter_danmu_pic.length != 0" >
-          <img v-for="(item, index) in filter_danmu_pic" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+        <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <!-- 合并弹幕数字 -->
+          <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
+            content
+            }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+              :style="{'--repeated-mark-color': repeatedMarkColor}"
+            ></el-badge>
+          </span>
+          <!-- 用户自定的弹幕图片 -->
+          <div id="images" v-if="filter_danmu_pic.length != 0" >
+            <img v-for="(item, index) in filter_danmu_pic" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+          </div>
         </div>
       </div>
     </div>  
@@ -85,7 +87,6 @@ export default {
     time: Date,
     authorName: String,
     authorType: Number,
-    // TODO: 增加牌子名和牌子等级显示，思考显示在哪里合适
     medalName: String,
     medalLevel: Number,
     isFanGroup: Boolean,
@@ -130,11 +131,11 @@ export default {
 </script>
 
 <style>
-yt-live-chat-text-message-renderer>#content>#message>.el-badge {
+yt-live-chat-text-message-renderer>#content .el-badge {
   margin-left: 10px;
 }
 
-yt-live-chat-text-message-renderer>#content>#message>.el-badge .el-badge__content {
+yt-live-chat-text-message-renderer>#content .el-badge .el-badge__content {
   font-size: 12px !important;
   line-height: 18px !important;
   text-shadow: none !important;

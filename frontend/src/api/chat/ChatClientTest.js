@@ -96,7 +96,6 @@ const MESSAGE_GENERATORS = [
           isMobileVerified: randInt(1, 10) <= 9,
           medalName: randomChoose(MEDAL_NAME),
           medalLevel: randInt(0, 40),
-          // TODO: 这样写Boolean不知道有没有问题，检查html标签看看
           isFanGroup: Boolean(Math.round(Math.random())),
           id: getUuid4Hex(),
           translation: ''

@@ -151,9 +151,8 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   margin-right: 8px;
 }
 
-#message.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer {
   color: var(--yt-live-chat-primary-text-color, var(--yt-primary-text-color));
-  line-height: 16px;
   overflow: hidden;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -168,7 +167,7 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
 }
 
 
-#message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
   width: var(--yt-live-chat-emoji-size);
   height: var(--yt-live-chat-emoji-size);
   margin: -1px 2px 1px 2px;
@@ -180,13 +179,13 @@ a.yt-live-chat-text-message-renderer {
   text-decoration: underline;
 }
 
-#message.yt-live-chat-text-message-renderer a.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer a.yt-live-chat-text-message-renderer {
   display: inline;
   text-decoration: underline;
   word-break: break-all;
 }
 
-#message.yt-live-chat-text-message-renderer a.yt-live-chat-text-message-renderer .mention.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer a.yt-live-chat-text-message-renderer .mention.yt-live-chat-text-message-renderer {
   text-decoration: underline;
 }
 
@@ -194,7 +193,7 @@ a.yt-live-chat-text-message-renderer {
   margin-left: 2px;
 }
 
-#message.yt-live-chat-text-message-renderer:empty, #deleted-state.yt-live-chat-text-message-renderer:empty, #show-original.yt-live-chat-text-message-renderer:empty, yt-live-chat-text-message-renderer[show-original] #deleted-state.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[show-original] #show-original.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[is-deleted]:not([show-original]) #message.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer:empty, #deleted-state.yt-live-chat-text-message-renderer:empty, #show-original.yt-live-chat-text-message-renderer:empty, yt-live-chat-text-message-renderer[show-original] #deleted-state.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[show-original] #show-original.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[is-deleted]:not([show-original]) #image-and-message.yt-live-chat-text-message-renderer {
   display: none;
 }
 
@@ -210,7 +209,7 @@ a.yt-live-chat-text-message-renderer {
   border-radius: 2px;
 }
 
-#deleted-state.yt-live-chat-text-message-renderer, #show-original.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[is-deleted] #message.yt-live-chat-text-message-renderer {
+#deleted-state.yt-live-chat-text-message-renderer, #show-original.yt-live-chat-text-message-renderer, yt-live-chat-text-message-renderer[is-deleted] #image-and-message.yt-live-chat-text-message-renderer {
   font-style: italic;
   color: var(--yt-live-chat-deleted-message-color, rgba(0, 0, 0, 0.5));
 }
@@ -231,7 +230,7 @@ yt-live-chat-text-message-renderer[is-deleted]::before {
   background: var(--yt-live-chat-deleted-message-bar-color, rgba(0, 0, 0, 0.5));
 }
 
-yt-live-chat-text-message-renderer[is-dimmed] #message.yt-live-chat-text-message-renderer {
+yt-live-chat-text-message-renderer[is-dimmed] #image-and-message.yt-live-chat-text-message-renderer {
   opacity: 0.25;
 }
 

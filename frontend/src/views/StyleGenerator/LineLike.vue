@@ -76,6 +76,34 @@
         </el-row>
       </el-card>
 
+      <h3>{{$t('stylegen.medal')}}</h3>
+      <el-card shadow="never">
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedal')">
+              <el-switch v-model="form.showMedal"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showOnlyOwnerMedal')">
+              <el-switch v-model="form.showOnlyOwnerMedal"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedalName')">
+              <el-switch v-model="form.showMedalName"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.showMedalLevel')">
+              <el-switch v-model="form.showMedalLevel"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-card>
+
       <h3>{{$t('stylegen.messages')}}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
@@ -316,6 +344,11 @@ export const DEFAULT_CONFIG = {
   memberUserNameColor: '#0f9d58',
   showBadges: true,
 
+  showMedal: true,
+  showOnlyOwnerMedal: true,
+  showMedalName: true,
+  showMedalLevel: true,
+
   messageFont: 'Noto Sans SC',
   messageFontSize: 18,
   messageLineHeight: 0,
@@ -378,6 +411,8 @@ ${this.paddingStyle}
 ${this.avatarStyle}
 
 ${this.userNameStyle}
+
+${this.medalStyle}
 
 ${this.messageStyle}
 
@@ -442,17 +477,45 @@ yt-live-chat-text-message-renderer #chat-badges {
   vertical-align: text-top !important;
 }`
     },
+    medalStyle() {
+      return `/* Medal */
+yt-live-chat-author-medal-renderer {
+    ${this.form.showMedal ? (this.form.showOnlyOwnerMedal ? `display: none;`: `display: flex;`) : 'display: none;'}
+    
+}
+yt-live-chat-author-medal-renderer[is-fan-group] {
+  ${this.form.showMedal ? `display: flex;` : ''}
+}
+#medal-name.yt-live-chat-author-medal-renderer {
+  ${this.form.showMedalLevel ? `border-right: none;` : ''}
+  ${this.form.showMedalName ? '' :  `visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;`}
+}
+
+#medal-level.yt-live-chat-author-medal-renderer {
+  ${this.form.showMedalName ? `border-left: none;` : ''}
+  ${this.form.showMedalLevel ? '' : `visibility: hidden;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;`}
+}
+`
+    },
     messageStyle() {
       return `/* Messages */
-yt-live-chat-text-message-renderer #message,
-yt-live-chat-text-message-renderer #message * {
+yt-live-chat-text-message-renderer #image-and-message,
+yt-live-chat-text-message-renderer #image-and-message * {
   ${this.form.messageColor ? `color: ${this.form.messageColor} !important;` : ''}
   font-family: "${common.cssEscapeStr(this.form.messageFont)}"${common.FALLBACK_FONTS};
   font-size: ${this.form.messageFontSize}px !important;
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }
 
-yt-live-chat-text-message-renderer #message {
+yt-live-chat-text-message-renderer #image-and-message {
   display: block !important;
   overflow: visible !important;
   padding: 20px;
@@ -460,7 +523,7 @@ yt-live-chat-text-message-renderer #message {
 }
 
 /* The triangle beside dialog */
-yt-live-chat-text-message-renderer #message::before {
+yt-live-chat-text-message-renderer #image-and-message::before {
   content: "";
   display: inline-block;
   position: absolute;
@@ -585,11 +648,11 @@ yt-live-chat-ticker-sponsor-item-renderer * {
         color = '#ffffff'
       }
       let typeSelector = authorType ? `[author-type="${authorType}"]` : ''
-      return `yt-live-chat-text-message-renderer${typeSelector} #message {
+      return `yt-live-chat-text-message-renderer${typeSelector} #image-and-message {
   background-color: ${color} !important;
 }
 
-yt-live-chat-text-message-renderer${typeSelector} #message::before {
+yt-live-chat-text-message-renderer${typeSelector} #image-and-message::before {
   border-right-color: ${color};
 }`
     }

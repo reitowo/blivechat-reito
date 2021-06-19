@@ -247,7 +247,6 @@ export default class ChatClientDirect {
       handler.call(this, command)
     }
   }
-  // TODO: 获取弹幕后增加勋章等级&勋章名信息
   async onReceiveDanmaku (command) {
     if (!this.onAddText) {
       return
@@ -289,7 +288,6 @@ export default class ChatClientDirect {
       authorLevel: info[4][0],
       isNewbie: urank < 10000,
       isMobileVerified: !!info[2][6],
-      // TODO: 在message的data处添加 medalName, medalLevel, isFanGroup  
       medalName: medalName,
       medalLevel: medalLevel,
       isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
