@@ -1,5 +1,5 @@
 <template>
-  <yt-live-chat-text-message-renderer :author-type="authorTypeText" :privilegeType="privilegeType">
+  <yt-live-chat-text-message-renderer :is-fan-group="isFanGroup" :medal-level="medalLevel" :author-type="authorTypeText" :privilegeType="privilegeType">
     <div id="card" class="style-scope yt-live-chat-text-message-renderer">
       <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
         :imgUrl="avatarUrl"
