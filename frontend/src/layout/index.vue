@@ -9,7 +9,7 @@
         </router-link>
       </div>
       <div class="version">
-        v1.5.2
+        v1.5.2-<a href="https://space.bilibili.com/12236936" target="_blank">只熊KUMA</a>
       </div>
       <sidebar></sidebar>
     </el-aside>
@@ -137,5 +137,9 @@ a, a:focus, a:hover {
 
 .sidebar-container .is-horizontal {
   display: none;
+}
+
+.version a {
+  color: #409eff
 }
 </style>
