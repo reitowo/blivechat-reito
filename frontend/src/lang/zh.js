@@ -12,7 +12,7 @@ export default {
 
     general: '常规',
     roomId: '房间ID',
-    showDanmaku: '显示弹幕',
+    showDanmaku: '显示消息弹幕',
     showSuperchat: '显示醒目留言(SC)',
     showNewMember: '显示新舰长',
     showGift: '显示礼物',
@@ -70,6 +70,7 @@ export default {
 
     userNames: '用户名',
     showUserNames: '显示用户名',
+    randomUserNamesColor: '随机名字颜色',
     font: '字体',
     fontSize: '字体尺寸',
     lineHeight: '行高（0为默认）',

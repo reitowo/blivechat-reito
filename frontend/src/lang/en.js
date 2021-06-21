@@ -73,6 +73,7 @@ export default {
     font: 'Font',
     fontSize: 'Font size',
     lineHeight: 'Line height (0 for default)',
+    randomUserNamesColor: 'Random user name color',
     normalColor: 'Normal color',
     ownerColor: 'Owner color',
     moderatorColor: 'Moderator color',

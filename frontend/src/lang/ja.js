@@ -73,6 +73,7 @@ export default {
     font: 'フォント',
     fontSize: 'フォントサイズ',
     lineHeight: '行の高さ（0はデフォルト）',
+    randomUserNamesColor: 'ランドンユーザー名の色',
     normalColor: 'ノーマルの色',
     ownerColor: 'オーナーの色',
     moderatorColor: '管理者の色',

@@ -45,6 +45,13 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.randomUserNamesColor')">
+              <el-switch v-model="form.randomUserNamesColor"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.normalColor')">
               <el-color-picker v-model="form.userNameColor"></el-color-picker>
             </el-form-item>
@@ -338,6 +345,7 @@ export const DEFAULT_CONFIG = {
   userNameFont: 'Noto Sans SC',
   userNameFontSize: 20,
   userNameLineHeight: 0,
+  randomUserNamesColor: false,
   userNameColor: '#cccccc',
   ownerUserNameColor: '#ffd600',
   moderatorUserNameColor: '#5e84f1',
@@ -447,7 +455,9 @@ yt-live-chat-text-message-renderer {
 yt-live-chat-text-message-renderer yt-live-chat-author-chip {
   margin-bottom: 5px;
 }
-
+yt-live-chat-text-message-renderer #content #author-name {
+  ${this.form.randomUserNamesColor ? `color: var(--repeated-text-color) !important; ` : ''}
+}
 yt-live-chat-text-message-renderer #author-name[type="owner"],
 yt-live-chat-text-message-renderer yt-live-chat-author-badge-renderer[type="owner"] {
   ${this.form.ownerUserNameColor ? `color: ${this.form.ownerUserNameColor} !important;` : ''}

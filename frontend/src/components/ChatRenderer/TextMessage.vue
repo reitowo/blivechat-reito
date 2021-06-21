@@ -1,5 +1,5 @@
 <template>
-  <yt-live-chat-text-message-renderer :is-fan-group="isFanGroup" :medal-level="medalLevel" :author-type="authorTypeText" :privilegeType="privilegeType">
+  <yt-live-chat-text-message-renderer :style="{'--repeated-text-color': randomColor}" :is-fan-group="isFanGroup" :medal-level="medalLevel" :author-type="authorTypeText" :privilegeType="privilegeType">
     <div id="card" class="style-scope yt-live-chat-text-message-renderer">
       <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
         :imgUrl="avatarUrl"
@@ -111,6 +111,14 @@ export default {
       // 优先判断舰长
       return this.privilegeType > 0 ? 'member' : constants.AUTHOR_TYPE_TO_TEXT[this.authorType]
     },
+    randomColor(){
+      let color = [0, 0, 0]
+      let t = Math.random()
+      for (let i = 0; i < 3; i++) {
+        color[i] = REPEATED_MARK_COLOR_START[i] + (REPEATED_MARK_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t
+      }
+      return `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
+    },
     repeatedMarkColor() {
       let color
       if (this.repeated <= 2) {
@@ -144,6 +152,7 @@ yt-live-chat-text-message-renderer>#content .el-badge .el-badge__content {
   background-color: var(--repeated-mark-color) !important;
   border: none;
 }
+
 </style>
 
 <style src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"></style>

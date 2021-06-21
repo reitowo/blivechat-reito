@@ -13,65 +13,63 @@
               <el-input v-model.number="form.roomId" type="number" min="1"></el-input>
             </el-form-item>
             <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showDanmaku')">
                   <el-switch v-model="form.showDanmaku"></el-switch>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showSuperchat')">
                   <el-switch v-model="form.showSuperchat"></el-switch>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showNewMember')">
                   <el-switch v-model="form.showNewMember"></el-switch>
                 </el-form-item>
               </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showGift')">
                   <el-switch v-model="form.showGift"></el-switch>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showGiftInfo')">
                   <el-switch v-model="form.showGiftInfo"></el-switch>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.mergeSimilarDanmaku')">
                   <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.mergeGift')">
                   <el-switch v-model="form.mergeGift"></el-switch>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.minGiftPrice')">
                   <el-input v-model.number="form.minGiftPrice" type="number" min="0"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.minTickerPrice')">
                   <el-input v-model.number="form.minTickerPrice" type="number" min="0.1"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.maxNumber')">
                   <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :xs="24" :sm="8">
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.maxImage')">
                   <el-input v-model.number="form.maxImage" type="number" min="2"></el-input>
                 </el-form-item>
