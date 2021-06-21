@@ -52,6 +52,9 @@ import axios from 'axios'
 
 
 // HSL
+const RANDOM_TEXT_COLOR_START = [0, 100.0, 55.0]
+const RANDOM_TEXT_COLOR_END = [360, 60.0, 75.0]
+
 const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
 const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
@@ -115,7 +118,7 @@ export default {
       let color = [0, 0, 0]
       let t = Math.random()
       for (let i = 0; i < 3; i++) {
-        color[i] = REPEATED_MARK_COLOR_START[i] + (REPEATED_MARK_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t
+        color[i] = RANDOM_TEXT_COLOR_START[i] + (RANDOM_TEXT_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t
       }
       return `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
     },

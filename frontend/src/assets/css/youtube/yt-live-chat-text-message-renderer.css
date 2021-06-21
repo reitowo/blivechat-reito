@@ -153,6 +153,7 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
 
 #image-and-message.yt-live-chat-text-message-renderer {
   color: var(--yt-live-chat-primary-text-color, var(--yt-primary-text-color));
+  display: inline;
   overflow: hidden;
   overflow-wrap: break-word;
   word-wrap: break-word;
