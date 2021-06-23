@@ -335,6 +335,7 @@ yt-live-chat-paid-message-renderer[dashboard-money-feed] #content.yt-live-chat-p
 
 yt-live-chat-paid-message-renderer[show-only-header] #content.yt-live-chat-paid-message-renderer {
   visibility: hidden;
+  display: none;
   padding: 0;
 }
 
