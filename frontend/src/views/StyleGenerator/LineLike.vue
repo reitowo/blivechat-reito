@@ -109,6 +109,18 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.fontSize')">
+              <el-input v-model.number="form.medalFontSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.lineHeight')">
+              <el-input v-model.number="form.medalLineHeight" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-card>
 
       <h3>{{$t('stylegen.messages')}}</h3>
@@ -356,6 +368,8 @@ export const DEFAULT_CONFIG = {
   showOnlyOwnerMedal: true,
   showMedalName: true,
   showMedalLevel: true,
+  medalFontSize: 18,
+  medalLineHeight: 0,
 
   messageFont: 'Noto Sans SC',
   messageFontSize: 18,
@@ -497,25 +511,21 @@ yt-live-chat-author-medal-renderer[is-fan-group] {
   ${this.form.showMedal ? `display: flex;` : ''}
 }
 #medal-name.yt-live-chat-author-medal-renderer {
-  ${this.form.showMedalLevel ? `border-right: none;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;` : 'border-radius: 4px'}
   ${this.form.showMedalName ? '' :  `visibility: hidden;
   width: 0;
   height: 0;
-  padding: 0;
-  border: none;`}
+  padding: 0;`}
+  font-size: ${this.form.medalFontSize}px !important;
+  line-height: ${this.form.medalLineHeight || this.form.medalFontSize}px !important;
 }
 
 #medal-level.yt-live-chat-author-medal-renderer {
-  ${this.form.showMedalName ? `border-left: none;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;` : 'border-radius: 4px'}
   ${this.form.showMedalLevel ? '' : `visibility: hidden;
   width: 0;
   height: 0;
-  padding: 0;
-  border: none;`}
+  padding: 0;`}
+  font-size: ${this.form.medalFontSize}px !important;
+  line-height: ${this.form.medalLineHeight || this.form.medalFontSize }px !important;
 }
 `
     },

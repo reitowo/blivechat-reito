@@ -24,6 +24,7 @@ yt-live-chat-author-medal-renderer {
   position: relative;
   width: max-content; 
   background: var(--yt-live-chat-medal-background-color, #222222);
+  border: var(--yt-live-chat-medal-border-color, #222222) solid 2px;
   border-radius: 4px;
   display: flex;
   -ms-flex-direction: row;
@@ -36,16 +37,18 @@ yt-live-chat-author-medal-renderer {
 }
 
 #medal-name.yt-live-chat-author-medal-renderer {
+  text-shadow: none;
   padding: 2px 4px;
   color: #ffffff;
-  border: var(--yt-live-chat-medal-border-color, #222222) solid 2px;
-  
 }
 
 #medal-level.yt-live-chat-author-medal-renderer {
   padding: 2px 4px;
+  font-weight: 700;
+  text-shadow: none;
+  text-align: center;
   background-color: #ffffff;
   color: var(--yt-live-chat-medal-text-color, #222222);
-  border: var(--yt-live-chat-medal-border-color, #222222) solid 2px;
-  
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
