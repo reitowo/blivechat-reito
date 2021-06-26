@@ -19,8 +19,10 @@ export default {
     showGiftInfo: 'Show gift info',
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
+    danmakuAtBottom: 'Show messages at bottom',
+    tickerAtButtom: 'Show on-top Super Chats at bottom',
     minGiftPrice: 'Min price of Super Chats to show (CNY)',
-    minTickerPrice: 'Min price of Super Chats to keep on top (CNY)',
+    minTickerPrice: 'Min price of on-top Super Chats to keep  (CNY)',
     maxNumber: 'Max number of messages',
     fadeOutNum: 'number of fade out message',
     maxImage: 'Max number of　pictures',
@@ -59,6 +61,10 @@ export default {
 
     light: 'light',
     dark: 'dark',
+
+    global: 'Global setting',
+    danmakuAtBottom: 'Show messages at bottom',
+    tickerAtButtom: 'Show on-top Super Chats at bottom',
 
     outlines: 'Outlines',
     showOutlines: 'Show outlines',

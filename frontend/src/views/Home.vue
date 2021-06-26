@@ -41,6 +41,18 @@
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.danmakuAtBottom')">
+                  <el-switch v-model="form.danmakuAtBottom"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.tickerAtButtom')">
+                  <el-switch v-model="form.tickerAtButtom"></el-switch>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.mergeSimilarDanmaku')">
                   <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
                 </el-form-item>

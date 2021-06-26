@@ -50,6 +50,18 @@ yt-live-chat-renderer {
   flex-direction: column;
 }
 
+yt-live-chat-renderer[ticker-at-buttom] {
+  flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+}
+
+yt-live-chat-renderer[danmaku-at-bottom] #item-scroller {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 yt-live-chat-renderer[hide-timestamps] {
   --yt-live-chat-item-timestamp-display: none;
 }

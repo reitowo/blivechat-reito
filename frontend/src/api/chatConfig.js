@@ -10,6 +10,8 @@ export const DEFAULT_CONFIG = {
   showGiftInfo: true,
   mergeSimilarDanmaku: false,
   mergeGift: true,
+  danmakuAtBottom: false,
+  tickerAtButtom: false,
   maxNumber: 30,
   fadeOutNum: 3,
   maxImage: 2,

@@ -19,6 +19,8 @@ export default {
     showGiftInfo: 'ギフト内容を表示する',
     mergeSimilarDanmaku: '同じコメントを合併する',
     mergeGift: 'ギフトを合併する',
+    danmakuAtBottom: 'コメントを下から現れる',
+    tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
     minGiftPrice: '最低表示スーパーチャット価格（CNY）',
     minTickerPrice: '最低表示常駐Topスーパーチャット価格（CNY）',
     maxNumber: '最大コメント数',
@@ -59,6 +61,10 @@ export default {
 
     light: '明るい',
     dark: '暗い',
+
+    global: '全局設定',
+    danmakuAtBottom: 'コメントを下から現れる',
+    tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
 
     outlines: 'アウトライン',
     showOutlines: 'アウトラインを表示する',

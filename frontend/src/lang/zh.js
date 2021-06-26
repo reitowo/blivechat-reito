@@ -19,6 +19,10 @@ export default {
     showGiftInfo: '显示礼物信息',
     mergeSimilarDanmaku: '合并相似弹幕',
     mergeGift: '合并礼物',
+    // TODO: 新增bottom出现弹幕，在buttom显示ticker
+    danmakuAtBottom: '弹幕从底部出现',
+    tickerAtButtom: '底部显示SC固定栏',
+    
     minGiftPrice: '最低打赏价格（元）',
     minTickerPrice: '最低顶部停驻打赏价格（元）',
     maxNumber: '最大弹幕数',
@@ -60,6 +64,11 @@ export default {
     light: '明亮',
     dark: '黑暗',
 
+    // TODO: 全局设置
+    global: '全局',
+    danmakuAtBottom: '弹幕从底部出现',
+    tickerAtButtom: '底部显示SC固定栏',
+    
     outlines: '描边',
     showOutlines: '显示描边',
     outlineSize: '描边尺寸',

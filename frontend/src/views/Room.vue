@@ -1,8 +1,10 @@
 <template>
   <chat-renderer ref="renderer"  
+  :showGiftInfo="config.showGiftInfo"
+  :danmakuAtBottom="config.danmakuAtBottom" :tickerAtButtom="config.tickerAtButtom"
   :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
   :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :maxImage="config.maxImage" 
-  :showGiftInfo="config.showGiftInfo">
+  >
   </chat-renderer>
 </template>
 
@@ -85,6 +87,9 @@ export default {
       cfg.showGiftInfo = toBool(cfg.showGiftInfo)
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
+      // TODO: 新增bottom出现弹幕，在buttom显示ticker
+      cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
+      cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
