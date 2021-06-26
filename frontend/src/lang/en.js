@@ -21,6 +21,11 @@ export default {
     mergeGift: 'Merge gifts',
     danmakuAtBottom: 'Show messages at bottom',
     tickerAtButtom: 'Show on-top Super Chats at bottom',
+
+    showTranslateDanmakuOnly: 'Show translation message only',
+    translationSign: 'translation sign',
+    onlyOneCharacter: 'one character only, like:【',
+
     minGiftPrice: 'Min price of Super Chats to show (CNY)',
     minTickerPrice: 'Min price of on-top Super Chats to keep  (CNY)',
     maxNumber: 'Max number of messages',

@@ -87,9 +87,12 @@ export default {
       cfg.showGiftInfo = toBool(cfg.showGiftInfo)
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
-      // TODO: 新增bottom出现弹幕，在buttom显示ticker
       cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
       cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
+      // TODO: 只显示翻译弹幕
+      cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
+      cfg.translationSign = cfg.translationSign.toString()
+
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
@@ -133,6 +136,14 @@ export default {
       if (!this.config.showDanmaku || !this.filterTextMessage(data) || this.mergeSimilarText(data.content)) {
         return
       }
+      if(this.config.showTranslateDanmakuOnly) {
+        let content_str = data.content
+        if(content_str.charAt(0) != this.config.translationSign) {
+          return
+        } else {
+          data.content = "翻译：" + content_str.substring(1)
+        }
+      }
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_TEXT,
@@ -152,6 +163,9 @@ export default {
     },
     onAddGift(data) {
       if (!this.config.showGift) {
+        return
+      }
+      if(this.config.showTranslateDanmakuOnly) {
         return
       }
       
@@ -181,6 +195,9 @@ export default {
       if (!this.config.showNewMember || !this.filterNewMemberMessage(data)) {
         return
       }
+      if(this.config.showTranslateDanmakuOnly) {
+        return
+      }
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_MEMBER,
@@ -198,6 +215,9 @@ export default {
         return
       }
       if (data.price < this.config.minGiftPrice) { // 丢人
+        return
+      }
+      if(this.config.showTranslateDanmakuOnly) {
         return
       }
 

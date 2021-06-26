@@ -21,6 +21,11 @@ export default {
     mergeGift: 'ギフトを合併する',
     danmakuAtBottom: 'コメントを下から現れる',
     tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
+    // TODO: 只显示翻译弹幕
+    showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
+    translationSign: '翻訳コメントの合図キャラクタ',
+    onlyOneCharacter: '一個キャラクタだけ、例：【',
+
     minGiftPrice: '最低表示スーパーチャット価格（CNY）',
     minTickerPrice: '最低表示常駐Topスーパーチャット価格（CNY）',
     maxNumber: '最大コメント数',

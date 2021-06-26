@@ -4,6 +4,8 @@ export const DEFAULT_CONFIG = {
   minGiftPrice: 0, // ￥0.0
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
+  showTranslateDanmakuOnly: false,
+  translationSign:'【',
   showSuperchat: true,
   showNewMember: true,
   showGift: true,

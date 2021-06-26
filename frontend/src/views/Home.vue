@@ -64,6 +64,21 @@
               </el-col>
             </el-row>
             <el-row :gutter="20">
+              <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.showTranslateDanmakuOnly')">
+                  <el-switch v-model="form.showTranslateDanmakuOnly"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.translationSign')">
+                  <el-input v-model.trim="form.translationSign" 
+                  maxLength='1'
+                  :placeholder="$t('home.onlyOneCharacter')"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
               <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.minGiftPrice')">
                   <el-input v-model.number="form.minGiftPrice" type="number" min="0"></el-input>
