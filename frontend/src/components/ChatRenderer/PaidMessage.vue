@@ -1,15 +1,15 @@
 <template>
   <yt-live-chat-paid-message-renderer class="style-scope yt-live-chat-item-list-renderer" allow-animations
     :show-only-header="priceText == '银瓜子礼物'" :style="{
-      '--yt-live-chat-paid-message-secondary-color': color.headerBg,
-      '--yt-live-chat-paid-message-primary-color': color.contentBg,
-      '--yt-live-chat-paid-message-divider-color': color.dividerColor,
-      '--yt-live-chat-paid-message-header-color': color.header,
-      '--yt-live-chat-paid-message-author-name-color': color.authorName,
-      '--yt-live-chat-paid-message-timestamp-color': color.time,
-      '--yt-live-chat-paid-message-color': color.content
+      '--yt-live-chat-paid-message-secondary-color': priceRange.colors.headerBg,
+      '--yt-live-chat-paid-message-primary-color': priceRange.colors.contentBg,
+      '--yt-live-chat-paid-message-divider-color': priceRange.colors.dividerColor,
+      '--yt-live-chat-paid-message-header-color': priceRange.colors.header,
+      '--yt-live-chat-paid-message-author-name-color': priceRange.colors.authorName,
+      '--yt-live-chat-paid-message-timestamp-color': priceRange.colors.time,
+      '--yt-live-chat-paid-message-color': priceRange.colors.content
     }"
-    :giftName="giftName" :price="price"
+    :giftName="giftName" :price="price" :price-level="priceRange.price"
   >
     <div id="card" class="style-scope yt-live-chat-paid-message-renderer">
       <div id="header" class="style-scope yt-live-chat-paid-message-renderer">
@@ -52,8 +52,8 @@ export default {
     content: String,
   },
   computed: {
-    color() {
-      return constants.getPriceConfig(this.price).colors
+    priceRange() {
+      return constants.getPriceConfig(this.price)
     },
     priceText() {
       let price_str = this.price > 0 ? ('CN¥' + utils.formatCurrency(this.price)) : '银瓜子礼物'
