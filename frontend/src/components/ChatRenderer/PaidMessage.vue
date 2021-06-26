@@ -10,6 +10,7 @@
       '--yt-live-chat-paid-message-color': priceRange.colors.content
     }"
     :giftName="giftName" :price="price" :price-level="priceRange.price"
+    :is-deleted="isDelete"
   >
     <div id="card" class="style-scope yt-live-chat-paid-message-renderer">
       <div id="header" class="style-scope yt-live-chat-paid-message-renderer">
@@ -50,6 +51,7 @@ export default {
     price: Number, // 价格，人民币
     time: Date,
     content: String,
+    isDelete: Boolean
   },
   computed: {
     priceRange() {

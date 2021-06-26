@@ -1,5 +1,9 @@
 <template>
-  <yt-live-chat-text-message-renderer :style="{'--repeated-text-color': randomColor}" :is-fan-group="isFanGroup" :medal-level="medalLevel" :author-type="authorTypeText" :privilegeType="privilegeType">
+  <yt-live-chat-text-message-renderer :style="{'--repeated-text-color': randomColor}" 
+    :is-fan-group="isFanGroup" :medal-level="medalLevel" 
+    :author-type="authorTypeText" :privilegeType="privilegeType"
+    :is-deleted="isDelete"
+    >
     <div id="card" class="style-scope yt-live-chat-text-message-renderer">
       <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
         :imgUrl="avatarUrl"
@@ -93,6 +97,7 @@ export default {
     medalName: String,
     medalLevel: Number,
     isFanGroup: Boolean,
+    isDelete: Boolean,
     content: String,
     privilegeType: Number,
     repeated: Number,

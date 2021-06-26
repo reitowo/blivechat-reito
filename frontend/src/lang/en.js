@@ -22,6 +22,7 @@ export default {
     minGiftPrice: 'Min price of Super Chats to show (CNY)',
     minTickerPrice: 'Min price of Super Chats to keep on top (CNY)',
     maxNumber: 'Max number of messages',
+    fadeOutNum: 'number of fade out message',
     maxImage: 'Max number of　pictures',
 
     block: 'Block',

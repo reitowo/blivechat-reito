@@ -70,6 +70,11 @@
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.fadeOutNum')">
+                  <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.maxImage')">
                   <el-input v-model.number="form.maxImage" type="number" min="2"></el-input>
                 </el-form-item>

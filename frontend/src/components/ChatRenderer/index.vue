@@ -16,21 +16,25 @@
                 :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
                 :repeated="message.repeated" :maxImage="maxImage"
                 :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
+                :isDelete="message.isDelete"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
                 :time="message.time" :content="getGiftShowContent(message)" :giftName="message.giftName"
+                :isDelete="message.isDelete"
               ></paid-message>
               <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)" :privilegeType="message.privilegeType"
                 :title="message.title" :time="message.time"
+                :isDelete="message.isDelete"
               ></membership-item>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
                 class="style-scope yt-live-chat-item-list-renderer"
                 :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
                 :time="message.time" :content="getShowContent(message)" giftName="superchat"
+                :isDelete="message.isDelete"
               ></paid-message>
             </template>
           </div>
@@ -77,6 +81,10 @@ export default {
     maxNumber: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.maxNumber
+    },
+    fadeOutNum: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.fadeOutNum
     },
     maxImage: {
       type: Number,
@@ -457,11 +465,24 @@ export default {
         }
         return
       }
-
-      let removeNum = Math.max(this.messages.length + this.messagesBuffer.length - this.maxNumber, 0)
+      
+      //* 留[fadeOutNum]条弹幕做delete动画（默认为5）
+      let removeNum = Math.max(this.messages.length + this.messagesBuffer.length - this.maxNumber - this.fadeOutNum, 0)
       if (removeNum > 0) {
         this.messages.splice(0, removeNum)
         // 防止同时添加和删除项目时所有的项目重新渲染 https://github.com/vuejs/vue/issues/6857
+        await this.$nextTick()
+      }
+
+      // 当buffer和现存队列中的消息总数超过maxNumber（最大弹幕数的时候），给旧弹幕加上delete属性，让CSS做消失动画
+      let deleteNum = Math.max(this.messages.length + this.messagesBuffer.length - this.maxNumber, 0)
+      if (deleteNum > 0) {
+        for(let i = 0; i < this.messages.length; i++) {
+          this.messages[i].isDelete = false;
+          if(i < deleteNum) {
+            this.messages[i].isDelete = true;
+          }
+        }
         await this.$nextTick()
       }
 

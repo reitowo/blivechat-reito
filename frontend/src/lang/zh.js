@@ -22,6 +22,7 @@ export default {
     minGiftPrice: '最低打赏价格（元）',
     minTickerPrice: '最低顶部停驻打赏价格（元）',
     maxNumber: '最大弹幕数',
+    fadeOutNum: '预留淡出弹幕数',
     maxImage: '最大图片数',
 
     block: '屏蔽',

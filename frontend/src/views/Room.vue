@@ -1,5 +1,9 @@
 <template>
-  <chat-renderer ref="renderer" :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" :maxNumber="config.maxNumber" :maxImage="config.maxImage" :showGiftInfo="config.showGiftInfo"></chat-renderer>
+  <chat-renderer ref="renderer"  
+  :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
+  :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :maxImage="config.maxImage" 
+  :showGiftInfo="config.showGiftInfo">
+  </chat-renderer>
 </template>
 
 <script>
@@ -82,6 +86,7 @@ export default {
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
+      cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
       cfg.blockLevel = toInt(cfg.blockLevel, chatConfig.DEFAULT_CONFIG.blockLevel)

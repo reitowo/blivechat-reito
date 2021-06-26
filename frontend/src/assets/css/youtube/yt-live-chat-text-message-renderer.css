@@ -239,3 +239,16 @@ yt-live-chat-text-message-renderer[is-dimmed] #image-and-message.yt-live-chat-te
 yt-live-chat-text-message-renderer[is-dimmed]::before {
   background: var(--yt-live-chat-error-message-color, #f44336);
 }
+
+/** block 的消失动画 */
+yt-live-chat-text-message-renderer[is-deleted] {
+  animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+  animation: anim_bottom_up_fade_out 600ms;
+  animation-fill-mode: forwards;
+}
+
+/** 从下往上升起 + 淡出动画 */
+@keyframes anim_bottom_up_fade_out {
+  0% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-18px); display: none;}
+}

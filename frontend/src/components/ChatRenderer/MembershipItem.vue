@@ -1,5 +1,8 @@
 <template>
-  <yt-live-chat-membership-item-renderer :privilegeType="privilegeType" class="style-scope yt-live-chat-item-list-renderer" show-only-header>
+  <yt-live-chat-membership-item-renderer show-only-header  class="style-scope yt-live-chat-item-list-renderer" 
+    :privilegeType="privilegeType"
+    :is-deleted="isDelete"
+  >
     <div id="card" class="style-scope yt-live-chat-membership-item-renderer">
       <div id="header" class="style-scope yt-live-chat-membership-item-renderer">
         <img-shadow id="author-photo" height="40" width="40" class="style-scope yt-live-chat-membership-item-renderer"
@@ -46,7 +49,8 @@ export default {
     authorName: String,
     privilegeType: Number,
     title: String,
-    time: Date
+    time: Date,
+    isDelete: Boolean
   },
   computed: {
     timeText() {

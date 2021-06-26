@@ -367,3 +367,16 @@ yt-live-chat-membership-item-renderer[dashboard-money-feed] #menu.yt-live-chat-m
   margin-top: 8px;
   background: linear-gradient(to right, transparent, var(--yt-live-chat-background-color) 40%);
 }
+
+/** block 的消失动画 */
+yt-live-chat-membership-item-renderer[is-deleted] {
+  animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+  animation: anim_bottom_up_fade_out 600ms;
+  animation-fill-mode: forwards;
+}
+
+/** 从下往上升起 + 淡出动画 */
+@keyframes anim_bottom_up_fade_out {
+  0% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-18px); display: none;}
+}
