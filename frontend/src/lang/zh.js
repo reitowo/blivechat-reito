@@ -135,7 +135,7 @@ export default {
     showOtherThings: '显示Super Chat固定栏之外的内容',
 
     animation: '动画',
-    animateIn: '进入动画',
+    animateIn: '进出动画',
     fadeInTime: '淡入时间（毫秒）',
     animateOut: '移除旧消息',
     animateOutWaitTime: '移除前等待时间（秒）',

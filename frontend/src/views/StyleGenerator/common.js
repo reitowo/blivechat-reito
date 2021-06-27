@@ -128,12 +128,25 @@ export function getAnimationStyle (config) {
 ${keyframes.join('\n')}
 }
 
+
 yt-live-chat-text-message-renderer,
 yt-live-chat-membership-item-renderer,
 yt-live-chat-paid-message-renderer {
   animation: anim ${totalTime}ms;
   animation-fill-mode: both;
-}`
+}
+@keyframes anim_out {
+  ${config.animateIn ? `0% { opacity: 1; transform: none; }
+  100% { opacity: 0; display: none; ${!config.slide ? ''
+  : ` transform: translateX(${config.reverseSlide ? -16 : 16}px);`}}` : ''}
+}
+yt-live-chat-text-message-renderer[is-deleted],
+yt-live-chat-membership-item-renderer[is-deleted],
+yt-live-chat-paid-message-renderer[is-deleted] {
+  animation: anim_out ${config.fadeOutTime}ms;
+  animation-fill-mode: both;
+}
+`
 }
 
 export function cssEscapeStr (str) {
