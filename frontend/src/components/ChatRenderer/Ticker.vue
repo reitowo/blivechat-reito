@@ -7,6 +7,7 @@
         <yt-live-chat-ticker-paid-message-item-renderer v-for="message in showMessages" :key="message.raw.id"
           tabindex="0" class="style-scope yt-live-chat-ticker-renderer" style="overflow: hidden;"
           @click="onItemClick(message.raw.type)"
+          :privilegeType="message.raw.type == MESSAGE_TYPE_MEMBER ? message.raw.privilegeType : ''"
           :type="message.raw.type" :price="message.raw.price" :giftName="message.raw.giftName"
         >
           <div id="container" dir="ltr" class="style-scope yt-live-chat-ticker-paid-message-item-renderer" :style="{
@@ -170,7 +171,13 @@ export default {
     },
     getPinTime(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
-        return 8
+        if (message.privilegeType === 3) {
+          return 5
+        } else if (message.privilegeType === 2) {
+          return 15
+        } else if (message.privilegeType === 1) {
+          return 30
+        }
       }
       // 价格小于最小置顶常驻礼物价格时, 不显示
 
