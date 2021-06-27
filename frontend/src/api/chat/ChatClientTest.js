@@ -21,7 +21,12 @@ const SC_CONTENTS = [
 ]
 
 const CONTENTS = [
+  '【这是1条翻译', '【这是2条翻译', '【这是3条翻译', '【这是4条翻译', '【这是5条翻译', '【这是6条翻译', 
+  '【这句话没听懂', '【这句话没听懂', '【这句话没听懂', '【迷迭迷迭帕里桑，tekoki', '【迷迭迷迭帕里桑，tekoki',
+  '【你看你看，帕里桑，手冲', '【帕里快看，我在手冲诶', '【你懂个锤子', '【迷迭迷迭帕里桑，tekoki', '【看啊看啊 帕里桑 这是手冲哦',
   '草', '草', '草', '草', '草', '草', '啊这', '啊这', '啊这', '啊这', '啊这',
+  '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】',
+  '我要对你使用【炎拳】', '我要对你使用【炎拳】', '我要对你使用【炎拳】', '我要对你使用【炎拳】', '我要对你使用【炎拳】',
   'hso', 'hso', 'hso', 'hso', '你好骚啊', '你好骚啊', '你好骚啊', '你好骚啊', '你好骚啊',
   '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '“希望之花”', '【二次元是不会背叛你的】',
   '【美兔3D】', '三点几嘞【喝茶】先嘞', '“希望之花”', '【二次元是不会背叛你的】',
@@ -60,13 +65,28 @@ function randGuardInfo () {
 const GIFT_INFO_LIST = [
   {giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10},
   {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24},
-  {giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2},
-  {giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3},
-  {giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5},
+  {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 1},
   {giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
+  {giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 1},
+  {giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2},
+  {giftName: '吃瓜', price: 0.1, totalCoin: 500, coinType: 'gold', num: 5},
+  {giftName: '比心', price: 0.5, totalCoin: 500, coinType: 'gold', num: 1},
+  {giftName: '比心', price: 0.5, totalCoin: 1000, coinType: 'gold', num: 2},
+  {giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 1},
+  {giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3},
+  {giftName: '冰阔落', price: 1, totalCoin: 5000, coinType: 'gold', num: 5},
+  {giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5},
+  {giftName: '给大佬递茶', price: 2, totalCoin: 20000, coinType: 'gold', num: 10},
+  {giftName: '打榜', price: 2, totalCoin: 2000, coinType: 'gold', num: 1 },
+  {giftName: '打榜', price: 2, totalCoin: 6000, coinType: 'gold', num: 3 },
+  {giftName: '打榜', price: 2, totalCoin: 26000, coinType: 'gold', num: 13 },
+  {giftName: '喵娘', price: 5.2, totalCoin: 5200, coinType: 'gold', num: 1 },
+  {giftName: '喵娘', price: 5.2, totalCoin: 52000, coinType: 'gold', num: 10 },
   {giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
   {giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
+  {giftName: '礼花', price: 28, totalCoin: 280000, coinType: 'gold', num: 10 },
   {giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', num: 1 },
+  {giftName: '花式夸夸', price: 39, totalCoin: 390000, coinType: 'gold', num: 10 },
   {giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
   {giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
   {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
@@ -80,7 +100,7 @@ const SC_PRICES = [
 const MESSAGE_GENERATORS = [
   // 文字
   {
-    weight: 4,
+    weight: 10,
     value() {
       return {
         type: constants.MESSAGE_TYPE_TEXT,
@@ -92,10 +112,10 @@ const MESSAGE_GENERATORS = [
           content: randomChoose(CONTENTS),
           isGiftDanmaku: randInt(1, 10) <= 1,
           authorLevel: randInt(0, 60),
-          isNewbie: randInt(1, 10) <= 9,
-          isMobileVerified: randInt(1, 10) <= 9,
+          isNewbie: randInt(1, 12) <= 1,
+          isMobileVerified: randInt(1, 12) <= 1,
           medalName: randomChoose(MEDAL_NAME),
-          medalLevel: randInt(0, 40),
+          medalLevel: randInt(1, 40),
           isFanGroup: Boolean(Math.round(Math.random())),
           id: getUuid4Hex(),
           translation: ''
@@ -122,7 +142,7 @@ const MESSAGE_GENERATORS = [
   },
   // SC
   {
-    weight: 2,
+    weight: 1,
     value() {
       return {
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
@@ -190,8 +210,8 @@ function randInt (min, max) {
 
 export default class ChatClientTest {
   constructor () {
-    this.minSleepTime = 800
-    this.maxSleepTime = 1200
+    this.minSleepTime = 400
+    this.maxSleepTime = 2000
 
     this.onAddText = null
     this.onAddGift = null
@@ -220,7 +240,6 @@ export default class ChatClientTest {
 
   onTimeout () {
     this.refreshTimer()
-
     let {type, message} = randomChoose(MESSAGE_GENERATORS)()
     switch (type) {
     case constants.MESSAGE_TYPE_TEXT:
