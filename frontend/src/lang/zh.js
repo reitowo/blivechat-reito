@@ -23,13 +23,12 @@ export default {
     danmakuAtBottom: '弹幕从底部出现',
     tickerAtButtom: '底部显示SC固定栏',
 
-    // TODO: 只显示翻译弹幕
     showTranslateDanmakuOnly: '只显示翻译弹幕',
     translationSign: '翻译弹幕首字符',
     onlyOneCharacter: '只能输入一个字符，如【',
     
-    minGiftPrice: '最低打赏价格（元）',
-    minTickerPrice: '最低停驻打赏价格（元）',
+    minGiftPrice: '打赏弹幕最低显示价格(元)',
+    minTickerPrice: '打赏停驻栏最低显示价格(元)',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
     maxImage: '最大图片数',

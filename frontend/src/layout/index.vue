@@ -11,6 +11,9 @@
       <div class="version">
         v1.5.2-<a href="https://space.bilibili.com/12236936" target="_blank">只熊KUMA</a>
       </div>
+      <div class="version">
+        <a href="https://pan.baidu.com/s/13NBx5dp_ba-gshrZ8ZMKLA" target="_blank">210627</a>
+      </div>
       <sidebar></sidebar>
     </el-aside>
     <el-main>
