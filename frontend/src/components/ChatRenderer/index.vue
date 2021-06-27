@@ -417,11 +417,8 @@ export default {
         this.messagesBuffer.push(message)
       }
 
-      if (message.type !== constants.MESSAGE_TYPE_TEXT) {
-        //* 判断是否要加入到顶部固定贴纸，如果小于最低ticker价格就不加入
-        if(message.price != undefined) {
-          if(message.price < this.minTickerPrice) return
-        }
+      //* 判断礼物和醒目留言(sc)是否要加入到顶部固定贴纸，如果小于最低ticker价格就不加入
+      if (message.price != undefined && message.price >= this.minTickerPrice) {
         // unshift() push message 到 front
         this.paidMessages.unshift(message)
         const MAX_PAID_MESSAGE_NUM = 100

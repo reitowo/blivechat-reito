@@ -11,7 +11,7 @@ export const DEFAULT_CONFIG = {
   showGift: true,
   showGiftInfo: true,
   mergeSimilarDanmaku: false,
-  mergeGift: true,
+  mergeGift: false,
   danmakuAtBottom: false,
   tickerAtButtom: false,
   maxNumber: 30,

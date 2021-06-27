@@ -69,33 +69,39 @@ export default {
   },
   methods: {
     initConfig() {
-      let cfg = {}
-      // 留空的使用默认值
+      // console.log("初始化config")
+      //* 留空的使用上次预设值
+      let cfg = {...chatConfig.getLocalConfig()}
       for (let i in this.strConfig) {
         if (this.strConfig[i] !== '') {
           cfg[i] = this.strConfig[i]
         }
       }
+      //* 若上次预设值有留空，则使用默认值
       cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
   
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
+
       cfg.showDanmaku = toBool(cfg.showDanmaku)
       cfg.showSuperchat = toBool(cfg.showSuperchat)
       cfg.showNewMember = toBool(cfg.showNewMember)
       cfg.showGift = toBool(cfg.showGift)
       cfg.showGiftInfo = toBool(cfg.showGiftInfo)
+
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
+
       cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
       cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
-      // TODO: 只显示翻译弹幕
+
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
       cfg.translationSign = cfg.translationSign.toString()
 
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
+
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
       cfg.blockLevel = toInt(cfg.blockLevel, chatConfig.DEFAULT_CONFIG.blockLevel)
       cfg.blockNewbie = toBool(cfg.blockNewbie)
@@ -104,6 +110,7 @@ export default {
       cfg.relayMessagesByServer = toBool(cfg.relayMessagesByServer)
       cfg.autoTranslate = toBool(cfg.autoTranslate)
 
+      // TODO: 使用home页面的config
       this.config = cfg
     },
     initChatClient() {
@@ -134,11 +141,13 @@ export default {
 
     onAddText(data) {
       if (!this.config.showDanmaku || !this.filterTextMessage(data) || this.mergeSimilarText(data.content)) {
+        // console.log("收到一般消息弹幕，但：是否显示弹幕为" + this.config.showDanmaku + "，是否合并弹幕为" + this.config.mergeSimilarDanmaku)
         return
       }
       if(this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
         if(content_str.charAt(0) != this.config.translationSign) {
+          // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
           return
         } else {
           data.content = "翻译：" + content_str.substring(1)
@@ -163,9 +172,11 @@ export default {
     },
     onAddGift(data) {
       if (!this.config.showGift) {
+        // console.log("收到礼物，但是否显示礼物为" + this.config.showGift)
         return
       }
       if(this.config.showTranslateDanmakuOnly) {
+        // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
       
@@ -193,11 +204,14 @@ export default {
     },
     onAddMember(data) {
       if (!this.config.showNewMember || !this.filterNewMemberMessage(data)) {
+        // console.log("收到上舰，但是否显示上舰信息为" + this.config.showNewMember)
         return
       }
       if(this.config.showTranslateDanmakuOnly) {
+        // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
+      let price = data.privilegeType == 3 ? 198 : data.privilegeType == 2 ? 1998 : 19998
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_MEMBER,
@@ -207,17 +221,21 @@ export default {
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
         title: data.authorName,
+        price: price
       }
       this.$refs.renderer.addMessage(message)
     },
     onAddSuperChat(data) {
       if (!this.config.showSuperchat || !this.filterSuperChatMessage(data)) {
+        // console.log("收到打赏(醒目留言SC)，但显示打赏(醒目留言SC)为" + this.config.showSuperchat)
         return
       }
       if (data.price < this.config.minGiftPrice) { // 丢人
+        // console.log("打赏小于最低打赏金额，不以显示")
         return
       }
       if(this.config.showTranslateDanmakuOnly) {
+        // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
 
