@@ -2,6 +2,7 @@
   <chat-renderer ref="renderer"  
   :showGiftInfo="config.showGiftInfo"
   :danmakuAtBottom="config.danmakuAtBottom" :tickerAtButtom="config.tickerAtButtom"
+  :showTranslateDanmakuOnly="config.showTranslateDanmakuOnly"
   :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
   :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :maxImage="config.maxImage" 
   >

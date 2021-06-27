@@ -19,6 +19,7 @@
                 :repeated="message.repeated" :maxImage="maxImage"
                 :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
                 :isDelete="message.isDelete"
+                :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -91,6 +92,10 @@ export default {
     tickerAtButtom: {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.tickerAtButtom
+    },
+    showTranslateDanmakuOnly: {
+      type: Boolean,
+      default: chatConfig.DEFAULT_CONFIG.showTranslateDanmakuOnly
     },
     minGiftPrice: {
       type: Number,

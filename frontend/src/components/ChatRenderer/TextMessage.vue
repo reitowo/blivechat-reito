@@ -36,7 +36,7 @@
             ></el-badge>
           </span>
           <!-- 用户自定的弹幕图片 -->
-          <div id="images" v-if="filter_danmu_pic.length != 0" >
+          <div id="images" v-if="!showTranslateDanmakuOnly && filter_danmu_pic.length != 0 " >
             <img v-for="(item, index) in filter_danmu_pic" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
           </div>
         </div>
@@ -98,6 +98,7 @@ export default {
     medalLevel: Number,
     isFanGroup: Boolean,
     isDelete: Boolean,
+    showTranslateDanmakuOnly: Boolean,
     content: String,
     privilegeType: Number,
     repeated: Number,
@@ -109,7 +110,6 @@ export default {
       let danmu_pic_filtered = this.danmu_pic.filter((pic) => {
         return this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)
       })
-      // myLog("挑选出的图片张数: " + danmu_pic_filtered.length)
       return danmu_pic_filtered.slice(0, this.maxImage)
     },
     timeText() {
