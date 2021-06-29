@@ -93,9 +93,9 @@ window.onload = function () {
   })
 }
 
-function myLog(msg) {
-  console.log(msg)
-}
+// function myLog(msg) {
+//   console.log(msg)
+// }
 function keyword_index_sort(a, b) {
   if (a.keyword_index < b.keyword_index) {
     return -1;

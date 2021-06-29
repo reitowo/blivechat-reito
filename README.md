@@ -1,14 +1,12 @@
 # 相比[原版blivechat](https://github.com/xfgryujk/blivechat)新增的功能
-## 自定义弹幕图片功能(适配样式生成器)
-1. [替换弹幕关键词文字版本](https://github.com/DoodleBears/blivechat) 
-2. [新增在弹幕文字后方版本](https://github.com/DoodleBears/blivechat/tree/add-danmu-image)
+## 自定义弹幕触发图片(适配样式生成器)
 
-![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/danmu_add_img.jpg) 
+![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmu_add_img.jpg) 
 
 1. 在 `/frontend/dist/static` 放置你需要的图片，并命名好
-2. 编辑在 `/frontend/dist`文件夹内的 `danmu_pic_old.json`
-
-![文件位置截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/danmu_file.jpg) 
+![图片文件位置截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmuImageFile.png) 
+2. 编辑在 `/frontend/dist`文件夹内的 `danmu_pic.json`
+![danmu_pic.json文件位置截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmu_file.png) 
 ### 如何设置
  
 ```json
@@ -25,7 +23,7 @@
 	2. `rank = 3` `舰长`以上包括`舰长`能用
 	3. `rank = 2` `提督`以上包括`提督`能用
 	4. `rank = 1` `总督`以上包括`总督`能用
-### 实例
+### [json文件实例](https://github.com/DoodleBears/blivechat/blob/doodle_bear/frontend/danmu_pic.json)
 ```json
 // 所有符号需采用英文符号
 // 关键词不能重复
@@ -39,20 +37,39 @@
     }	// 注意这里没有逗号
 ]
 ```
-### 表情包触发原理
-1. 检查弹幕内容里是否存在表情包的关键词
-2. 优先显示`.json`中**靠前**设置的关键词对应的表情包（假设最大图片数为2，触发10个关键词，优先显示json文件中靠前的2个）
-3. 最终只保留检测出的前`最大图片数`个表情包显示
+### 表情包触发机制
+![图片插入方式](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/imageShowType.png) 
+#### 1.替换表情包（无需符号）
+1. 检查弹幕内容里存在的表情包的关键词（且满足调用权限）
+2. 计算所有关键词在弹幕内容中的位置，并按顺序替换，直到达到 `最大图片数`
+
+如：`钱` 是关键词，若最大图片数为2，则当出现`钱钱钱` 这样的弹幕时，会把前两个钱变为图片 `[图片]钱[图片]钱[文字]钱`
+#### 2.替换表情包（需要符号）
+1. 用正则表达式以符号`【】[]“”`为标记切分弹幕内容字符串
+2. 判断符号闭合范围内关键词是否存在对应表情包（且满足调用权限）
+3. 有则替换，无则略过，超出 `最大图片数` 则略过后面关键词检测
+
+如：`钱` 是关键词，若最大图片数为2，则当出现`【钱】【钱】【钱】` 这样的弹幕时，会把前两个钱变为图片 `[图片]钱[图片]钱[文字]钱`
+#### 3.在文字消息后添加
+1. 检测弹幕内容字符串是否包含关键词（且满足调用权限），将所有触发表情筛选出来
+2. 超出 `最大图片数` 的部分删去
+3. 添加在弹幕消息后
+
+如：`钱` 是关键词，若最大图片数为2，则当出现`钱钱钱` 这样的弹幕时，会把前两个钱变为图片 `[文字]钱[文字]钱[文字]钱[图片]钱`
 ## 其他自定义设置
 
-![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/replace-danmu-image/screenshots/web-page-setting.jpg) 
+![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/web-page-setting.png) 
 
 ### 1.自定义分别显示不同弹幕
+![单独显示不同类型弹幕](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/showDifferentDanmaku.png) 
 1. 普通弹幕(Message)
 2. 醒目留言(Super Chat)
 3. 上舰信息(Member)
 4. 礼物信息(Gift)
 ### 2.最低显示打赏价格（RMB/CNY/元）
+
+![打赏弹幕显示的最低价格](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/leastSuperChat.png) 
+
 1. 最低打赏价格（元） —— 弹幕区域的最低价格
 2. 最低顶部停驻打赏价格（元） —— 顶部倒计时贴纸区域的最低价格
 
@@ -63,28 +80,37 @@
 
 设置为 0.1, 则只显示金瓜子礼物, 不显示银瓜子礼物
 
-### 3.最大图片数(表情包相关功能)
+### 3.图片插入方式 & 最大图片数(表情包相关功能)
+`图片插入方式` 包含上文提到的3种
 
-`弹幕关键词`转换为图片的最大数量（防止大量关键词出现时，图片刷屏）
+![图片插入方式](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/imageShowType.png) 
+
+`最大图片数` 即弹幕关键词转换为图片的最大数量（防止大量关键词出现时，图片刷屏）
 默认为2，可填入非负整数
 
 ### 4.粉丝牌子显示(适配样式生成器)
 
-![粉丝牌子设置](https://github.com/DoodleBears/blivechat/blob/replace-danmu-image/screenshots/fan-medal.jpg) 
+![粉丝牌子设置](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/fan-medal.jpg) 
 
 1. 自定义是否显示粉丝勋章
 2. 是否只显示直播主的直播间勋章
 3. 是否显示勋章名
 4. 是否显示勋章等级
 
+### 5.单独显示翻译弹幕
+
+![单独显示翻译弹幕](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/showOnlyTranslation.png) 
+
+适用于有实时翻译man在直播间的V，可以单独分离以特定符号开头的弹幕（然而现在B站自动录播会带弹幕，直播间和录播都可以看到翻译弹幕）
+
 # blivechat(以下为原文档)
 用于OBS的仿YouTube风格的bilibili直播评论栏
 
 最近喜欢看VTuber，想为此写些程序，于是有了这个东西。~~写到一半发现有类似项目了：[bilibili-live-chat](https://github.com/Tsuk1ko/bilibili-live-chat)、[BiliChat](https://github.com/3Shain/BiliChat)~~
 
-![OBS截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/obs.png)  
-![Chrome截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/chrome.png)  
-![样式生成器截图](https://github.com/DoodleBears/blivechat/blob/add-danmu-image/screenshots/stylegen.png)  
+![OBS截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/obs.png)  
+![Chrome截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/chrome.png)  
+![样式生成器截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/stylegen.png)  
 
 
 ## 特性
