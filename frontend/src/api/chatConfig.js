@@ -17,7 +17,7 @@ export const DEFAULT_CONFIG = {
   maxNumber: 30,
   fadeOutNum: 3,
 
-  imageShowType: 1,
+  imageShowType: 2,
   maxImage: 2,
 
   blockGiftDanmaku: true,
