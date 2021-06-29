@@ -1,3 +1,8 @@
+export const IMAGE_SHOW_TYPE_REPLACE_DIRECT = 0
+export const IMAGE_SHOW_TYPE_REPLACE = 1
+export const IMAGE_SHOW_TYPE_ADD_AFTER = 2
+
+
 export const AUTHRO_TYPE_NORMAL = 0
 export const AUTHRO_TYPE_MEMBER = 1
 export const AUTHRO_TYPE_ADMIN = 2

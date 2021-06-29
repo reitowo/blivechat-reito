@@ -34,8 +34,12 @@ export default {
     imageShowType: 'Way image show',
     imageShowTypes: [
       {
+        id: '0',
+        name: 'Replace the text without sign'
+      },
+      {
           id: '1',
-          name: 'Replace the text'
+          name: 'Replace the text with sign'
       },
       {
           id: '2',

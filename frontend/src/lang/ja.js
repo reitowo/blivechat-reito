@@ -34,8 +34,12 @@ export default {
     imageShowType: 'スタッフの表現方',
     imageShowTypes: [
       {
+        id: '0',
+        name: '文字を替わる(合図キャラクタ必要ない)'
+      },
+      {
           id: '1',
-          name: '文字を替わる'
+          name: '文字を替わる(合図キャラクタ必要)'
       },
       {
           id: '2',

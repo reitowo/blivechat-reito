@@ -110,3 +110,6 @@ data/*
 !data/config.example.ini
 log/*
 .eslint.js
+
+# macOS
+.DS_Store

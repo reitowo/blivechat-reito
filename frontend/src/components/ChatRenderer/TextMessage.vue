@@ -27,26 +27,36 @@
             ></author-badge>
           </span>
         </yt-live-chat-author-chip>
-         <div v-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <template v-for="(item, index) in contents"  >
-            <img :key="index" v-if="item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
+        <!-- 直接替换表情包 -->
+        <div v-if="imageShowType == 0" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <template v-for="(item, index) in replaceDanmuPicDirect"  >
+            <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
             <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
           </template>
           <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
             :style="{'--repeated-mark-color': repeatedMarkColor}"
           ></el-badge>
         </div>
+        <!-- 替换表情包 -->
+        <div v-else-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <template v-for="(item, index) in replaceDanmuPic"  >
+            <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
+            <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
+          </template>
+          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          ></el-badge>
+        </div>
+        <!-- 在文字后添加表情包 -->
         <div v-else-if="imageShowType == 2" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <!-- 合并弹幕数字 -->
           <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
             content
             }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
               :style="{'--repeated-mark-color': repeatedMarkColor}"
             ></el-badge>
           </span>
-          <!-- 用户自定的弹幕图片 -->
-          <template v-if="!showTranslateDanmakuOnly && filter_danmu_pic.length != 0 " >
-            <img v-for="(item, index) in filter_danmu_pic" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
+            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
           </template>
         </div>
        
@@ -83,9 +93,18 @@ window.onload = function () {
   })
 }
 
-// function myLog(msg) {
-//   console.log(msg)
-// }
+function myLog(msg) {
+  console.log(msg)
+}
+function keyword_index_sort(a, b) {
+  if (a.keyword_index < b.keyword_index) {
+    return -1;
+  }
+  if (a.keyword_index > b.keyword_index) {
+    return 1;
+  }
+  return 0
+}
 
 export default {
   name: 'TextMessage',
@@ -116,11 +135,88 @@ export default {
     maxImage: Number
   },
   computed: {
+    //* [无需符号直接替换文字为表情包] 
+    replaceDanmuPicDirect() {
+      // let str_arr = this.content
+      let render_arr = [] // 存切分后转换出的渲染data
+      let imageIncluded = []
+      // 找出弹幕中所有具有对应表情包的关键词，放入 imageIncluded
+      let index = 0
+      for(let pic of json) {
+        if(index >= this.maxImage) {
+          break
+        }
+        if(this.content.includes(pic.keyword) && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0)) {
+          imageIncluded.push(pic)
+          index++;
+        }
+      }
+      // myLog("所有的表情包")
+      // myLog(imageIncluded)
+      let render_index = 0
+      let start_index = 0
+      // 获取index
+      let image_arr = []
+      for(let pic of imageIncluded) {
+        start_index = 0
+        while(true) {
+          let keyword_index = this.content.indexOf(pic.keyword, start_index)
+          if(keyword_index == -1 || image_arr.length >= this.maxImage) {
+            break
+          }
+          start_index = keyword_index + pic.keyword.length
+          let temp_pic = {
+            keyword: pic.keyword,
+            image: pic.image,
+            height: pic.height,
+            keyword_index: keyword_index
+          }
+          image_arr.push(temp_pic)
+        }
+        if(image_arr.length >= this.maxImage) {
+          break
+        }
+      }
+      // 排序所有表情包，方便之后按顺序替换
+      image_arr.sort(keyword_index_sort)
+      // myLog(image_arr)
+
+      start_index = 0
+      for(let pic of image_arr) {
+        let keyword_index = pic.keyword_index
+        let keyword_length = pic.keyword.length
+        // 添加字符串片段
+        let str = this.content.substring(start_index, keyword_index)
+        if(str != '') {
+          render_arr[render_index] = {
+            type: 'text',
+            content : str
+          }
+          render_index++
+        }
+        render_arr[render_index] = {
+          type: 'image',
+          content : pic.image,
+          height : pic.height,
+        }
+        render_index++
+        // 添加图片片段
+        start_index = keyword_index + keyword_length
+      }
+      // 添加字符串片段
+      if(start_index != this.content.length) {
+        render_arr[render_index] = {
+          type: 'text',
+          content : this.content.substring(start_index, this.content.length)
+        }
+      }
+      return render_arr
+    },
     //* [在文字后添加表情包] 
-    filter_danmu_pic() {
+    addDanmuPicAfter() {
       let danmu_pic_filtered = [] // 存筛选出的图片
       let index = 0
-      for(let pic of this.danmu_pic) {
+      for(let pic of json) {
         if(index >= this.maxImage) {
           break
         }
@@ -129,10 +225,11 @@ export default {
           index++;
         }
       }
+      // myLog(danmu_pic_filtered)
       return danmu_pic_filtered
     },
     //* [用表情包替换文字] 
-    contents() {
+    replaceDanmuPic() {
       let str_arr = this.content.split(split_regex) // 切分原字段
       let render_arr = [] // 存切分后转换出的渲染data
       let index = 0
@@ -143,7 +240,7 @@ export default {
         if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && imageNumber < this.maxImage) {
           let haveImage = false
           // 分析关键词是否有对应的表情包
-          for(let pic of this.danmu_pic) {
+          for(let pic of json) {
             if(str_arr[i + 1] == pic.keyword && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0) ) {
               render_arr[index] = {
                 type: 'image',
@@ -175,6 +272,7 @@ export default {
         }
         index++
       }
+      // myLog(render_arr)
       return render_arr
     },
     timeText() {

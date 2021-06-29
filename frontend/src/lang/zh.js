@@ -35,8 +35,12 @@ export default {
     imageShowType: '图片插入方式',
     imageShowTypes: [
       {
+        id: '0',
+        name: '替换关键词(无需符号)'
+      },
+      {
           id: '1',
-          name: '替换关键词'
+          name: '替换关键词(需符号)'
       },
       {
           id: '2',
