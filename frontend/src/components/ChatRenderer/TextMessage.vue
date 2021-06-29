@@ -76,16 +76,16 @@ const split_regex = /(“|”|【|】|\[|\])/g
 let json
 // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
 window.onload = function () {
-  axios.get('/danmu_pic_old.json')
+  axios.get('/danmu_pic.json')
   .then((res) => {
     json = res.data
     console.log(json)
   })
 }
 
-function myLog(msg) {
-  console.log(msg)
-}
+// function myLog(msg) {
+//   console.log(msg)
+// }
 
 export default {
   name: 'TextMessage',
@@ -116,27 +116,23 @@ export default {
     maxImage: Number
   },
   computed: {
-    // 判断是否显示图片
+    //* [在文字后添加表情包] 
     filter_danmu_pic() {
-      let danmu_pic_filtered = [] // 存切分后转换出的渲染data
+      let danmu_pic_filtered = [] // 存筛选出的图片
       let index = 0
       for(let pic of this.danmu_pic) {
         if(index >= this.maxImage) {
           break
         }
         if(this.content.includes(pic.keyword) && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0)) {
-          myLog(pic.keyword)
           danmu_pic_filtered.push(pic)
           index++;
         }
       }
-      // let danmu_pic_filtered = this.danmu_pic.filter((pic) => {
-      //   return this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)
-      // })
       return danmu_pic_filtered
     },
+    //* [用表情包替换文字] 
     contents() {
-      // 使用正则表达式把原本的 content 中的[xx]换为渲染资讯
       let str_arr = this.content.split(split_regex) // 切分原字段
       let render_arr = [] // 存切分后转换出的渲染data
       let index = 0
@@ -146,6 +142,7 @@ export default {
       for(let i = 0; i < str_arr.length; i++) {
         if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && imageNumber < this.maxImage) {
           let haveImage = false
+          // 分析关键词是否有对应的表情包
           for(let pic of this.danmu_pic) {
             if(str_arr[i + 1] == pic.keyword && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0) ) {
               render_arr[index] = {
@@ -165,17 +162,17 @@ export default {
             i+=2
             continue
           }
-        } // 判断触发关键字
-        // 不存在触发的符号
+        }
         if(str_arr[i] == '【') {
           str_arr[i] = '['
         } else if (str_arr[i] == '】') {
           str_arr[i] = ']'
         } //未触发关键词的时候，将中文括号转为英文括号
+        // 如果关键词不具有对应表情包或超过最大图片显示上限，则视为文字
         render_arr[index] = {
           type: 'text',
           content : str_arr[i]
-        } // 非触发关键字or无权限使用表情包时渲染文字
+        }
         index++
       }
       return render_arr
