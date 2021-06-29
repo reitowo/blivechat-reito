@@ -101,6 +101,16 @@
                   <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.imageShowType')">
+                  <el-select ref="imageShowTypeInput" v-model="form.imageShowType">
+                    <el-option v-for="imageShowType in $t('home.imageShowTypes')" :key="imageShowType" v-bind:value="imageShowType.id">{{imageShowType.name}}
+                    </el-option> 
+                  </el-select>
+                </el-form-item>
+              </el-col>
               <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.maxImage')">
                   <el-input v-model.number="form.maxImage" type="number" min="2"></el-input>
@@ -212,6 +222,7 @@ export default {
         roomId: parseInt(window.localStorage.roomId || '1'),
         ...chatConfig.getLocalConfig()
       }
+      
     }
   },
   computed: {
@@ -233,7 +244,11 @@ export default {
   watch: {
     roomUrl: _.debounce(function() {
       window.localStorage.roomId = this.form.roomId
-      chatConfig.setLocalConfig(this.form)
+      // this.form.imageShowType.value = this.form.imageShowType.value.id
+      let real_form = this.form
+      // console.log(this.$refs.imageShowTypeInput.value)
+      // real_form.imageShowType.value = this.$refs.imageShowTypeInput.value
+      chatConfig.setLocalConfig(real_form)
     }, 500)
   },
   mounted() {

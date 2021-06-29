@@ -19,6 +19,7 @@
                 :repeated="message.repeated" :maxImage="maxImage"
                 :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
                 :isDelete="message.isDelete"
+                :imageShowType="imageShowType"
                 :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
@@ -112,6 +113,10 @@ export default {
     fadeOutNum: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.fadeOutNum
+    },
+    imageShowType: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.imageShowType
     },
     maxImage: {
       type: Number,

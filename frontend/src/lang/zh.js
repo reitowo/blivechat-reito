@@ -31,6 +31,18 @@ export default {
     minTickerPrice: '打赏停驻栏最低显示价格(元)',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
+
+    imageShowType: '图片插入方式',
+    imageShowTypes: [
+      {
+          id: '1',
+          name: '替换关键词'
+      },
+      {
+          id: '2',
+          name: '在文字消息后添加'
+      }
+    ],
     maxImage: '最大图片数',
 
     block: '屏蔽',

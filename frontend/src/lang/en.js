@@ -30,6 +30,18 @@ export default {
     minTickerPrice: 'Min price of on-top Super Chats to keep  (CNY)',
     maxNumber: 'Max number of messages',
     fadeOutNum: 'number of fade out message',
+    
+    imageShowType: 'Way image show',
+    imageShowTypes: [
+      {
+          id: '1',
+          name: 'Replace the text'
+      },
+      {
+          id: '2',
+          name: 'Add after message'
+      }
+    ],
     maxImage: 'Max number of　pictures',
 
     block: 'Block',

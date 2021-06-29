@@ -16,6 +16,8 @@ export const DEFAULT_CONFIG = {
   tickerAtButtom: false,
   maxNumber: 30,
   fadeOutNum: 3,
+
+  imageShowType: 1,
   maxImage: 2,
 
   blockGiftDanmaku: true,

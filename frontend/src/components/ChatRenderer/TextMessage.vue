@@ -27,7 +27,16 @@
             ></author-badge>
           </span>
         </yt-live-chat-author-chip>
-        <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+         <div v-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <template v-for="(item, index) in contents"  >
+            <img :key="index" v-if="item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
+            <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
+          </template>
+          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          ></el-badge>
+        </div>
+        <div v-else-if="imageShowType == 2" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <!-- 合并弹幕数字 -->
           <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
             content
@@ -36,10 +45,11 @@
             ></el-badge>
           </span>
           <!-- 用户自定的弹幕图片 -->
-          <div id="images" v-if="!showTranslateDanmakuOnly && filter_danmu_pic.length != 0 " >
+          <template v-if="!showTranslateDanmakuOnly && filter_danmu_pic.length != 0 " >
             <img v-for="(item, index) in filter_danmu_pic" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
-          </div>
+          </template>
         </div>
+       
       </div>
     </div>  
   </yt-live-chat-text-message-renderer>
@@ -62,7 +72,7 @@ const RANDOM_TEXT_COLOR_END = [360, 60.0, 75.0]
 const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
 const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
-// const split_regex = /(“|”|【|】|\[|\])/g
+const split_regex = /(“|”|【|】|\[|\])/g
 let json
 // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
 window.onload = function () {
@@ -73,9 +83,9 @@ window.onload = function () {
   })
 }
 
-// function myLog(msg) {
-//   console.log(msg)
-// }
+function myLog(msg) {
+  console.log(msg)
+}
 
 export default {
   name: 'TextMessage',
@@ -102,15 +112,73 @@ export default {
     content: String,
     privilegeType: Number,
     repeated: Number,
+    imageShowType: Number,
     maxImage: Number
   },
   computed: {
     // 判断是否显示图片
     filter_danmu_pic() {
-      let danmu_pic_filtered = this.danmu_pic.filter((pic) => {
-        return this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)
-      })
-      return danmu_pic_filtered.slice(0, this.maxImage)
+      let danmu_pic_filtered = [] // 存切分后转换出的渲染data
+      let index = 0
+      for(let pic of this.danmu_pic) {
+        if(index >= this.maxImage) {
+          break
+        }
+        if(this.content.includes(pic.keyword) && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0)) {
+          myLog(pic.keyword)
+          danmu_pic_filtered.push(pic)
+          index++;
+        }
+      }
+      // let danmu_pic_filtered = this.danmu_pic.filter((pic) => {
+      //   return this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)
+      // })
+      return danmu_pic_filtered
+    },
+    contents() {
+      // 使用正则表达式把原本的 content 中的[xx]换为渲染资讯
+      let str_arr = this.content.split(split_regex) // 切分原字段
+      let render_arr = [] // 存切分后转换出的渲染data
+      let index = 0
+      let imageNumber = 0
+      
+      // * 解析 split 出来的 string array
+      for(let i = 0; i < str_arr.length; i++) {
+        if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && imageNumber < this.maxImage) {
+          let haveImage = false
+          for(let pic of this.danmu_pic) {
+            if(str_arr[i + 1] == pic.keyword && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0) ) {
+              render_arr[index] = {
+                type: 'image',
+                content : pic.image,
+                height : pic.height,
+              }
+              haveImage = true
+              index++
+              imageNumber++
+            }
+            if(imageNumber >= this.maxImage) {
+              break
+            }
+          }
+          if(haveImage) {
+            i+=2
+            continue
+          }
+        } // 判断触发关键字
+        // 不存在触发的符号
+        if(str_arr[i] == '【') {
+          str_arr[i] = '['
+        } else if (str_arr[i] == '】') {
+          str_arr[i] = ']'
+        } //未触发关键词的时候，将中文括号转为英文括号
+        render_arr[index] = {
+          type: 'text',
+          content : str_arr[i]
+        } // 非触发关键字or无权限使用表情包时渲染文字
+        index++
+      }
+      return render_arr
     },
     timeText() {
       return utils.getTimeTextHourMin(this.time)

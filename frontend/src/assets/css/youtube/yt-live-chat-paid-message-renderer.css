@@ -290,7 +290,7 @@ yt-live-chat-paid-message-renderer[dashboard-money-feed] #author-name.yt-live-ch
 }
 
 yt-live-chat-paid-message-renderer[dashboard-money-feed] #author-name.yt-live-chat-paid-message-renderer[is-deleted].yt-live-chat-paid-message-renderer::before {
-  content: 'â€‹';
+  /* content: 'â€‹'; */
   display: inline;
   width: 0;
 }

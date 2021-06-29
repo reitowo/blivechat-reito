@@ -5,6 +5,7 @@
   :showTranslateDanmakuOnly="config.showTranslateDanmakuOnly"
   :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
   :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :maxImage="config.maxImage" 
+  :imageShowType="config.imageShowType"
   >
   </chat-renderer>
 </template>
@@ -101,6 +102,9 @@ export default {
 
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
+      
+      // TODO: 合并 replace 和 add 两个表情包版本
+      cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
 
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
@@ -111,7 +115,6 @@ export default {
       cfg.relayMessagesByServer = toBool(cfg.relayMessagesByServer)
       cfg.autoTranslate = toBool(cfg.autoTranslate)
 
-      // TODO: 使用home页面的config
       this.config = cfg
     },
     initChatClient() {

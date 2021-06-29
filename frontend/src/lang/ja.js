@@ -30,6 +30,18 @@ export default {
     minTickerPrice: '最低表示常駐Topスーパーチャット価格（CNY）',
     maxNumber: '最大コメント数',
     fadeOutNum: '消えるコメント数',
+
+    imageShowType: 'スタッフの表現方',
+    imageShowTypes: [
+      {
+          id: '1',
+          name: '文字を替わる'
+      },
+      {
+          id: '2',
+          name: 'コメントの後で付ける'
+      }
+    ],
     maxImage: '最大画像数',
 
     block: 'ブロック',
