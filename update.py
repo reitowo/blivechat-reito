@@ -5,7 +5,7 @@ import asyncio
 import aiohttp
 
 VERSION = 'v1.5.2'
-
+DOODLEBEAR_VERSION = 'v1.5.2-210630'
 
 def check_update():
     asyncio.ensure_future(_do_check_update())
@@ -18,7 +18,15 @@ async def _do_check_update():
                 data = await r.json()
                 if data['name'] != VERSION:
                     print('---------------------------------------------')
-                    print('New version available:', data['name'])
+                    print('Original blivechat has a new version available:', data['name'])
+                    print(data['body'])
+                    print('Download:', data['html_url'])
+                    print('---------------------------------------------')
+            async with session.get('https://api.github.com/repos/DoodleBears/blivechat/releases/latest') as r:
+                data = await r.json()
+                if data['name'] != DOODLEBEAR_VERSION:
+                    print('---------------------------------------------')
+                    print('只熊KUMA版 blivechat has a new version available:', data['name'])
                     print(data['body'])
                     print('Download:', data['html_url'])
                     print('---------------------------------------------')
