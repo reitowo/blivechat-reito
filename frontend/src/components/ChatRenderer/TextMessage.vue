@@ -146,7 +146,7 @@ export default {
         if(index >= this.maxImage) {
           break
         }
-        if(this.content.includes(pic.keyword) && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0)) {
+        if(this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)) {
           imageIncluded.push(pic)
           index++;
         }
@@ -220,7 +220,7 @@ export default {
         if(index >= this.maxImage) {
           break
         }
-        if(this.content.includes(pic.keyword) && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0)) {
+        if(this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)) {
           danmu_pic_filtered.push(pic)
           index++;
         }
@@ -241,7 +241,7 @@ export default {
           let haveImage = false
           // 分析关键词是否有对应的表情包
           for(let pic of json) {
-            if(str_arr[i + 1] == pic.keyword && ( (pic.privilegeType > 0 && pic.privilegeType <= pic.rank) || pic.rank == 0) ) {
+            if(str_arr[i + 1] == pic.keyword && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0) ) {
               render_arr[index] = {
                 type: 'image',
                 content : pic.image,
