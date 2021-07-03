@@ -101,6 +101,11 @@
                   <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
                 </el-form-item>
               </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.pinTime')">
+                  <el-input v-model.number="form.pinTime" type="number" min="1"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="8">
@@ -177,6 +182,21 @@
                 <el-radio label="kana">{{$t('home.kana')}}</el-radio>
               </el-radio-group>
             </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane :label="$t('home.testing')">
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.minDanmakuInterval')">
+                  <el-slider v-model="form.minDanmakuInterval" show-input :min="35" :max="5000"></el-slider>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.maxDanmakuInterval')">
+                  <el-slider v-model="form.maxDanmakuInterval" show-input :min="35" :max="5000"></el-slider>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            
           </el-tab-pane>
         </el-tabs>
       </el-form>

@@ -11,36 +11,40 @@
           <div ref="items" id="items" class="style-scope yt-live-chat-item-list-renderer" style="overflow: hidden"
             :style="{transform: `translateY(${Math.floor(scrollPixelsRemaining)}px)`}"
           >
-            <template v-for="message in messages">
-              <text-message :key="message.id" v-if="message.type === MESSAGE_TYPE_TEXT"
-                class="style-scope yt-live-chat-item-list-renderer"
-                :avatarUrl="message.avatarUrl" :time="message.time" :authorName="message.authorName"
-                :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
-                :repeated="message.repeated" :maxImage="maxImage"
-                :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
-                :isDelete="message.isDelete"
-                :imageShowType="imageShowType"
-                :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
-              ></text-message>
-              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
-                class="style-scope yt-live-chat-item-list-renderer"
-                :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getGiftShowContent(message)" :giftName="message.giftName"
-                :isDelete="message.isDelete"
-              ></paid-message>
-              <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
-                class="style-scope yt-live-chat-item-list-renderer"
-                :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)" :privilegeType="message.privilegeType"
-                :title="message.title" :time="message.time"
-                :isDelete="message.isDelete"
-              ></membership-item>
-              <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
-                class="style-scope yt-live-chat-item-list-renderer"
-                :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                :time="message.time" :content="getShowContent(message)" giftName="superchat"
-                :isDelete="message.isDelete"
-              ></paid-message>
-            </template>
+            <transition-group tag="div" :css="false" @leave="onMessageLeave"
+              id="chat-items" class="style-scope yt-live-chat-item-list-renderer"
+            >
+              <template v-for="message in messages">
+                <text-message :key="message.id" v-if="message.type === MESSAGE_TYPE_TEXT"
+                  class="style-scope yt-live-chat-item-list-renderer"
+                  :avatarUrl="message.avatarUrl" :time="message.time" :authorName="message.authorName"
+                  :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
+                  :repeated="message.repeated" :maxImage="maxImage"
+                  :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
+                  :isDelete="message.isDelete"
+                  :imageShowType="imageShowType"
+                  :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
+                ></text-message>
+                <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
+                  class="style-scope yt-live-chat-item-list-renderer"
+                  :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
+                  :time="message.time" :content="getGiftShowContent(message)" :giftName="message.giftName"
+                  :isDelete="message.isDelete"
+                ></paid-message>
+                <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
+                  class="style-scope yt-live-chat-item-list-renderer"
+                  :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)" :privilegeType="message.privilegeType"
+                  :title="message.title" :time="message.time"
+                  :isDelete="message.isDelete"
+                ></membership-item>
+                <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
+                  class="style-scope yt-live-chat-item-list-renderer"
+                  :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
+                  :time="message.time" :content="getShowContent(message)" giftName="superchat"
+                  :isDelete="message.isDelete"
+                ></paid-message>
+              </template>
+            </transition-group>
           </div>
         </div>
       </div>
@@ -110,6 +114,10 @@ export default {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.maxNumber
     },
+    pinTime: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.pinTime
+    },
     fadeOutNum: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.fadeOutNum
@@ -150,8 +158,10 @@ export default {
       smoothScrollRafHandle: null,         // 平滑滚动requestAnimationFrame句柄
       lastSmoothScrollUpdate: null,        // 平滑滚动上一帧时间
 
+      onLeave: false,                      // 判断消息是否正在出列，保证出列动画执行时无入列
       atBottom: true,                      // 滚动到底部，用来判断能否自动滚动
-      cantScrollStartTime: null            // 开始不能自动滚动的时间，用来防止卡住
+      cantScrollStartTime: null,           // 开始不能自动滚动的时间，用来防止卡住
+      updateTimerId: window.setInterval(this.updateProgress, 1000)
     }
   },
   computed: {
@@ -172,9 +182,57 @@ export default {
       window.clearTimeout(this.emitSmoothedMessageTimerId)
       this.emitSmoothedMessageTimerId = null
     }
+    window.clearInterval(this.updateTimerId)
     this.clearMessages()
   },
   methods: {
+    updateProgress() {
+      if(this.pinTime == 0) {
+        return
+      }
+      
+      this.curTime = new Date()
+      for (let i = 0; i < this.messages.length;) {
+        let message = this.messages[i]
+        if ((this.curTime - message.addTime) / (1000) >= this.pinTime) {
+          // console.log('删除消息')
+          this.messages.splice(i, 1)
+        } else {
+          i++
+        }
+      }
+    },
+    async onMessageLeave(el, done) {
+      let time_interval = this.estimatedEnqueueInterval;
+      let curTime = new Date()
+      
+      // console.log(curTime - this.lastEnqueueTime)
+      // console.log(time_interval)
+      el.classList.add('leaving')
+      if(time_interval < 1650 && curTime - this.lastEnqueueTime < 2000) {
+        // console.log('消息过快，省略动画')
+        done()
+        await this.$nextTick()
+        this.$refs.itemOffset.style.height = `${this.$refs.items.clientHeight}px`
+        return
+      }
+      this.onLeave = true
+
+      // 等 100ms 后执行
+      window.setTimeout(() =>  {
+        el.classList.add('collapsing')
+        done()
+        this.$refs.itemOffset.classList.add('collapsing')
+        this.$refs.itemOffset.style.height = `${this.$refs.items.clientHeight}px`
+        window.setTimeout(() => {
+          this.$refs.itemOffset.classList.remove('collapsing')
+          el.classList.remove('leaving')
+          el.classList.remove('collapsing')
+          this.onLeave = false
+
+        }, 200)
+      }, 100)
+    },
     getGiftShowContent(message) {
       return constants.getGiftShowContent(message, this.showGiftInfo)
     },
@@ -476,6 +534,11 @@ export default {
       if (this.messagesBuffer.length <= 0) {
         return
       }
+      if(this.onLeave) {
+        // console.log('删除动画进行中')
+        return
+      }
+
       if (!this.canScrollToBottomOrTimedOut()) {
         if (this.messagesBuffer.length > this.maxNumber) {
           // 未显示消息数 > 最大可显示数，丢弃
@@ -486,7 +549,7 @@ export default {
       
       // 当buffer和现存队列中的消息总数超过maxNumber（最大弹幕数的时候），给旧弹幕加上delete属性，让CSS做消失动画
       let deleteNum = Math.max(this.messages.length + this.messagesBuffer.length - this.maxNumber, 0)
-      if (deleteNum > 0) {
+      if (deleteNum > 0 && this.fadeOutNum > 0) {
         for(let i = 0; i < this.messages.length; i++) {
           if(i < deleteNum) {
             this.messages[i].isDelete = true;
@@ -504,17 +567,20 @@ export default {
       }
 
       this.preinsertHeight = this.$refs.items.clientHeight
+      
       for (let message of this.messagesBuffer) {
         this.messages.push(message)
       }
       this.messagesBuffer = []
       // 等items高度变化
       await this.$nextTick()
+      
       this.showNewMessages()
     },
     showNewMessages() {
       let hasScrollBar = this.$refs.items.clientHeight > this.$refs.scroller.clientHeight
       this.$refs.itemOffset.style.height = `${this.$refs.items.clientHeight}px`
+      
       if (!this.canScrollToBottomOrTimedOut() || !hasScrollBar) {
         return
       }
@@ -522,6 +588,8 @@ export default {
       // 计算剩余像素
       this.scrollPixelsRemaining += this.$refs.items.clientHeight - this.preinsertHeight
       this.scrollToBottom()
+
+      
 
       // 计算是否平滑滚动、剩余时间
       if (!this.lastSmoothChatMessageAddMs) {
@@ -544,6 +612,7 @@ export default {
         this.smoothScrollRafHandle = window.requestAnimationFrame(this.smoothScroll)
       }
       this.lastSmoothChatMessageAddMs = performance.now()
+
     },
     smoothScroll(time) {
       if (!this.lastSmoothScrollUpdate) {

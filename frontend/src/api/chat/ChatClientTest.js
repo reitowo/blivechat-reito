@@ -211,9 +211,9 @@ function randInt (min, max) {
 }
 
 export default class ChatClientTest {
-  constructor () {
-    this.minSleepTime = 400
-    this.maxSleepTime = 2000
+  constructor (minSleepTime , maxSleepTime) {
+    this.minSleepTime = minSleepTime
+    this.maxSleepTime = minSleepTime <= maxSleepTime ? maxSleepTime : minSleepTime
 
     this.onAddText = null
     this.onAddGift = null

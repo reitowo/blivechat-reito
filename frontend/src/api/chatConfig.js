@@ -16,6 +16,8 @@ export const DEFAULT_CONFIG = {
   tickerAtButtom: false,
   maxNumber: 30,
   fadeOutNum: 3,
+  pinTime: 0,
+
 
   imageShowType: 2,
   maxImage: 2,
@@ -27,6 +29,9 @@ export const DEFAULT_CONFIG = {
   blockKeywords: '',
   blockUsers: '',
   blockMedalLevel: 0,
+
+  minDanmakuInterval: 400,
+  maxDanmakuInterval: 1200,
 
   relayMessagesByServer: false,
   autoTranslate: false,

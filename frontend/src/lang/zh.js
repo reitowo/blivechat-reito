@@ -31,6 +31,7 @@ export default {
     minTickerPrice: '打赏停驻栏最低显示价格(元)',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
+    pinTime: '弹幕停留时长(为0时持续停留)',
 
     imageShowType: '图片插入方式',
     imageShowTypes: [
@@ -67,6 +68,11 @@ export default {
     pinyin: '拼音',
     kana: '日文假名',
 
+    testing: '测试',
+    minDanmakuInterval: '最小弹幕发送间隔',
+    maxDanmakuInterval: '最大弹幕发送间隔',
+
+
     roomUrl: '房间URL',
     copy: '复制',
     enterBilibili: '进入B站直播间',
@@ -84,7 +90,6 @@ export default {
     light: '明亮',
     dark: '黑暗',
 
-    // TODO: 全局设置
     global: '全局',
     danmakuAtBottom: '弹幕从底部出现',
     tickerAtButtom: '底部显示SC固定栏',

@@ -136,6 +136,7 @@ export default {
     getShowAuthorName: constants.getShowAuthorName,
     needToShow(message) {
       let pinTime = this.getPinTime(message)
+      // pinTime 对应的是 min，而 new Date() 对应的是 ms
       return (new Date() - message.addTime) / (60 * 1000) < pinTime
     },
     getBgColor(message) {

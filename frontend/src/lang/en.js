@@ -30,6 +30,7 @@ export default {
     minTickerPrice: 'Min price of on-top Super Chats to keep  (CNY)',
     maxNumber: 'Max number of messages',
     fadeOutNum: 'number of fade out message',
+    pinTime: 'message remain time(0 remain forever)',
     
     imageShowType: 'Way image show',
     imageShowTypes: [
@@ -65,6 +66,10 @@ export default {
     dontShow: 'None',
     pinyin: 'Pinyin',
     kana: 'Kana',
+
+    testing: 'Testing',
+    minDanmakuInterval: 'min interval of message sending',
+    maxDanmakuInterval: 'max interval of message sending',
 
     roomUrl: 'Room URL',
     copy: 'Copy',

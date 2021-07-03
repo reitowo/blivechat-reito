@@ -4,8 +4,8 @@
   :danmakuAtBottom="config.danmakuAtBottom" :tickerAtButtom="config.tickerAtButtom"
   :showTranslateDanmakuOnly="config.showTranslateDanmakuOnly"
   :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
-  :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :maxImage="config.maxImage" 
-  :imageShowType="config.imageShowType"
+  :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :pinTime="config.pinTime" 
+  :imageShowType="config.imageShowType" :maxImage="config.maxImage"
   >
   </chat-renderer>
 </template>
@@ -102,8 +102,8 @@ export default {
 
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
+      cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
       
-      // TODO: 合并 replace 和 add 两个表情包版本
       cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
 
@@ -115,11 +115,15 @@ export default {
       cfg.relayMessagesByServer = toBool(cfg.relayMessagesByServer)
       cfg.autoTranslate = toBool(cfg.autoTranslate)
 
+      cfg.minDanmakuInterval = toInt(cfg.minDanmakuInterval, chatConfig.DEFAULT_CONFIG.minDanmakuInterval)
+      cfg.maxDanmakuInterval = toInt(cfg.maxDanmakuInterval, chatConfig.DEFAULT_CONFIG.maxDanmakuInterval)
+
+
       this.config = cfg
     },
     initChatClient() {
       if (this.roomId === null) {
-        this.chatClient = new ChatClientTest()
+        this.chatClient = new ChatClientTest(this.config.minDanmakuInterval, this.config.maxDanmakuInterval)
       } else {
         if (!this.config.relayMessagesByServer) {
           this.chatClient = new ChatClientDirect(this.roomId)

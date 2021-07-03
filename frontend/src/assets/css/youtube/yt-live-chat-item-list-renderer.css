@@ -138,3 +138,35 @@ yt-live-chat-paid-sticker-renderer.yt-live-chat-item-list-renderer {
 yt-live-chat-paid-sticker-renderer.yt-live-chat-item-list-renderer[dashboard-money-feed] {
   padding: 8px 16px;
 }
+
+#item-offset.yt-live-chat-item-list-renderer.collapsing {
+  transition: height 0.2s ease-in-out;
+  /* transition: none; */
+}
+
+yt-live-chat-text-message-renderer.leaving {
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+yt-live-chat-text-message-renderer.collapsing {
+  transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+yt-live-chat-paid-message-renderer.leaving {
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+yt-live-chat-paid-message-renderer.collapsing {
+  transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+yt-live-chat-membership-item-renderer.leaving {
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+yt-live-chat-membership-item-renderer.collapsing {
+  transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
