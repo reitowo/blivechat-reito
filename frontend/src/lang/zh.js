@@ -20,7 +20,7 @@ export default {
     mergeSimilarDanmaku: '合并相似弹幕',
     mergeGift: '合并礼物',
 
-    danmakuAtBottom: '弹幕从底部出现',
+    danmakuAtBottom: '弹幕居下',
     tickerAtButtom: '底部显示SC固定栏',
 
     showTranslateDanmakuOnly: '只显示翻译弹幕',

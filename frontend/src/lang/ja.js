@@ -19,8 +19,10 @@ export default {
     showGiftInfo: 'ギフト内容を表示する',
     mergeSimilarDanmaku: '同じコメントを合併する',
     mergeGift: 'ギフトを合併する',
-    danmakuAtBottom: 'コメントを下から現れる',
+
+    danmakuAtBottom: 'コメントを下揃え',
     tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
+    
     showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
     translationSign: '翻訳コメントの合図キャラクタ',
     onlyOneCharacter: '一個キャラクタだけ、例：【',

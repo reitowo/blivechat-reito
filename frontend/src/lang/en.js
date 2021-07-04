@@ -19,7 +19,7 @@ export default {
     showGiftInfo: 'Show gift info',
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
-    danmakuAtBottom: 'Show messages at bottom',
+    danmakuAtBottom: 'Align messages to bottom',
     tickerAtButtom: 'Show on-top Super Chats at bottom',
 
     showTranslateDanmakuOnly: 'Show translation message only',
