@@ -2,6 +2,7 @@
   <yt-live-chat-text-message-renderer :style="{'--repeated-text-color': randomColor}" 
     :is-fan-group="isFanGroup" :medal-level="medalLevel" 
     :author-type="authorTypeText" :privilegeType="privilegeType"
+    :is-admin="authorType === 2"
     :is-deleted="isDelete"
     >
     <div id="card" class="style-scope yt-live-chat-text-message-renderer">
