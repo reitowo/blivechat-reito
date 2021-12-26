@@ -51,6 +51,13 @@ const CONTENTS = [
   '有一说一，这件事大家懂的都懂，不懂的，说了你也不明白，不如不说', '让我看看', '我柜子动了，我不玩了'
 ]
 
+
+const EMOTICONS = [
+  '/static/img/emoticons/233.png',
+  '/static/img/emoticons/miaoa.png',
+  '/static/img/emoticons/lipu.png'
+]
+
 const AUTHOR_TYPES = [
   {weight: 2, value: constants.AUTHRO_TYPE_NORMAL},
   {weight: 3, value: constants.AUTHRO_TYPE_MEMBER},
@@ -119,13 +126,38 @@ const MESSAGE_GENERATORS = [
           content: randomChoose(CONTENTS),
           isGiftDanmaku: randInt(1, 10) <= 1,
           authorLevel: randInt(0, 60),
-          isNewbie: randInt(1, 12) <= 1,
-          isMobileVerified: randInt(1, 12) <= 1,
+          isNewbie: randInt(1, 10) <= 1,
+          isMobileVerified: randInt(1, 10) <= 9,
           medalName: randomChoose(MEDAL_NAME),
           medalLevel: randInt(1, 40),
           isFanGroup: Boolean(Math.round(Math.random())),
           id: getUuid4Hex(),
-          translation: ''
+          translation: '',
+          emoticon: null
+        }
+      }
+    }
+  },
+  // 表情
+  {
+    weight: 5,
+    value() {
+      return {
+        type: constants.MESSAGE_TYPE_TEXT,
+        message: {
+          ...randGuardInfo(),
+          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          timestamp: new Date().getTime() / 1000,
+          authorName: randomChoose(NAMES),
+          content: '',
+          isGiftDanmaku: false,
+          authorLevel: randInt(0, 60),
+          isNewbie: randInt(1, 10) <= 1,
+          isMobileVerified: randInt(1, 10) <= 9,
+          medalLevel: randInt(0, 40),
+          id: getUuid4Hex(),
+          translation: '',
+          emoticon: randomChoose(EMOTICONS)
         }
       }
     }

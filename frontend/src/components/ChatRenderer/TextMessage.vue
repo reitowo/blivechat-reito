@@ -60,7 +60,21 @@
             <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
           </template>
         </div>
-       
+        <!-- FIXME: emoji -->
+        <div v-else-if="imageShowType == 3" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <!-- FIXME:-->
+          <template v-if="!emoticon">{{ content }}</template>
+          <img v-else class="small-emoji emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+            :src="emoticon" :alt="content" shared-tooltip-text="" id="emoji"
+          >
+          <!-- FIXME:-->
+          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          ></el-badge>
+          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
+            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+          </template>
+        </div>
       </div>
     </div>  
   </yt-live-chat-text-message-renderer>
@@ -129,6 +143,7 @@ export default {
     isFanGroup: Boolean,
     isDelete: Boolean,
     showTranslateDanmakuOnly: Boolean,
+    emoticon: String,
     content: String,
     privilegeType: Number,
     repeated: Number,

@@ -162,6 +162,9 @@
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.lineHeight')">
               <el-input v-model.number="form.messageLineHeight" type="number" min="0"></el-input>
+            <--FIXME: emoticonSize-->
+            <el-form-item :label="$t('stylegen.emoticonSize')">
+              <el-input v-model.number="form.emoticonSize" type="number" min="0"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -394,6 +397,8 @@ export const DEFAULT_CONFIG = {
   messageFontSize: 18,
   messageLineHeight: 0,
   messageColor: '#000000',
+  // FIXME: emoticonSize
+  emoticonSize: 18,
 
   showTime: false,
   timeFont: 'Noto Sans SC',
@@ -561,25 +566,35 @@ yt-live-chat-author-medal-renderer[is-fan-group] {
 }
 `
     },
+    // FIXME: #message 是否需要？
     messageStyle() {
       return `/* Messages */
 yt-live-chat-text-message-renderer #image-and-message,
-yt-live-chat-text-message-renderer #image-and-message * {
+yt-live-chat-text-message-renderer #image-and-message *,
+yt-live-chat-text-message-renderer #message,
+yt-live-chat-text-message-renderer #message * {
   ${this.form.messageColor ? `color: ${this.form.messageColor} !important;` : ''}
   font-family: "${common.cssEscapeStr(this.form.messageFont)}"${common.FALLBACK_FONTS};
   font-size: ${this.form.messageFontSize}px !important;
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }
 
-yt-live-chat-text-message-renderer #image-and-message {
+yt-live-chat-text-message-renderer #image-and-message,
+yt-live-chat-text-message-renderer #message {
   display: block !important;
   overflow: visible !important;
   padding: 20px;
   border-radius: 30px;
 }
 
+yt-live-chat-text-message-renderer #message img {
+  width: auto !important;
+  height: ${this.form.emoticonSize}px !important;
+}
+
 /* The triangle beside dialog */
-yt-live-chat-text-message-renderer #image-and-message::before {
+yt-live-chat-text-message-renderer #image-and-message::before,
+yt-live-chat-text-message-renderer #message::before {
   content: "";
   display: inline-block;
   position: absolute;
@@ -704,11 +719,12 @@ yt-live-chat-ticker-sponsor-item-renderer * {
         color = '#ffffff'
       }
       let typeSelector = authorType ? `[author-type="${authorType}"]` : ''
-      return `yt-live-chat-text-message-renderer${typeSelector} #image-and-message {
+      return `yt-live-chat-text-message-renderer${typeSelector} #image-and-message,
+  yt-live-chat-text-message-renderer${typeSelector} #message {
   background-color: ${color} !important;
 }
 
-yt-live-chat-text-message-renderer${typeSelector} #image-and-message::before {
+yt-live-chat-text-message-renderer${typeSelector} #message::before {
   border-right-color: ${color};
 }`
     }

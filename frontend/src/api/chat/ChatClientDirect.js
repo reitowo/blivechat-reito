@@ -276,7 +276,7 @@ export default class ChatClientDirect {
       authorType = 0
     }
 
-    let urank = info[2][5]
+
     let data = {
       avatarUrl: await avatar.getAvatarUrl(uid),
       timestamp: info[0][4] / 1000,
@@ -286,13 +286,14 @@ export default class ChatClientDirect {
       privilegeType: privilegeType,
       isGiftDanmaku: !!info[0][9],
       authorLevel: info[4][0],
-      isNewbie: urank < 10000,
+      isNewbie: info[2][5] < 10000,
       isMobileVerified: !!info[2][6],
       medalName: medalName,
       medalLevel: medalLevel,
       isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
-      translation: ''
+      translation: '',
+      emoticon: info[0][13].url || null // TODO 改成对象？
     }
     this.onAddText(data)
   }

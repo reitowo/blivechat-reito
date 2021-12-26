@@ -114,6 +114,7 @@ export default {
     memberColor: 'メンバーの色',
     showBadges: '勲章を見せる',
     showColon: 'ユーザー名の後にコロンが表示されます',
+    emoticonSize: 'スタンプサイズ',
 
     medal: 'ファン勲章',
     showMedal: 'ファン勲章を表示する',
