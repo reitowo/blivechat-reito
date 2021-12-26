@@ -51,7 +51,7 @@ const CONTENTS = [
   '有一说一，这件事大家懂的都懂，不懂的，说了你也不明白，不如不说', '让我看看', '我柜子动了，我不玩了'
 ]
 
-
+ // FIXME: EMOTICONS 本地表情包
 const EMOTICONS = [
   '/static/img/emoticons/233.png',
   '/static/img/emoticons/miaoa.png',

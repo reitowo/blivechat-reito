@@ -64,7 +64,7 @@
         <div v-else-if="imageShowType == 3" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <!-- FIXME:-->
           <template v-if="!emoticon">{{ content }}</template>
-          <img v-else class="small-emoji emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+          <img v-else class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
             :src="emoticon" :alt="content" shared-tooltip-text="" id="emoji"
           >
           <!-- FIXME:-->
