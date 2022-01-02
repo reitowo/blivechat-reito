@@ -137,6 +137,7 @@
 
 * 本地使用时不要关闭blivechat.exe那个黑框，否则不能继续获取头像或弹幕
 * 样式生成器没有列出所有本地字体，但是可以手动输入本地字体
+* 如果需要使用翻译功能，建议看[配置官方翻译接口傻瓜式教程](https://www.bilibili.com/read/cv14663633)
 
 ### 二、公共服务器
 请优先在本地使用，使用公共服务器会有更大的延迟，而且服务器故障时可能发生直播事故
@@ -189,7 +190,7 @@
 ### 参考nginx配置
 `sudo vim /etc/nginx/sites-enabled/blivechat.conf`
 
-```conf
+```nginx
 upstream blivechat {
 	keepalive 8;
 	# blivechat地址
