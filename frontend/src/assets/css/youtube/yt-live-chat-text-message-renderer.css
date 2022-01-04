@@ -169,7 +169,6 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   margin: 3px;
 }
 
-
 #image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
   width: var(--yt-live-chat-emoji-size);
 }
