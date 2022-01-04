@@ -172,6 +172,13 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
 
 #image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
   width: var(--yt-live-chat-emoji-size);
+}
+
+/* FIXME: CSS emoji 设定 */
+#message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
+  /* B站表情有不是正方形的 */
+  /* width: var(--yt-live-chat-emoji-size); */
+  width: auto;
   height: var(--yt-live-chat-emoji-size);
   margin: -1px 2px 1px 2px;
   vertical-align: middle;
