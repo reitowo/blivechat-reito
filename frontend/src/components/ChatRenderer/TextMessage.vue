@@ -316,7 +316,7 @@ export default {
         color = [0, 0, 0]
         let t = (this.repeated - 2) / (10 - 2)
         for (let i = 0; i < 3; i++) {
-          color[i] = REPEATED_MARK_COLOR_START[i] + (REPEATED_MARK_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t
+          color[i] = REPEATED_MARK_COLOR_START[i] + ((REPEATED_MARK_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t)
         }
       }
       return `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`

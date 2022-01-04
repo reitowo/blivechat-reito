@@ -17,7 +17,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.avatars')}}</h3>
+      <h3>{{ $t('stylegen.avatars') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -33,7 +33,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.userNames')}}</h3>
+      <h3>{{ $t('stylegen.userNames') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -139,7 +139,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.messages')}}</h3>
+      <h3>{{ $t('stylegen.messages') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -170,7 +170,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.time')}}</h3>
+      <h3>{{ $t('stylegen.time') }}</h3>
       <el-card shadow="never">
         <el-form-item :label="$t('stylegen.showTime')">
           <el-switch v-model="form.showTime"></el-switch>
@@ -201,7 +201,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.backgrounds')}}</h3>
+      <h3>{{ $t('stylegen.backgrounds') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -236,7 +236,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.scAndNewMember')}}</h3>
+      <h3>{{ $t('stylegen.scAndNewMember') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -315,7 +315,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.animation')}}</h3>
+      <h3>{{ $t('stylegen.animation') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -366,7 +366,7 @@ import _ from 'lodash'
 
 import FontSelect from './FontSelect'
 import * as common from './common'
-import {mergeConfig} from '@/utils'
+import { mergeConfig } from '@/utils'
 
 export const DEFAULT_CONFIG = {
   danmakuAtBottom: false,
@@ -598,8 +598,8 @@ yt-live-chat-text-message-renderer #message::before {
   content: "";
   display: inline-block;
   position: absolute;
-  top: ${this.form.showUserNames ? ((this.form.userNameLineHeight || this.form.userNameFontSize) + 10) : 20}px;
-  left: ${this.form.showAvatars ? (this.form.avatarSize + this.form.avatarSize / 4 - 8) : -8}px;
+  top: ${this.form.showUserNames ? (this.form.userNameLineHeight || this.form.userNameFontSize) + 10 : 20}px;
+  left: ${this.form.showAvatars ? this.form.avatarSize + (this.form.avatarSize / 4) - 8 : -8}px;
   border: 8px solid transparent;
   border-right: 18px solid;
   transform: rotate(35deg);
@@ -707,11 +707,11 @@ yt-live-chat-ticker-sponsor-item-renderer * {
       try {
         return mergeConfig(JSON.parse(window.localStorage.stylegenLineLikeConfig), DEFAULT_CONFIG)
       } catch {
-        return {...DEFAULT_CONFIG}
+        return { ...DEFAULT_CONFIG }
       }
     },
     resetConfig() {
-      this.form = {...DEFAULT_CONFIG}
+      this.form = { ...DEFAULT_CONFIG }
     },
 
     getBgStyleForAuthorType(authorType, color) {

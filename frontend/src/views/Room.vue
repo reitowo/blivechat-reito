@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      config: {...chatConfig.DEFAULT_CONFIG},
+      config: { ...chatConfig.DEFAULT_CONFIG },
       chatClient: null,
       pronunciationConverter: null
     }
@@ -269,7 +269,7 @@ export default {
       if (!this.config.autoTranslate) {
         return
       }
-      this.$refs.renderer.updateMessage(data.id, {translation: data.translation})
+      this.$refs.renderer.updateMessage(data.id, { translation: data.translation })
     },
 
     filterTextMessage(data) {

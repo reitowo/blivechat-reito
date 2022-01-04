@@ -22,13 +22,11 @@
             <div id="author-name" class="style-scope yt-live-chat-paid-message-renderer">{{authorName}}</div>
             <div id="purchase-amount" class="style-scope yt-live-chat-paid-message-renderer">{{priceText == '银瓜子礼物'? content : priceText}}</div>
           </div>
-          <span id="timestamp" class="style-scope yt-live-chat-paid-message-renderer">{{timeText}}</span>
+          <span id="timestamp" class="style-scope yt-live-chat-paid-message-renderer">{{ timeText }}</span>
         </div>
       </div>
       <div id="content" class="style-scope yt-live-chat-paid-message-renderer">
-        <div id="message" dir="auto" class="style-scope yt-live-chat-paid-message-renderer">{{
-          content
-        }}</div>
+        <div id="message" dir="auto" class="style-scope yt-live-chat-paid-message-renderer">{{ content }}</div>
       </div>
     </div>
   </yt-live-chat-paid-message-renderer>

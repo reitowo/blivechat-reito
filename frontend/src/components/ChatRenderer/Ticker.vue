@@ -47,7 +47,7 @@
 
 <script>
 import * as chatConfig from '@/api/chatConfig'
-import {formatCurrency} from '@/utils'
+import { formatCurrency } from '@/utils'
 import ImgShadow from './ImgShadow.vue'
 import MembershipItem from './MembershipItem.vue'
 import PaidMessage from './PaidMessage.vue'
@@ -150,7 +150,7 @@ export default {
         color2 = config.colors.headerBg
       }
       let pinTime = this.getPinTime(message)
-      let progress = (1 - (this.curTime - message.addTime) / (60 * 1000) / pinTime) * 100
+      let progress = (1 - ((this.curTime - message.addTime) / (60 * 1000) / pinTime)) * 100
       if (progress < 0) {
         progress = 0
       } else if (progress > 100) {
@@ -168,7 +168,7 @@ export default {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
         return ''
       }
-      return 'CN¥' + formatCurrency(message.price)
+      return `CN¥${formatCurrency(message.price)}`
     },
     getPinTime(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {

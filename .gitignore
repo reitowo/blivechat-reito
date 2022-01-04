@@ -116,3 +116,6 @@ log/*
 
 # IDE
 .vscode/
+
+# Others
+.history

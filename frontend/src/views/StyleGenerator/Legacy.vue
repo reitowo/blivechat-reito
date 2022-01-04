@@ -17,7 +17,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.outlines')}}</h3>
+      <h3>{{ $t('stylegen.outlines') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -36,7 +36,7 @@
         </el-form-item>
       </el-card>
 
-      <h3>{{$t('stylegen.avatars')}}</h3>
+      <h3>{{ $t('stylegen.avatars') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -52,7 +52,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.userNames')}}</h3>
+      <h3>{{ $t('stylegen.userNames') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -163,7 +163,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.messages')}}</h3>
+      <h3>{{ $t('stylegen.messages') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -202,7 +202,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.time')}}</h3>
+      <h3>{{ $t('stylegen.time') }}</h3>
       <el-card shadow="never">
         <el-form-item :label="$t('stylegen.showTime')">
           <el-switch v-model="form.showTime"></el-switch>
@@ -233,7 +233,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.backgrounds')}}</h3>
+      <h3>{{ $t('stylegen.backgrounds') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -273,7 +273,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.scAndNewMember')}}</h3>
+      <h3>{{ $t('stylegen.scAndNewMember') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -370,7 +370,7 @@
         </el-row>
       </el-card>
 
-      <h3>{{$t('stylegen.animation')}}</h3>
+      <h3>{{ $t('stylegen.animation') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -421,7 +421,7 @@ import _ from 'lodash'
 
 import FontSelect from './FontSelect'
 import * as common from './common'
-import {mergeConfig} from '@/utils'
+import { mergeConfig } from '@/utils'
 
 export const DEFAULT_CONFIG = {
   danmakuAtBottom: false,
@@ -575,7 +575,7 @@ yt-live-chat-renderer * {
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }`
     },
-    showOutlinesStyle () {
+    showOutlinesStyle() {
       if (!this.form.showOutlines || !this.form.outlineSize) {
         return ''
       }
@@ -789,11 +789,11 @@ yt-live-chat-ticker-sponsor-item-renderer * {
       try {
         return mergeConfig(JSON.parse(window.localStorage.stylegenConfig), DEFAULT_CONFIG)
       } catch {
-        return {...DEFAULT_CONFIG}
+        return { ...DEFAULT_CONFIG }
       }
     },
     resetConfig() {
-      this.form = {...DEFAULT_CONFIG}
+      this.form = { ...DEFAULT_CONFIG }
     },
 
     getBgStyleForAuthorType(authorType, color) {
