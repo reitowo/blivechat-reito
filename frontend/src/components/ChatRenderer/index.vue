@@ -5,6 +5,8 @@
     :ticker-at-buttom="tickerAtButtom"
   >
     <ticker class="style-scope yt-live-chat-renderer" :messages="paidMessages" :showGiftInfo="showGiftInfo"></ticker>
+    <!--FIXME: showGiftName 和 showGiftInfo 的命名选择-->
+    <!--<ticker class="style-scope yt-live-chat-renderer" :messages.sync="paidMessages" :showGiftName="showGiftName"></ticker>-->
     <yt-live-chat-item-list-renderer class="style-scope yt-live-chat-renderer" allow-scroll>
       <div ref="scroller" id="item-scroller" class="style-scope yt-live-chat-item-list-renderer animated" @scroll="onScroll">
         <div ref="itemOffset" id="item-offset" class="style-scope yt-live-chat-item-list-renderer" style="height: 0px;">
