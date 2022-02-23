@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import ImgShadow from './ImgShadow.vue'
-import AuthorMedal from './AuthorMedal.vue'
-import AuthorBadge from './AuthorBadge.vue'
+import ImgShadow from './ImgShadow'
+import AuthorMedal from './AuthorMedal'
+import AuthorBadge from './AuthorBadge'
 import * as constants from './constants'
 import * as utils from '@/utils'
 import axios from 'axios'
@@ -343,4 +343,3 @@ yt-live-chat-text-message-renderer>#content .el-badge .el-badge__content {
 </style>
 
 <style src="@/assets/css/youtube/yt-live-chat-text-message-renderer.css"></style>
-<style src="@/assets/css/youtube/yt-live-chat-author-chip.css"></style>
