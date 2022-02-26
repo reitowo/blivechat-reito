@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import * as i18n from '@/i18n'
 import {mergeConfig, toBool, toInt, toFloat} from '@/utils'
 import * as pronunciation from '@/utils/pronunciation'
 import * as chatConfig from '@/api/chatConfig'
@@ -71,8 +72,12 @@ export default {
   },
   methods: {
     initConfig() {
-      // console.log("初始化config")
-      //* 留空的使用上次预设值
+      let locale = this.strConfig.lang
+      if (locale) {
+        i18n.setLocale(locale)
+      }
+
+      //* {} 内留空的使用上次预设值
       let cfg = {...chatConfig.getLocalConfig()}
       for (let i in this.strConfig) {
         if (this.strConfig[i] !== '') {
@@ -230,6 +235,7 @@ export default {
         privilegeType: data.privilegeType,
         title: data.authorName,
         price: price
+        title: this.$t('chat.membershipTitle')
       }
       this.$refs.renderer.addMessage(message)
     },

@@ -166,7 +166,7 @@ export default {
     },
     getText(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
-        return ''
+        return this.$t('chat.tickerMembership')
       }
       return `CN¥${formatCurrency(message.price)}`
     },
