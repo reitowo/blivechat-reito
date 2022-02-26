@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      config: { ...chatConfig.DEFAULT_CONFIG },
+      config: chatConfig.deepCloneDefaultConfig(),
       chatClient: null,
       pronunciationConverter: null
     }
@@ -85,7 +85,9 @@ export default {
         }
       }
       //* 若上次预设值有留空，则使用默认值
-      cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
+      // FIXME: 下方注释为旧版本
+      // cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
+      cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
   
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
@@ -108,23 +110,35 @@ export default {
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
-      
       cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
+
 
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
       cfg.blockLevel = toInt(cfg.blockLevel, chatConfig.DEFAULT_CONFIG.blockLevel)
       cfg.blockNewbie = toBool(cfg.blockNewbie)
       cfg.blockNotMobileVerified = toBool(cfg.blockNotMobileVerified)
       cfg.blockMedalLevel = toInt(cfg.blockMedalLevel, chatConfig.DEFAULT_CONFIG.blockMedalLevel)
+
       cfg.relayMessagesByServer = toBool(cfg.relayMessagesByServer)
       cfg.autoTranslate = toBool(cfg.autoTranslate)
+      cfg.emoticons = this.toObjIfJson(cfg.emoticons)
 
       cfg.minDanmakuInterval = toInt(cfg.minDanmakuInterval, chatConfig.DEFAULT_CONFIG.minDanmakuInterval)
       cfg.maxDanmakuInterval = toInt(cfg.maxDanmakuInterval, chatConfig.DEFAULT_CONFIG.maxDanmakuInterval)
-
-
+      
+      chatConfig.sanitizeConfig(cfg)
       this.config = cfg
+    },
+    toObjIfJson(str) {
+      if (typeof str !== 'string') {
+        return str
+      }
+      try {
+        return JSON.parse(str)
+      } catch {
+        return {}
+      }
     },
     initChatClient() {
       if (this.roomId === null) {
@@ -267,9 +281,7 @@ export default {
       this.$refs.renderer.addMessage(message)
     },
     onDelSuperChat(data) {
-      for (let id of data.ids) {
-        this.$refs.renderer.delMessage(id)
-      }
+      this.$refs.renderer.delMessages(data.ids)
     },
     onUpdateTranslation(data) {
       if (!this.config.autoTranslate) {
@@ -290,19 +302,25 @@ export default {
       } else if (this.config.blockMedalLevel > 0 && data.medalLevel < this.config.blockMedalLevel) {
         return false
       }
-      return this.filterSuperChatMessage(data)
+      return this.filterByContent(data.content) && this.filterByAuthorName(data.authorName)
     },
     filterSuperChatMessage(data) {
+      return this.filterByContent(data.content) && this.filterByAuthorName(data.authorName)
+    },
+    filterNewMemberMessage(data) {
+      return this.filterByAuthorName(data.authorName)
+    },
+    filterByContent(content) {
       for (let keyword of this.blockKeywords) {
-        if (data.content.indexOf(keyword) !== -1) {
+        if (content.indexOf(keyword) !== -1) {
           return false
         }
       }
-      return this.filterNewMemberMessage(data)
+      return true
     },
-    filterNewMemberMessage(data) {
+    filterByAuthorName(authorName) {
       for (let user of this.blockUsers) {
-        if (data.authorName === user) {
+        if (authorName === user) {
           return false
         }
       }
