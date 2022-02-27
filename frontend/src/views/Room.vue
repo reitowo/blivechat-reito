@@ -12,7 +12,8 @@
 
 <script>
 import * as i18n from '@/i18n'
-import {mergeConfig, toBool, toInt, toFloat} from '@/utils'
+import { mergeConfig, toBool, toInt, toFloat} from '@/utils'
+import * as trie from '@/utils/trie'
 import * as pronunciation from '@/utils/pronunciation'
 import * as chatConfig from '@/api/chatConfig'
 import ChatClientTest from '@/api/chat/ChatClientTest'
@@ -44,11 +45,34 @@ export default {
     }
   },
   computed: {
-    blockKeywords() {
-      return this.config.blockKeywords.split('\n').filter(val => val)
+    blockKeywordsTrie() {
+      let blockKeywords = this.config.blockKeywords.split('\n')
+      let res = new trie.Trie()
+      for (let keyword of blockKeywords) {
+        if (keyword !== '') {
+          res.set(keyword, true)
+        }
+      }
+      return res
     },
-    blockUsers() {
-      return this.config.blockUsers.split('\n').filter(val => val)
+    blockUsersTrie() {
+      let blockUsers = this.config.blockUsers.split('\n')
+      let res = new trie.Trie()
+      for (let user of blockUsers) {
+        if (user !== '') {
+          res.set(user, true)
+        }
+      }
+      return res
+    },
+    emoticonsTrie() {
+      let res = new trie.Trie()
+      for (let emoticon of this.config.emoticons) {
+        if (emoticon.keyword !== '' && emoticon.url !== '') {
+          res.set(emoticon.keyword, emoticon)
+        }
+      }
+      return res
     }
   },
   mounted() {
@@ -180,6 +204,7 @@ export default {
           data.content = "翻译：" + content_str.substring(1)
         }
       }
+      // TODO: richContent 的研究
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_TEXT,
@@ -188,6 +213,7 @@ export default {
         authorName: data.authorName,
         authorType: data.authorType,
         content: data.content,
+        richContent: this.getRichContent(data),
         privilegeType: data.privilegeType,
         medalName: data.medalName,
         medalLevel: data.medalLevel,
@@ -311,20 +337,17 @@ export default {
       return this.filterByAuthorName(data.authorName)
     },
     filterByContent(content) {
-      for (let keyword of this.blockKeywords) {
-        if (content.indexOf(keyword) !== -1) {
+      let blockKeywordsTrie = this.blockKeywordsTrie
+      for (let i = 0; i < content.length; i++) {
+        let remainContent = content.substring(i)
+        if (blockKeywordsTrie.greedyMatch(remainContent) !== null) {
           return false
         }
       }
       return true
     },
     filterByAuthorName(authorName) {
-      for (let user of this.blockUsers) {
-        if (authorName === user) {
-          return false
-        }
-      }
-      return true
+      return !this.blockUsersTrie.has(authorName)
     },
     mergeSimilarText(content) {
       if (!this.config.mergeSimilarDanmaku) {
@@ -343,6 +366,66 @@ export default {
         return ''
       }
       return this.pronunciationConverter.getPronunciation(text)
+    },
+    getRichContent(data) {
+      let richContent = []
+
+      // B站官方表情
+      if (data.emoticon !== null) {
+        richContent.push({
+          type: constants.CONTENT_TYPE_IMAGE,
+          text: data.content,
+          url: data.emoticon
+        })
+        return richContent
+      }
+
+      // 没有自定义表情，只能是文本
+      if (this.config.emoticons.length === 0) {
+        richContent.push({
+          type: constants.CONTENT_TYPE_TEXT,
+          text: data.content
+        })
+        return richContent
+      }
+
+      // 可能含有自定义表情，需要解析
+      let emoticonsTrie = this.emoticonsTrie
+      let startPos = 0
+      let pos = 0
+      while (pos < data.content.length) {
+        let remainContent = data.content.substring(pos)
+        let matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
+        if (matchEmoticon === null) {
+          pos++
+          continue
+        }
+
+        // 加入之前的文本
+        if (pos !== startPos) {
+          richContent.push({
+            type: constants.CONTENT_TYPE_TEXT,
+            text: data.content.slice(startPos, pos)
+          })
+        }
+
+        // 加入表情
+        richContent.push({
+          type: constants.CONTENT_TYPE_IMAGE,
+          text: matchEmoticon.keyword,
+          url: matchEmoticon.url
+        })
+        pos += matchEmoticon.keyword.length
+        startPos = pos
+      }
+      // 加入尾部的文本
+      if (pos !== startPos) {
+        richContent.push({
+          type: constants.CONTENT_TYPE_TEXT,
+          text: data.content.slice(startPos, pos)
+        })
+      }
+      return richContent
     }
   }
 }

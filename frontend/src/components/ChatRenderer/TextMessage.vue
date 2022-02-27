@@ -34,8 +34,8 @@
             <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
             <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
           </template>
-          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{ '--repeated-mark-color': repeatedMarkColor }"
           ></el-badge>
         </div>
         <!-- 替换表情包 -->
@@ -44,8 +44,8 @@
             <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
             <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
           </template>
-          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{ '--repeated-mark-color': repeatedMarkColor }"
           ></el-badge>
         </div>
         <!-- 在文字后添加表情包 -->
@@ -60,16 +60,18 @@
             <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
           </template>
         </div>
-        <!-- FIXME: emoji -->
+        <!-- FIXME: emoji richContent 渲染-->
         <div v-else-if="imageShowType == 3" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <!-- FIXME:-->
-          <template v-if="!emoticon">{{ content }}</template>
-          <img v-else class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
-            :src="emoticon" :alt="content" shared-tooltip-text="" id="emoji"
-          >
-          <!-- FIXME:-->
-          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{'--repeated-mark-color': repeatedMarkColor}"
+          <!-- FIXME: richContent 渲染-->
+          <template v-for="(content, index) in richContent">
+            <span :key="index" v-if="content.type === CONTENT_TYPE_TEXT">{{ content.text }}</span>
+            <img :key="index" v-else-if="content.type === CONTENT_TYPE_IMAGE"
+              class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+              :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
+            >
+          </template>
+          <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+            :style="{ '--repeated-mark-color': repeatedMarkColor }"
           ></el-badge>
           <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
             <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
@@ -145,10 +147,17 @@ export default {
     showTranslateDanmakuOnly: Boolean,
     emoticon: String,
     content: String,
+    richContent: Array,
     privilegeType: Number,
     repeated: Number,
     imageShowType: Number,
     maxImage: Number
+  },
+  data() {
+    return {
+      CONTENT_TYPE_TEXT: constants.CONTENT_TYPE_TEXT,
+      CONTENT_TYPE_IMAGE: constants.CONTENT_TYPE_IMAGE
+    }
   },
   computed: {
     //* [无需符号直接替换文字为表情包] 

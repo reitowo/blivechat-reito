@@ -341,7 +341,7 @@ export default class ChatClientDirect {
       isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
       translation: '',
-      emoticon: info[0][13].url || null // TODO 改成对象？
+      emoticon: info[0][13].url || null
     }
     this.onAddText(data)
   }

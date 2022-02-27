@@ -72,10 +72,16 @@ export default {
     minDanmakuInterval: '最小弹幕发送间隔',
     maxDanmakuInterval: '最大弹幕发送间隔',
 
+    emoticon: '自定义表情',
+    emoticonKeyword: '替换关键词',
+    emoticonUrl: 'URL',
+    operation: '操作',
+    addEmoticon: '添加表情',
 
     roomUrl: '房间URL',
     copy: '复制',
     enterBilibili: '进入B站直播间',
+
     enterRoom: '进入房间',
     enterTestRoom: '进入测试房间',
     exportConfig: '导出配置',

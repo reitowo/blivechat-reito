@@ -183,6 +183,32 @@
               </el-radio-group>
             </el-form-item>
           </el-tab-pane>
+          <!--TODO: home.emoticon 前端上传图片tab处-->
+          <el-tab-pane :label="$t('home.emoticon')">
+            <el-table :data="form.emoticons">
+              <el-table-column prop="keyword" :label="$t('home.emoticonKeyword')" width="170">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.keyword"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column prop="url" :label="$t('home.emoticonUrl')">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.url"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('home.operation')" width="170">
+                <template slot-scope="scope">
+                  <el-button-group>
+                    <el-button type="primary" icon="el-icon-upload2" disabled @click="uploadEmoticon(scope.row)"></el-button>
+                    <el-button type="danger" icon="el-icon-minus" @click="delEmoticon(scope.$index)"></el-button>
+                  </el-button-group>
+                </template>
+              </el-table-column>
+            </el-table>
+            <p>
+              <el-button type="primary" icon="el-icon-plus" @click="addEmoticon">{{$t('home.addEmoticon')}}</el-button>
+            </p>
+          </el-tab-pane>
           <el-tab-pane :label="$t('home.testing')">
             <el-row :gutter="20">
               <el-col :xs="24" :sm="12">
@@ -196,7 +222,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -207,12 +232,12 @@
         <el-form :model="form" label-width="150px">
           <el-form-item :label="$t('home.roomUrl')">
             <el-input ref="roomUrlInput" readonly :value="obsRoomUrl" style="width: calc(100% - 8em); margin-right: 1em;"></el-input>
-            <el-button type="primary" @click="copyUrl">{{$t('home.copy')}}</el-button>
+            <el-button type="primary" icon="el-icon-copy-document" @click="copyUrl"></el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="enterBilibili">{{$t('home.enterBilibili')}}</el-button>
             <el-button type="primary" :disabled="!roomUrl" @click="enterRoom">{{$t('home.enterRoom')}}</el-button>
-            <el-button :disabled="!roomUrl" @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
+            <el-button @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
             <el-button @click="exportConfig">{{$t('home.exportConfig')}}</el-button>
             <el-button @click="importConfig">{{$t('home.importConfig')}}</el-button>
           </el-form-item>
@@ -282,9 +307,25 @@ export default {
         this.$message.error(`Failed to fetch server information: ${e}`)
       }
     },
+
     enterBilibili() {
       window.open(`https://live.bilibili.com/${this.form.roomId}`, '_blank')
     },
+
+    addEmoticon() {
+      // TODO: 增加图片大小
+      this.form.emoticons.push({
+        keyword: '[Kappa]',
+        url: ''
+      })
+    },
+    delEmoticon(index) {
+      this.form.emoticons.splice(index, 1)
+    },
+    uploadEmoticon() {
+      // TODO WIP
+    },
+
     enterRoom() {
       window.open(this.roomUrl, `room ${this.form.roomId}`, 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
     },
@@ -292,7 +333,7 @@ export default {
       window.open(this.getRoomUrl(true), 'test room', 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
     },
     getRoomUrl(isTestRoom) {
-      if (isTestRoom && this.form.roomId === '') {
+      if (!isTestRoom && this.form.roomId === '') {
         return ''
       }
 

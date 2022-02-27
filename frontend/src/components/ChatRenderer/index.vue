@@ -19,30 +19,49 @@
               <template v-for="message in messages">
                 <text-message :key="message.id" v-if="message.type === MESSAGE_TYPE_TEXT"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :avatarUrl="message.avatarUrl" :time="message.time" :authorName="message.authorName"
-                  :authorType="message.authorType" :content="getShowContent(message)" :privilegeType="message.privilegeType"
-                  :repeated="message.repeated" :maxImage="maxImage"
-                  :medalName="message.medalName" :medalLevel="message.medalLevel" :isFanGroup="message.isFanGroup"
+                  :time="message.time"
+                  :avatarUrl="message.avatarUrl"
+                  :authorName="message.authorName"
+                  :authorType="message.authorType"
+                  :content="getShowContent(message)"
+                  :privilegeType="message.privilegeType"
+                  :repeated="message.repeated"
+                  :maxImage="maxImage"
+                  :medalName="message.medalName"
+                  :medalLevel="message.medalLevel"
+                  :isFanGroup="message.isFanGroup"
                   :isDelete="message.isDelete"
                   :imageShowType="imageShowType"
+                  :richContent="getShowRichContent(message)"
                   :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
                 ></text-message>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                  :time="message.time" :content="getGiftShowContent(message)" :giftName="message.giftName"
+                  :time="message.time"
+                  :avatarUrl="message.avatarUrl"
+                  :authorName="getShowAuthorName(message)"
+                  :price="message.price"
+                  :content="getGiftShowContent(message)"
+                  :giftName="message.giftName"
                   :isDelete="message.isDelete"
                 ></paid-message>
                 <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)" :privilegeType="message.privilegeType"
-                  :title="message.title" :time="message.time"
+                  :time="message.time"
+                  :avatarUrl="message.avatarUrl"
+                  :authorName="getShowAuthorName(message)"
+                  :privilegeType="message.privilegeType"
+                  :title="message.title"
                   :isDelete="message.isDelete"
                 ></membership-item>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :price="message.price" :avatarUrl="message.avatarUrl" :authorName="getShowAuthorName(message)"
-                  :time="message.time" :content="getShowContent(message)" giftName="superchat"
+                  giftName="superchat"
+                  :time="message.time"
+                  :avatarUrl="message.avatarUrl"
+                  :authorName="getShowAuthorName(message)"
+                  :price="message.price"
+                  :content="getShowContent(message)" 
                   :isDelete="message.isDelete"
                 ></paid-message>
               </template>
@@ -239,6 +258,7 @@ export default {
       return constants.getGiftShowContent(message, this.showGiftInfo)
     },
     getShowContent: constants.getShowContent,
+    getShowRichContent: constants.getShowRichContent,
     getShowAuthorName: constants.getShowAuthorName,
 
     addMessage(message) {

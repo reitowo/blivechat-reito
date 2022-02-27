@@ -121,6 +121,11 @@ export const MEDAL_CONFIGS = [
   }
   
 ]
+
+// FIXME: 新增的用于判断 text 还是 image 的 const
+export const CONTENT_TYPE_TEXT = 0
+export const CONTENT_TYPE_IMAGE = 1
+
 // 美元 -> 人民币 汇率
 // const EXCHANGE_RATE = 7
 export const PRICE_CONFIGS = [
@@ -242,11 +247,23 @@ export function getShowContent(message) {
   return message.content
 }
 
+// TODO: getShowRichContent
+export function getShowRichContent(message) {
+  let richContent = [...message.richContent]
+  if (message.translation) {
+    richContent.push({
+      type: CONTENT_TYPE_TEXT,
+      text: `（${message.translation}）`
+    })
+  }
+  return richContent
+}
+
 export function getGiftShowContent (message, showGiftInfo) {
   if (!showGiftInfo) {
-// TODO: showGiftInfo 和 showGiftName 两种命名方式的选择
-// export function getGiftShowContent(message, showGiftName) {
-//   if (!showGiftName) {
+  // TODO: showGiftInfo 和 showGiftName 两种命名方式的选择
+  // export function getGiftShowContent(message, showGiftName) {
+  //   if (!showGiftName) {
     return ''
   }
   return i18n.i18n.t('chat.sendGift', { giftName: message.giftName, num: message.num })

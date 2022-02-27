@@ -72,9 +72,16 @@ export default {
     minDanmakuInterval: '最小コメント間隔',
     maxDanmakuInterval: '最大コメント間隔',
 
+    emoticon: 'カスタムスタンプ',
+    emoticonKeyword: '置き換えるキーワード',
+    emoticonUrl: 'URL',
+    operation: '操作',
+    addEmoticon: 'スタンプを追加',
+
     roomUrl: 'ルームのURL',
     copy: 'コピー',
     enterBilibili: 'Bilibiliルームに入る',
+
     enterRoom: 'ルームに入る',
     enterTestRoom: 'テストルームに入る',
     exportConfig: 'コンフィグの導出',
