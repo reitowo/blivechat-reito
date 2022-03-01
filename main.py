@@ -19,17 +19,14 @@ import update
 
 logger = logging.getLogger(__name__)
 
-BASE_PATH = os.path.dirname(os.path.realpath(__file__))
-WEB_ROOT = os.path.join(BASE_PATH, 'frontend', 'dist')
-LOG_FILE_NAME = os.path.join(BASE_PATH, 'log', 'blivechat.log')
-
 routes = [
     (r'/api/server_info', api.main.ServerInfoHandler),
     (r'/api/chat', api.chat.ChatHandler),
     (r'/api/room_info', api.chat.RoomInfoHandler),
     (r'/api/avatar_url', api.chat.AvatarHandler),
 
-    (r'/(.*)', api.main.MainHandler, {'path': WEB_ROOT, 'default_filename': 'index.html'})
+    (rf'{api.main.EMOTICON_BASE_URL}/(.*)', tornado.web.StaticFileHandler, {'path': api.main.EMOTICON_UPLOAD_PATH}),
+    (r'/(.*)', api.main.MainHandler, {'path': config.WEB_ROOT, 'default_filename': 'index.html'})
 ]
 
 
@@ -56,9 +53,10 @@ def parse_args():
 
 
 def init_logging(debug):
+    filename = os.path.join(config.BASE_PATH, 'log', 'blivechat.log')
     stream_handler = logging.StreamHandler()
     file_handler = logging.handlers.TimedRotatingFileHandler(
-        LOG_FILE_NAME, encoding='utf-8', when='midnight', backupCount=7, delay=True
+        filename, encoding='utf-8', when='midnight', backupCount=7, delay=True
     )
     logging.basicConfig(
         format='{asctime} {levelname} [{name}]: {message}',

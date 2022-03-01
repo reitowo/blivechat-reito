@@ -1,4 +1,15 @@
 module.exports = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: API_BASE_URL,
+        ws: true
+      },
+      '/emoticons': {
+        target: API_BASE_URL
+      }
+    }
+  },
   chainWebpack: config => {
     const APP_VERSION = `v${process.env.npm_package_version}`
 

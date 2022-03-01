@@ -108,6 +108,9 @@ venv.bak/
 .idea/
 data/*
 !data/config.example.ini
+!data/emoticons/
+data/emoticons/*
+!data/emoticons/.gitkeep
 log/*
 .eslint.js
 
