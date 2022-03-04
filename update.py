@@ -5,8 +5,8 @@ import aiohttp
 
 import utils.request
 
-VERSION = 'v1.5.3'
-DOODLEBEAR_VERSION = 'v1.5.3-210723'
+VERSION = 'v1.6.0'
+DOODLEBEAR_VERSION = 'v1.6.0-210501'
 
 def check_update():
     asyncio.ensure_future(_do_check_update())
