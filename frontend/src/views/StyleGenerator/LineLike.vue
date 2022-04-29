@@ -396,8 +396,9 @@ export const DEFAULT_CONFIG = {
   messageFontSize: 18,
   messageLineHeight: 0,
   messageColor: '#000000',
-  // FIXME: emoticonSize
-  emoticonSize: 18,
+  
+  // TODO: 表情包默认大小
+  emoticonSize: 60,
 
   showTime: false,
   timeFont: 'Noto Sans SC',
@@ -578,7 +579,11 @@ yt-live-chat-text-message-renderer #message * {
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }
 
-yt-live-chat-text-message-renderer #image-and-message,
+yt-live-chat-text-message-renderer #image-and-message {
+  overflow: visible !important;
+  padding: 20px;
+  border-radius: 30px;
+}
 yt-live-chat-text-message-renderer #message {
   display: block !important;
   overflow: visible !important;

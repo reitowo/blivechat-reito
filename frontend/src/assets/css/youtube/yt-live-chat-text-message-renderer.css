@@ -19,7 +19,7 @@ canvas.yt-live-chat-text-message-renderer, caption.yt-live-chat-text-message-ren
 #author-photo.yt-live-chat-text-message-renderer {
   display: block;
   margin-right: 16px;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 50%;
   -ms-flex: none;
   -webkit-flex: none;
@@ -114,7 +114,7 @@ yt-live-chat-text-message-renderer[has-inline-action-buttons]:hover #menu.yt-liv
 
 yt-live-chat-text-message-renderer {
   position: relative;
-  font-size: 13px;
+  font-size: 16px;
   padding: 4px 24px;
   overflow: hidden;
   --yt-endpoint-color: var(--yt-live-chat-primary-text-color, hsl(0, 0%, 6.7%));
@@ -138,9 +138,17 @@ yt-live-chat-text-message-renderer[author-is-owner] {
 
 #card.yt-live-chat-text-message-renderer {
   display: flex;
+  flex-direction: row !important;
 }
 
+/* TODO: 修改 inline 表情包下的显示效果 */
+#image-and-message {
+  display: inline;
+}
 #content.yt-live-chat-text-message-renderer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   -ms-align-self: center;
   -webkit-align-self: center;
   align-self: center;
@@ -153,7 +161,7 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
 
 #image-and-message #message.yt-live-chat-text-message-renderer {
   color: var(--yt-live-chat-primary-text-color, var(--yt-primary-text-color));
-  display: inline;
+  /* display: inline; */
   width: fit-content;
   overflow: hidden;
   overflow-wrap: break-word;
@@ -164,19 +172,12 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
 }
 
 #image-and-message img {
-  display: block;
-  border-radius: 14px;
-  margin: 3px;
-}
-
-#image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
-  width: var(--yt-live-chat-emoji-size);
+  border-radius: 10%;
 }
 
 /* FIXME: CSS emoji 设定 */
-#message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
+#image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
   /* B站表情有不是正方形的 */
-  /* width: var(--yt-live-chat-emoji-size); */
   width: auto;
   height: var(--yt-live-chat-emoji-size);
   margin: -1px 2px 1px 2px;

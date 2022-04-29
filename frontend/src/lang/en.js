@@ -43,6 +43,17 @@ export default {
           name: 'Add after message'
       }
     ],
+    imageAlignType: 'Way image align',
+    imageAlignTypes: [
+      {
+        id: 'inline',
+        name: 'inline'
+      },
+      {
+        id: 'block',
+        name: 'block'
+      }
+    ],
     maxImage: 'Max number of　pictures',
 
     block: 'Block',
@@ -69,6 +80,8 @@ export default {
 
     emoticon: 'Custom Emotes',
     emoticonKeyword: 'Emote Code',
+    emoticonAlign: 'Emote Align',
+    emoticonHeight: 'Emote Height',
     emoticonUrl: 'URL',
     operation: 'Operation',
     addEmoticon: 'Add emote',

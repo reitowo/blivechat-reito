@@ -1,11 +1,16 @@
 <template>
   <chat-renderer ref="renderer"  
   :showGiftInfo="config.showGiftInfo"
-  :danmakuAtBottom="config.danmakuAtBottom" :tickerAtButtom="config.tickerAtButtom"
+  :danmakuAtBottom="config.danmakuAtBottom"
+  :tickerAtButtom="config.tickerAtButtom"
   :showTranslateDanmakuOnly="config.showTranslateDanmakuOnly"
-  :minGiftPrice="config.minGiftPrice" :minTickerPrice="config.minTickerPrice" 
-  :maxNumber="config.maxNumber" :fadeOutNum="config.fadeOutNum" :pinTime="config.pinTime" 
-  :imageShowType="config.imageShowType" :maxImage="config.maxImage"
+  :minGiftPrice="config.minGiftPrice"
+  :minTickerPrice="config.minTickerPrice" 
+  :maxNumber="config.maxNumber"
+  :fadeOutNum="config.fadeOutNum"
+  :pinTime="config.pinTime" 
+  :imageShowType="config.imageShowType"
+  :maxImage="config.maxImage"
   >
   </chat-renderer>
 </template>
@@ -70,7 +75,7 @@ export default {
       let res = new trie.Trie()
       for (let emoticon of this.config.emoticons) {
         // 1个个添加 emoticon
-        if (emoticon.keyword !== '' && emoticon.url !== '') {
+        if (emoticon.keyword !== '' && emoticon.align !== '' && emoticon.height !== '' && emoticon.url !== '' ) {
           res.set(emoticon.keyword, emoticon)
         }
       }
@@ -111,7 +116,6 @@ export default {
         }
       }
       //* 若上次预设值有留空，则使用默认值
-      // FIXME: 下方注释为旧版本
       // cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
       cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
   
@@ -369,14 +373,14 @@ export default {
       }
       return this.pronunciationConverter.getPronunciation(text)
     },
-    // TODO: getRichContent
     getRichContent(data) {
       let richContent = []
 
       // B站官方表情
+      // TODO: 屏蔽官方表情
       if (data.emoticon !== null) {
         richContent.push({
-          type: constants.CONTENT_TYPE_IMAGE,
+          type: constants.CONTENT_TYPE_EMOJI,
           text: data.content,
           url: data.emoticon
         })
@@ -417,10 +421,12 @@ export default {
         }
 
         // 加入表情
-        // TODO: 增加emoticon 舰长等级 和 size
+        // TODO: 增加emoticon 舰长等级
         richContent.push({
           type: constants.CONTENT_TYPE_IMAGE,
           text: matchEmoticon.keyword,
+          align: matchEmoticon.align,
+          height: matchEmoticon.height,
           url: matchEmoticon.url
         })
         pos += matchEmoticon.keyword.length

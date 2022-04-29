@@ -9,6 +9,7 @@ canvas.yt-live-chat-author-chip, caption.yt-live-chat-author-chip, center.yt-liv
   display: none !important;
 }
 
+/* TODO: author-chip 和 inline 表情包*/
 yt-live-chat-author-chip {
   display: inline-flex;
   -ms-flex-align: center;

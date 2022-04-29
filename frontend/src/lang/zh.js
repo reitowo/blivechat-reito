@@ -33,7 +33,7 @@ export default {
     fadeOutNum: '预留淡出弹幕数',
     pinTime: '弹幕停留时长(为0时持续停留)',
 
-    imageShowType: '图片插入方式',
+    imageShowType: '图片渲染方式',
     imageShowTypes: [
       {
         id: '0',
@@ -42,6 +42,17 @@ export default {
       {
         id: '1',
         name: '在文字消息后添加'
+      }
+    ],
+    imageAlignType: '图片排放方式',
+    imageAlignTypes: [
+      {
+        id: 'inline',
+        name: '同行'
+      },
+      {
+        id: 'block',
+        name: '换行'
       }
     ],
     maxImage: '最大图片数',
@@ -70,6 +81,8 @@ export default {
 
     emoticon: '自定义表情',
     emoticonKeyword: '替换关键词',
+    emoticonAlign: '图片排列',
+    emoticonHeight: '图片高度',
     emoticonUrl: 'URL',
     operation: '操作',
     addEmoticon: '添加表情',

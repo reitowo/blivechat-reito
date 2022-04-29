@@ -44,6 +44,17 @@ export default {
           name: 'コメントの後で付ける'
       }
     ],
+    imageAlignType: 'スタッフの揃え',
+    imageAlignTypes: [
+      {
+        id: 'inline',
+        name: '後で付け'
+      },
+      {
+        id: 'block',
+        name: '新たな行'
+      }
+    ],
     maxImage: '最大画像数',
 
     block: 'ブロック',
@@ -70,6 +81,8 @@ export default {
 
     emoticon: 'カスタムスタンプ',
     emoticonKeyword: '置き換えるキーワード',
+    emoticonAlign: '画像揃え',
+    emoticonHeight: '画像高度',
     emoticonUrl: 'URL',
     operation: '操作',
     addEmoticon: 'スタンプを追加',

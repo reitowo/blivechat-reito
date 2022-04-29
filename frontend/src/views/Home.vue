@@ -190,9 +190,23 @@
                   <el-input v-model="scope.row.keyword"></el-input>
                 </template>
               </el-table-column>
+              
               <el-table-column prop="url" :label="$t('home.emoticonUrl')">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.url"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column prop="align" :label="$t('home.emoticonAlign')" width="140">
+                <template slot-scope="scope">
+                  <el-select ref="imageAlignTypeInput" v-model="scope.row.align">
+                    <el-option v-for="imageAlignType in $t('home.imageAlignTypes')" :key="imageAlignType" v-bind:value="imageAlignType.id">{{imageAlignType.name}}
+                    </el-option> 
+                  </el-select>
+                </template>
+              </el-table-column>
+              <el-table-column prop="height" :label="$t('home.emoticonHeight')" width="170">
+                <template slot-scope="scope">
+                  <el-input v-model.number="scope.row.height" type="number" min="1" max="1000"></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('home.operation')" width="170">
@@ -289,10 +303,7 @@ export default {
   watch: {
     roomUrl: _.debounce(function() {
       window.localStorage.roomId = this.form.roomId
-      // this.form.imageShowType.value = this.form.imageShowType.value.id
       let real_form = this.form
-      // console.log(this.$refs.imageShowTypeInput.value)
-      // real_form.imageShowType.value = this.$refs.imageShowTypeInput.value
       chatConfig.setLocalConfig(real_form)
     }, 500)
   },
@@ -316,7 +327,9 @@ export default {
       // TODO: 增加图片大小
       this.form.emoticons.push({
         keyword: '[Kappa]',
-        url: ''
+        align: 'inline',
+        height: 60,
+        url: '\\emoticons\\'
       })
     },
     delEmoticon(index) {

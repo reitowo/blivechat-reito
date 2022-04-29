@@ -21,7 +21,7 @@ export const DEFAULT_CONFIG = {
   pinTime: 0,
 
 
-  imageShowType: 2,
+  imageShowType: 0,
   maxImage: 2,
 
   blockGiftDanmaku: true,
@@ -68,12 +68,13 @@ export function sanitizeConfig(config) {
   if (config.emoticons instanceof Array) {
     for (let emoticon of config.emoticons) {
       try {
-        // TODO: 增加 size 控制表情包大小
         let newEmoticon = {
           keyword: emoticon.keyword,
+          align: emoticon.align,
+          height: emoticon.height,
           url: emoticon.url
         }
-        if ((typeof newEmoticon.keyword !== 'string') || (typeof newEmoticon.url !== 'string')) {
+        if ((typeof newEmoticon.keyword !== 'string') || (typeof newEmoticon.url !== 'string') || (typeof newEmoticon.align !== 'string') || (typeof newEmoticon.height !== 'number')) {
           continue
         }
         newEmoticons.push(newEmoticon)

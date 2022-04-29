@@ -45,11 +45,6 @@ export default {
       // return this.privilegeType > 0 ? 'member' : ''
     },
     readableAuthorTypeText() {
-      // FIXME: 下面的注释部分-i18 GUARD_LEVEL_TO_TEXT 被移除了？
-      // if (!this.isAdmin) {
-      //   return constants.GUARD_LEVEL_TO_TEXT[this.privilegeType]
-      // }
-      // return '管理员'
       if (this.isAdmin) {
         return this.$t('chat.moderator')
       }

@@ -457,8 +457,9 @@ export const DEFAULT_CONFIG = {
   messageLineHeight: 0,
   messageColor: '#ffffff',
   messageOnNewLine: false,
-  // FIXME: emoticonSize
-  emoticonSize: 18,
+
+  // TODO: 表情包默认大小
+  emoticonSize: 60,
 
   showTime: false,
   timeFont: 'Imprima',
@@ -666,12 +667,14 @@ yt-live-chat-text-message-renderer #message * {
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }
 
-${!this.form.messageOnNewLine ? '' : `yt-live-chat-text-message-renderer #message {
+${!this.form.messageOnNewLine ? '' : `yt-live-chat-text-message-renderer #image-and-message,
+#image-and-message img,
+yt-live-chat-text-message-renderer #message {
   display: block !important;
   overflow: visible !important;
 }`}
 
-yt-live-chat-text-message-renderer #message .emoji {
+yt-live-chat-text-message-renderer #image-and-message .emoji {
   width: auto !important;
   height: ${this.form.emoticonSize}px !important;
 }`

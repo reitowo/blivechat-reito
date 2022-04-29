@@ -293,8 +293,7 @@ export default class ChatClientDirect {
       callback.call(this, command)
     }
   }
-  // FIXME: 旧版 Function 名
-  // async onReceiveDanmaku (command) {
+
   async danmuMsgCallback (command) {
     if (!this.onAddText) {
       return

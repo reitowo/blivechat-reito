@@ -1,5 +1,6 @@
 <template>
-  <yt-live-chat-text-message-renderer :style="{'--repeated-text-color': randomColor}"
+  <yt-live-chat-text-message-renderer
+    :style="{'--repeated-text-color': randomColor}"
     :is-fan-group="isFanGroup"
     :medal-level="medalLevel"
     :author-type="authorTypeText"
@@ -31,11 +32,19 @@
           </span>
         </yt-live-chat-author-chip>
         <!-- 直接替换表情包 -->
-        <!-- FIXME: emoji richContent 渲染-->
         <div v-if="imageShowType == 0" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <template v-for="(content, index) in richContent">
-            <span :key="index" v-if="content.type === CONTENT_TYPE_TEXT">{{ content.text }}</span>
+            <span :key="index" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
+              display="block"
+            >{{ content.text }}</span>
             <img :key="index" v-else-if="content.type === CONTENT_TYPE_IMAGE"
+              class="image yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+              :style="`display: ${content.align};`"
+              width="auto"
+              :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`image-${content.text}`"
+              :height="content.height" 
+            >
+            <img :key="index" v-else-if="content.type === CONTENT_TYPE_EMOJI"
               class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
               :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
             >
@@ -43,12 +52,10 @@
           <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
             :style="{ '--repeated-mark-color': repeatedMarkColor }"
           ></el-badge>
-          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
-            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
-          </template>
         </div>
 
         <!-- 在文字后添加表情包 -->
+        <!-- FIXME: 在文字后添加表情包-->
         <div v-else-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{ content.text }}</span>
           <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
@@ -108,7 +115,8 @@ export default {
     return {
       danmu_pic: json,
       CONTENT_TYPE_TEXT: constants.CONTENT_TYPE_TEXT,
-      CONTENT_TYPE_IMAGE: constants.CONTENT_TYPE_IMAGE
+      CONTENT_TYPE_IMAGE: constants.CONTENT_TYPE_IMAGE,
+      CONTENT_TYPE_EMOJI: constants.CONTENT_TYPE_EMOJI
     }
   },
   components: {
