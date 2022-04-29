@@ -398,15 +398,12 @@ export default {
       }
 
       // FIXME: getRichContent 核心拆分文字表情emoticon代码
-      // TODO: 增加表情包数量限制 this.config.maxImage
-      // TODO: 增加表情包数量限制 this.config.maxEmoji
       // 可能含有自定义表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
       let pos = 0
       let emojiCount = 0;
       let imageCount = 0;
-      // TODO: 增加表情包渲染方式 this.config.imageShowType
       if(this.config.imageShowType === 1) {
         richContent.push({
             type: constants.CONTENT_TYPE_TEXT,
@@ -431,8 +428,23 @@ export default {
         }
 
         // 加入表情
-        // TODO: 增加 emoticon 舰长等级
-        if((matchEmoticon.align === 'inline' && emojiCount < this.config.maxEmoji) || (matchEmoticon.align === 'block' && imageCount < this.config.maxImage)) {
+        // TODO: 增加 emoticon 舰长等级 data.privilegeType
+       
+        // 如果不满足使用权限，或者超过inline,block类型图片各自的上限
+        let emoticonLevel = toInt(matchEmoticon.level)
+        let privilegeType = toInt(data.privilegeType)
+        // console.log('emoticonLevel: ' + emoticonLevel)
+        // console.log('privilegeType: ' + privilegeType)
+
+        if((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
+          ||(matchEmoticon.align === 'inline' && emojiCount >= this.config.maxEmoji)
+          || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
+          richContent.push({
+            type: constants.CONTENT_TYPE_TEXT,
+            text: matchEmoticon.keyword
+          })
+        } else {
+          // 如果没有
           if(matchEmoticon.align === 'inline') {
             emojiCount++
           } else {
@@ -443,15 +455,10 @@ export default {
             text: matchEmoticon.keyword,
             align: matchEmoticon.align,
             height: matchEmoticon.height,
+            level: matchEmoticon.level,
             url: matchEmoticon.url
           })
-        } else {
-          richContent.push({
-            type: constants.CONTENT_TYPE_TEXT,
-            text: matchEmoticon.keyword
-          })
         } 
-        
         pos += matchEmoticon.keyword.length
         startPos = pos
       } // end while

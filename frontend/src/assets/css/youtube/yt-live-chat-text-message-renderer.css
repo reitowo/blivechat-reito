@@ -146,8 +146,7 @@ yt-live-chat-text-message-renderer[author-is-owner] {
   display: inline;
 }
 #content.yt-live-chat-text-message-renderer {
-  display: flex;
-  flex-direction: row;
+  display: inline;
   align-items: flex-start;
   -ms-align-self: center;
   -webkit-align-self: center;
@@ -156,6 +155,7 @@ yt-live-chat-text-message-renderer[author-is-owner] {
 }
 
 yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
+  white-space: nowrap;
   margin-right: 8px;
 }
 

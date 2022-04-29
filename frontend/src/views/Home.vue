@@ -209,6 +209,14 @@
                   </el-select>
                 </template>
               </el-table-column>
+              <el-table-column prop="level" :label="$t('home.imageLevel')" width="140">
+                <template slot-scope="scope">
+                  <el-select ref="imageLevelInput" v-model.number="scope.row.level" type="number">
+                    <el-option v-for="imageLevel in $t('home.imageLevels')" :key="imageLevel" v-bind:value="imageLevel.id">{{imageLevel.name}}
+                    </el-option> 
+                  </el-select>
+                </template>
+              </el-table-column>
               <el-table-column prop="height" :label="$t('home.emoticonHeight')" width="170">
                 <template slot-scope="scope">
                   <el-input v-model.number="scope.row.height" type="number" min="1" max="1000"></el-input>
@@ -333,6 +341,7 @@ export default {
       this.form.emoticons.push({
         keyword: '[Kappa]',
         align: 'inline',
+        level: 0,
         height: 60,
         url: '\\emoticons\\'
       })

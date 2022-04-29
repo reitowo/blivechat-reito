@@ -57,6 +57,25 @@ export default {
     ],
     maxImage: '最大图片数',
     maxEmoji: '最大emoji数',
+    imageLevel: '图片权限等级',
+    imageLevels: [
+      {
+        id: 0,
+        name: '所有人'
+      },
+      {
+        id: 3,
+        name: '舰长'
+      },
+      {
+        id: 2,
+        name: '提督'
+      },
+      {
+        id: 1,
+        name: '总督'
+      }
+    ],
 
     block: '屏蔽',
     giftDanmaku: '屏蔽礼物弹幕',

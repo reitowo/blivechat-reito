@@ -7,7 +7,7 @@ export const DEFAULT_CONFIG = {
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
   showTranslateDanmakuOnly: false,
-  translationSign:'【',
+  translationSign: '【',
   showSuperchat: true,
   showNewMember: true,
   showGift: true,
@@ -71,11 +71,12 @@ export function sanitizeConfig(config) {
       try {
         let newEmoticon = {
           keyword: emoticon.keyword,
+          level: emoticon.level,
           align: emoticon.align,
           height: emoticon.height,
           url: emoticon.url
         }
-        if ((typeof newEmoticon.keyword !== 'string') || (typeof newEmoticon.url !== 'string') || (typeof newEmoticon.align !== 'string') || (typeof newEmoticon.height !== 'number')) {
+        if ((typeof newEmoticon.keyword !== 'string') || (typeof newEmoticon.url !== 'string') || (typeof newEmoticon.align !== 'string') || (typeof newEmoticon.height !== 'number') || (typeof newEmoticon.level !== 'number')) {
           continue
         }
         newEmoticons.push(newEmoticon)

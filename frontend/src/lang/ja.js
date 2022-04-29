@@ -57,6 +57,25 @@ export default {
     ],
     maxImage: '最大画像数',
     maxEmoji: '最大絵文字数',
+    imageLevel: '画像発送権限',
+    imageLevels: [
+      {
+        id: 0,
+        name: '全て'
+      },
+      {
+        id: 3,
+        name: '艦長'
+      },
+      {
+        id: 2,
+        name: '提督'
+      },
+      {
+        id: 1,
+        name: '総督'
+      }
+    ],
 
     block: 'ブロック',
     giftDanmaku: 'ブロックシステムコメント（プレゼント効果）',
@@ -83,6 +102,7 @@ export default {
     emoticon: 'カスタムスタンプ',
     emoticonKeyword: '置き換えるキーワード',
     emoticonAlign: '画像揃え',
+    emoticonLevel: '图片发送权限',
     emoticonHeight: '画像高度',
     emoticonUrl: 'URL',
     operation: '操作',

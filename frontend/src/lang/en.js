@@ -56,6 +56,26 @@ export default {
     ],
     maxImage: 'Max number of　pictures',
     maxEmoji: 'Max number of　emojis',
+    imageLevel: 'Image sending level',
+    imageLevels: [
+      {
+        id: 0,
+        name: 'Anyone'
+      },
+      {
+        id: 3,
+        name: 'normal-member'
+      },
+      {
+        id: 2,
+        name: 'advanced-member'
+      },
+      {
+        id: 1,
+        name: 'ultra-member'
+      }
+    ],
+
 
     block: 'Block',
     giftDanmaku: 'Block system messages (gift effect)',
