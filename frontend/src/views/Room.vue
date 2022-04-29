@@ -65,9 +65,11 @@ export default {
       }
       return res
     },
+    // TODO: 解析用户设置的 emoticons
     emoticonsTrie() {
       let res = new trie.Trie()
       for (let emoticon of this.config.emoticons) {
+        // 1个个添加 emoticon
         if (emoticon.keyword !== '' && emoticon.url !== '') {
           res.set(emoticon.keyword, emoticon)
         }
@@ -367,6 +369,7 @@ export default {
       }
       return this.pronunciationConverter.getPronunciation(text)
     },
+    // TODO: getRichContent
     getRichContent(data) {
       let richContent = []
 
@@ -389,16 +392,20 @@ export default {
         return richContent
       }
 
+      // FIXME: getRichContent 核心拆分文字表情emoticon代码
+      // TODO: 增加表情包数量限制 this.config.maxImage
       // 可能含有自定义表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
       let pos = 0
+      // TODO: 增加表情包渲染方式 this.config.imageShowType
       while (pos < data.content.length) {
         let remainContent = data.content.substring(pos)
         let matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
         if (matchEmoticon === null) {
           pos++
           continue
+          // 直到找到第1个 emoticon
         }
 
         // 加入之前的文本
@@ -410,6 +417,7 @@ export default {
         }
 
         // 加入表情
+        // TODO: 增加emoticon 舰长等级 和 size
         richContent.push({
           type: constants.CONTENT_TYPE_IMAGE,
           text: matchEmoticon.keyword,
@@ -417,7 +425,7 @@ export default {
         })
         pos += matchEmoticon.keyword.length
         startPos = pos
-      }
+      } // end while
       // 加入尾部的文本
       if (pos !== startPos) {
         richContent.push({

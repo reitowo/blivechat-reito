@@ -62,11 +62,13 @@ export function getLocalConfig() {
   }
 }
 
+// TODO: 前端上传表情包设置
 export function sanitizeConfig(config) {
   let newEmoticons = []
   if (config.emoticons instanceof Array) {
     for (let emoticon of config.emoticons) {
       try {
+        // TODO: 增加 size 控制表情包大小
         let newEmoticon = {
           keyword: emoticon.keyword,
           url: emoticon.url

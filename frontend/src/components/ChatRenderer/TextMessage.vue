@@ -29,39 +29,8 @@
           </span>
         </yt-live-chat-author-chip>
         <!-- 直接替换表情包 -->
-        <div v-if="imageShowType == 0" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <template v-for="(item, index) in replaceDanmuPicDirect"  >
-            <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
-            <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
-          </template>
-          <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{ '--repeated-mark-color': repeatedMarkColor }"
-          ></el-badge>
-        </div>
-        <!-- 替换表情包 -->
-        <div v-else-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <template v-for="(item, index) in replaceDanmuPic"  >
-            <img :key="index" v-if="!showTranslateDanmakuOnly && item.type == 'image'" class="style-scope yt-live-chat-text-message-renderer" :height="item.height" width="auto" :src="`/static/${item.content}`" />
-            <span :key="index" v-else id="message" class="style-scope yt-live-chat-text-message-renderer" >{{item.content}}</span>
-          </template>
-          <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-            :style="{ '--repeated-mark-color': repeatedMarkColor }"
-          ></el-badge>
-        </div>
-        <!-- 在文字后添加表情包 -->
-        <div v-else-if="imageShowType == 2" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
-            content
-            }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-              :style="{'--repeated-mark-color': repeatedMarkColor}"
-            ></el-badge>
-          </span>
-          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
-            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
-          </template>
-        </div>
         <!-- FIXME: emoji richContent 渲染-->
-        <div v-else-if="imageShowType == 3" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+        <div v-else-if="imageShowType == 0" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <!-- FIXME: richContent 渲染-->
           <template v-for="(content, index) in richContent">
             <span :key="index" v-if="content.type === CONTENT_TYPE_TEXT">{{ content.text }}</span>
@@ -77,6 +46,20 @@
             <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
           </template>
         </div>
+
+        <!-- 在文字后添加表情包 -->
+        <div v-else-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+          <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{
+            content
+            }}<el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+              :style="{'--repeated-mark-color': repeatedMarkColor}"
+            ></el-badge>
+          </span>
+          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
+            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
+          </template>
+        </div>
+        
       </div>
     </div>  
   </yt-live-chat-text-message-renderer>
@@ -160,83 +143,6 @@ export default {
     }
   },
   computed: {
-    //* [无需符号直接替换文字为表情包] 
-    replaceDanmuPicDirect() {
-      // let str_arr = this.content
-      let render_arr = [] // 存切分后转换出的渲染data
-      let imageIncluded = []
-      // 找出弹幕中所有具有对应表情包的关键词，放入 imageIncluded
-      let index = 0
-      for(let pic of json) {
-        if(index >= this.maxImage) {
-          break
-        }
-        if(this.content.includes(pic.keyword) && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)) {
-          imageIncluded.push(pic)
-          index++;
-        }
-      }
-      // myLog("所有的表情包")
-      // myLog(imageIncluded)
-      let render_index = 0
-      let start_index = 0
-      // 获取index
-      let image_arr = []
-      for(let pic of imageIncluded) {
-        start_index = 0
-        while(true) {
-          let keyword_index = this.content.indexOf(pic.keyword, start_index)
-          if(keyword_index == -1 || image_arr.length >= this.maxImage) {
-            break
-          }
-          start_index = keyword_index + pic.keyword.length
-          let temp_pic = {
-            keyword: pic.keyword,
-            image: pic.image,
-            height: pic.height,
-            keyword_index: keyword_index
-          }
-          image_arr.push(temp_pic)
-        }
-        if(image_arr.length >= this.maxImage) {
-          break
-        }
-      }
-      // 排序所有表情包，方便之后按顺序替换
-      image_arr.sort(keyword_index_sort)
-      // myLog(image_arr)
-
-      start_index = 0
-      for(let pic of image_arr) {
-        let keyword_index = pic.keyword_index
-        let keyword_length = pic.keyword.length
-        // 添加字符串片段
-        let str = this.content.substring(start_index, keyword_index)
-        if(str != '') {
-          render_arr[render_index] = {
-            type: 'text',
-            content : str
-          }
-          render_index++
-        }
-        render_arr[render_index] = {
-          type: 'image',
-          content : pic.image,
-          height : pic.height,
-        }
-        render_index++
-        // 添加图片片段
-        start_index = keyword_index + keyword_length
-      }
-      // 添加字符串片段
-      if(start_index != this.content.length) {
-        render_arr[render_index] = {
-          type: 'text',
-          content : this.content.substring(start_index, this.content.length)
-        }
-      }
-      return render_arr
-    },
     //* [在文字后添加表情包] 
     addDanmuPicAfter() {
       let danmu_pic_filtered = [] // 存筛选出的图片
@@ -252,53 +158,6 @@ export default {
       }
       // myLog(danmu_pic_filtered)
       return danmu_pic_filtered
-    },
-    //* [用表情包替换文字] 
-    replaceDanmuPic() {
-      let str_arr = this.content.split(split_regex) // 切分原字段
-      let render_arr = [] // 存切分后转换出的渲染data
-      let index = 0
-      let imageNumber = 0
-      
-      // * 解析 split 出来的 string array
-      for(let i = 0; i < str_arr.length; i++) {
-        if((str_arr[i] == '“' || str_arr[i] == '【' || str_arr[i] == '[') && imageNumber < this.maxImage) {
-          let haveImage = false
-          // 分析关键词是否有对应的表情包
-          for(let pic of json) {
-            if(str_arr[i + 1] == pic.keyword && ( (this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0) ) {
-              render_arr[index] = {
-                type: 'image',
-                content : pic.image,
-                height : pic.height,
-              }
-              haveImage = true
-              index++
-              imageNumber++
-            }
-            if(imageNumber >= this.maxImage) {
-              break
-            }
-          }
-          if(haveImage) {
-            i+=2
-            continue
-          }
-        }
-        if(str_arr[i] == '【') {
-          str_arr[i] = '['
-        } else if (str_arr[i] == '】') {
-          str_arr[i] = ']'
-        } //未触发关键词的时候，将中文括号转为英文括号
-        // 如果关键词不具有对应表情包或超过最大图片显示上限，则视为文字
-        render_arr[index] = {
-          type: 'text',
-          content : str_arr[i]
-        }
-        index++
-      }
-      // myLog(render_arr)
-      return render_arr
     },
     timeText() {
       return utils.getTimeTextHourMin(this.time)
