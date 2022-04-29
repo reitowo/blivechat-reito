@@ -32,7 +32,7 @@
           </span>
         </yt-live-chat-author-chip>
         <!-- 直接替换表情包 -->
-        <div v-if="imageShowType == 0" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+        <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
           <template v-for="(content, index) in richContent">
             <span :key="index" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
               display="block"
@@ -42,7 +42,8 @@
               :style="`display: ${content.align};`"
               width="auto"
               :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`image-${content.text}`"
-              :height="content.height" 
+              :height="content.height"
+              :display="content.align"
             >
             <img :key="index" v-else-if="content.type === CONTENT_TYPE_EMOJI"
               class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
@@ -53,19 +54,6 @@
             :style="{ '--repeated-mark-color': repeatedMarkColor }"
           ></el-badge>
         </div>
-
-        <!-- 在文字后添加表情包 -->
-        <!-- FIXME: 在文字后添加表情包-->
-        <div v-else-if="imageShowType == 1" id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
-          <span id="message" class="style-scope yt-live-chat-text-message-renderer">{{ content.text }}</span>
-          <el-badge :value="repeated" :max="99" v-show="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-              :style="{'--repeated-mark-color': repeatedMarkColor}"
-          ></el-badge>
-          <template v-if="!showTranslateDanmakuOnly && addDanmuPicAfter.length != 0 " >
-            <img v-for="(item, index) in addDanmuPicAfter" :key="index" :name="keyword" :height="item.height" width="auto" :src="`/static/${item.image}`" />
-          </template>
-        </div>
-        
       </div>
     </div>
   </yt-live-chat-text-message-renderer>
@@ -77,7 +65,6 @@ import AuthorMedal from './AuthorMedal'
 import AuthorBadge from './AuthorBadge'
 import * as constants from './constants'
 import * as utils from '@/utils'
-import axios from 'axios'
 
 // HSL
 const RANDOM_TEXT_COLOR_START = [0, 100.0, 55.0]
@@ -86,34 +73,10 @@ const RANDOM_TEXT_COLOR_END = [360, 60.0, 75.0]
 const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
 const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
 
-
-let json
-// 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
-window.onload = function() {
-  axios.get('/danmu_pic.json').then(res => {
-    json = res.data
-    console.log(json)
-  })
-}
-
-// function myLog(msg) {
-//   console.log(msg)
-// }
-// function keyword_index_sort(a, b) {
-//   if (a.keyword_index < b.keyword_index) {
-//     return -1
-//   }
-//   if (a.keyword_index > b.keyword_index) {
-//     return 1
-//   }
-//   return 0
-// }
-
 export default {
   name: 'TextMessage',
   data() {
     return {
-      danmu_pic: json,
       CONTENT_TYPE_TEXT: constants.CONTENT_TYPE_TEXT,
       CONTENT_TYPE_IMAGE: constants.CONTENT_TYPE_IMAGE,
       CONTENT_TYPE_EMOJI: constants.CONTENT_TYPE_EMOJI
@@ -140,25 +103,10 @@ export default {
     privilegeType: Number,
     repeated: Number,
     imageShowType: Number,
-    maxImage: Number
+    maxImage: Number,
+    maxEmoji: Number
   },
   computed: {
-    //* [在文字后添加表情包]
-    addDanmuPicAfter() {
-      let danmu_pic_filtered = [] // 存筛选出的图片
-      let index = 0
-      for (let pic of json) {
-        if (index >= this.maxImage) {
-          break
-        }
-        if (this.content.includes(pic.keyword) && ((this.privilegeType > 0 && this.privilegeType <= pic.rank) || pic.rank == 0)) {
-          danmu_pic_filtered.push(pic)
-          index++
-        }
-      }
-      // myLog(danmu_pic_filtered)
-      return danmu_pic_filtered
-    },
     timeText() {
       return utils.getTimeTextHourMin(this.time)
     },

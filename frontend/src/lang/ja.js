@@ -48,14 +48,15 @@ export default {
     imageAlignTypes: [
       {
         id: 'inline',
-        name: '後で付け'
+        name: '後で付け(絵文字)'
       },
       {
         id: 'block',
-        name: '新たな行'
+        name: '新たな行(画像)'
       }
     ],
     maxImage: '最大画像数',
+    maxEmoji: '最大絵文字数',
 
     block: 'ブロック',
     giftDanmaku: 'ブロックシステムコメント（プレゼント効果）',

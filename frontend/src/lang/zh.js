@@ -48,14 +48,15 @@ export default {
     imageAlignTypes: [
       {
         id: 'inline',
-        name: '同行'
+        name: '同行(emoji)'
       },
       {
         id: 'block',
-        name: '换行'
+        name: '换行(图片)'
       }
     ],
     maxImage: '最大图片数',
+    maxEmoji: '最大emoji数',
 
     block: '屏蔽',
     giftDanmaku: '屏蔽礼物弹幕',

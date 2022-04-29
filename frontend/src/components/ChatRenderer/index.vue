@@ -25,6 +25,7 @@
                   :privilegeType="message.privilegeType"
                   :repeated="message.repeated"
                   :maxImage="maxImage"
+                  :maxEmoji="maxEmoji"
                   :medalName="message.medalName"
                   :medalLevel="message.medalLevel"
                   :isFanGroup="message.isFanGroup"
@@ -144,6 +145,10 @@ export default {
     imageShowType: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.imageShowType
+    },
+    maxEmoji: {
+      type: Number,
+      default: chatConfig.DEFAULT_CONFIG.maxEmoji
     },
     maxImage: {
       type: Number,

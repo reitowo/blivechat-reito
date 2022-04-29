@@ -118,7 +118,12 @@
               </el-col>
               <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.maxImage')">
-                  <el-input v-model.number="form.maxImage" type="number" min="2"></el-input>
+                  <el-input v-model.number="form.maxImage" type="number"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.maxEmoji')">
+                  <el-input v-model.number="form.maxEmoji" type="number"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>

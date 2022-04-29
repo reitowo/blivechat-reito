@@ -142,6 +142,7 @@ export default {
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
       cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
+      cfg.maxEmoji = toInt(cfg.maxEmoji, chatConfig.DEFAULT_CONFIG.maxEmoji)
 
 
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
@@ -398,11 +399,20 @@ export default {
 
       // FIXME: getRichContent 核心拆分文字表情emoticon代码
       // TODO: 增加表情包数量限制 this.config.maxImage
+      // TODO: 增加表情包数量限制 this.config.maxEmoji
       // 可能含有自定义表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
       let pos = 0
+      let emojiCount = 0;
+      let imageCount = 0;
       // TODO: 增加表情包渲染方式 this.config.imageShowType
+      if(this.config.imageShowType === 1) {
+        richContent.push({
+            type: constants.CONTENT_TYPE_TEXT,
+            text: data.content
+        })
+      }
       while (pos < data.content.length) {
         let remainContent = data.content.substring(pos)
         let matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
@@ -413,7 +423,7 @@ export default {
         }
 
         // 加入之前的文本
-        if (pos !== startPos) {
+        if (pos !== startPos && this.config.imageShowType !== 1) {
           richContent.push({
             type: constants.CONTENT_TYPE_TEXT,
             text: data.content.slice(startPos, pos)
@@ -421,19 +431,32 @@ export default {
         }
 
         // 加入表情
-        // TODO: 增加emoticon 舰长等级
-        richContent.push({
-          type: constants.CONTENT_TYPE_IMAGE,
-          text: matchEmoticon.keyword,
-          align: matchEmoticon.align,
-          height: matchEmoticon.height,
-          url: matchEmoticon.url
-        })
+        // TODO: 增加 emoticon 舰长等级
+        if((matchEmoticon.align === 'inline' && emojiCount < this.config.maxEmoji) || (matchEmoticon.align === 'block' && imageCount < this.config.maxImage)) {
+          if(matchEmoticon.align === 'inline') {
+            emojiCount++
+          } else {
+            imageCount++
+          }
+          richContent.push({
+            type: constants.CONTENT_TYPE_IMAGE,
+            text: matchEmoticon.keyword,
+            align: matchEmoticon.align,
+            height: matchEmoticon.height,
+            url: matchEmoticon.url
+          })
+        } else {
+          richContent.push({
+            type: constants.CONTENT_TYPE_TEXT,
+            text: matchEmoticon.keyword
+          })
+        } 
+        
         pos += matchEmoticon.keyword.length
         startPos = pos
       } // end while
       // 加入尾部的文本
-      if (pos !== startPos) {
+      if (pos !== startPos && this.config.imageShowType !== 1) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
           text: data.content.slice(startPos, pos)
