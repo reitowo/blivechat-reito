@@ -123,7 +123,6 @@ export default {
     showMedalName: 'Show badge name',
     showMedalLevel: 'Show badge level',
 
-    // FIXME: emoticonSize
     emoticonSize: 'Emoticon size', 
 
     messages: 'Messages',

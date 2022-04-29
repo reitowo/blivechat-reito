@@ -192,7 +192,6 @@
         <el-form-item :label="$t('stylegen.onNewLine')">
           <el-switch v-model="form.messageOnNewLine"></el-switch>
         </el-form-item>
-        <--FIXME: emoticonSize-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.emoticonSize')">

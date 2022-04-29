@@ -276,7 +276,7 @@ export default {
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
         title: data.authorName,
-        price: price
+        price: price,
         title: this.$t('chat.membershipTitle')
       }
       this.$refs.renderer.addMessage(message)

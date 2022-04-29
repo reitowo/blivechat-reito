@@ -123,7 +123,6 @@ export default {
     showOnlyOwnerMedal: '只显示直播主勋章',
     showMedalName: '显示勋章名',
     showMedalLevel: '显示勋章等级',
-    // FIXME: emoticonSize
     emoticonSize: '表情大小',
 
     messages: '消息',

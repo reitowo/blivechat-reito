@@ -183,7 +183,6 @@
               </el-radio-group>
             </el-form-item>
           </el-tab-pane>
-          <!--TODO: home.emoticon 前端上传图片tab处-->
           <el-tab-pane :label="$t('home.emoticon')">
             <el-table :data="form.emoticons">
               <el-table-column prop="keyword" :label="$t('home.emoticonKeyword')" width="170">

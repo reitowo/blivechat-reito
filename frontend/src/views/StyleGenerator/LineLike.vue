@@ -162,7 +162,6 @@
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.lineHeight')">
               <el-input v-model.number="form.messageLineHeight" type="number" min="0"></el-input>
-            <--FIXME: emoticonSize-->
             <el-form-item :label="$t('stylegen.emoticonSize')">
               <el-input v-model.number="form.emoticonSize" type="number" min="0"></el-input>
             </el-form-item>
