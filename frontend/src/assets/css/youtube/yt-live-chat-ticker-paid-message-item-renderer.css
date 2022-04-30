@@ -31,6 +31,9 @@ yt-live-chat-ticker-paid-message-item-renderer {
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  overflow: hidden;
+  --yt-live-chat-ticker-item-primary-color: none;
+  --yt-live-chat-ticker-item-secondary-color: none;
 }
 
 #container.yt-live-chat-ticker-paid-message-item-renderer {
