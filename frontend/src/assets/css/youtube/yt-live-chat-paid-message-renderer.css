@@ -162,15 +162,6 @@ yt-live-chat-paid-message-renderer[dashboard-money-feed] #card.yt-live-chat-paid
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-yt-live-chat-paid-message-renderer #content.yt-live-chat-paid-message-renderer::before {
-  background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 4px,
-        var(--yt-live-chat-paid-message-divider-color, #fff) 0px,
-        var(--yt-live-chat-paid-message-divider-color, #fff) 18px
-    );
-}
 
 yt-live-chat-paid-message-renderer[show-only-header] #header.yt-live-chat-paid-message-renderer {
   border-bottom-left-radius: 4px;

@@ -197,6 +197,10 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <p>
+              <el-button type="primary" icon="el-icon-plus" @click="addEmoticon">{{$t('home.addEmoticon')}}</el-button>
+              <el-button type="primary" icon="el-icon-plus" @click="addPicture">{{$t('home.addPicture')}}</el-button>
+            </p>
             <el-table :data="form.emoticons">
               <el-table-column prop="keyword" :label="$t('home.emoticonKeyword')" width="170">
                 <template slot-scope="scope">
@@ -233,16 +237,11 @@
               <el-table-column :label="$t('home.operation')" width="170">
                 <template slot-scope="scope">
                   <el-button-group>
-                    <el-button type="primary" icon="el-icon-upload2" disabled @click="uploadEmoticon(scope.row)"></el-button>
                     <el-button type="danger" icon="el-icon-minus" @click="delEmoticon(scope.$index)"></el-button>
                   </el-button-group>
                 </template>
               </el-table-column>
             </el-table>
-            <p>
-              <el-button type="primary" icon="el-icon-plus" @click="addEmoticon">{{$t('home.addEmoticon')}}</el-button>
-              <el-button type="primary" icon="el-icon-plus" @click="addPicture">{{$t('home.addPicture')}}</el-button>
-            </p>
           </el-tab-pane>
           <el-tab-pane :label="$t('home.testing')">
             <el-row :gutter="20">
@@ -347,7 +346,7 @@ export default {
 
     addEmoticon() {
       // TODO: 增加图片大小
-      this.form.emoticons.push({
+      this.form.emoticons.splice(0, 0, {
         keyword: '[emoji_keyword]',
         align: 'inline',
         level: 0,
@@ -358,7 +357,7 @@ export default {
 
     addPicture() {
       // TODO: 增加图片大小
-      this.form.emoticons.push({
+      this.form.emoticons.splice(0, 0, {
         keyword: '[pic_keyword]',
         align: 'block',
         level: 0,
