@@ -9,10 +9,13 @@
         </router-link>
       </div>
       <div class="version">
-        {{ APP_VERSION }}
+        {{ APP_VERSION }}-220501
       </div>
       <div class="version">
-        <a href="https://space.bilibili.com/12236936" target="_blank">只熊KUMA</a>-<a href="https://pan.baidu.com/s/13NBx5dp_ba-gshrZ8ZMKLA" target="_blank">220501</a>
+        <a href="https://space.bilibili.com/12236936" target="_blank">只熊KUMA</a>
+      </div>
+      <div class="version">
+        <a href="https://www.yuque.com/doodle-irifi/ueaigm/stntb3" target="_blank">下载链接/更新记录</a>
       </div>
       <sidebar></sidebar>
     </el-aside>

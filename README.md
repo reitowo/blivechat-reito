@@ -1,74 +1,35 @@
 # 相比[原版blivechat](https://github.com/xfgryujk/blivechat)新增的功能
+
+### 特别感谢（排名不分先后）：椅子_Official，海式policturn，小川尚未，梅林Kitsune，因扎因·内比娅, 玲玲
 ## 自定义弹幕触发图片(适配样式生成器)
 
-![弹幕效果截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmu_add_img.jpg) 
+![弹幕效果截图](./screenshots/danmu_add_img.jpg) 
 
-1. 在 `/frontend/dist/static` 放置你需要的图片，并命名好
-![图片文件位置截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmuImageFile.png) 
-2. 编辑在 `/frontend/dist`文件夹内的 `danmu_pic.json`
-![danmu_pic.json文件位置截图](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/danmu_file.png) 
-### 如何设置
- 
-```json
-{ 
-	"keyword" : "弹幕关键词" ,"image" : "图片完整名称", "height" : "图片高度" , "rank": "舰长等级"
-},
-```
-
-1. `keyword` 为关键词，弹幕中含关键词则会触发图片添加在后方
-2. `image` 为对应的图片的全称 (图片需要放在blivechat/dist/static 下面)【像下面我可以写两个名字对应一个图片，多个关键词可以对应同一个图片】
-3. `height` 为图片的高度
-4. `rank` 限定发表情包用户的等级，分为4级（所有人，舰长，提督，总督）
-	1. `rank = 0` `所有人`都能用的表情包
-	2. `rank = 3` `舰长`以上包括`舰长`能用
-	3. `rank = 2` `提督`以上包括`提督`能用
-	4. `rank = 1` `总督`以上包括`总督`能用
-### [json文件实例](https://github.com/DoodleBears/blivechat/blob/doodle_bear/frontend/danmu_pic.json)
-```json
-// 所有符号需采用英文符号
-// 关键词不能重复
-// 尽量使用英文命名图片文件
-[
-    {
-       "keyword" : "整不明白了", "image" : "整不明白了.jpg", "height" : "128" , "rank": 0
-    },
-    {
-       "keyword" : "睡了", "image" : "睡了.gif", "height" : "128" , "rank": 0
-    }	// 注意这里没有逗号
-]
-```
 ### 表情包触发机制
-![图片插入方式](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/imageShowType.png) 
+![图片插入方式](./screenshots/imageShowType.png) 
 #### 1.替换表情包（无需符号）
-1. 检查弹幕内容里存在的表情包的关键词（且满足调用权限）
-2. 计算所有关键词在弹幕内容中的位置，并按顺序替换，直到达到 `最大图片数`
+1. 检查弹幕内容里存在的表情包的关键词（且满足调用权限-如舰长身份）
+2. 计算所有关键词在弹幕内容中的位置，并按顺序替换，直到达到 `最大同行图片数`，`最大换行图片数`
 
-如：`钱` 是关键词，若最大图片数为2，则当出现`钱钱钱` 这样的弹幕时，会把前两个钱变为图片 `[图片]钱[图片]钱[文字]钱`
-#### 2.替换表情包（需要符号）
-1. 用正则表达式以符号`【】[]“”`为标记切分弹幕内容字符串
-2. 判断符号闭合范围内关键词是否存在对应表情包（且满足调用权限）
-3. 有则替换，无则略过，超出 `最大图片数` 则略过后面关键词检测
-
-如：`钱` 是关键词，若最大图片数为2，则当出现`【钱】【钱】【钱】` 这样的弹幕时，会把前两个钱变为图片 `[图片]钱[图片]钱[文字]钱`
-#### 3.在文字消息后添加
-1. 检测弹幕内容字符串是否包含关键词（且满足调用权限），将所有触发表情筛选出来
-2. 超出 `最大图片数` 的部分删去
-3. 添加在弹幕消息后
+如：`钱` 是关键词，若最大图片数为2，则当出现`钱钱钱` 这样的弹幕时，会把前2个“钱”变为图片 `[图片]钱[图片]钱[文字]钱`
+#### 2.在文字消息后添加
+1. 检查弹幕内容里存在的表情包的关键词（且满足调用权限-如舰长身份）
+2. 添加在弹幕消息后
 
 如：`钱` 是关键词，若最大图片数为2，则当出现`钱钱钱` 这样的弹幕时，会把前两个钱变为图片 `[文字]钱[文字]钱[文字]钱[图片]钱`
 ## 其他自定义设置
 
-![网页上的编辑位置](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/web-page-setting.png) 
+![网页上的编辑位置](./screenshots/web-page-setting.png) 
 
 ### 1.自定义分别显示不同弹幕
-![单独显示不同类型弹幕](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/showDifferentDanmaku.png) 
+![单独显示不同类型弹幕](./screenshots/showDifferentDanmaku.png) 
 1. 普通弹幕(Message)
 2. 醒目留言(Super Chat)
 3. 上舰信息(Member)
 4. 礼物信息(Gift)
 ### 2.最低显示打赏价格（RMB/CNY/元）
 
-![打赏弹幕显示的最低价格](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/leastSuperChat.png) 
+![打赏弹幕显示的最低价格](./screenshots/leastSuperChat.png) 
 
 1. 最低打赏价格（元） —— 弹幕区域的最低价格
 2. 最低顶部停驻打赏价格（元） —— 顶部倒计时贴纸区域的最低价格
@@ -80,26 +41,79 @@
 
 设置为 0.1, 则只显示金瓜子礼物, 不显示银瓜子礼物
 
-### 3.图片插入方式 & 最大图片数(表情包相关功能)
-`图片插入方式` 包含上文提到的3种
+### 3.自定义表情相关功能
 
-![图片插入方式](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/imageShowType.png) 
+![自定义表情相关功能图](./screenshots/emoticon_setting.png) 
+#### `自动渲染官方表情` 
+开启后：包含B站直播间通用表情，主播设置的B站表情（无需自己添加设定）——但缺点是不能自定义如图片换行/同行，图片高度（大小）
 
-`最大图片数` 即弹幕关键词转换为图片的最大数量（防止大量关键词出现时，图片刷屏）
-默认为2，可填入非负整数
+#### `图片插入方式` 
+包含上文提到的2种
+1. 替换关键词
+2. 在文字之后添加
 
+#### `最大换行图片数` 
+即弹幕关键词转换为【换行】图片的最大数量（防止大量关键词出现时，图片刷屏）
+默认为1，可填入非负整数，设置为0则屏蔽表情
+
+#### `最大同行图片数` 
+即弹幕关键词转换为【同行】图片的最大数量（防止大量关键词出现时，图片刷屏）
+默认为5，可填入非负整数，设置为0则屏蔽表情
+
+#### `自定义表情属性说明`
+
+### 4. 表情包配置教程
+
+#### 首先表情包需存放于： `/data/emoticon` 使用【**英文命名**】
+
+![图片文件位置截图](./screenshots/danmuImageFile.png) 
+
+在网页前端的【首页】-【自定义表情】处设置
+
+![自定义表情相关功能图](./screenshots/emoji_properties_setting.png) 
+
+![自定义表情相关功能图](./screenshots/add_emoji_setting.png) 
+
+#### `替换关键词` 
+即弹幕关键词，弹幕中出现该关键词会触发表情包渲染
+
+#### `URL`
+表情包的路径（存放文件夹+完整带后缀文件名）
+例：图片名为【cry.png】时
+```sh
+\emoticons\cry.png
+```
+#### `图片排列`
+- inline: 同行
+- block: 换行 
+
+#### `图片权限等级`
+- 0 = 【**所有人**】都能用的表情包
+- 3 = 【**舰长**】以上包括舰长能用
+- 2 = 【**提督**】以上包括提督能用
+- 1 = 【**总督**】以上包括总督能用
+
+#### `图片高度`
+图片的高度，为非负整数
+
+#### `添加表情（同行）| 添加图片（换行） 按钮`
+两者本质一致：设定的URL都为图片的URL
+2个按钮只是为了方便快速添加同行或换行图片
+- inline 同行表情：默认为 16（建议和字体大小设置相近）
+- block 换行图片：默认为 64
 ### 4.粉丝牌子显示(适配样式生成器)
 
-![粉丝牌子设置](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/fan-medal.jpg) 
+![粉丝牌子设置](./screenshots/fan-medal.jpg) 
 
-1. 自定义是否显示粉丝勋章
+自定义
+1. 是否显示粉丝勋章
 2. 是否只显示直播主的直播间勋章
 3. 是否显示勋章名
-4. 是否显示勋章等级
+4. 是否显示勋章等级 
 
-### 5.单独显示翻译弹幕
+### 5.单独显示翻译弹幕（开启后非翻译弹幕均不显示）
 
-![单独显示翻译弹幕](https://github.com/DoodleBears/blivechat/blob/doodle_bear/screenshots/showOnlyTranslation.png) 
+![单独显示翻译弹幕](./screenshots/showOnlyTranslation.png) 
 
 适用于有实时翻译man在直播间的V，可以单独分离以特定符号开头的弹幕（然而现在B站自动录播会带弹幕，直播间和录播都可以看到翻译弹幕）
 

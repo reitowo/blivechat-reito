@@ -45,8 +45,8 @@ export default {
         name: '在文字消息后添加'
       }
     ],
-    maxImage: '最大图片数',
-    maxEmoji: '最大emoji数',
+    maxImage: '最大换行图片数',
+    maxEmoji: '最大同行图片数',
 
     imageAlignType: '图片排放方式',
     imageAlignTypes: [
