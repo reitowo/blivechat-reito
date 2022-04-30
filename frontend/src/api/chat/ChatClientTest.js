@@ -13,36 +13,61 @@ const MEDAL_NAME = [
   '被炉', '轮椅人', '祈并者', '未川控', '棺材铺', '勋章名称', '勋章名称', '勋章名称', '白送了', '幻士', '玲喵'
 ]
 
+const OFFICIAL_EMOJI_NAME = [
+  '这是官方表情（看到这个说明你关闭了官方表情自动渲染）', '这是官方表情（看到这个说明你关闭了官方表情自动渲染）',
+  '点赞', '妙啊', '有点东西', '离谱',
+  '很有精神', '泪目', '赢麻了', '多谢款待',
+  '啊我死了', '笑死', '鸡汤来啦', '雀食',
+  '烦死了', '禁止套娃', '暗中观察', '保熟吗',
+  '比心', '？？？', '好耶', '咸鱼翻身',
+  'mua', '打扰了', '来了来了', '贴贴',
+  '牛牛牛', '颠个勺', '好家伙', '那我走',
+  '下次一定', '不上Ban', '就这', '上热榜',
+  '中奖喷雾', '我不理解'
+]
+
 const SC_CONTENTS = [
   '草', '草', '草', '草', '草', '草', '啊这', '啊这', '啊这', '啊这', '啊这',
   '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '“希望之花”', '【二次元是不会背叛你的】',
   '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】', '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】',
-  '草',  'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
-  ' ',' ',' ',' ',' ',' ',' ',' ','   ',' '
+  '草', 'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
+  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+  '', '', '', '', '', '', '', '', '', ''
 ]
 
 const CONTENTS = [
+  'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds',
+  '草', '草', '草', '草', '草', '草', '草', '草', '草', '草',
+  '测试', '测试', '测试', '测试', '测试', '测试',
+  '好耶', '好耶', '好耶', '好耶', '好耶', '好耶',
+  '勇！', '勇！', '勇！', '勇！', '勇！', '勇！',
+  '明白', '明白', '明白', '明白', '明白', '明白', '明白', '明白',
+  '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞',
+  '不中', '不中', '不中', '不中', '不中', '不中', '不中', '不中',
+  'hso', 'hso', 'hso', 'hso', 'hso',
+  '233', '233', '233', '233', '233',
+  '666', '666', '666', '666', '666',
+  'emo', 'emo', 'emo', 'emo', 'emo',
+  '草草草', '草草草', '草草草', '草草草', '草草草', '草草草',
+  '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱',
+  '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]',
+  '“希望之花”', '“希望之花”', '“希望之花”', '“希望之花”',
+  '希望人没事', '希望人没事', '希望人没事', '希望人没事', '希望人没事', '希望人没事',
+  '地铁老人手机', '地铁老人手机', '地铁老人手机', '地铁老人手机', '地铁老人手机',
+  '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】',
+  '三点几嘞饮茶先嘞', '三点几嘞饮茶先嘞', '三点几嘞饮茶先嘞',
+  '做猪最重要的是开心', '做猪最重要的是开心', '做猪最重要的是开心', '做猪最重要的是开心', '做猪最重要的是开心',
+  '我很有[钱][钱][钱]', '我很有[钱][钱][钱]', '我很有[钱][钱][钱]', 
+  '我要对你使用【炎拳】', '我要对你使用【炎拳】', '我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】',
+  '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】',
+  '【二次元是不会背叛你的】', '【二次元是不会背叛你的】', '【二次元是不会背叛你的】', '【二次元是不会背叛你的】',
+  '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】', '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】',
+
   '【这是1条翻译', '【这是2条翻译', '【这是3条翻译', '【这是4条翻译', '【这是5条翻译',
   '【这句话没听懂', '【这句话没听懂', '【这句话没听懂', '【迷迭迷迭帕里桑，tekoki', '【迷迭迷迭帕里桑，tekoki',
   '【你看你看，帕里桑，手冲', '【帕里快看，我在手冲诶', '【你懂个锤子', '【迷迭迷迭帕里桑，tekoki', '【看啊看啊 帕里桑 这是手冲哦',
-  'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds',
-  '草', '草', '草', '草', '草', '草', '草', '草', '草', '草',
-  '测试', '测试', '测试', '测试', '测试', '测试', '测试', '测试', '测试', '测试',
-  '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]', '[测试]',
-  '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞', '中嘞',
-  '草草草', '草草草', '草草草', '草草草', '草草草', '草草草', '草草草', '草草草', '草草草', 
-  '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', '钱钱钱', 
-  'hso', 'hso', 'hso', 'hso', '你好骚啊', '你好骚啊', '你好骚啊', '你好骚啊', '你好骚啊',
-  '勉强能冲', '勉强能冲', '勉强能冲', '勉强能冲', '勉强能冲',
-  '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】', '岂可修【铁咩】',
-  '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】',
-  '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】', '岂可修【铁咩】我要对你使用【炎拳】',
-  '三点几嘞[喝茶]先嘞，做什么做，[喝茶], 喝茶先啦', '我很有[钱][钱][钱]', '“希望之花”', '【二次元是不会背叛你的】',
-  '【美兔3D】', '三点几嘞【喝茶】先嘞', '“希望之花”', '【二次元是不会背叛你的】',
-  '三点几嘞[喝茶]先嘞', '三点几嘞【喝茶】先嘞', '“希望之花”', '【二次元是不会背叛你的】',
-  '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】', '一个bug，只需要改3行，我改了3个小时才知道问题出在哪【希望之花】',
-  '我很有[钱][钱][钱]', '三点几嘞【喝茶】先嘞', '“希望之花”', '【二次元是不会背叛你的】',
-  '草',  'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
+
+  '草', 'kksk', '8888888888', '888888888888888888888888888888', '老板大气，老板身体健康',
   'The quick brown fox jumps over the lazy dog', "I can eat glass, it doesn't hurt me",
   '我不做人了，JOJO', '無駄無駄無駄無駄無駄無駄無駄無駄', '欧啦欧啦欧啦欧啦欧啦欧啦欧啦欧啦', '逃げるんだよォ！',
   '嚯，朝我走过来了吗，没有选择逃跑而是主动接近我么', '不要停下来啊', '已经没有什么好怕的了',
@@ -61,10 +86,10 @@ const EMOTICONS = [
 ]
 
 const AUTHOR_TYPES = [
-  {weight: 2, value: constants.AUTHRO_TYPE_NORMAL},
-  {weight: 3, value: constants.AUTHRO_TYPE_MEMBER},
-  {weight: 1, value: constants.AUTHRO_TYPE_ADMIN},
-  {weight: 1, value: constants.AUTHRO_TYPE_OWNER}
+  { weight: 2, value: constants.AUTHRO_TYPE_NORMAL },
+  { weight: 3, value: constants.AUTHRO_TYPE_MEMBER },
+  { weight: 1, value: constants.AUTHRO_TYPE_ADMIN },
+  { weight: 1, value: constants.AUTHRO_TYPE_OWNER }
 ]
 
 function randGuardInfo() {
@@ -81,34 +106,34 @@ function randGuardInfo() {
 }
 
 const GIFT_INFO_LIST = [
-  {giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10},
-  {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24},
-  {giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 1},
-  {giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
-  {giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 1},
-  {giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2},
-  {giftName: '吃瓜', price: 0.1, totalCoin: 500, coinType: 'gold', num: 5},
-  {giftName: '比心', price: 0.5, totalCoin: 500, coinType: 'gold', num: 1},
-  {giftName: '比心', price: 0.5, totalCoin: 1000, coinType: 'gold', num: 2},
-  {giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 1},
-  {giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3},
-  {giftName: '冰阔落', price: 1, totalCoin: 5000, coinType: 'gold', num: 5},
-  {giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5},
-  {giftName: '给大佬递茶', price: 2, totalCoin: 20000, coinType: 'gold', num: 10},
-  {giftName: '打榜', price: 2, totalCoin: 2000, coinType: 'gold', num: 1 },
-  {giftName: '打榜', price: 2, totalCoin: 6000, coinType: 'gold', num: 3 },
-  {giftName: '打榜', price: 2, totalCoin: 26000, coinType: 'gold', num: 13 },
-  {giftName: '喵娘', price: 5.2, totalCoin: 5200, coinType: 'gold', num: 1 },
-  {giftName: '喵娘', price: 5.2, totalCoin: 52000, coinType: 'gold', num: 10 },
-  {giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
-  {giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
-  {giftName: '礼花', price: 28, totalCoin: 280000, coinType: 'gold', num: 10 },
-  {giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', num: 1 },
-  {giftName: '花式夸夸', price: 39, totalCoin: 390000, coinType: 'gold', num: 10 },
-  {giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
-  {giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
-  {giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
-  {giftName: '小电视飞船', price: 1245, totalCoin: 12450000, coinType: 'gold', num: 10}
+  { giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10 },
+  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24 },
+  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 1 },
+  { giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 1 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 500, coinType: 'gold', num: 5 },
+  { giftName: '比心', price: 0.5, totalCoin: 500, coinType: 'gold', num: 1 },
+  { giftName: '比心', price: 0.5, totalCoin: 1000, coinType: 'gold', num: 2 },
+  { giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 1 },
+  { giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3 },
+  { giftName: '冰阔落', price: 1, totalCoin: 5000, coinType: 'gold', num: 5 },
+  { giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5 },
+  { giftName: '给大佬递茶', price: 2, totalCoin: 20000, coinType: 'gold', num: 10 },
+  { giftName: '打榜', price: 2, totalCoin: 2000, coinType: 'gold', num: 1 },
+  { giftName: '打榜', price: 2, totalCoin: 6000, coinType: 'gold', num: 3 },
+  { giftName: '打榜', price: 2, totalCoin: 26000, coinType: 'gold', num: 13 },
+  { giftName: '喵娘', price: 5.2, totalCoin: 5200, coinType: 'gold', num: 1 },
+  { giftName: '喵娘', price: 5.2, totalCoin: 52000, coinType: 'gold', num: 10 },
+  { giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
+  { giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
+  { giftName: '礼花', price: 28, totalCoin: 280000, coinType: 'gold', num: 10 },
+  { giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', num: 1 },
+  { giftName: '花式夸夸', price: 39, totalCoin: 390000, coinType: 'gold', num: 10 },
+  { giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
+  { giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
+  { giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
+  { giftName: '小电视飞船', price: 1245, totalCoin: 12450000, coinType: 'gold', num: 10 }
 
 ]
 
@@ -154,7 +179,7 @@ const MESSAGE_GENERATORS = [
           avatarUrl: avatar.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
-          content: '',
+          content: randomChoose(OFFICIAL_EMOJI_NAME),
           isGiftDanmaku: false,
           authorLevel: randInt(0, 60),
           isNewbie: randInt(1, 10) <= 1,
@@ -253,7 +278,7 @@ function randInt(min, max) {
 }
 
 export default class ChatClientTest {
-  constructor (minSleepTime , maxSleepTime) {
+  constructor(minSleepTime, maxSleepTime) {
     this.minSleepTime = minSleepTime
     this.maxSleepTime = minSleepTime <= maxSleepTime ? maxSleepTime : minSleepTime
 

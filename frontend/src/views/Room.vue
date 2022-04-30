@@ -1,23 +1,20 @@
 <template>
-  <chat-renderer ref="renderer"  
+  <chat-renderer ref="renderer"
   :showGiftInfo="config.showGiftInfo"
   :danmakuAtBottom="config.danmakuAtBottom"
   :tickerAtButtom="config.tickerAtButtom"
-  :showTranslateDanmakuOnly="config.showTranslateDanmakuOnly"
   :minGiftPrice="config.minGiftPrice"
-  :minTickerPrice="config.minTickerPrice" 
+  :minTickerPrice="config.minTickerPrice"
   :maxNumber="config.maxNumber"
   :fadeOutNum="config.fadeOutNum"
-  :pinTime="config.pinTime" 
-  :imageShowType="config.imageShowType"
-  :maxImage="config.maxImage"
+  :pinTime="config.pinTime"
   >
   </chat-renderer>
 </template>
 
 <script>
 import * as i18n from '@/i18n'
-import { mergeConfig, toBool, toInt, toFloat} from '@/utils'
+import { mergeConfig, toBool, toInt, toFloat } from '@/utils'
 import * as trie from '@/utils/trie'
 import * as pronunciation from '@/utils/pronunciation'
 import * as chatConfig from '@/api/chatConfig'
@@ -75,7 +72,7 @@ export default {
       let res = new trie.Trie()
       for (let emoticon of this.config.emoticons) {
         // 1个个添加 emoticon
-        if (emoticon.keyword !== '' && emoticon.align !== '' && emoticon.height !== '' && emoticon.url !== '' ) {
+        if (emoticon.keyword !== '' && emoticon.align !== '' && emoticon.height !== '' && emoticon.url !== '') {
           res.set(emoticon.keyword, emoticon)
         }
       }
@@ -109,7 +106,7 @@ export default {
       }
 
       //* {} 内留空的使用上次预设值
-      let cfg = {...chatConfig.getLocalConfig()}
+      let cfg = { ...chatConfig.getLocalConfig() }
       for (let i in this.strConfig) {
         if (this.strConfig[i] !== '') {
           cfg[i] = this.strConfig[i]
@@ -137,6 +134,8 @@ export default {
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
       cfg.translationSign = cfg.translationSign.toString()
 
+      // TODO: blockGiftDanmaku
+      cfg.autoRenderOfficialEmoji = toBool(cfg.autoRenderOfficialEmoji)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
@@ -202,13 +201,14 @@ export default {
         // console.log("收到一般消息弹幕，但：是否显示弹幕为" + this.config.showDanmaku + "，是否合并弹幕为" + this.config.mergeSimilarDanmaku)
         return
       }
-      if(this.config.showTranslateDanmakuOnly) {
+      // TODO: 只显示翻译弹幕
+      if (this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
-        if(content_str.charAt(0) != this.config.translationSign) {
+        if (content_str.charAt(0) != this.config.translationSign) {
           // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
           return
         } else {
-          data.content = "翻译：" + content_str.substring(1)
+          data.content = content_str.substring(1)
         }
       }
       // TODO: richContent 的研究
@@ -235,12 +235,12 @@ export default {
         // console.log("收到礼物，但是否显示礼物为" + this.config.showGift)
         return
       }
-      if(this.config.showTranslateDanmakuOnly) {
+      if (this.config.showTranslateDanmakuOnly) {
         // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
       
-      let price = (data.coinType == 'gold') ? (data.totalCoin / 1000) : 0
+      let price = data.coinType == 'gold' ? data.totalCoin / 1000 : 0
       if (this.mergeSimilarGift(data.authorName, price, data.giftName, data.num)) {
         return
       }
@@ -267,11 +267,16 @@ export default {
         // console.log("收到上舰，但是否显示上舰信息为" + this.config.showNewMember)
         return
       }
-      if(this.config.showTranslateDanmakuOnly) {
+      if (this.config.showTranslateDanmakuOnly) {
         // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
-      let price = data.privilegeType == 3 ? 198 : data.privilegeType == 2 ? 1998 : 19998
+      let price = 198
+      if (data.privilegeType == 2) {
+        price = 1998
+      } else if (data.privilegeType == 3) {
+        price = 19998
+      }
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_MEMBER,
@@ -280,7 +285,6 @@ export default {
         authorName: data.authorName,
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
-        title: data.authorName,
         price: price,
         title: this.$t('chat.membershipTitle')
       }
@@ -295,7 +299,7 @@ export default {
         // console.log("打赏小于最低打赏金额，不以显示")
         return
       }
-      if(this.config.showTranslateDanmakuOnly) {
+      if (this.config.showTranslateDanmakuOnly) {
         // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
@@ -377,9 +381,18 @@ export default {
     getRichContent(data) {
       let richContent = []
 
+      // 翻译弹幕，只显示文字
+      if (this.config.showTranslateDanmakuOnly == true) {
+        richContent.push({
+          type: constants.CONTENT_TYPE_TEXT,
+          text: data.content
+        })
+        return richContent
+      }
+
       // B站官方表情
       // TODO: 屏蔽官方表情
-      if (data.emoticon !== null) {
+      if (data.emoticon !== null && this.config.autoRenderOfficialEmoji === true) {
         richContent.push({
           type: constants.CONTENT_TYPE_EMOJI,
           text: data.content,
@@ -402,12 +415,12 @@ export default {
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
       let pos = 0
-      let emojiCount = 0;
-      let imageCount = 0;
-      if(this.config.imageShowType === 1) {
+      let emojiCount = 0
+      let imageCount = 0
+      if (this.config.imageShowType === 1) {
         richContent.push({
-            type: constants.CONTENT_TYPE_TEXT,
-            text: data.content
+          type: constants.CONTENT_TYPE_TEXT,
+          text: data.content
         })
       }
       while (pos < data.content.length) {
@@ -429,15 +442,12 @@ export default {
 
         // 加入表情
         // TODO: 增加 emoticon 舰长等级 data.privilegeType
-       
         // 如果不满足使用权限，或者超过inline,block类型图片各自的上限
         let emoticonLevel = toInt(matchEmoticon.level)
         let privilegeType = toInt(data.privilegeType)
-        // console.log('emoticonLevel: ' + emoticonLevel)
-        // console.log('privilegeType: ' + privilegeType)
 
-        if((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
-          ||(matchEmoticon.align === 'inline' && emojiCount >= this.config.maxEmoji)
+        if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
+          || (matchEmoticon.align === 'inline' && emojiCount >= this.config.maxEmoji)
           || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
           richContent.push({
             type: constants.CONTENT_TYPE_TEXT,
@@ -445,7 +455,7 @@ export default {
           })
         } else {
           // 如果没有
-          if(matchEmoticon.align === 'inline') {
+          if (matchEmoticon.align === 'inline') {
             emojiCount++
           } else {
             imageCount++
@@ -458,7 +468,7 @@ export default {
             level: matchEmoticon.level,
             url: matchEmoticon.url
           })
-        } 
+        }
         pos += matchEmoticon.keyword.length
         startPos = pos
       } // end while

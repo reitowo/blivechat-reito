@@ -96,7 +96,6 @@ export default {
     medalLevel: Number,
     isFanGroup: Boolean,
     isDelete: Boolean,
-    showTranslateDanmakuOnly: Boolean,
     emoticon: String,
     content: String,
     richContent: Array,

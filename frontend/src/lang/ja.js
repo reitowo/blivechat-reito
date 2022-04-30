@@ -33,7 +33,8 @@ export default {
     fadeOutNum: '消えるコメント数',
     pinTime: 'コメントの存在時間(0 は消しない)',
 
-    imageShowType: 'スタッフの表現方',
+    autoRenderOfficialEmoji: '自動表示公式スタンプ',
+    imageShowType: 'スタンプの表現方',
     imageShowTypes: [
       {
         id: '0',
@@ -44,7 +45,10 @@ export default {
           name: 'コメントの後で付ける'
       }
     ],
-    imageAlignType: 'スタッフの揃え',
+   
+    maxImage: '最大画像数',
+    maxEmoji: '最大絵文字数',
+    imageAlignType: 'スタンプの揃え',
     imageAlignTypes: [
       {
         id: 'inline',
@@ -55,8 +59,6 @@ export default {
         name: '新たな行(画像)'
       }
     ],
-    maxImage: '最大画像数',
-    maxEmoji: '最大絵文字数',
     imageLevel: '画像発送権限',
     imageLevels: [
       {
@@ -106,7 +108,8 @@ export default {
     emoticonHeight: '画像高度',
     emoticonUrl: 'URL',
     operation: '操作',
-    addEmoticon: 'スタンプを追加',
+    addEmoticon: 'スタンプ追加（後で付け）',
+    addPicture: '画像追加（新たな行）',
 
     roomUrl: 'ルームのURL',
     copy: 'コピー',
@@ -152,6 +155,8 @@ export default {
     showBadges: '勲章を見せる',
     showColon: 'ユーザー名の後にコロンが表示されます',
     emoticonSize: 'スタンプサイズ',
+    emoticonInlineBorderRadius: '後で付けスタンプ圆角',
+    emoticonBlockBorderRadius: '新たな行スタンプ圆角',
 
     medal: 'ファン勲章',
     showMedal: 'ファン勲章を表示する',

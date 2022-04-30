@@ -33,6 +33,7 @@ export default {
     fadeOutNum: '预留淡出弹幕数',
     pinTime: '弹幕停留时长(为0时持续停留)',
 
+    autoRenderOfficialEmoji: '自动渲染官方表情',
     imageShowType: '图片渲染方式',
     imageShowTypes: [
       {
@@ -44,6 +45,9 @@ export default {
         name: '在文字消息后添加'
       }
     ],
+    maxImage: '最大图片数',
+    maxEmoji: '最大emoji数',
+
     imageAlignType: '图片排放方式',
     imageAlignTypes: [
       {
@@ -55,8 +59,6 @@ export default {
         name: '换行(图片)'
       }
     ],
-    maxImage: '最大图片数',
-    maxEmoji: '最大emoji数',
     imageLevel: '图片权限等级',
     imageLevels: [
       {
@@ -105,7 +107,8 @@ export default {
     emoticonHeight: '图片高度',
     emoticonUrl: 'URL',
     operation: '操作',
-    addEmoticon: '添加表情',
+    addEmoticon: '添加表情(同行)',
+    addPicture: '添加图片(换行)',
 
     roomUrl: '房间URL',
     copy: '复制',
@@ -157,6 +160,8 @@ export default {
     showMedalName: '显示勋章名',
     showMedalLevel: '显示勋章等级',
     emoticonSize: '表情大小',
+    emoticonInlineBorderRadius: '同行表情圆角',
+    emoticonBlockBorderRadius: '换行表情圆角',
 
     messages: '消息',
     color: '颜色',

@@ -193,9 +193,19 @@
           <el-switch v-model="form.messageOnNewLine"></el-switch>
         </el-form-item>
         <el-row :gutter="20">
-          <el-col :xs="24" :sm="12">
+          <el-col :xs="24" :sm="8">
             <el-form-item :label="$t('stylegen.emoticonSize')">
               <el-input v-model.number="form.emoticonSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="8">
+            <el-form-item :label="$t('stylegen.emoticonInlineBorderRadius')">
+              <el-input v-model.number="form.emoticonInlineBorderRadius" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="8">
+            <el-form-item :label="$t('stylegen.emoticonBlockBorderRadius')">
+              <el-input v-model.number="form.emoticonBlockBorderRadius" type="number" min="0"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -449,7 +459,7 @@ export const DEFAULT_CONFIG = {
   showOnlyOwnerMedal: true,
   showMedalName: true,
   showMedalLevel: true,
-  medalFontSize: 18,
+  medalFontSize: 14,
   medalLineHeight: 0,
 
   messageFont: 'Imprima',
@@ -459,7 +469,9 @@ export const DEFAULT_CONFIG = {
   messageOnNewLine: false,
 
   // TODO: 表情包默认大小
-  emoticonSize: 60,
+  emoticonSize: 48,
+  emoticonInlineBorderRadius: 0,
+  emoticonBlockBorderRadius: 4,
 
   showTime: false,
   timeFont: 'Imprima',
@@ -572,7 +584,7 @@ yt-live-chat-renderer * {
   ${this.showOutlinesStyle}
   font-family: "${common.cssEscapeStr(this.form.messageFont)}"${common.FALLBACK_FONTS};
   font-size: ${this.form.messageFontSize}px !important;
-  line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
+  line-height: ${this.form.messageLineHeight || (this.form.messageFontSize + 2)}px !important;
 }`
     },
     showOutlinesStyle() {
@@ -629,7 +641,7 @@ yt-live-chat-text-message-renderer #chat-badges {
   vertical-align: text-top !important;
 }`
     },
-        medalStyle() {
+      medalStyle() {
       return `/* Medal */
 yt-live-chat-author-medal-renderer {
     ${this.form.showMedal ? (this.form.showOnlyOwnerMedal ? `display: none;`: `display: flex;`) : 'display: none;'}
@@ -677,6 +689,14 @@ yt-live-chat-text-message-renderer #message {
 yt-live-chat-text-message-renderer #image-and-message .emoji {
   width: auto !important;
   height: ${this.form.emoticonSize}px !important;
+}
+
+#image-and-message img[display="block"] {
+  border-radius: ${this.form.emoticonBlockBorderRadius}px;
+}
+
+#image-and-message img[display="inline"] {
+  border-radius: ${this.form.emoticonInlineBorderRadius}px;
 }`
     },
     timeStyle() {

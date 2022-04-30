@@ -32,6 +32,8 @@ export default {
     fadeOutNum: 'number of fade out message',
     pinTime: 'message remain time(0 remain forever)',
     
+    
+    autoRenderOfficialEmoji: 'auto show official emoji',
     imageShowType: 'Way image show',
     imageShowTypes: [
       {
@@ -43,6 +45,9 @@ export default {
           name: 'Add after message'
       }
     ],
+    maxImage: 'Max number of　pictures',
+    maxEmoji: 'Max number of　emojis',
+
     imageAlignType: 'Way image align',
     imageAlignTypes: [
       {
@@ -54,8 +59,6 @@ export default {
         name: 'block(pic)'
       }
     ],
-    maxImage: 'Max number of　pictures',
-    maxEmoji: 'Max number of　emojis',
     imageLevel: 'Image sending level',
     imageLevels: [
       {
@@ -105,7 +108,8 @@ export default {
     emoticonHeight: 'Emote Height',
     emoticonUrl: 'URL',
     operation: 'Operation',
-    addEmoticon: 'Add emote',
+    addEmoticon: 'Add emote(inline)',
+    addPicture: 'Add picture(block)',
 
     roomUrl: 'Room URL',
     copy: 'Copy',
@@ -158,7 +162,9 @@ export default {
     showMedalLevel: 'Show badge level',
 
     emoticonSize: 'Emoticon size', 
-
+    emoticonInlineBorderRadius: 'Inline emoticon border radius',
+    emoticonBlockBorderRadius: 'Block picture border radius',
+    
     messages: 'Messages',
     color: 'Color',
     onNewLine: 'On new line',

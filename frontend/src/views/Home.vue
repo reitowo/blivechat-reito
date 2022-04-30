@@ -71,7 +71,7 @@
               </el-col>
               <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.translationSign')">
-                  <el-input v-model.trim="form.translationSign" 
+                  <el-input v-model.trim="form.translationSign"
                   maxLength='1'
                   :placeholder="$t('home.onlyOneCharacter')"
                   ></el-input>
@@ -107,26 +107,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.imageShowType')">
-                  <el-select ref="imageShowTypeInput" v-model="form.imageShowType">
-                    <el-option v-for="imageShowType in $t('home.imageShowTypes')" :key="imageShowType" v-bind:value="imageShowType.id">{{imageShowType.name}}
-                    </el-option> 
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.maxImage')">
-                  <el-input v-model.number="form.maxImage" type="number"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.maxEmoji')">
-                  <el-input v-model.number="form.maxEmoji" type="number"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            
           </el-tab-pane>
 
           <el-tab-pane :label="$t('home.block')">
@@ -189,6 +170,33 @@
             </el-form-item>
           </el-tab-pane>
           <el-tab-pane :label="$t('home.emoticon')">
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.autoRenderOfficialEmoji')">
+                  <el-switch v-model="form.autoRenderOfficialEmoji"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.imageShowType')">
+                  <el-select ref="imageShowTypeInput" v-model="form.imageShowType">
+                    <el-option v-for="imageShowType in $t('home.imageShowTypes')" :key="imageShowType" v-bind:value="imageShowType.id">{{imageShowType.name}}
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.maxImage')">
+                  <el-input v-model.number="form.maxImage" type="number"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="12">
+                <el-form-item :label="$t('home.maxEmoji')">
+                  <el-input v-model.number="form.maxEmoji" type="number"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
             <el-table :data="form.emoticons">
               <el-table-column prop="keyword" :label="$t('home.emoticonKeyword')" width="170">
                 <template slot-scope="scope">
@@ -205,7 +213,7 @@
                 <template slot-scope="scope">
                   <el-select ref="imageAlignTypeInput" v-model="scope.row.align">
                     <el-option v-for="imageAlignType in $t('home.imageAlignTypes')" :key="imageAlignType" v-bind:value="imageAlignType.id">{{imageAlignType.name}}
-                    </el-option> 
+                    </el-option>
                   </el-select>
                 </template>
               </el-table-column>
@@ -213,7 +221,7 @@
                 <template slot-scope="scope">
                   <el-select ref="imageLevelInput" v-model.number="scope.row.level" type="number">
                     <el-option v-for="imageLevel in $t('home.imageLevels')" :key="imageLevel" v-bind:value="imageLevel.id">{{imageLevel.name}}
-                    </el-option> 
+                    </el-option>
                   </el-select>
                 </template>
               </el-table-column>
@@ -233,6 +241,7 @@
             </el-table>
             <p>
               <el-button type="primary" icon="el-icon-plus" @click="addEmoticon">{{$t('home.addEmoticon')}}</el-button>
+              <el-button type="primary" icon="el-icon-plus" @click="addPicture">{{$t('home.addPicture')}}</el-button>
             </p>
           </el-tab-pane>
           <el-tab-pane :label="$t('home.testing')">
@@ -339,13 +348,25 @@ export default {
     addEmoticon() {
       // TODO: 增加图片大小
       this.form.emoticons.push({
-        keyword: '[Kappa]',
+        keyword: '[emoji_keyword]',
         align: 'inline',
         level: 0,
-        height: 60,
+        height: 16,
         url: '\\emoticons\\'
       })
     },
+
+    addPicture() {
+      // TODO: 增加图片大小
+      this.form.emoticons.push({
+        keyword: '[pic_keyword]',
+        align: 'block',
+        level: 0,
+        height: 64,
+        url: '\\emoticons\\'
+      })
+    },
+
     delEmoticon(index) {
       this.form.emoticons.splice(index, 1)
     },

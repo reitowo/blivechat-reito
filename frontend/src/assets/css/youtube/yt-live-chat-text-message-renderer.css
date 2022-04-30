@@ -171,11 +171,8 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   opacity: var(--yt-live-chat-text-message-renderer-message-message-style_-_opacity);
 }
 
-#image-and-message img {
-  border-radius: 10%;
-}
+/* FIXME: 表情包CSS */
 #image-and-message img[display="block"] {
-  border-radius: 10%;
   margin-top: 3px;
 }
 

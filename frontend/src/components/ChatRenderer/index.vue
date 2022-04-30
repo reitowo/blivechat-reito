@@ -24,15 +24,11 @@
                   :content="getShowContent(message)"
                   :privilegeType="message.privilegeType"
                   :repeated="message.repeated"
-                  :maxImage="maxImage"
-                  :maxEmoji="maxEmoji"
                   :medalName="message.medalName"
                   :medalLevel="message.medalLevel"
                   :isFanGroup="message.isFanGroup"
                   :isDelete="message.isDelete"
-                  :imageShowType="imageShowType"
                   :richContent="getShowRichContent(message)"
-                  :showTranslateDanmakuOnly="showTranslateDanmakuOnly"
                 ></text-message>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                   class="style-scope yt-live-chat-item-list-renderer"
@@ -118,10 +114,6 @@ export default {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.tickerAtButtom
     },
-    showTranslateDanmakuOnly: {
-      type: Boolean,
-      default: chatConfig.DEFAULT_CONFIG.showTranslateDanmakuOnly
-    },
     minGiftPrice: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.minGiftPrice
@@ -141,20 +133,7 @@ export default {
     fadeOutNum: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.fadeOutNum
-    },
-    imageShowType: {
-      type: Number,
-      default: chatConfig.DEFAULT_CONFIG.imageShowType
-    },
-    maxEmoji: {
-      type: Number,
-      default: chatConfig.DEFAULT_CONFIG.maxEmoji
-    },
-    maxImage: {
-      type: Number,
-      default: chatConfig.DEFAULT_CONFIG.maxImage
     }
-    
   },
   data() {
     return {
