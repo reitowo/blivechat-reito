@@ -34,6 +34,7 @@ export default {
     
     
     autoRenderOfficialEmoji: 'auto show official emoji',
+    isGreedyMatch: 'is greedy match',
     imageShowType: 'Way image show',
     imageShowTypes: [
       {

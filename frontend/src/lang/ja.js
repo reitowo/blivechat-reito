@@ -34,6 +34,7 @@ export default {
     pinTime: 'コメントの存在時間(0 は消しない)',
 
     autoRenderOfficialEmoji: '自動表示公式スタンプ',
+    isGreedyMatch: '貪欲(Greedy)マッチ',
     imageShowType: 'スタンプの表現方',
     imageShowTypes: [
       {

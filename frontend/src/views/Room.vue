@@ -136,13 +136,13 @@ export default {
 
       // TODO: blockGiftDanmaku
       cfg.autoRenderOfficialEmoji = toBool(cfg.autoRenderOfficialEmoji)
+      cfg.isGreedyMatch = toBool(cfg.isGreedyMatch)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
       cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
       cfg.maxEmoji = toInt(cfg.maxEmoji, chatConfig.DEFAULT_CONFIG.maxEmoji)
-
 
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
       cfg.blockLevel = toInt(cfg.blockLevel, chatConfig.DEFAULT_CONFIG.blockLevel)
@@ -351,7 +351,7 @@ export default {
       let blockKeywordsTrie = this.blockKeywordsTrie
       for (let i = 0; i < content.length; i++) {
         let remainContent = content.substring(i)
-        if (blockKeywordsTrie.greedyMatch(remainContent) !== null) {
+        if (blockKeywordsTrie.nonGreedyMatch(remainContent) !== null) {
           return false
         }
       }
@@ -425,7 +425,14 @@ export default {
       }
       while (pos < data.content.length) {
         let remainContent = data.content.substring(pos)
-        let matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
+        // TODO: 新增 nonGreedyMatch
+        let matchEmoticon
+        if (this.config.isGreedyMatch) {
+          matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
+        } else {
+          matchEmoticon = emoticonsTrie.nonGreedyMatch(remainContent)
+        }
+
         if (matchEmoticon === null) {
           pos++
           continue

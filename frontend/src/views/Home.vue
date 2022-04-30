@@ -171,9 +171,14 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('home.emoticon')">
             <el-row :gutter="20">
-              <el-col :xs="24" :sm="12">
+              <el-col :xs="24" :sm="6">
                 <el-form-item :label="$t('home.autoRenderOfficialEmoji')">
                   <el-switch v-model="form.autoRenderOfficialEmoji"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.isGreedyMatch')">
+                  <el-switch v-model="form.isGreedyMatch"></el-switch>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="12">

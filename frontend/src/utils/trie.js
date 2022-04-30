@@ -45,7 +45,31 @@ export class Trie {
 
   // 用单个字符不断寻找下一个字符，感觉会将【2333, 和 33 认定为是一个表情】
   // 如果一个子串，中间的字符都存在于表情包设定中，显示的表情会由该子串最后一个【字符】决定
+  // TODO: 改为贪婪匹配
   greedyMatch(str) {
+    let node = this._root
+    let node_values = {}
+    let match_num = 0
+    for (let char of str) {
+      let nextNode = node.children[char]
+      if (nextNode === undefined) {
+        break
+      }
+      if (nextNode.value !== null) {
+        node_values[match_num] = nextNode.value
+        match_num++
+      }
+      node = nextNode
+    }
+    if (match_num === 0) {
+      return null
+    } else {
+      console.log(node_values[match_num - 1])
+      return node_values[match_num - 1]
+    }
+  }
+
+  nonGreedyMatch(str) {
     let node = this._root
     for (let char of str) {
       let nextNode = node.children[char]

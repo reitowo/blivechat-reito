@@ -34,6 +34,7 @@ export default {
     pinTime: '弹幕停留时长(为0时持续停留)',
 
     autoRenderOfficialEmoji: '自动渲染官方表情',
+    isGreedyMatch: '贪婪匹配',
     imageShowType: '图片渲染方式',
     imageShowTypes: [
       {
