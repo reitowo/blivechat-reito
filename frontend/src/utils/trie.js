@@ -64,7 +64,6 @@ export class Trie {
     if (match_num === 0) {
       return null
     } else {
-      console.log(node_values[match_num - 1])
       return node_values[match_num - 1]
     }
   }

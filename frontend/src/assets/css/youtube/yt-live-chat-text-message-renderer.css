@@ -141,10 +141,6 @@ yt-live-chat-text-message-renderer[author-is-owner] {
   flex-direction: row !important;
 }
 
-/* TODO: 修改 inline 表情包下的显示效果 */
-#image-and-message {
-  display: inline;
-}
 #content.yt-live-chat-text-message-renderer {
   display: inline;
   align-items: flex-start;
@@ -155,7 +151,6 @@ yt-live-chat-text-message-renderer[author-is-owner] {
 }
 
 yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
-  white-space: nowrap;
   margin-right: 8px;
 }
 

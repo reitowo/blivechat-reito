@@ -679,12 +679,17 @@ yt-live-chat-text-message-renderer #message * {
   line-height: ${this.form.messageLineHeight || this.form.messageFontSize}px !important;
 }
 
-${!this.form.messageOnNewLine ? '' : `yt-live-chat-text-message-renderer #image-and-message,
-#image-and-message img,
-yt-live-chat-text-message-renderer #message {
+${this.form.messageOnNewLine ? `yt-live-chat-text-message-renderer #image-and-message {
   display: block !important;
+}` : `yt-live-chat-text-message-renderer #image-and-message {
+  display: inline !important;
   overflow: visible !important;
 }`}
+
+yt-live-chat-text-message-renderer #message {
+  display: inline !important;
+  overflow: visible !important;
+}
 
 yt-live-chat-text-message-renderer #image-and-message .emoji {
   width: auto !important;
