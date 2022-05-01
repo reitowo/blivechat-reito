@@ -24,6 +24,7 @@ export default {
     tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
     
     showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
+    blockTranslateDanmaku: '翻訳コメントをブロック',
     translationSign: '翻訳コメントの合図キャラクタ',
     onlyOneCharacter: '一個キャラクタだけ、例：【',
 

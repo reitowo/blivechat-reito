@@ -65,6 +65,11 @@
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.blockTranslateDanmaku')">
+                  <el-switch v-model="form.blockTranslateDanmaku"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.showTranslateDanmakuOnly')">
                   <el-switch v-model="form.showTranslateDanmakuOnly"></el-switch>
                 </el-form-item>

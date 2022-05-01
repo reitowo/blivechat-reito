@@ -7,6 +7,7 @@ export const DEFAULT_CONFIG = {
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
   showTranslateDanmakuOnly: false,
+  blockTranslateDanmaku: false,
   translationSign: '【',
   showSuperchat: true,
   showNewMember: true,

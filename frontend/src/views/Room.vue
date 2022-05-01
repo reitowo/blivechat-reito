@@ -131,6 +131,7 @@ export default {
       cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
       cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
 
+      cfg.blockTranslateDanmaku = toBool(cfg.blockTranslateDanmaku)
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
       cfg.translationSign = cfg.translationSign.toString()
 
@@ -204,13 +205,22 @@ export default {
       // TODO: 只显示翻译弹幕
       if (this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
-        if (content_str.charAt(0) != this.config.translationSign) {
+        if (content_str.charAt(0) !== this.config.translationSign) {
           // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
           return
         } else {
           data.content = content_str.substring(1)
         }
       }
+
+      // TODO: 屏蔽翻译弹幕
+      if (this.config.blockTranslateDanmaku) {
+        let content_str = data.content
+        if (content_str.charAt(0) === this.config.translationSign) {
+          return
+        }
+      }
+      
       // TODO: richContent 的研究
       let message = {
         id: data.id,

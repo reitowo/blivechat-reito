@@ -24,6 +24,7 @@ export default {
     tickerAtButtom: '底部显示SC固定栏',
 
     showTranslateDanmakuOnly: '只显示翻译弹幕',
+    blockTranslateDanmaku: '屏蔽翻译弹幕',
     translationSign: '翻译弹幕首字符',
     onlyOneCharacter: '只能输入一个字符，如【',
     
@@ -33,9 +34,9 @@ export default {
     fadeOutNum: '预留淡出弹幕数',
     pinTime: '弹幕停留时长(为0时持续停留)',
 
-    autoRenderOfficialEmoji: '自动渲染官方表情',
+    autoRenderOfficialEmoji: '自动添加官方表情',
     isGreedyMatch: '贪婪匹配',
-    imageShowType: '图片渲染方式',
+    imageShowType: '图片展示方式',
     imageShowTypes: [
       {
         id: '0',
