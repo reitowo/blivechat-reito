@@ -16,7 +16,7 @@ export const DEFAULT_CONFIG = {
   mergeSimilarDanmaku: false,
   mergeGift: false,
   danmakuAtBottom: true,
-  tickerAtButtom: false,
+  tickerAtButtom: true,
   maxNumber: 30,
   fadeOutNum: 3,
   pinTime: 0,
@@ -45,6 +45,20 @@ export const DEFAULT_CONFIG = {
 
   emoticons: [
     {
+      "keyword": "杀我",
+      "align": "block",
+      "level": 0,
+      "height": 100,
+      "url": "\\emoticons\\kill_me.jpg"
+    },
+    {
+      "keyword": "吃了吗您",
+      "align": "block",
+      "level": 0,
+      "height": 120,
+      "url": "\\emoticons\\go_han.png"
+    },
+    {
       "keyword": "猫猫九轴",
       "level": 0,
       "align": "block",
@@ -61,8 +75,8 @@ export const DEFAULT_CONFIG = {
     {
       "keyword": "好",
       "level": 0,
-      "align": "block",
-      "height": 64,
+      "align": "inline",
+      "height": 48,
       "url": "\\emoticons\\hao.png"
     },
     {
@@ -83,7 +97,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "草",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\kusa.jpg"
     },
     {
@@ -97,7 +111,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "哭了",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\cry.png"
     },
     {
@@ -174,7 +188,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "钱",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\money.png"
     },
     {
@@ -202,7 +216,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "笑死",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\wa_ra_u.gif"
     },
     {
@@ -293,14 +307,14 @@ export const DEFAULT_CONFIG = {
       "keyword": "小椅师傅",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\chair_sifu.png"
     },
     {
       "keyword": "小海式",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\hai_sifu.png"
     },
     {
@@ -314,7 +328,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "小尚未",
       "level": 0,
       "align": "inline",
-      "height": 20,
+      "height": 48,
       "url": "\\emoticons\\na_o_mi.png"
     },
     {
