@@ -78,7 +78,6 @@ yt-img-shadow.yt-live-chat-ticker-paid-message-item-renderer {
 }
 #content.yt-live-chat-ticker-paid-message-item-renderer[type="2"]::after {
   content: '上舰' !important;
-  font-size: 18px !important;
 }
 
 #text.yt-live-chat-ticker-paid-message-item-renderer {

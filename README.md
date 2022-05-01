@@ -4,10 +4,10 @@
 
 ## **首页-常规**——参数说明
 
-![网页上的编辑位置](./screenshots/web-page-setting.png) 
+![网页上的编辑位置](./screenshots/homePageSetting.png) 
 
 ### 1.自定义分别显示不同弹幕
-![单独显示不同类型弹幕](./screenshots/showDifferentDanmaku.png)
+![单独显示不同类型弹幕](./screenshots/showDifferentDanmakuSetting.png)
 1. 普通弹幕(Message)
 2. 醒目留言(Super Chat)
 3. 上舰信息(Member)
@@ -15,8 +15,8 @@
 
 ### 2.最低显示打赏价格（RMB/CNY/元）
 
-1. 最低打赏价格（元） —— 弹幕区域的最低价格![打赏弹幕显示的最低价格](./screenshots/leastSuperChat.png)
-2. 最低顶部停驻打赏价格（元） —— 顶部倒计时贴纸区域的最低价格![顶部-ticker](./screenshots/ticker-demo.png)
+1. 最低打赏价格（元） —— 弹幕区域的最低价格![打赏弹幕显示的最低价格](./screenshots/leastSuperChatSetting.png)
+2. 最低顶部停驻打赏价格（元） —— 顶部倒计时贴纸区域的最低价格![顶部-ticker](./screenshots/tickerDemo.png)
 
 精确到小数点后1位，区分银瓜子，金瓜子礼物
 
@@ -25,30 +25,33 @@
 
 设置为 0.1, 则只显示金瓜子礼物, 不显示银瓜子礼物
 
-### 3.单独显示翻译弹幕（开启后非翻译弹幕均不显示）
+### 3.屏蔽/单独显示翻译弹幕
 
-![单独显示翻译弹幕](./screenshots/showOnlyTranslation.png) 
+1. 单独显示翻译弹幕——开启后非翻译弹幕均不显示
+2. 屏蔽翻译弹幕——开启后屏蔽翻译弹幕
+3. 翻译弹幕首字符——以弹幕第一个字符判定是否为翻译弹幕
+![单独显示翻译弹幕](./screenshots/showOnlyTranslationSetting.png) 
 
-适用于有实时翻译man在直播间的V，可以单独分离以特定符号开头的弹幕（然而现在B站自动录播会带弹幕，直播间和录播都可以看到翻译弹幕）
+适用于有实时翻译man在直播间的V，可以开2个【浏览器源】分离以翻译弹幕
 ## **首页-自定义表情**——参数说明
 
 ### 1.自定义表情相关功能
 
-![自定义表情相关功能图](./screenshots/emoticon_setting.png) 
+![自定义表情相关功能图](./screenshots/emoticonSetting.png) 
 #### `自动添加官方表情` 
 开启后：包含B站直播间通用表情，主播设置的B站表情（无需自己添加设定）——但不能自定义（图片高度等）
 
 #### `贪婪匹配（表情包匹配逻辑）`
 1. 贪婪匹配（匹配最长的字串）
 	从左到右阅读：关键词，在关键词基础上的匹配逻辑，匹配结果
-![替换表情包触发逻辑](./screenshots/greedy_match.png) 
+![替换表情包触发逻辑](./screenshots/greedyMatch.png) 
 
 2. 非贪婪匹配（匹配最短的字串）
 	从左到右阅读：关键词，在关键词基础上的匹配逻辑，匹配结果
-![替换表情包触发逻辑](./screenshots/non_greedy_match.png) 
+![替换表情包触发逻辑](./screenshots/nonGreedyMatch.png) 
 
 #### `图片展示方式` 
-![图片插入方式](./screenshots/imageShowType.png) 
+![图片插入方式](./screenshots/imageShowTypeSetting.png) 
 1. 替换表情包（无需符号）
 
 	逐个替换【关键词】为图片插入在弹幕消息文字**中**(在不超过最大图片数，满足调用权限（舰长以上）的情况下）
@@ -57,7 +60,7 @@
 	将所有【关键词】转为图片添加在弹幕消息**后面**(在不超过最大图片数，满足调用权限（舰长以上）的情况下）
 
 #### `最大图片数` 
-![最大图片数](./screenshots/max_image.png) 
+![最大图片数](./screenshots/maxImageSetting.png) 
 1. 最大**换行**图片数
 
 	即弹幕关键词转换为【换行】图片的最大数量（防止大量关键词出现时，图片刷屏）—— 默认为1，设置为0则屏蔽表情
@@ -70,11 +73,11 @@
 
 #### 首先表情包需存放于： `blivechat/data/emoticon` 并使用【**英文命名**】
 
-![图片文件位置截图](./screenshots/data-emoticon.png) 
+![图片文件位置截图](./screenshots/emoticonSetting.png) 
 
 在网页前端的【首页】-【自定义表情】处设置
 
-![自定义表情相关功能图](./screenshots/emoji_properties_setting.png) 
+![自定义表情相关功能图](./screenshots/emoticonPropertiesSetting.png) 
 
 #### `添加表情（同行）| 添加图片（换行） 按钮`
 两者本质一致：2个按钮是为了快速添加2种表情图片
@@ -96,14 +99,14 @@
 #### `图片排列`
 - inline: 同行
 - block: 换行 
-![图片排列](./screenshots/image_align.png)
+![图片排列](./screenshots/imageAlignSetting.png)
 
 #### `图片权限等级`
 - 0 = 【**所有人**】都能用的表情包
 - 3 = 【**舰长**】以上包括舰长能用
 - 2 = 【**提督**】以上包括提督能用
 - 1 = 【**总督**】以上包括总督能用
-![图片权限等级](./screenshots/image_level.png)
+![图片权限等级](./screenshots/imageLevelSetting.png)
 #### `图片高度`
 图片的高度，**小表情建议设置为 16（和文字大小一致），大表情建议设置为 80 或 120**
 
@@ -111,7 +114,7 @@
 ## **首页-样式生成器**——参数说明
 ### 1.粉丝牌子显示(适配样式生成器)
 
-![粉丝牌子设置](./screenshots/fan-medal.jpg) 
+![粉丝牌子设置](./screenshots/fanMedalStyle.jpg) 
 
 自定义
 1. 是否显示粉丝勋章
@@ -121,7 +124,7 @@
 
 ## 自定义弹幕触发图片(适配样式生成器)
 
-![弹幕效果截图](./screenshots/danmu_add_img.jpg) 
+![弹幕效果截图](./screenshots/danmuAddImage.jpg) 
 
 
 
