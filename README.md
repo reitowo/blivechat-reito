@@ -57,6 +57,7 @@
 	逐个替换【关键词】为图片插入在弹幕消息文字**中**(在不超过最大图片数，满足调用权限（舰长以上）的情况下）
 
 2. 在文字消息后添加
+	
 	将所有【关键词】转为图片添加在弹幕消息**后面**(在不超过最大图片数，满足调用权限（舰长以上）的情况下）
 
 #### `最大图片数` 
@@ -73,7 +74,7 @@
 
 #### 首先表情包需存放于： `blivechat/data/emoticon` 并使用【**英文命名**】
 
-![图片文件位置截图](./screenshots/emoticonSetting.png) 
+![图片文件位置截图](./screenshots/emoticonFolder.png) 
 
 在网页前端的【首页】-【自定义表情】处设置
 
@@ -121,12 +122,6 @@
 2. 是否只显示直播主的直播间勋章
 3. 是否显示勋章名
 4. 是否显示勋章等级 
-
-## 自定义弹幕触发图片(适配样式生成器)
-
-![弹幕效果截图](./screenshots/danmuAddImage.jpg) 
-
-
 
 # [blivechat](https://github.com/xfgryujk/blivechat)(以下为原文档)
 用于OBS的仿YouTube风格的bilibili直播评论栏
