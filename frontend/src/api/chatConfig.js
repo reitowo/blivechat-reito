@@ -16,7 +16,7 @@ export const DEFAULT_CONFIG = {
   mergeSimilarDanmaku: false,
   mergeGift: false,
   danmakuAtBottom: true,
-  tickerAtButtom: true,
+  tickerAtButtom: false,
   maxNumber: 30,
   fadeOutNum: 3,
   pinTime: 0,
@@ -45,16 +45,163 @@ export const DEFAULT_CONFIG = {
 
   emoticons: [
     {
-      "keyword": "杀我",
-      "align": "block",
+      "keyword": "emotional damage",
       "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\emotional_damage.gif"
+    },
+    {
+      "keyword": "哼！",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\heng.png"
+    },
+    {
+      "keyword": "苦路西",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ku_ru_shi.jpg"
+    },
+    {
+      "keyword": "库路西",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ku_ru_shi.jpg"
+    },
+    {
+      "keyword": "好怪哦",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\hmm.jpg"
+    },
+    {
+      "keyword": "不对劲",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\hmm.jpg"
+    },
+    {
+      "keyword": "hmm",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\hmm.jpg"
+    },
+    {
+      "keyword": "瑟瑟发抖",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\ko_wa_i.gif"
+    },
+    {
+      "keyword": "害怕",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\ko_wa_i.gif"
+    },
+    {
+      "keyword": "啊对对对",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\a_dui_dui_dui.gif"
+    },
+    {
+      "keyword": "mua",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\mua.gif"
+    },
+    {
+      "keyword": "见没见过黑手",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\fuck_you.gif"
+    },
+    {
+      "keyword": "整不明白了",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\wait_what.jpg"
+    },
+    {
+      "keyword": "看不懂了",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\wait_what.jpg"
+    },
+    {
+      "keyword": "发布会",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\fa_bu_hui.png"
+    },
+    {
+      "keyword": "你是真滴棒",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ni_shi_zhen_di_bang.gif"
+    },
+    {
+      "keyword": "乐了",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\le_le.jpg"
+    },
+    {
+      "keyword": "大草",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\kusa.jpg"
+    },
+    {
+      "keyword": "笑不活了",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\wa_ra_u.gif"
+    },
+    {
+      "keyword": "可以h",
+      "level": 0,
+      "align": "inline",
+      "height": 48,
+      "url": "\\emoticons\\h_ok.png"
+    },
+    {
+      "keyword": "嘿嘿",
+      "level": 3,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\hei_hei.jpg"
+    },
+    {
+      "keyword": "杀我",
+      "level": 0,
+      "align": "block",
       "height": 100,
       "url": "\\emoticons\\kill_me.jpg"
     },
     {
       "keyword": "吃了吗您",
-      "align": "block",
       "level": 0,
+      "align": "block",
       "height": 120,
       "url": "\\emoticons\\go_han.png"
     },
@@ -90,7 +237,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "大笑死",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\wa_ra_u.gif"
     },
     {
@@ -104,63 +251,63 @@ export const DEFAULT_CONFIG = {
       "keyword": "吓我一跳",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\bi_ku_ri_si_da.gif"
     },
     {
       "keyword": "哭了",
       "level": 0,
       "align": "inline",
-      "height": 48,
+      "height": 49,
       "url": "\\emoticons\\cry.png"
     },
     {
       "keyword": "希望人没事",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 121,
       "url": "\\emoticons\\da_i_jo_u_bu.jpg"
     },
     {
       "keyword": "不中",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\da_me.jpg"
     },
     {
       "keyword": "摸不着头脑",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\do_u_i_u_ko_to.jpg"
     },
     {
       "keyword": "喝茶",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 121,
       "url": "\\emoticons\\drink_tea.gif"
     },
     {
       "keyword": "饮茶先",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\drink_tea_yeah.jpg"
     },
     {
       "keyword": "我看不懂",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\e_gu_i.jpg"
     },
     {
       "keyword": "emo",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 140,
       "url": "\\emoticons\\emo.jpg"
     },
     {
@@ -174,7 +321,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "地铁老人手机",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\i_mi_wa_ka_ran.jpg"
     },
     {
@@ -195,21 +342,21 @@ export const DEFAULT_CONFIG = {
       "keyword": "睡了",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\ne_ru.gif"
     },
     {
       "keyword": "yabe",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\yabe.jpg"
     },
     {
       "keyword": "不忍直视",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\yabe.jpg"
     },
     {
@@ -223,7 +370,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "二次元是大家的家",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\yamero.jpg"
     },
     {
@@ -237,14 +384,14 @@ export const DEFAULT_CONFIG = {
       "keyword": "晚安",
       "level": 0,
       "align": "inline",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\o_ya_su_mi.jpg"
     },
     {
       "keyword": "中嘞",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 101,
       "url": "\\emoticons\\ojbk.jpg"
     },
     {
@@ -265,42 +412,42 @@ export const DEFAULT_CONFIG = {
       "keyword": "好耶",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\hao_ye.jpg"
     },
     {
       "keyword": "勇！",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 140,
       "url": "\\emoticons\\yu_u_ki.jpg"
     },
     {
       "keyword": "二次元是不会背叛你的",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\ni_ji_gen_never_die_1.jpg"
     },
     {
       "keyword": "呜呜呜",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 140,
       "url": "\\emoticons\\hai_sifu_cry.png"
     },
     {
       "keyword": "可以H",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 140,
       "url": "\\emoticons\\h_ok.png"
     },
     {
       "keyword": "椅师傅",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\chair_sifu.png"
     },
     {
@@ -321,7 +468,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "海式",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 140,
       "url": "\\emoticons\\hai_sifu.png"
     },
     {
@@ -335,7 +482,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "尚未",
       "level": 0,
       "align": "block",
-      "height": 100,
+      "height": 120,
       "url": "\\emoticons\\na_o_mi.png"
     }
   ] // [{ keyword: '', url: '' }, ...]
