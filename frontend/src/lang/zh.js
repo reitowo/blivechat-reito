@@ -36,6 +36,7 @@ export default {
 
     autoRenderOfficialEmoji: '自动添加官方表情',
     isGreedyMatch: '贪婪匹配',
+    isSkipSameImage: '不重复显示相同图片',
     imageShowType: '图片展示方式',
     imageShowTypes: [
       {

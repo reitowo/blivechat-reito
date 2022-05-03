@@ -135,9 +135,9 @@ export default {
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
       cfg.translationSign = cfg.translationSign.toString()
 
-      // TODO: blockGiftDanmaku
       cfg.autoRenderOfficialEmoji = toBool(cfg.autoRenderOfficialEmoji)
       cfg.isGreedyMatch = toBool(cfg.isGreedyMatch)
+      cfg.isSkipSameImage = toBool(cfg.isSkipSameImage)
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
@@ -202,7 +202,6 @@ export default {
         // console.log("收到一般消息弹幕，但：是否显示弹幕为" + this.config.showDanmaku + "，是否合并弹幕为" + this.config.mergeSimilarDanmaku)
         return
       }
-      // TODO: 只显示翻译弹幕
       if (this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
         if (content_str.charAt(0) !== this.config.translationSign) {
@@ -213,7 +212,6 @@ export default {
         }
       }
 
-      // TODO: 屏蔽翻译弹幕
       if (this.config.blockTranslateDanmaku) {
         let content_str = data.content
         if (content_str.charAt(0) === this.config.translationSign) {
@@ -425,8 +423,9 @@ export default {
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
       let pos = 0
-      let emojiCount = 0
+      let emoticonCount = 0
       let imageCount = 0
+      let emoticonMap = {}
       if (this.config.imageShowType === 1) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
@@ -435,7 +434,7 @@ export default {
       }
       while (pos < data.content.length) {
         let remainContent = data.content.substring(pos)
-        // TODO: 新增 nonGreedyMatch
+        // TODO: 新增 跳过相同图片
         let matchEmoticon
         if (this.config.isGreedyMatch) {
           matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
@@ -460,30 +459,40 @@ export default {
         // 加入表情
         // TODO: 增加 emoticon 舰长等级 data.privilegeType
         // 如果不满足使用权限，或者超过inline,block类型图片各自的上限
-        let emoticonLevel = toInt(matchEmoticon.level)
-        let privilegeType = toInt(data.privilegeType)
+        if(this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) {
+          console.log(emoticonMap[matchEmoticon.url])
+          let emoticonLevel = toInt(matchEmoticon.level)
+          let privilegeType = toInt(data.privilegeType)
 
-        if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
-          || (matchEmoticon.align === 'inline' && emojiCount >= this.config.maxEmoji)
-          || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
-          richContent.push({
-            type: constants.CONTENT_TYPE_TEXT,
-            text: matchEmoticon.keyword
-          })
-        } else {
-          // 如果没有
-          if (matchEmoticon.align === 'inline') {
-            emojiCount++
+          if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
+            || (matchEmoticon.align === 'inline' && emoticonCount >= this.config.maxEmoji)
+            || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
+            richContent.push({
+              type: constants.CONTENT_TYPE_TEXT,
+              text: matchEmoticon.keyword
+            })
           } else {
-            imageCount++
+            // 如果没有
+            if (matchEmoticon.align === 'inline') {
+              emoticonCount++
+            } else {
+              imageCount++
+            }
+            emoticonMap[matchEmoticon.url] = true;
+
+            richContent.push({
+              type: constants.CONTENT_TYPE_IMAGE,
+              text: matchEmoticon.keyword,
+              align: matchEmoticon.align,
+              height: matchEmoticon.height,
+              level: matchEmoticon.level,
+              url: matchEmoticon.url
+            })
           }
+        } else if(this.config.imageShowType === 0) {
           richContent.push({
-            type: constants.CONTENT_TYPE_IMAGE,
-            text: matchEmoticon.keyword,
-            align: matchEmoticon.align,
-            height: matchEmoticon.height,
-            level: matchEmoticon.level,
-            url: matchEmoticon.url
+              type: constants.CONTENT_TYPE_TEXT,
+              text: matchEmoticon.keyword
           })
         }
         pos += matchEmoticon.keyword.length

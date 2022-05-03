@@ -468,7 +468,6 @@ export const DEFAULT_CONFIG = {
   messageColor: '#ffffff',
   messageOnNewLine: false,
 
-  // TODO: 表情包默认大小
   emoticonSize: 48,
   emoticonInlineBorderRadius: 0,
   emoticonBlockBorderRadius: 4,

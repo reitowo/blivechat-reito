@@ -36,6 +36,7 @@ export default {
 
     autoRenderOfficialEmoji: '自動表示公式スタンプ',
     isGreedyMatch: '貪欲(Greedy)マッチ',
+    isSkipSameImage: '相同画像を表示しない',
     imageShowType: 'スタンプの表現方',
     imageShowTypes: [
       {
