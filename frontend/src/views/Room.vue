@@ -460,7 +460,6 @@ export default {
         // TODO: 增加 emoticon 舰长等级 data.privilegeType
         // 如果不满足使用权限，或者超过inline,block类型图片各自的上限
         if(this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) {
-          console.log(emoticonMap[matchEmoticon.url])
           let emoticonLevel = toInt(matchEmoticon.level)
           let privilegeType = toInt(data.privilegeType)
 
