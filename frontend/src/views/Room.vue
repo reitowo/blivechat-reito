@@ -458,27 +458,33 @@ export default {
 
         // 加入表情
         // TODO: 增加 emoticon 舰长等级 data.privilegeType
-        // 如果不满足使用权限，或者超过inline,block类型图片各自的上限
-        if(this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) {
-          let emoticonLevel = toInt(matchEmoticon.level)
-          let privilegeType = toInt(data.privilegeType)
-
-          if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
-            || (matchEmoticon.align === 'inline' && emoticonCount >= this.config.maxEmoji)
-            || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
+        
+        let emoticonLevel = toInt(matchEmoticon.level)
+        let privilegeType = toInt(data.privilegeType)
+        // 如果不满足使用权限
+        // 或者超过inline, block类型图片各自的上限
+        if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
+          || (matchEmoticon.align === 'inline' && emoticonCount >= this.config.maxEmoji)
+          || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
+          // 如果是替换文字为图片才需要添加文字
+          if (this.config.imageShowType === 0) {
             richContent.push({
               type: constants.CONTENT_TYPE_TEXT,
               text: matchEmoticon.keyword
             })
-          } else {
-            // 如果没有
+          }
+        } else { // 如果没有
+          
+          // 如果没有开启【不多次显示重复图片】或者说【当前图片没出现过】
+          if(this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) {
+            emoticonMap[matchEmoticon.url] = true; // 将出现过的图片记录到 map
+            // 记录图片数量，对应inline, block类型
             if (matchEmoticon.align === 'inline') {
               emoticonCount++
             } else {
               imageCount++
             }
-            emoticonMap[matchEmoticon.url] = true;
-
+            // 添加图片到消息内容
             richContent.push({
               type: constants.CONTENT_TYPE_IMAGE,
               text: matchEmoticon.keyword,
@@ -487,18 +493,22 @@ export default {
               level: matchEmoticon.level,
               url: matchEmoticon.url
             })
-          }
-        } else if(this.config.imageShowType === 0) {
-          richContent.push({
-              type: constants.CONTENT_TYPE_TEXT,
-              text: matchEmoticon.keyword
-          })
-        }
+          } else {
+            // 只有替换文字为表情包的模式需要添加文字，否则直接跳过
+            if(this.config.imageShowType === 0) {
+              richContent.push({
+                type: constants.CONTENT_TYPE_TEXT,
+                text: matchEmoticon.keyword
+             })
+            } // end if
+          } // end else
+
+        } // end else
         pos += matchEmoticon.keyword.length
         startPos = pos
       } // end while
-      // 加入尾部的文本
-      if (pos !== startPos && this.config.imageShowType !== 1) {
+      // 如果是替换文字为表情包，则加入尾部的文本
+      if (pos !== startPos && this.config.imageShowType === 0) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
           text: data.content.slice(startPos, pos)
