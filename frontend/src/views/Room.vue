@@ -402,7 +402,7 @@ export default {
       // TODO: 屏蔽官方表情
       if (data.emoticon !== null && this.config.autoRenderOfficialEmoji === true) {
         richContent.push({
-          type: constants.CONTENT_TYPE_EMOJI,
+          type: constants.CONTENT_TYPE_EMOTICON,
           text: data.content,
           url: data.emoticon
         })
@@ -426,7 +426,7 @@ export default {
       let emoticonCount = 0
       let imageCount = 0
       let emoticonMap = {}
-      if (this.config.imageShowType === 1) {
+      if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_ADD_AFTER) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
           text: data.content
@@ -448,8 +448,8 @@ export default {
           // 直到找到第1个 emoticon
         }
 
-        // 加入之前的文本
-        if (pos !== startPos && this.config.imageShowType !== 1) {
+        // 如果是替换文字为图片，则加入之前的文本
+        if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
           richContent.push({
             type: constants.CONTENT_TYPE_TEXT,
             text: data.content.slice(startPos, pos)
@@ -463,11 +463,11 @@ export default {
         let privilegeType = toInt(data.privilegeType)
         // 如果不满足使用权限
         // 或者超过inline, block类型图片各自的上限
-        if ((emoticonLevel > 0 && (privilegeType > emoticonLevel || privilegeType == 0))
+        if ((emoticonLevel > constants.PRIVILEGE_TYPE_ALL && (privilegeType > emoticonLevel || privilegeType === constants.PRIVILEGE_TYPE_ALL))
           || (matchEmoticon.align === 'inline' && emoticonCount >= this.config.maxEmoji)
           || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
           // 如果是替换文字为图片才需要添加文字
-          if (this.config.imageShowType === 0) {
+          if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
             richContent.push({
               type: constants.CONTENT_TYPE_TEXT,
               text: matchEmoticon.keyword
@@ -495,7 +495,7 @@ export default {
             })
           } else {
             // 只有替换文字为表情包的模式需要添加文字，否则直接跳过
-            if(this.config.imageShowType === 0) {
+            if(this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
               richContent.push({
                 type: constants.CONTENT_TYPE_TEXT,
                 text: matchEmoticon.keyword
@@ -508,7 +508,7 @@ export default {
         startPos = pos
       } // end while
       // 如果是替换文字为表情包，则加入尾部的文本
-      if (pos !== startPos && this.config.imageShowType === 0) {
+      if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
           text: data.content.slice(startPos, pos)

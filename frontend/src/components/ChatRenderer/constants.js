@@ -1,13 +1,18 @@
-export const IMAGE_SHOW_TYPE_REPLACE_DIRECT = 0
-export const IMAGE_SHOW_TYPE_REPLACE = 1
-export const IMAGE_SHOW_TYPE_ADD_AFTER = 2
-
 import * as i18n from '@/i18n'
 
-export const AUTHRO_TYPE_NORMAL = 0
-export const AUTHRO_TYPE_MEMBER = 1
-export const AUTHRO_TYPE_ADMIN = 2
-export const AUTHRO_TYPE_OWNER = 3
+export const IMAGE_SHOW_TYPE_REPLACE = 0
+export const IMAGE_SHOW_TYPE_ADD_AFTER = 1
+
+export const PRIVILEGE_TYPE_ALL = 0
+export const PRIVILEGE_TYPE_MEMBER_1 = 3 // 舰长
+export const PRIVILEGE_TYPE_MEMBER_2 = 2 // 提督
+export const PRIVILEGE_TYPE_MEMBER_3 = 1 // 总督
+
+
+export const AUTHOR_TYPE_NORMAL = 0
+export const AUTHOR_TYPE_MEMBER = 1
+export const AUTHOR_TYPE_ADMIN = 2
+export const AUTHOR_TYPE_OWNER = 3
 
 export const AUTHOR_TYPE_TO_TEXT = [
   '',
@@ -124,7 +129,7 @@ export const MEDAL_CONFIGS = [
 
 export const CONTENT_TYPE_TEXT = 0
 export const CONTENT_TYPE_IMAGE = 1
-export const CONTENT_TYPE_EMOJI = 2
+export const CONTENT_TYPE_EMOTICON = 2
 
 // 美元 -> 人民币 汇率
 // const EXCHANGE_RATE = 7

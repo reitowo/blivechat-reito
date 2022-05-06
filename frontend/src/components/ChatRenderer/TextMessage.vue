@@ -46,7 +46,7 @@
               :height="content.height"
               :display="content.align"
             >
-            <img :key="index" v-else-if="content.type === CONTENT_TYPE_EMOJI"
+            <img :key="index" v-else-if="content.type === CONTENT_TYPE_EMOTICON"
               class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
               :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
             >
@@ -80,7 +80,7 @@ export default {
     return {
       CONTENT_TYPE_TEXT: constants.CONTENT_TYPE_TEXT,
       CONTENT_TYPE_IMAGE: constants.CONTENT_TYPE_IMAGE,
-      CONTENT_TYPE_EMOJI: constants.CONTENT_TYPE_EMOJI
+      CONTENT_TYPE_EMOTICON: constants.CONTENT_TYPE_EMOTICON
     }
   },
   components: {
