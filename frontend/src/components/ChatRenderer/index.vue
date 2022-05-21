@@ -259,14 +259,14 @@ export default {
     mergeSimilarText(content) {
       content = content.trim().toLowerCase()
       let res = false
-      console.log(`判断: ${content} 是否重复`)
+      // console.log(`判断: ${content} 是否重复`)
       this.forEachRecentMessage(5, message => {
         if (message.type !== constants.MESSAGE_TYPE_TEXT) {
           return true
         }
         let index = 0
         for (let innerContent of message.content) {
-          console.log(`判断index:${index}: ${innerContent}`)
+          // console.log(`判断index:${index}: ${innerContent}`)
           
           let messageContent = innerContent.trim().toLowerCase()
           let longer, shorter
@@ -285,7 +285,7 @@ export default {
             message.repeatedThread[index]++
             message.repeated++
 
-            console.log(`匹配到重复子串`)
+            // console.log(`匹配到重复子串`)
             res = true
             return false
           }
@@ -308,7 +308,7 @@ export default {
             return true
           }
           // 塞入最新消息的 newContent, newRichContent
-          console.log(`newContent: ${newContent}`)
+          // console.log(`newContent: ${newContent}`)
           message.content.push(newContent)
           message.richContent.push(newRichContent)
           message.repeatedThread.push(1)

@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     getRepeatedValue(index) {
-      console.log(`index ${index}: ${this.repeatedThread[index]}`)
+      // console.log(`index ${index}: ${this.repeatedThread[index]}`)
       return this.repeatedThread[index]
     },
   },
