@@ -21,14 +21,15 @@
                   :avatarUrl="message.avatarUrl"
                   :authorName="message.authorName"
                   :authorType="message.authorType"
-                  :content="getShowContent(message)"
+                  :contents="getShowContent(message)"
                   :privilegeType="message.privilegeType"
                   :repeated="message.repeated"
+                  :threadLength="message.threadLength"
                   :medalName="message.medalName"
                   :medalLevel="message.medalLevel"
                   :isFanGroup="message.isFanGroup"
                   :isDelete="message.isDelete"
-                  :richContent="getShowRichContent(message)"
+                  :richContents="getShowRichContent(message)"
                 ></text-message>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                   class="style-scope yt-live-chat-item-list-renderer"
@@ -75,6 +76,7 @@ import TextMessage from './TextMessage'
 import MembershipItem from './MembershipItem'
 import PaidMessage from './PaidMessage'
 import * as constants from './constants'
+// import { getUuid4Hex } from '@/utils'
 
 // 只有要添加的消息需要平滑
 const NEED_SMOOTH_MESSAGE_TYPES = [
@@ -277,6 +279,31 @@ export default {
       })
       return res
     },
+    // TODO: 合并同一个user 的消息
+    mergeSameUserText(newContent, newRichContent, authorName) {
+      let res = false
+      // 遍历最新消息，看是不是同一个用户发送的
+      this.forEachRecentMessage(1, message => {
+        if (message.type !== constants.MESSAGE_TYPE_TEXT || message.authorName !== authorName) {
+          return true
+        } else {
+          // 塞入最新消息的 newContent, newRichContent
+          message.content.push(newContent)
+          message.richContent.push(newRichContent)
+
+    
+
+          message.threadLength++
+          console.log(`Thread 长度：${message.threadLength} Thread: ${newContent}`)
+          res = true
+          return false
+        }
+        return true
+      })
+      
+      
+      return res
+    },
     mergeSimilarGift(authorName, price, giftName, num) {
       let res = false
       this.forEachRecentMessage(5, message => {
@@ -293,6 +320,7 @@ export default {
       })
       return res
     },
+    // TODO: 合并相似消息
     forEachRecentMessage(num, callback) {
       // 从新到老遍历num条消息
       for (let i = this.smoothedMessageQueue.length - 1; i >= 0 && num > 0; i--) {
@@ -346,7 +374,6 @@ export default {
         newValuesObj
       }])
     },
-
     enqueueMessages(messages) {
       // 估计进队列时间间隔
       if (!this.lastEnqueueTime) {
@@ -479,6 +506,7 @@ export default {
       this.$nextTick(this.maybeScrollToBottom)
     },
     //* 处理新信息的消息入栈
+    // TODO: 【处理中】新消息
     handleAddMessage(message) {
       message = {
         ...message,
@@ -512,6 +540,7 @@ export default {
     },
     handleUpdateMessage({ id, newValuesObj }) {
       // 遍历滚动的消息
+      
       this.forEachRecentMessage(999999999, message => {
         if (message.id !== id) {
           return true
@@ -584,7 +613,7 @@ export default {
     showNewMessages() {
       let hasScrollBar = this.$refs.items.clientHeight > this.$refs.scroller.clientHeight
       this.$refs.itemOffset.style.height = `${this.$refs.items.clientHeight}px`
-      
+      console.log(`itemOffset.height = ${this.$refs.itemOffset.style.height}`)
       if (!this.canScrollToBottomOrTimedOut() || !hasScrollBar) {
         return
       }
@@ -656,7 +685,6 @@ export default {
         this.smoothScrollRafHandle = null
       }
     },
-
     maybeResizeScrollContainer() {
       this.$refs.itemOffset.style.height = `${this.$refs.items.clientHeight}px`
       this.maybeScrollToBottom()

@@ -246,21 +246,36 @@ export function getPriceConfig(price) {
 }
 
 export function getShowContent(message) {
+  let newMessage = message.content[message.threadLength - 1]
+  console.log(`newMsg: ${newMessage}`)
   if (message.translation) {
-    return `${message.content}（${message.translation}）`
+    // TODO: 新的翻译句子，只用翻译最新的句子
+    if(message.type === MESSAGE_TYPE_TEXT) {
+      message.content[message.threadLength - 1] = `${newMessage.content}（${newMessage.translation}）`
+      return message.content
+    } else {
+      return `${message.content}（${message.translation}）`
+    }
   }
   return message.content
 }
 
 export function getShowRichContent(message) {
-  let richContent = [...message.richContent]
+  
+  let newRichContent = message.richContent[message.threadLength - 1]
+  console.log(`richContents 长度: ${message.richContent.length}`)
+  console.log(`newRichContent 长度: ${newRichContent.length}`)
   if (message.translation) {
-    richContent.push({
+    // 只需要在最新消息的 richContent (Array) 里面再塞入一行 Text 作为 translation
+    newRichContent.push({
       type: CONTENT_TYPE_TEXT,
       text: `（${message.translation}）`
     })
+    message.richContent[message.threadLength - 1] = newRichContent
   }
-  return richContent
+  console.log(`getShowRichContent, length: ${message.richContent.length}`)
+
+  return message.richContent
 }
 
 export function getGiftShowContent (message, showGiftInfo) {

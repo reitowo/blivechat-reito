@@ -197,11 +197,22 @@ export default {
       this.chatClient.stop()
     },
 
-    onAddText(data) {
-      if (!this.config.showDanmaku || !this.filterTextMessage(data) || this.mergeSimilarText(data.content)) {
-        // console.log("收到一般消息弹幕，但：是否显示弹幕为" + this.config.showDanmaku + "，是否合并弹幕为" + this.config.mergeSimilarDanmaku)
+    async onAddText(data) {
+      if (!this.config.showDanmaku || !this.filterTextMessage(data)) {
         return
       }
+      // 合并同一用户短期内的发言
+      if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName)) {
+        // console.log("收到同一个 User 发送的消息")
+        await this.$refs.renderer.$nextTick()
+        this.$refs.renderer.showNewMessages()
+        return
+      }
+      if (this.mergeSimilarText(data.content)) {
+        return
+      }
+      
+
       if (this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
         if (content_str.charAt(0) !== this.config.translationSign) {
@@ -219,7 +230,11 @@ export default {
         }
       }
       
-      // TODO: richContent 的研究
+      // TODO: 不是同一个user的消息的话，开启新的 thread
+      let contentThread = []
+      contentThread[0] = data.content
+      let richContentThread = []
+      richContentThread[0] = this.getRichContent(data)
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_TEXT,
@@ -227,13 +242,14 @@ export default {
         time: new Date(data.timestamp * 1000),
         authorName: data.authorName,
         authorType: data.authorType,
-        content: data.content,
-        richContent: this.getRichContent(data),
+        content: contentThread,
+        richContent: richContentThread,
         privilegeType: data.privilegeType,
         medalName: data.medalName,
         medalLevel: data.medalLevel,
         isFanGroup: data.isFanGroup,
         repeated: 1,
+        threadLength: 1,
         translation: data.translation
       }
       this.$refs.renderer.addMessage(message)
@@ -368,6 +384,13 @@ export default {
     filterByAuthorName(authorName) {
       return !this.blockUsersTrie.has(authorName)
     },
+    mergeSameUserText(content, richContent, authorName) {
+      console.log(`合并用户: ${authorName}`)
+      // if (!this.config.mergeSimilarDanmaku) {
+      //   return false
+      // }
+      return this.$refs.renderer.mergeSameUserText(content, richContent, authorName)
+    },
     mergeSimilarText(content) {
       if (!this.config.mergeSimilarDanmaku) {
         return false
@@ -399,7 +422,7 @@ export default {
       }
 
       // B站官方表情
-      // TODO: 屏蔽官方表情
+      // 屏蔽官方表情
       if (data.emoticon !== null && this.config.autoRenderOfficialEmoji === true) {
         richContent.push({
           type: constants.CONTENT_TYPE_EMOTICON,
@@ -434,7 +457,6 @@ export default {
       }
       while (pos < data.content.length) {
         let remainContent = data.content.substring(pos)
-        // TODO: 新增 跳过相同图片
         let matchEmoticon
         if (this.config.isGreedyMatch) {
           matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
@@ -457,8 +479,6 @@ export default {
         }
 
         // 加入表情
-        // TODO: 增加 emoticon 舰长等级 data.privilegeType
-        
         let emoticonLevel = toInt(matchEmoticon.level)
         let privilegeType = toInt(data.privilegeType)
         // 如果不满足使用权限

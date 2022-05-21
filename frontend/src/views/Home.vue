@@ -361,7 +361,6 @@ export default {
       window.open(`https://live.bilibili.com/${this.form.roomId}`, '_blank')
     },
 
-    // TODO: 增加图片大小
     addEmoticon() {
       this.form.emoticons.splice(0, 0, {
         keyword: '[emoji_keyword]',

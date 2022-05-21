@@ -45,7 +45,6 @@ export class Trie {
 
   // 用单个字符不断寻找下一个字符，感觉会将【2333, 和 33 认定为是一个表情】
   // 如果一个子串，中间的字符都存在于表情包设定中，显示的表情会由该子串最后一个【字符】决定
-  // TODO: 改为贪婪匹配
   greedyMatch(str) {
     let node = this._root
     let node_values = {}
