@@ -24,6 +24,7 @@
                   :contents="getShowContent(message)"
                   :privilegeType="message.privilegeType"
                   :repeated="message.repeated"
+                  :repeatedThread="message.repeatedThread"
                   :threadLength="message.threadLength"
                   :medalName="message.medalName"
                   :medalLevel="message.medalLevel"
@@ -258,26 +259,37 @@ export default {
     mergeSimilarText(content) {
       content = content.trim().toLowerCase()
       let res = false
+      console.log(`判断: ${content} 是否重复`)
       this.forEachRecentMessage(5, message => {
         if (message.type !== constants.MESSAGE_TYPE_TEXT) {
           return true
         }
-        let messageContent = message.content.trim().toLowerCase()
-        let longer, shorter
-        if (messageContent.length > content.length) {
-          longer = messageContent
-          shorter = content
-        } else {
-          longer = content
-          shorter = messageContent
-        }
-        if (longer.indexOf(shorter) !== -1 // 长的包含短的
-            && longer.length - shorter.length < shorter.length // 长度差较小
-        ) {
-          // 其实有小概率导致弹幕卡住
-          message.repeated++
-          res = true
-          return false
+        let index = 0
+        for (let innerContent of message.content) {
+          console.log(`判断index:${index}: ${innerContent}`)
+          
+          let messageContent = innerContent.trim().toLowerCase()
+          let longer, shorter
+          if (messageContent.length > content.length) {
+            longer = messageContent
+            shorter = content
+          } else {
+            longer = content
+            shorter = messageContent
+          }
+          if (longer.indexOf(shorter) !== -1 // 长的包含短的
+              && longer.length - shorter.length < shorter.length // 长度差较小
+          ) {
+            // 其实有小概率导致弹幕卡住
+            
+            message.repeatedThread[index]++
+            message.repeated++
+
+            console.log(`匹配到重复子串`)
+            res = true
+            return false
+          }
+          index++
         }
         return true
       })
@@ -292,15 +304,14 @@ export default {
           return true
         } else {
           // 如果新消息的时间间隔上一条消息超过 mergeSameUserDanmakuInterval 秒，则不合并
-          console.log(new Date(time * 1000) - message.time)
-          console.log(`meg.time: ${message.time}`)
-          console.log(`time: ${new Date(time * 1000)}`)
           if(new Date(time * 1000) - message.time > this.mergeSameUserDanmakuInterval * 1000) {
             return true
           }
           // 塞入最新消息的 newContent, newRichContent
+          console.log(`newContent: ${newContent}`)
           message.content.push(newContent)
           message.richContent.push(newRichContent)
+          message.repeatedThread.push(1)
 
           message.threadLength++
           res = true

@@ -205,6 +205,10 @@ export default {
       if (!this.config.showDanmaku || !this.filterTextMessage(data)) {
         return
       }
+      // 合并相似弹幕
+      if (await this.mergeSimilarText(data.content)) {
+        return
+      }
       // 合并同一用户短期内的发言
       if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
@@ -213,9 +217,7 @@ export default {
         this.$refs.renderer.showNewMessages()
         return
       }
-      if (this.mergeSimilarText(data.content)) {
-        return
-      }
+      
       
 
       if (this.config.showTranslateDanmakuOnly) {
@@ -254,6 +256,7 @@ export default {
         medalLevel: data.medalLevel,
         isFanGroup: data.isFanGroup,
         repeated: 1,
+        repeatedThread:[1],
         threadLength: 1,
         translation: data.translation
       }

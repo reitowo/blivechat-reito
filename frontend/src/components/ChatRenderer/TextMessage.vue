@@ -11,7 +11,7 @@
     >
     <div id="thread">
       <template v-for="(richContent, richContentIndex) in richContents">
-        <div id="card" :key="richContentIndex" class="style-scope yt-live-chat-text-message-renderer">
+        <div id="card" class="style-scope yt-live-chat-text-message-renderer">
           <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
             :imgUrl="avatarUrl"
           ></img-shadow>
@@ -54,7 +54,7 @@
                   :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
                 >
               </template>
-              <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
+              <el-badge :value="getRepeatedValue(richContentIndex)" :max="99" v-show="getRepeatedValue(richContentIndex) > 1" class="style-scope yt-live-chat-text-message-renderer"
                 :style="{ '--repeated-mark-color': repeatedMarkColor }"
               ></el-badge>
             </div>
@@ -107,9 +107,16 @@ export default {
     richContents: Array,
     privilegeType: Number,
     repeated: Number,
+    repeatedThread: Array,
     imageShowType: Number,
     maxImage: Number,
     maxEmoji: Number
+  },
+  methods: {
+    getRepeatedValue(index) {
+      console.log(`index ${index}: ${this.repeatedThread[index]}`)
+      return this.repeatedThread[index]
+    },
   },
   computed: {
     timeText() {
@@ -127,6 +134,7 @@ export default {
       }
       return `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
     },
+    
     repeatedMarkColor() {
       let color
       if (this.repeated <= 2) {
@@ -152,7 +160,7 @@ yt-live-chat-text-message-renderer>#content .el-badge {
 }
 
 yt-live-chat-text-message-renderer>#content .el-badge .el-badge__content {
-  font-size: 12px !important;
+  font-size: 14px !important;
   line-height: 18px !important;
   text-shadow: none !important;
   font-family: sans-serif !important;
