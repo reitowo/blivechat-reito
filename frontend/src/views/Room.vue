@@ -208,6 +208,7 @@ export default {
       // 合并同一用户短期内的发言
       if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
+        this.$refs.renderer.calculateHeight()
         await this.$refs.renderer.$nextTick()
         this.$refs.renderer.showNewMessages()
         return
