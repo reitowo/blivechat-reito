@@ -17,6 +17,8 @@ export default {
     showNewMember: '新メンバーを表示する',
     showGift: 'ギフトを表示する',
     showGiftInfo: 'ギフト内容を表示する',
+    mergeSameUserDanmaku: '同じリスナーのコメントを合併する',
+    mergeSameUserDanmakuInterval: '同じリスナーのコメントを合併するタイム間隔（秒）',
     mergeSimilarDanmaku: '同じコメントを合併する',
     mergeGift: 'ギフトを合併する',
 

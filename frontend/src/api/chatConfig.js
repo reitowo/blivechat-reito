@@ -13,6 +13,8 @@ export const DEFAULT_CONFIG = {
   showNewMember: true,
   showGift: true,
   showGiftInfo: true,
+  mergeSameUserDanmaku: true,
+  mergeSameUserDanmakuInterval: 15,
   mergeSimilarDanmaku: false,
   mergeGift: false,
   danmakuAtBottom: true,

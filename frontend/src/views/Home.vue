@@ -62,6 +62,16 @@
                   <el-switch v-model="form.mergeGift"></el-switch>
                 </el-form-item>
               </el-col>
+              <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.mergeSameUserDanmaku')">
+                  <el-switch v-model="form.mergeSameUserDanmaku"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.mergeSameUserDanmakuInterval')">
+                  <el-input v-model.number="form.mergeSameUserDanmakuInterval" type="number" min="1"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="4">

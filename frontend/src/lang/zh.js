@@ -17,6 +17,8 @@ export default {
     showNewMember: '显示新舰长',
     showGift: '显示礼物',
     showGiftInfo: '显示礼物信息',
+    mergeSameUserDanmaku: '合并同用户的连续弹幕',
+    mergeSameUserDanmakuInterval: '合并同用户的连续弹幕的最大时间间隔(秒)',
     mergeSimilarDanmaku: '合并相似弹幕',
     mergeGift: '合并礼物',
 

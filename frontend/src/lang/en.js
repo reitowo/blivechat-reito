@@ -17,6 +17,8 @@ export default {
     showNewMember: 'Show New Member',
     showGift: 'Show Gift',
     showGiftInfo: 'Show gift info',
+    mergeSameUserDanmaku: "Merge same user's message",
+    mergeSameUserDanmakuInterval: "Message Interval of merge same user's message(sec)",
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
     danmakuAtBottom: 'Align messages to bottom',

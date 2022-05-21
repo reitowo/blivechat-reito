@@ -3,6 +3,7 @@
   :showGiftInfo="config.showGiftInfo"
   :danmakuAtBottom="config.danmakuAtBottom"
   :tickerAtButtom="config.tickerAtButtom"
+  :mergeSameUserDanmakuInterval="config.mergeSameUserDanmakuInterval"
   :minGiftPrice="config.minGiftPrice"
   :minTickerPrice="config.minTickerPrice"
   :maxNumber="config.maxNumber"
@@ -125,6 +126,9 @@ export default {
       cfg.showGift = toBool(cfg.showGift)
       cfg.showGiftInfo = toBool(cfg.showGiftInfo)
 
+      // TODO: merge
+      cfg.mergeSameUserDanmaku = toBool(cfg.mergeSameUserDanmaku)
+      cfg.mergeSameUserDanmakuInterval = toInt(cfg.mergeSameUserDanmakuInterval)
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
       cfg.mergeGift = toBool(cfg.mergeGift)
 
@@ -202,7 +206,7 @@ export default {
         return
       }
       // 合并同一用户短期内的发言
-      if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName)) {
+      if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
         await this.$refs.renderer.$nextTick()
         this.$refs.renderer.showNewMessages()
@@ -384,12 +388,11 @@ export default {
     filterByAuthorName(authorName) {
       return !this.blockUsersTrie.has(authorName)
     },
-    mergeSameUserText(content, richContent, authorName) {
-      console.log(`合并用户: ${authorName}`)
-      // if (!this.config.mergeSimilarDanmaku) {
-      //   return false
-      // }
-      return this.$refs.renderer.mergeSameUserText(content, richContent, authorName)
+    mergeSameUserText(content, richContent, authorName, time) {
+      if (!this.config.mergeSameUserDanmaku) {
+        return false
+      }
+      return this.$refs.renderer.mergeSameUserText(content, richContent, authorName, time)
     },
     mergeSimilarText(content) {
       if (!this.config.mergeSimilarDanmaku) {
