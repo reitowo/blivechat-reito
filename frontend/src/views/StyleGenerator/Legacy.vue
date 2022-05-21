@@ -213,9 +213,14 @@
 
       <h3>{{ $t('stylegen.time') }}</h3>
       <el-card shadow="never">
-        <el-form-item :label="$t('stylegen.showTime')">
-          <el-switch v-model="form.showTime"></el-switch>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-form-item :label="$t('stylegen.showTime')">
+            <el-switch v-model="form.showTime"></el-switch>
+          </el-form-item>
+          <el-form-item :label="$t('stylegen.showTimeRight')">
+            <el-switch v-model="form.showTimeRight"></el-switch>
+          </el-form-item>
+        </el-row>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.font')">
@@ -473,6 +478,7 @@ export const DEFAULT_CONFIG = {
   emoticonBlockBorderRadius: 4,
 
   showTime: false,
+  showTimeRight: true,
   timeFont: 'Imprima',
   timeFontSize: 16,
   timeLineHeight: 0,

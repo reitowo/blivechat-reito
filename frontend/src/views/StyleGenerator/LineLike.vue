@@ -417,6 +417,7 @@ export const DEFAULT_CONFIG = {
   emoticonBlockBorderRadius: 4,
 
   showTime: false,
+  showTimeRight: true,
   timeFont: 'Noto Sans SC',
   timeFontSize: 16,
   timeLineHeight: 0,

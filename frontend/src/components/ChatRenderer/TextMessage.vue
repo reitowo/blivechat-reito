@@ -33,6 +33,7 @@
                   :isAdmin="authorType === 2" :privilegeType="privilegeType"
                 ></author-badge>
               </span>
+              <span id="timestamp-back" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
             </yt-live-chat-author-chip>
             <!-- 直接替换表情包 -->
             <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">

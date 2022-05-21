@@ -175,6 +175,7 @@ export default {
 
     time: '時間',
     showTime: '時間を表示する',
+    showTimeRight: '時間を右側で表示する',
 
     backgrounds: '背景',
     bgColor: '背景色',

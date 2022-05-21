@@ -174,6 +174,7 @@ export default {
 
     time: '时间',
     showTime: '显示时间',
+    showTimeRight: '在右侧显示时间',
 
     backgrounds: '背景',
     bgColor: '背景色',
