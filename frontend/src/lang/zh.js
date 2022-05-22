@@ -171,6 +171,9 @@ export default {
     messages: '消息',
     color: '颜色',
     onNewLine: '在新行显示',
+    mergeSameUser: '合并同用户消息为组',
+    groupBlockPadding: '消息组内消息的间距',
+    
 
     time: '时间',
     showTime: '显示时间',

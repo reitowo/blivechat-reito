@@ -173,6 +173,8 @@ export default {
     messages: 'Messages',
     color: 'Color',
     onNewLine: 'On new line',
+    mergeSameUser: "Merge same user's messages",
+    groupBlockPadding: "messages' padding in message group",
 
     time: 'Timestamps',
     showTime: 'Show timestamps',

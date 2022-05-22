@@ -183,7 +183,7 @@ export default {
     getText(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
         return ''
-        // FIXME: 方便用户 CSS 自定义
+        // 方便用户 CSS 自定义
         // return this.$t('chat.tickerMembership')
       }
       return `CN¥${formatCurrency(message.price)}`

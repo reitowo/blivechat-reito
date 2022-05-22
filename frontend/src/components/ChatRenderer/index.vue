@@ -524,7 +524,6 @@ export default {
       this.$nextTick(this.maybeScrollToBottom)
     },
     //* 处理新信息的消息入栈
-    // TODO: 【处理中】新消息
     handleAddMessage(message) {
       message = {
         ...message,

@@ -172,6 +172,8 @@ export default {
     messages: 'コメント',
     color: '色',
     onNewLine: '新しい行に表示する',
+    mergeSameUser: '同じリスナーのコメントを合併する',
+    groupBlockPadding: 'コメントグループ内コメントの間隔距離',
 
     time: '時間',
     showTime: '時間を表示する',

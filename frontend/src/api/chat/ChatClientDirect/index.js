@@ -308,7 +308,6 @@ export default class ChatClientDirect {
     } else {
       medalName = roomId = medalLevel = 0
     }
-    // TODO: UID
     let uid = info[2][0]
     let isAdmin = info[2][2]
     let privilegeType = info[7]

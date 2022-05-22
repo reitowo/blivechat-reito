@@ -166,7 +166,6 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   opacity: var(--yt-live-chat-text-message-renderer-message-message-style_-_opacity);
 }
 
-/* FIXME: 表情包CSS */
 #image-and-message img[display="block"] {
   margin-top: 3px;
 }
@@ -175,7 +174,6 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   top: 3px;
 }
 
-/* FIXME: CSS emoji 设定 */
 #image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
   /* B站表情有不是正方形的 */
   width: auto;

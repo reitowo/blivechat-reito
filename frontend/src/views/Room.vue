@@ -68,7 +68,7 @@ export default {
       }
       return res
     },
-    // TODO: 解析用户设置的 emoticons
+    // 解析用户设置的 emoticons
     emoticonsTrie() {
       let res = new trie.Trie()
       for (let emoticon of this.config.emoticons) {
@@ -126,7 +126,6 @@ export default {
       cfg.showGift = toBool(cfg.showGift)
       cfg.showGiftInfo = toBool(cfg.showGiftInfo)
 
-      // TODO: merge
       cfg.mergeSameUserDanmaku = toBool(cfg.mergeSameUserDanmaku)
       cfg.mergeSameUserDanmakuInterval = toInt(cfg.mergeSameUserDanmakuInterval)
       cfg.mergeSimilarDanmaku = toBool(cfg.mergeSimilarDanmaku)
@@ -212,13 +211,12 @@ export default {
       // 合并同一用户短期内的发言
       if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
+        // 合并消息，即插入到 Thread 的消息需要单独写平滑（拉了，和原本的平滑方案没有很好的融合）
         this.$refs.renderer.calculateHeight()
         await this.$refs.renderer.$nextTick()
         this.$refs.renderer.showNewMessages()
         return
       }
-      
-      
 
       if (this.config.showTranslateDanmakuOnly) {
         let content_str = data.content
@@ -238,6 +236,8 @@ export default {
       }
       
       // TODO: 不是同一个user的消息的话，开启新的 thread
+      // 拉了，为了减少对 key 的修改
+      // 直接把Thread塞到原本的 content 和 richContent
       let contentThread = []
       contentThread[0] = data.content
       let richContentThread = []
@@ -448,7 +448,6 @@ export default {
         return richContent
       }
 
-      // FIXME: getRichContent 核心拆分文字表情emoticon代码
       // 可能含有自定义表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
       let startPos = 0
