@@ -9,6 +9,10 @@ canvas.yt-live-chat-text-message-renderer, caption.yt-live-chat-text-message-ren
   display: none !important;
 }
 
+#timestamp-back.yt-live-chat-text-message-renderer {
+  display: none;
+}
+
 #timestamp.yt-live-chat-text-message-renderer {
   display: var(--yt-live-chat-item-timestamp-display, inline);
   margin: var(--yt-live-chat-item-timestamp-margin, 0 8px 0 0);
