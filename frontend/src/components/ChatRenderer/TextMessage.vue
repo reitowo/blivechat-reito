@@ -16,8 +16,8 @@
             :imgUrl="avatarUrl"
           ></img-shadow>
           <div id="content" class="style-scope yt-live-chat-text-message-renderer">
-            <span id="timestamp" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
             <yt-live-chat-author-chip class="style-scope yt-live-chat-text-message-renderer">
+              <span id="timestamp" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
               <span id="author-name" dir="auto" class="style-scope yt-live-chat-author-chip" :type="authorTypeText">{{
                 authorName
                 }}<!-- 这里是已验证勋章 -->
@@ -33,7 +33,6 @@
                   :isAdmin="authorType === 2" :privilegeType="privilegeType"
                 ></author-badge>
               </span>
-              <span id="timestamp-back" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
             </yt-live-chat-author-chip>
             <!-- 直接替换表情包 -->
             <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">

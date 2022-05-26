@@ -86,13 +86,10 @@ yt-live-chat-membership-item-renderer #author-photo img {
 export function getTimeStyle(config) {
   return `/* Timestamps */
 yt-live-chat-text-message-renderer #timestamp {
-  display: ${config.showTime ? config.showTimeRight? 'none' : 'inline' : 'none'} !important;
+  display: ${config.showTime ? 'inline' : 'none'};
+  order: ${config.showTimeRight ? 3 : 'initial'};
 }
-yt-live-chat-text-message-renderer #timestamp-back {
-  display: ${config.showTime ? config.showTimeRight? 'inline' : 'none' : 'none'} !important;
-}
-yt-live-chat-text-message-renderer #timestamp,
-yt-live-chat-text-message-renderer #timestamp-back {
+yt-live-chat-text-message-renderer #timestamp {
   ${config.timeColor ? `color: ${config.timeColor} !important;` : ''}
   font-family: "${cssEscapeStr(config.timeFont)}"${FALLBACK_FONTS};
   font-size: ${config.timeFontSize}px !important;
