@@ -94,13 +94,13 @@ yt-live-chat-item-list-renderer[allow-scroll] #item-scroller.yt-live-chat-item-l
   padding-right: 0;
 }
 
-#item-offset.yt-live-chat-item-list-renderer {
+/* #item-offset.yt-live-chat-item-list-renderer {
   position: relative;
-}
+} */
 
-#item-scroller.animated.yt-live-chat-item-list-renderer #item-offset.yt-live-chat-item-list-renderer {
+/* #item-scroller.animated.yt-live-chat-item-list-renderer #item-offset.yt-live-chat-item-list-renderer {
   overflow: hidden;
-}
+} */
 
 #items.yt-live-chat-item-list-renderer {
   -ms-flex: 1 1 0.000000001px;
@@ -144,29 +144,29 @@ yt-live-chat-paid-sticker-renderer.yt-live-chat-item-list-renderer[dashboard-mon
   /* transition: none; */
 }
 
-yt-live-chat-text-message-renderer.leaving {
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
-}
-
-yt-live-chat-text-message-renderer.collapsing {
-  transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
+yt-live-chat-text-message-renderer.leaving,
+yt-live-chat-membership-item-renderer.leaving,
 yt-live-chat-paid-message-renderer.leaving {
   opacity: 0;
   transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
+yt-live-chat-text-message-renderer.collapsing,
+yt-live-chat-membership-item-renderer.collapsing,
 yt-live-chat-paid-message-renderer.collapsing {
   transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-yt-live-chat-membership-item-renderer.leaving {
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+yt-live-chat-text-message-renderer[randomXOffset],
+yt-live-chat-membership-item-renderer[randomXOffset],
+yt-live-chat-paid-message-renderer[randomXOffset] {
+  left: var(--x-offset);
+  animation: anim_message_float_up var(--float-up-time) linear forwards;
+  position: absolute;
 }
 
-yt-live-chat-membership-item-renderer.collapsing {
-  transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+@keyframes anim_message_float_up {
+  0% { transform: none; }
+  99% { transform: translateY(calc(0px - var(--float-up-height))); opacity: 1 !important;}
+  100% { transform: translateY(calc(0px - var(--float-up-height))); opacity: 0 !important; }
 }

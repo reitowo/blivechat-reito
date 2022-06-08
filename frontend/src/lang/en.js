@@ -23,6 +23,11 @@ export default {
     mergeGift: 'Merge gifts',
     danmakuAtBottom: 'Align messages to bottom',
     tickerAtButtom: 'Show on-top Super Chats at bottom',
+    randomXOffset: 'Random messages X offset',
+    randomRangeMin: 'X offset minimum',
+    randomRangeMax: 'X offset maximum',
+    floatUpHeight: 'float up speed(px/sec)',
+    floatUpTime: 'float up height(px/sec)',
 
     showTranslateDanmakuOnly: 'Show translation message only',
     blockTranslateDanmaku: 'Block translation message',

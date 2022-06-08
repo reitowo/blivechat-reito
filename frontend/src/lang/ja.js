@@ -24,6 +24,11 @@ export default {
 
     danmakuAtBottom: 'コメントを下揃え',
     tickerAtButtom: '最低表示常駐Topスーパーチャットを下から現れる',
+    randomXOffset: 'ランダムコメントX位置',
+    randomRangeMin: 'Xの最小値',
+    randomRangeMax: 'Xの最大値',
+    floatUpHeight: '上昇高度(px)',
+    floatUpTime: '上昇時間(秒)',
     
     showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
     blockTranslateDanmaku: '翻訳コメントをブロック',

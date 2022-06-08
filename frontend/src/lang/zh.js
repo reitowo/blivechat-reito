@@ -24,6 +24,11 @@ export default {
 
     danmakuAtBottom: '弹幕居下',
     tickerAtButtom: '底部显示SC固定栏',
+    randomXOffset: '随机弹幕X轴位置',
+    randomRangeMin: 'X最小值',
+    randomRangeMax: 'X最大值',
+    floatUpHeight: '上升高度(px)',
+    floatUpTime: '上昇時間(秒)',
 
     showTranslateDanmakuOnly: '只显示翻译弹幕',
     blockTranslateDanmaku: '屏蔽翻译弹幕',

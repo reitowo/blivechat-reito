@@ -3,6 +3,9 @@
   :showGiftInfo="config.showGiftInfo"
   :danmakuAtBottom="config.danmakuAtBottom"
   :tickerAtButtom="config.tickerAtButtom"
+  :randomXOffset="config.randomXOffset"
+  :floatUpHeight="config.floatUpHeight"
+  :floatUpTime="config.floatUpTime"
   :mergeSameUserDanmakuInterval="config.mergeSameUserDanmakuInterval"
   :minGiftPrice="config.minGiftPrice"
   :minTickerPrice="config.minTickerPrice"
@@ -133,6 +136,11 @@ export default {
 
       cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
       cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
+      cfg.randomXOffset = toBool(cfg.randomXOffset)
+      cfg.randomRangeMin = toInt(cfg.randomRangeMin)
+      cfg.randomRangeMax = toInt(cfg.randomRangeMax)
+      cfg.floatUpHeight = toInt(cfg.floatUpHeight)
+      cfg.floatUpTime = toInt(cfg.floatUpTime)
 
       cfg.blockTranslateDanmaku = toBool(cfg.blockTranslateDanmaku)
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
@@ -258,7 +266,8 @@ export default {
         repeated: 1,
         repeatedThread:[1],
         threadLength: 1,
-        translation: data.translation
+        translation: data.translation,
+        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -290,7 +299,8 @@ export default {
         authorNamePronunciation: this.getPronunciation(data.authorName),
         price: price,
         giftName: data.giftName,
-        num: data.num
+        num: data.num,
+        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -318,7 +328,8 @@ export default {
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
         price: price,
-        title: this.$t('chat.membershipTitle')
+        title: this.$t('chat.membershipTitle'),
+        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -345,7 +356,8 @@ export default {
         price: data.price,
         time: new Date(data.timestamp * 1000),
         content: data.content.trim(),
-        translation: data.translation
+        translation: data.translation,
+        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
       }
       this.$refs.renderer.addMessage(message)
     },

@@ -53,6 +53,33 @@
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="4">
+                <el-form-item :label="$t('home.randomXOffset')">
+                  <el-switch v-model="form.randomXOffset"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.randomRangeMin')">
+                  <el-input v-model.number="form.randomRangeMin" type="number" min="0"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.randomRangeMax')">
+                  <el-input v-model.number="form.randomRangeMax" type="number" min="0"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.floatUpHeight')">
+                  <el-input v-model.number="form.floatUpHeight" type="number" min="0"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.floatUpTime')">
+                  <el-input v-model.number="form.floatUpTime" type="number" min="0"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="4">
                 <el-form-item :label="$t('home.mergeSimilarDanmaku')">
                   <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
                 </el-form-item>

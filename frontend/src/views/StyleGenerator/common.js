@@ -16,11 +16,6 @@ yt-live-chat-author-chip #author-name {
   background-color: transparent !important;
 }
 
-/* Hide scrollbar */
-yt-live-chat-item-list-renderer #items {
-  overflow: hidden !important;
-}
-
 yt-live-chat-item-list-renderer #item-scroller {
   overflow: hidden !important;
 }
