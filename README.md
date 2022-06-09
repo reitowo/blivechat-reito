@@ -39,13 +39,13 @@
 4. 合并同用户的连续弹幕的最大时间间隔（秒）——开启后该【秒】数内同用户发送的弹幕会被合并
 
 ### 3.弹幕数量设置
-![合并弹幕](./screenshots/danmakuNumSetting.png)
+![弹幕数量设置](./screenshots/danmuNumSetting.png)
 1. 最大弹幕数量——浏览器源显示的最大弹幕数量
 
 ## **首页-特殊功能**——参数说明
 
 ### 1.弹幕消失设定
-![单独显示翻译弹幕](./screenshots/DanmakuFadeOutSetting.png) 
+![弹幕消失设定](./screenshots/danmuFadeOutSetting.png) 
 1. 预留淡出弹幕数——预留给弹幕消失动画，避免在动画过程中弹幕被删除的预留用弹幕数量
 2. 弹幕停留时长(秒)——默认0为持续停留，弹幕将会在设置秒数后消失
 
