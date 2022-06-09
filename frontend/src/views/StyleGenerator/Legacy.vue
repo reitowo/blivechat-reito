@@ -508,7 +508,6 @@ export const DEFAULT_CONFIG = {
   messageLineHeight: 0,
   messageColor: '#ffffff',
   messageOnNewLine: false,
-  // TODO: Legacy 样式生成器-支持合并同用户消息
   messageMergeSameUser: true,
   messageGroupBlockPadding: 4,
 

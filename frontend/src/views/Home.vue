@@ -139,7 +139,7 @@
             </el-card>
             <el-card shadow="never">
               <el-row :gutter="20">
-                <el-col :xs="24" :sm="4">
+                <el-col :xs="24" :sm="6">
                   <el-form-item :label="$t('home.randomXOffset')">
                     <el-switch v-model="form.randomXOffset"></el-switch>
                   </el-form-item>
@@ -156,7 +156,7 @@
                 </el-col>
               </el-row>
               <el-row :gutter="20">
-                <el-col :xs="24" :sm="4">
+                <el-col :xs="24" :sm="6">
                   <el-form-item :label="$t('home.randomYOffset')">
                     <el-switch v-model="form.randomYOffset"></el-switch>
                   </el-form-item>
@@ -172,12 +172,19 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-               <el-row :gutter="20">
+              <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.floatUpTime')">
-                    <el-input v-model.number="form.floatUpTime" type="number" min="0" :placeholder="$t('home.timePlaceholder')"></el-input>
+                  <el-form-item :label="$t('home.floatTime')">
+                    <el-input v-model.number="form.floatTime" type="number" min="0" :placeholder="$t('home.timePlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatDistanceThreshold')">
+                    <el-input v-model.number="form.floatDistanceThreshold" type="number" min="0" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.randomXInitialOffset')">
                     <el-input v-model.number="form.randomXInitialOffset" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
@@ -191,18 +198,25 @@
               </el-row>
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.floatDistanceMin')">
-                    <el-input v-model.number="form.floatDistanceMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  <el-form-item :label="$t('home.floatDistanceXMin')">
+                    <el-input v-model.number="form.floatDistanceXMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.floatDistanceMax')">
-                    <el-input v-model.number="form.floatDistanceMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  <el-form-item :label="$t('home.floatDistanceXMax')">
+                    <el-input v-model.number="form.floatDistanceXMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatDistanceYMin')">
+                    <el-input v-model.number="form.floatDistanceYMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.floatDistanceThreshold')">
-                    <el-input v-model.number="form.floatDistanceThreshold" type="number" min="0" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  <el-form-item :label="$t('home.floatDistanceYMax')">
+                    <el-input v-model.number="form.floatDistanceYMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

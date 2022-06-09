@@ -165,8 +165,8 @@ yt-live-chat-paid-message-renderer[randomXOffset] {
 }
 @keyframes anim_message_float_up {
   0% { transform: translate(var(--x-offset), var(--y-offset)) }
-  99% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance))); opacity: 1 !important;}
-  100% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance))); opacity: 0 !important; }
+  99% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); opacity: 1 !important;}
+  100% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); opacity: 0 !important; }
 }
 
 yt-live-chat-text-message-renderer[randomYOffset],
@@ -177,8 +177,8 @@ yt-live-chat-paid-message-renderer[randomYOffset] {
 }
 @keyframes anim_message_float_right {
   0% { transform: translate(var(--x-offset), calc(0px - var(--y-offset))) }
-  99% { transform: translate(calc(var(--x-offset) + var(--float-distance)), calc(0px - var(--y-offset))); opacity: 1 !important;}
-  100% { transform: translate(calc(var(--x-offset) + var(--float-distance)), calc(0px - var(--y-offset))); opacity: 0 !important; }
+  99% { transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(0px - var(--y-offset))); opacity: 1 !important;}
+  100% { transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(0px - var(--y-offset))); opacity: 0 !important; }
 }
 
 yt-live-chat-text-message-renderer[randomXOffset][randomYOffset],
@@ -203,11 +203,11 @@ yt-live-chat-paid-message-renderer[randomXOffset][randomYOffset] {
     opacity: 1; 
   }
   98% {
-    transform: translate(var(--x-offset), var(--y-offset)) scale(1, 1);
+    transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(var(--y-offset) + var(--float-distance-y))) scale(1, 1);
     opacity: 1;
   }
   100% {
-    transform: translate(var(--x-offset), var(--y-offset)) scale(1, 1);
+    transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(var(--y-offset) + var(--float-distance-y))) scale(1, 1);
     opacity: 0;
   }
 }

@@ -24,8 +24,9 @@
                   :style="
                     `--x-offset:${message.xOffset}px;
                     --y-offset:${message.yOffset}px;
-                    --float-distance: ${message.floatDistance}px;
-                    --float-time: ${getFloatUpTime}s;`
+                    --float-distance-x: ${message.floatDistanceX}px;
+                    --float-distance-y: ${message.floatDistanceY}px;
+                    --float-time: ${getFloatTime}s;`
                   "
                   :randomXOffset="randomXOffset"
                   :randomYOffset="randomYOffset"
@@ -49,8 +50,9 @@
                   :style="
                     `--x-offset:${message.xOffset}px;
                     --y-offset:${message.yOffset}px;
-                    --float-distance: ${message.floatDistance}px;
-                    --float-time: ${getFloatUpTime}s;`
+                    --float-distance-x: ${message.floatDistanceX}px;
+                    --float-distance-y: ${message.floatDistanceY}px;
+                    --float-time: ${getFloatTime}s;`
                   "
                   :randomXOffset="randomXOffset"
                   :randomYOffset="randomYOffset"
@@ -67,8 +69,9 @@
                   :style="
                     `--x-offset:${message.xOffset}px;
                     --y-offset:${message.yOffset}px;
-                    --float-distance: ${message.floatDistance}px;
-                    --float-time: ${getFloatUpTime}s;`
+                    --float-distance-x: ${message.floatDistanceX}px;
+                    --float-distance-y: ${message.floatDistanceY}px;
+                    --float-time: ${getFloatTime}s;`
                   "
                   :randomXOffset="randomXOffset"
                   :randomYOffset="randomYOffset"
@@ -85,8 +88,9 @@
                   :style="
                     `--x-offset:${message.xOffset}px;
                     --y-offset:${message.yOffset}px;
-                    --float-distance: ${message.floatDistance}px;
-                    --float-time: ${getFloatUpTime}s;`
+                    --float-distance-x: ${message.floatDistanceX}px;
+                    --float-distance-y: ${message.floatDistanceY}px;
+                    --float-time: ${getFloatTime}s;`
                   "
                   :randomXOffset="randomXOffset"
                   :randomYOffset="randomYOffset"
@@ -161,9 +165,9 @@ export default {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.randomYOffset
     },
-    floatUpTime: {
+    floatTime: {
       type: Number,
-      default: chatConfig.DEFAULT_CONFIG.floatUpTime
+      default: chatConfig.DEFAULT_CONFIG.floatTime
     },
     mergeSameUserDanmakuInterval: {
       type: Number,
@@ -224,8 +228,8 @@ export default {
     }
   },
   computed: {
-    getFloatUpTime() {
-      return this.floatUpTime;
+    getFloatTime() {
+      return this.floatTime;
     },
     canScrollToBottom() {
       return this.atBottom/* || this.allowScroll */
