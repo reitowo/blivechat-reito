@@ -8,10 +8,12 @@
     <yt-live-chat-item-list-renderer class="style-scope yt-live-chat-renderer" allow-scroll>
       <div ref="scroller" id="item-scroller" class="style-scope yt-live-chat-item-list-renderer animated" @scroll="onScroll">
         <div ref="itemOffset" id="item-offset" class="style-scope yt-live-chat-item-list-renderer" style="height: 0px;"
-          :style="`${this.randomXOffset ? 'overflow: visible;' : 'overflow: hidden; position: relative;'}`"
+          :style="`${(this.randomXOffset || this.randomYOffset) ? 'overflow: visible;' : 'overflow: hidden; position: relative;'}`"
         >
           <div ref="items" id="items" class="style-scope yt-live-chat-item-list-renderer" style=""
-            :style="{ transform: `translateY(${Math.floor(scrollPixelsRemaining)}px); ${this.randomXOffset ? 'overflow: visible !important;' : 'overflow: hidden !important;'}` }"
+            :style="{ transform: `translateY(${Math.floor(scrollPixelsRemaining)}px)`,
+              overflow: `${(this.randomXOffset || this.randomYOffset) ? 'visible !important' : 'hidden !important'}`
+             }"
           >
             <transition-group tag="div" :css="false" @leave="onMessageLeave"
               id="chat-items" class="style-scope yt-live-chat-item-list-renderer"
@@ -21,10 +23,12 @@
                   class="style-scope yt-live-chat-item-list-renderer"
                   :style="
                     `--x-offset:${message.xOffset}px;
-                    --float-up-height: ${getFloatUpHeight}px;
-                    --float-up-time: ${getFloatUpTime}s;`
+                    --y-offset:${message.yOffset}px;
+                    --float-distance: ${message.floatDistance}px;
+                    --float-time: ${getFloatUpTime}s;`
                   "
                   :randomXOffset="randomXOffset"
+                  :randomYOffset="randomYOffset"
                   :time="message.time"
                   :avatarUrl="message.avatarUrl"
                   :authorName="message.authorName"
@@ -42,13 +46,14 @@
                 ></text-message>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :style="`--x-offset:${message.xOffset}px;`"
-                   :style="
+                  :style="
                     `--x-offset:${message.xOffset}px;
-                    --float-up-height: ${getFloatUpHeight}px;
-                    --float-up-time: ${getFloatUpTime}s;`
+                    --y-offset:${message.yOffset}px;
+                    --float-distance: ${message.floatDistance}px;
+                    --float-time: ${getFloatUpTime}s;`
                   "
                   :randomXOffset="randomXOffset"
+                  :randomYOffset="randomYOffset"
                   :time="message.time"
                   :avatarUrl="message.avatarUrl"
                   :authorName="getShowAuthorName(message)"
@@ -59,13 +64,14 @@
                 ></paid-message>
                 <membership-item :key="message.id" v-else-if="message.type === MESSAGE_TYPE_MEMBER"
                   class="style-scope yt-live-chat-item-list-renderer"
-                  :style="`--x-offset:${message.xOffset}px;`"
-                   :style="
+                  :style="
                     `--x-offset:${message.xOffset}px;
-                    --float-up-height: ${getFloatUpHeight}px;
-                    --float-up-time: ${getFloatUpTime}s;`
+                    --y-offset:${message.yOffset}px;
+                    --float-distance: ${message.floatDistance}px;
+                    --float-time: ${getFloatUpTime}s;`
                   "
                   :randomXOffset="randomXOffset"
+                  :randomYOffset="randomYOffset"
                   :time="message.time"
                   :avatarUrl="message.avatarUrl"
                   :authorName="getShowAuthorName(message)"
@@ -76,13 +82,14 @@
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_SUPER_CHAT"
                   class="style-scope yt-live-chat-item-list-renderer"
                   giftName="superchat"
-                  :style="`--x-offset:${message.xOffset}px;`"
-                   :style="
+                  :style="
                     `--x-offset:${message.xOffset}px;
-                    --float-up-height: ${getFloatUpHeight}px;
-                    --float-up-time: ${getFloatUpTime}s;`
+                    --y-offset:${message.yOffset}px;
+                    --float-distance: ${message.floatDistance}px;
+                    --float-time: ${getFloatUpTime}s;`
                   "
                   :randomXOffset="randomXOffset"
+                  :randomYOffset="randomYOffset"
                   :time="message.time"
                   :avatarUrl="message.avatarUrl"
                   :authorName="getShowAuthorName(message)"
@@ -150,9 +157,9 @@ export default {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.randomXOffset
     },
-    floatUpHeight: {
-      type: Number,
-      default: chatConfig.DEFAULT_CONFIG.floatUpHeight
+    randomYOffset: {
+      type: Boolean,
+      default: chatConfig.DEFAULT_CONFIG.randomYOffset
     },
     floatUpTime: {
       type: Number,
@@ -217,9 +224,6 @@ export default {
     }
   },
   computed: {
-    getFloatUpHeight() {
-      return this.floatUpHeight;
-    },
     getFloatUpTime() {
       return this.floatUpTime;
     },
@@ -681,7 +685,7 @@ export default {
       this.preinsertHeight = this.$refs.items.clientHeight
     },
     showNewMessages() {
-      if(this.randomXOffset) {
+      if(this.randomXOffset || this.randomYOffset) {
         console.log("if randomXOffset")
         return
       }

@@ -12,143 +12,197 @@
             <el-form-item :label="$t('home.roomId')" required prop="roomId">
               <el-input v-model.number="form.roomId" type="number" min="1"></el-input>
             </el-form-item>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showDanmaku')">
-                  <el-switch v-model="form.showDanmaku"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showSuperchat')">
-                  <el-switch v-model="form.showSuperchat"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showNewMember')">
-                  <el-switch v-model="form.showNewMember"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showGift')">
-                  <el-switch v-model="form.showGift"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showGiftInfo')">
-                  <el-switch v-model="form.showGiftInfo"></el-switch>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.danmakuAtBottom')">
-                  <el-switch v-model="form.danmakuAtBottom"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.tickerAtButtom')">
-                  <el-switch v-model="form.tickerAtButtom"></el-switch>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.randomXOffset')">
-                  <el-switch v-model="form.randomXOffset"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="6">
-                <el-form-item :label="$t('home.randomRangeMin')">
-                  <el-input v-model.number="form.randomRangeMin" type="number" min="0"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="6">
-                <el-form-item :label="$t('home.randomRangeMax')">
-                  <el-input v-model.number="form.randomRangeMax" type="number" min="0"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="6">
-                <el-form-item :label="$t('home.floatUpHeight')">
-                  <el-input v-model.number="form.floatUpHeight" type="number" min="0"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="6">
-                <el-form-item :label="$t('home.floatUpTime')">
-                  <el-input v-model.number="form.floatUpTime" type="number" min="0"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.mergeSimilarDanmaku')">
-                  <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.mergeGift')">
-                  <el-switch v-model="form.mergeGift"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.mergeSameUserDanmaku')">
-                  <el-switch v-model="form.mergeSameUserDanmaku"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.mergeSameUserDanmakuInterval')">
-                  <el-input v-model.number="form.mergeSameUserDanmakuInterval" type="number" min="1"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.blockTranslateDanmaku')">
-                  <el-switch v-model="form.blockTranslateDanmaku"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="4">
-                <el-form-item :label="$t('home.showTranslateDanmakuOnly')">
-                  <el-switch v-model="form.showTranslateDanmakuOnly"></el-switch>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.translationSign')">
-                  <el-input v-model.trim="form.translationSign"
-                  maxLength='1'
-                  :placeholder="$t('home.onlyOneCharacter')"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.minGiftPrice')">
-                  <el-input v-model.number="form.minGiftPrice" type="number" min="0"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.minTickerPrice')">
-                  <el-input v-model.number="form.minTickerPrice" type="number" min="0.1"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.maxNumber')">
-                  <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.fadeOutNum')">
-                  <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="8">
-                <el-form-item :label="$t('home.pinTime')">
-                  <el-input v-model.number="form.pinTime" type="number" min="1"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <el-card shadow="never">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.showDanmaku')">
+                    <el-switch v-model="form.showDanmaku"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.danmakuAtBottom')">
+                    <el-switch v-model="form.danmakuAtBottom"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.tickerAtButtom')">
+                    <el-switch v-model="form.tickerAtButtom"></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.showSuperchat')">
+                    <el-switch v-model="form.showSuperchat"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.showNewMember')">
+                    <el-switch v-model="form.showNewMember"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.showGift')">
+                    <el-switch v-model="form.showGift"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.showGiftInfo')">
+                    <el-switch v-model="form.showGiftInfo"></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="10">
+                  <el-form-item :label="$t('home.minGiftPrice')">
+                    <el-input v-model.number="form.minGiftPrice" type="number" min="0" :placeholder="$t('home.minGiftPricePlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="10">
+                  <el-form-item :label="$t('home.minTickerPrice')">
+                    <el-input v-model.number="form.minTickerPrice" type="number" min="0.1" :placeholder="$t('home.minGiftPricePlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+            <el-card shadow="never">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="4">
+                  <el-form-item :label="$t('home.mergeSimilarDanmaku')">
+                    <el-switch v-model="form.mergeSimilarDanmaku"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.mergeGift')">
+                    <el-switch v-model="form.mergeGift"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :label="$t('home.mergeSameUserDanmaku')">
+                    <el-switch v-model="form.mergeSameUserDanmaku"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.mergeSameUserDanmakuInterval')">
+                    <el-input v-model.number="form.mergeSameUserDanmakuInterval" type="number" min="1"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+            <el-card shadow="never">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.maxNumber')">
+                    <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.fadeOutNum')">
+                    <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.pinTime')">
+                    <el-input v-model.number="form.pinTime" type="number" min="1" :placeholder="$t('home.pinTimePlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+          </el-tab-pane>
+
+          <el-tab-pane :label="$t('home.special')">
+            <el-card shadow="never">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="4">
+                  <el-form-item :label="$t('home.blockTranslateDanmaku')">
+                    <el-switch v-model="form.blockTranslateDanmaku"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="4">
+                  <el-form-item :label="$t('home.showTranslateDanmakuOnly')">
+                    <el-switch v-model="form.showTranslateDanmakuOnly"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.translationSign')">
+                    <el-input v-model.trim="form.translationSign"
+                    maxLength='1'
+                    :placeholder="$t('home.onlyOneCharacter')"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+            <el-card shadow="never">
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="4">
+                  <el-form-item :label="$t('home.randomXOffset')">
+                    <el-switch v-model="form.randomXOffset"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomXRangeMin')">
+                    <el-input v-model.number="form.randomXRangeMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomXRangeMax')">
+                    <el-input v-model.number="form.randomXRangeMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="4">
+                  <el-form-item :label="$t('home.randomYOffset')">
+                    <el-switch v-model="form.randomYOffset"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomYRangeMin')">
+                    <el-input v-model.number="form.randomYRangeMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomYRangeMax')">
+                    <el-input v-model.number="form.randomYRangeMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+               <el-row :gutter="20">
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatUpTime')">
+                    <el-input v-model.number="form.floatUpTime" type="number" min="0" :placeholder="$t('home.timePlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomXInitialOffset')">
+                    <el-input v-model.number="form.randomXInitialOffset" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.randomYInitialOffset')">
+                    <el-input v-model.number="form.randomYInitialOffset" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatDistanceMin')">
+                    <el-input v-model.number="form.floatDistanceMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatDistanceMax')">
+                    <el-input v-model.number="form.floatDistanceMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="8">
+                  <el-form-item :label="$t('home.floatDistanceThreshold')">
+                    <el-input v-model.number="form.floatDistanceThreshold" type="number" min="0" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
             
           </el-tab-pane>
 
@@ -335,6 +389,22 @@
   </div>
 </template>
 
+<style>
+.el-tab-pane>.el-card {
+  border-radius: 8px;
+  border: none;
+  background-color: none;
+}
+.el-tab-pane>.el-card:hover {
+  background-color: #ebeef5;
+}
+
+.el-card__body {
+  padding: 20px 20px 4px 20px;
+}
+
+
+</style>
 <script>
 import _ from 'lodash'
 import axios from 'axios'

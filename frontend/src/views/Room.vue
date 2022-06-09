@@ -4,7 +4,7 @@
   :danmakuAtBottom="config.danmakuAtBottom"
   :tickerAtButtom="config.tickerAtButtom"
   :randomXOffset="config.randomXOffset"
-  :floatUpHeight="config.floatUpHeight"
+  :randomYOffset="config.randomYOffset"
   :floatUpTime="config.floatUpTime"
   :mergeSameUserDanmakuInterval="config.mergeSameUserDanmakuInterval"
   :minGiftPrice="config.minGiftPrice"
@@ -136,10 +136,18 @@ export default {
 
       cfg.danmakuAtBottom = toBool(cfg.danmakuAtBottom)
       cfg.tickerAtButtom = toBool(cfg.tickerAtButtom)
+
       cfg.randomXOffset = toBool(cfg.randomXOffset)
-      cfg.randomRangeMin = toInt(cfg.randomRangeMin)
-      cfg.randomRangeMax = toInt(cfg.randomRangeMax)
-      cfg.floatUpHeight = toInt(cfg.floatUpHeight)
+      cfg.randomXRangeMin = toInt(cfg.randomXRangeMin)
+      cfg.randomXRangeMax = toInt(cfg.randomXRangeMax)
+      cfg.randomYOffset = toBool(cfg.randomYOffset)
+      cfg.randomYRangeMin = toInt(cfg.randomYRangeMin)
+      cfg.randomYRangeMax = toInt(cfg.randomYRangeMax)
+      cfg.randomXInitialOffset = toInt(cfg.randomXInitialOffset)
+      cfg.randomYInitialOffset = toInt(cfg.randomYInitialOffset)
+      cfg.floatDistanceMin = toInt(cfg.floatDistanceMin)
+      cfg.floatDistanceMax = toInt(cfg.floatDistanceMax)
+      cfg.floatDistanceThreshold = toInt(cfg.floatDistanceThreshold)
       cfg.floatUpTime = toInt(cfg.floatUpTime)
 
       cfg.blockTranslateDanmaku = toBool(cfg.blockTranslateDanmaku)
@@ -250,6 +258,26 @@ export default {
       contentThread[0] = data.content
       let richContentThread = []
       richContentThread[0] = this.getRichContent(data)
+      let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
+      let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
+      
+      if (this.config.randomXOffset ^ this.config.randomYOffset) {
+        if (this.config.randomXOffset) {
+          yOffset = this.config.randomYInitialOffset
+        } else if (this.config.randomYOffset) {
+          xOffset = this.config.randomXInitialOffset
+        }
+      } 
+
+      let floatDistance = this.config.floatDistanceMin + Math.floor(Math.random() * (this.config.floatDistanceMax - this.config.floatDistanceMin + 1))
+      if (Math.abs(floatDistance) < this.config.floatDistanceThreshold) {
+        if (floatDistance < 0) {
+          floatDistance = - this.config.floatDistanceThreshold
+        } else {
+          floatDistance = this.config.floatDistanceThreshold
+        }
+      }
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_TEXT,
@@ -267,7 +295,9 @@ export default {
         repeatedThread:[1],
         threadLength: 1,
         translation: data.translation,
-        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
+        xOffset: xOffset,
+        yOffset: yOffset,
+        floatDistance: floatDistance
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -290,6 +320,26 @@ export default {
       //  return
       // }
       
+      let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
+      let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
+      
+      if (this.config.randomXOffset ^ this.config.randomYOffset) {
+        if (this.config.randomXOffset) {
+          yOffset = this.config.randomYInitialOffset
+        } else if (this.config.randomYOffset) {
+          xOffset = this.config.randomXInitialOffset
+        }
+      } 
+
+      let floatDistance = this.config.floatDistanceMin + Math.floor(Math.random() * (this.config.floatDistanceMax - this.config.floatDistanceMin + 1))
+      if (Math.abs(floatDistance) < this.config.floatDistanceThreshold) {
+        if (floatDistance < 0) {
+          floatDistance = - this.config.floatDistanceThreshold
+        } else {
+          floatDistance = this.config.floatDistanceThreshold
+        }
+      }
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_GIFT,
@@ -300,7 +350,9 @@ export default {
         price: price,
         giftName: data.giftName,
         num: data.num,
-        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
+        xOffset: xOffset,
+        yOffset: yOffset,
+        floatDistance: floatDistance
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -319,6 +371,26 @@ export default {
       } else if (data.privilegeType == 3) {
         price = 19998
       }
+      let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
+      let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
+      
+      if (this.config.randomXOffset ^ this.config.randomYOffset) {
+        if (this.config.randomXOffset) {
+          yOffset = this.config.randomYInitialOffset
+        } else if (this.config.randomYOffset) {
+          xOffset = this.config.randomXInitialOffset
+        }
+      } 
+
+      let floatDistance = this.config.floatDistanceMin + Math.floor(Math.random() * (this.config.floatDistanceMax - this.config.floatDistanceMin + 1))
+      if (Math.abs(floatDistance) < this.config.floatDistanceThreshold) {
+        if (floatDistance < 0) {
+          floatDistance = - this.config.floatDistanceThreshold
+        } else {
+          floatDistance = this.config.floatDistanceThreshold
+        }
+      }
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_MEMBER,
@@ -329,7 +401,9 @@ export default {
         privilegeType: data.privilegeType,
         price: price,
         title: this.$t('chat.membershipTitle'),
-        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
+        xOffset: xOffset,
+        yOffset: yOffset,
+        floatDistance: floatDistance
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -347,6 +421,26 @@ export default {
         return
       }
 
+      let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
+      let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
+      
+      if (this.config.randomXOffset ^ this.config.randomYOffset) {
+        if (this.config.randomXOffset) {
+          yOffset = this.config.randomYInitialOffset
+        } else if (this.config.randomYOffset) {
+          xOffset = this.config.randomXInitialOffset
+        }
+      } 
+
+      let floatDistance = this.config.floatDistanceMin + Math.floor(Math.random() * (this.config.floatDistanceMax - this.config.floatDistanceMin + 1))
+      if (Math.abs(floatDistance) < this.config.floatDistanceThreshold) {
+        if (floatDistance < 0) {
+          floatDistance = - this.config.floatDistanceThreshold
+        } else {
+          floatDistance = this.config.floatDistanceThreshold
+        }
+      }
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
@@ -357,7 +451,9 @@ export default {
         time: new Date(data.timestamp * 1000),
         content: data.content.trim(),
         translation: data.translation,
-        xOffset: this.config.randomRangeMin + Math.floor(Math.random() * (this.config.randomRangeMax - this.config.randomRangeMin + 1))
+        xOffset: xOffset,
+        yOffset: yOffset,
+        floatDistance: floatDistance
       }
       this.$refs.renderer.addMessage(message)
     },
