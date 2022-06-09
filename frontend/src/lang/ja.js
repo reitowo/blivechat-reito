@@ -176,6 +176,7 @@ export default {
     memberColor: 'メンバーの色',
     showBadges: '勲章を見せる',
     showColon: 'ユーザー名の後にコロンが表示されます',
+    badgesSize: '勲章サイズ',
     emoticonSize: 'スタンプサイズ',
     emoticonInlineBorderRadius: '後で付けスタンプ圆角',
     emoticonBlockBorderRadius: '新たな行スタンプ圆角',

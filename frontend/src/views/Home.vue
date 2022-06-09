@@ -96,6 +96,13 @@
                     <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+            </el-card>
+          </el-tab-pane>
+
+          <el-tab-pane :label="$t('home.special')">
+            <el-card shadow="never">
+              <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.fadeOutNum')">
                     <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
@@ -108,9 +115,6 @@
                 </el-col>
               </el-row>
             </el-card>
-          </el-tab-pane>
-
-          <el-tab-pane :label="$t('home.special')">
             <el-card shadow="never">
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="4">

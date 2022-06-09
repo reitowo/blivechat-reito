@@ -45,7 +45,7 @@ export default {
     floatDistanceMax: '最大移动距离',
     floatDistanceThreshold: '移动距离阈值',
     pixelPlaceholder: '(px)',
-    floatUpTime: '上升时长',
+    floatUpTime: '移动时长',
     timePlaceholder: '(秒)',
 
     showTranslateDanmakuOnly: '只显示翻译弹幕',
@@ -175,6 +175,7 @@ export default {
     memberColor: '舰长颜色',
     showBadges: '显示用户勋章',
     showColon: '用户名后显示冒号',
+    badgesSize: '勋章大小',
 
     medal: '粉丝勋章(牌子)',
     showMedal: '显示勋章',

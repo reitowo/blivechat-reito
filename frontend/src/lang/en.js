@@ -176,6 +176,7 @@ export default {
     memberColor: 'Member color',
     showBadges: 'Show user badges',
     showColon: 'Show colon after name',
+    badgesSize: 'badges size',
 
     medal: 'Fan badge',
     showMedal: 'Show fan badge',
