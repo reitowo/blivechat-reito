@@ -123,6 +123,14 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :label="$t('stylegen.badgesSize')">
+              <el-input v-model.number="form.badgesSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
       </el-card>
 
       <h3>{{$t('stylegen.medal')}}</h3>
@@ -485,6 +493,8 @@ export const DEFAULT_CONFIG = {
   memberUserNameColor: '#0f9d58',
   showBadges: true,
   showColon: true,
+  badgesSize: 20,
+
 
   showMedal: true,
   showOnlyOwnerMedal: true,
@@ -673,6 +683,10 @@ yt-live-chat-text-message-renderer #author-name::after {
 yt-live-chat-text-message-renderer #chat-badges {
   ${this.form.showBadges ? '' : 'display: none !important;'}
   vertical-align: text-top !important;
+}
+img.yt-live-chat-author-badge-renderer, yt-icon.yt-live-chat-author-badge-renderer {
+  width: ${this.form.badgesSize}px;
+  height: ${this.form.badgesSize}px;
 }`
     },
       medalStyle() {
