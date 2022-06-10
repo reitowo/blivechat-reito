@@ -10,11 +10,10 @@
     :is-admin="authorType === 2"
     :is-owner="authorType === 3"
     :is-deleted="isDelete"
-    :textColor="textColor"
     >
     <div id="thread">
       <template v-for="(richContent, richContentIndex) in richContents">
-        <div id="card" class="style-scope yt-live-chat-text-message-renderer">
+        <div id="card" class="style-scope yt-live-chat-text-message-renderer" :style="{'--text-color': textColor}">
           <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
             :imgUrl="avatarUrl"
           ></img-shadow>
@@ -43,6 +42,7 @@
                 <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
                   display="block"
                   :style="` 
+                    --text-color: ${content.textColor};
                     color: var(--text-color) !important;
                    `"
                 >{{ content.text }}</span>

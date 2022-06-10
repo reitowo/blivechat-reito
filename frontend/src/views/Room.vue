@@ -225,19 +225,18 @@ export default {
 
     async onAddText(data) {
       
-      let textColor = 'initial'
       // TODO: 匹配 #Hex 的正则表达式
+      let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
         if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
           this.uidColorMap[data.authorName] = data.content
           textColor = data.content
-          console.log(data.authorName + ":匹配到Hex颜色" + textColor)
-          
+          // console.log(data.authorName + ":匹配到Hex颜色" + textColor)
         } else {
           if (this.uidColorMap[data.authorName] !== undefined) {
             textColor = this.uidColorMap[data.authorName]
           }
-          console.log(data.authorName + ":没匹配到Hex颜色" + textColor)
+          // console.log(data.authorName + ":没匹配到Hex颜色" + textColor)
         }
       }
 
@@ -588,6 +587,16 @@ export default {
       return this.pronunciationConverter.getPronunciation(text)
     },
     getRichContent(data) {
+      // TODO: 匹配 #Hex 的正则表达式
+      let textColor = 'initial'
+      if (this.config.allowTextColorSetting) {
+        if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
+          this.uidColorMap[data.authorName] = data.content
+          textColor = data.content
+        } else if (this.uidColorMap[data.authorName] !== undefined) {
+          textColor = this.uidColorMap[data.authorName]
+        }
+      }
       let richContent = []
       
       if(this.config.imageShowType > 1) {
@@ -598,7 +607,8 @@ export default {
       if (this.config.showTranslateDanmakuOnly == true) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
-          text: data.content
+          text: data.content,
+          textColor: textColor
         })
         return richContent
       }
@@ -619,7 +629,8 @@ export default {
       if (this.config.emoticons.length === 0) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
-          text: data.content
+          text: data.content,
+          textColor: textColor
         })
         return richContent
       }
@@ -634,7 +645,8 @@ export default {
       if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_ADD_AFTER) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
-          text: data.content
+          text: data.content,
+          textColor: textColor
         })
       }
       while (pos < data.content.length) {
@@ -656,7 +668,8 @@ export default {
         if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
           richContent.push({
             type: constants.CONTENT_TYPE_TEXT,
-            text: data.content.slice(startPos, pos)
+            text: data.content.slice(startPos, pos),
+            textColor: textColor
           })
         }
 
@@ -673,7 +686,8 @@ export default {
           if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
             richContent.push({
               type: constants.CONTENT_TYPE_TEXT,
-              text: matchEmoticon.keyword
+              text: matchEmoticon.keyword,
+              textColor: textColor
             })
           }
         } else { // 如果没有
@@ -701,7 +715,8 @@ export default {
             if(this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
               richContent.push({
                 type: constants.CONTENT_TYPE_TEXT,
-                text: matchEmoticon.keyword
+                text: matchEmoticon.keyword,
+                textColor: textColor
              })
             } // end if
           } // end else
@@ -714,7 +729,8 @@ export default {
       if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
-          text: data.content.slice(startPos, pos)
+          text: data.content.slice(startPos, pos),
+          textColor: textColor
         })
       }
       return richContent
