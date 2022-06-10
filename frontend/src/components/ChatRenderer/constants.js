@@ -1,5 +1,7 @@
 import * as i18n from '@/i18n'
 
+export const UID_COLOR_MAP_REGEX = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+
 export const IMAGE_SHOW_TYPE_REPLACE = 0
 export const IMAGE_SHOW_TYPE_ADD_AFTER = 1
 
@@ -263,8 +265,6 @@ export function getShowContent(message) {
 export function getShowRichContent(message) {
   
   let newRichContent = message.richContent[message.threadLength - 1]
-  // console.log(`richContents 长度: ${message.richContent.length}`)
-  // console.log(`newRichContent 长度: ${newRichContent.length}`)
   if (message.translation) {
     // 只需要在最新消息的 richContent (Array) 里面再塞入一行 Text 作为 translation
     newRichContent.push({

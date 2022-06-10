@@ -49,6 +49,7 @@ export default {
     pixelPlaceholder: '(px)',
     floatTime: '移動時間',
     timePlaceholder: '(秒)',
+    allowTextColorSetting: '文字の色を変更（Hex）',
     
     showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
     blockTranslateDanmaku: '翻訳コメントをブロック',

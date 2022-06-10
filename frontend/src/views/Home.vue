@@ -102,6 +102,11 @@
 
           <el-tab-pane :label="$t('home.special')">
             <el-card shadow="never">
+              <el-form-item :label="$t('home.allowTextColorSetting')">
+                <el-switch v-model="form.allowTextColorSetting"></el-switch>
+              </el-form-item>
+            </el-card>
+            <el-card shadow="never">
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.fadeOutNum')">

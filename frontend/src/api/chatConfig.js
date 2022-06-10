@@ -7,6 +7,7 @@ export const DEFAULT_CONFIG = {
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
   showTranslateDanmakuOnly: false,
+  allowTextColorSetting: true,
   blockTranslateDanmaku: false,
   translationSign: '【',
   showSuperchat: true,
@@ -27,7 +28,6 @@ export const DEFAULT_CONFIG = {
   randomYRangeMax: 500,
   randomXInitialOffset: 0,
   randomYInitialOffset: 0,
-  // TODO: 区分 Float Dist X 和 Y
   floatDistanceXMin: 500,
   floatDistanceXMax: 1200,
   floatDistanceYMin: 500,

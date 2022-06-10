@@ -1,6 +1,8 @@
 <template>
   <yt-live-chat-text-message-renderer
-    :style="{'--repeated-text-color': randomColor}"
+    :style="{'--repeated-text-color': randomColor,
+    '--text-color': textColor,
+    }"
     :is-fan-group="isFanGroup"
     :medal-level="medalLevel"
     :author-type="authorTypeText"
@@ -8,6 +10,7 @@
     :is-admin="authorType === 2"
     :is-owner="authorType === 3"
     :is-deleted="isDelete"
+    :textColor="textColor"
     >
     <div id="thread">
       <template v-for="(richContent, richContentIndex) in richContents">
@@ -39,6 +42,9 @@
               <template v-for="(content, contentIndex) in richContent">
                 <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
                   display="block"
+                  :style="` 
+                    color: var(--text-color) !important;
+                   `"
                 >{{ content.text }}</span>
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_IMAGE"
                   class="image yt-formatted-string style-scope yt-live-chat-text-message-renderer"
@@ -109,7 +115,8 @@ export default {
     repeatedThread: Array,
     imageShowType: Number,
     maxImage: Number,
-    maxEmoji: Number
+    maxEmoji: Number,
+    textColor: String
   },
   methods: {
     getRepeatedValue(index) {

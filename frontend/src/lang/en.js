@@ -49,6 +49,7 @@ export default {
     pixelPlaceholder: '(px)',
     floatTime: 'float time',
     timePlaceholder: '(sec)',
+    allowTextColorSetting: 'Allow setting color with Hex',
 
     showTranslateDanmakuOnly: 'Show translation message only',
     blockTranslateDanmaku: 'Block translation message',

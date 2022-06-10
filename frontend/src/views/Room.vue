@@ -41,7 +41,11 @@ export default {
     strConfig: {
       type: Object,
       default: () => ({})
-    }
+    },
+    uidColorMap: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data() {
     return {
@@ -151,6 +155,7 @@ export default {
       cfg.floatDistanceYMax = toInt(cfg.floatDistanceYMax)
       cfg.floatDistanceThreshold = toInt(cfg.floatDistanceThreshold)
       cfg.floatTime = toInt(cfg.floatTime)
+      cfg.allowTextColorSetting = toBool(cfg.allowTextColorSetting)
 
       cfg.blockTranslateDanmaku = toBool(cfg.blockTranslateDanmaku)
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
@@ -219,6 +224,23 @@ export default {
     },
 
     async onAddText(data) {
+      
+      let textColor = 'initial'
+      // TODO: 匹配 #Hex 的正则表达式
+      if (this.config.allowTextColorSetting) {
+        if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
+          this.uidColorMap[data.authorName] = data.content
+          textColor = data.content
+          console.log(data.authorName + ":匹配到Hex颜色" + textColor)
+          
+        } else {
+          if (this.uidColorMap[data.authorName] !== undefined) {
+            textColor = this.uidColorMap[data.authorName]
+          }
+          console.log(data.authorName + ":没匹配到Hex颜色" + textColor)
+        }
+      }
+
       if (!this.config.showDanmaku || !this.filterTextMessage(data)) {
         return
       }
@@ -252,6 +274,8 @@ export default {
           return
         }
       }
+
+      
       
       // 不是同一个user的消息的话，开启新的 thread
       // 拉了，为了减少对 key 的修改
@@ -309,6 +333,7 @@ export default {
         yOffset: yOffset,
         floatDistanceX: floatDistanceX,
         floatDistanceY: floatDistanceY,
+        textColor: textColor
       }
       this.$refs.renderer.addMessage(message)
     },
@@ -573,6 +598,7 @@ export default {
         })
         return richContent
       }
+      
 
       // B站官方表情
       // 屏蔽官方表情
