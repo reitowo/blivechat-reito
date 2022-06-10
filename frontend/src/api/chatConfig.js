@@ -66,15 +66,15 @@ export const DEFAULT_CONFIG = {
       "keyword": "?",
       "align": "block",
       "level": 0,
-      "height": 64,
-      "url": "\\emoticons\\confuse_1.png"
+      "height": 300,
+      "url": "\\emoticons\\confuse.png"
     },
     {
       "keyword": "？",
       "align": "block",
       "level": 0,
-      "height": 64,
-      "url": "\\emoticons\\confuse_1.png"
+      "height": 300,
+      "url": "\\emoticons\\confuse.png"
     },
     {
       "keyword": "/",

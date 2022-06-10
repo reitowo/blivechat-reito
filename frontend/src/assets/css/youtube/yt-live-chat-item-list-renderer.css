@@ -161,24 +161,50 @@ yt-live-chat-text-message-renderer[randomXOffset],
 yt-live-chat-membership-item-renderer[randomXOffset],
 yt-live-chat-paid-message-renderer[randomXOffset] {
   position: absolute;
-  animation: anim_message_float_up var(--float-time) linear forwards;
+  animation-name: anim_message_float_up;
+  animation-timing-function: linear;
+  animation-duration: var(--float-time);
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes anim_message_float_up {
-  0% { transform: translate(var(--x-offset), var(--y-offset)) }
-  99% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); opacity: 1 !important;}
-  100% { transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); opacity: 0 !important; }
+  0% { 
+    transform: translate(var(--x-offset), var(--y-offset))
+  }
+  99% { 
+    transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); 
+    opacity: 1;
+  }
+  100% { 
+    transform: translate(var(--x-offset), calc(var(--y-offset) + var(--float-distance-y))); 
+    opacity: 0; 
+  }
 }
 
 yt-live-chat-text-message-renderer[randomYOffset],
 yt-live-chat-membership-item-renderer[randomYOffset],
 yt-live-chat-paid-message-renderer[randomYOffset] {
   position: absolute;
-  animation: anim_message_float_right var(--float-time) linear forwards;
+  animation-name: anim_message_float_right;
+  animation-timing-function: linear;
+  animation-duration: var(--float-time);
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes anim_message_float_right {
-  0% { transform: translate(var(--x-offset), calc(0px - var(--y-offset))) }
-  99% { transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(0px - var(--y-offset))); opacity: 1 !important;}
-  100% { transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(0px - var(--y-offset))); opacity: 0 !important; }
+  0% { 
+    transform: translate(var(--x-offset), calc(var(--y-offset))) 
+  }
+  99% { 
+    transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(var(--y-offset)));
+    opacity: 1;
+  }
+  100% { 
+    transform: translate(calc(var(--x-offset) + var(--float-distance-x)), calc(var(--y-offset)));
+    opacity: 0;
+  }
 }
 
 yt-live-chat-text-message-renderer[randomXOffset][randomYOffset],
