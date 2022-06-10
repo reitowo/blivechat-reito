@@ -589,6 +589,10 @@ export default {
     },
     getRichContent(data) {
       let richContent = []
+      
+      if(this.config.imageShowType > 1) {
+        this.config.imageShowType = 1
+      }
 
       // 翻译弹幕，只显示文字
       if (this.config.showTranslateDanmakuOnly == true) {
@@ -659,6 +663,7 @@ export default {
         // 加入表情
         let emoticonLevel = toInt(matchEmoticon.level)
         let privilegeType = toInt(data.privilegeType)
+
         // 如果不满足使用权限
         // 或者超过inline, block类型图片各自的上限
         if ((emoticonLevel > constants.PRIVILEGE_TYPE_ALL && (privilegeType > emoticonLevel || privilegeType === constants.PRIVILEGE_TYPE_ALL))

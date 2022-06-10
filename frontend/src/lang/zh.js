@@ -49,7 +49,7 @@ export default {
     pixelPlaceholder: '(px)',
     floatTime: '移动时长',
     timePlaceholder: '(秒)',
-    allowTextColorSetting: '允许用Hex定义文字颜色',
+    allowTextColorSetting: '用户自定义弹幕颜色',
 
     showTranslateDanmakuOnly: '只显示翻译弹幕',
     blockTranslateDanmaku: '屏蔽翻译弹幕',
