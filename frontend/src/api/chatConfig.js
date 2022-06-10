@@ -28,9 +28,9 @@ export const DEFAULT_CONFIG = {
   randomYRangeMax: 500,
   randomXInitialOffset: 0,
   randomYInitialOffset: 0,
-  floatDistanceXMin: 500,
+  floatDistanceXMin: -500,
   floatDistanceXMax: 1200,
-  floatDistanceYMin: 500,
+  floatDistanceYMin: -500,
   floatDistanceYMax: 1200,
   floatDistanceThreshold: 0,
   floatTime: 60,
@@ -63,6 +63,125 @@ export const DEFAULT_CONFIG = {
 
   emoticons: [
     {
+      "keyword": "?",
+      "align": "block",
+      "level": 0,
+      "height": 64,
+      "url": "\\emoticons\\confuse_1.png"
+    },
+    {
+      "keyword": "？",
+      "align": "block",
+      "level": 0,
+      "height": 64,
+      "url": "\\emoticons\\confuse_1.png"
+    },
+    {
+      "keyword": "/",
+      "level": 0,
+      "align": "inline",
+      "height": 48,
+      "url": "\\emoticons\\emoji_slm_right_move.png"
+    },
+    {
+      "keyword": "\\",
+      "level": 0,
+      "align": "inline",
+      "height": 48,
+      "url": "\\emoticons\\emoji_slm_left_move.png"
+    },
+    {
+      "keyword": "强啊",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "好强",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "赞",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "砖",
+      "level": 0,
+      "align": "block",
+      "height": 140,
+      "url": "\\emoticons\\brick_1.png"
+    },
+    {
+      "keyword": "牛逼",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "牛啊",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "真的棒",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "很牛",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "真滴棒",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\ultra_good.gif"
+    },
+    {
+      "keyword": "别这样",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\yabe.jpg"
+    },
+    {
+      "keyword": "大家搞南通",
+      "level": 0,
+      "align": "block",
+      "height": 64,
+      "url": "\\emoticons\\da_jia_gao_gay.png"
+    },
+    {
+      "keyword": "南通48",
+      "level": 0,
+      "align": "block",
+      "height": 64,
+      "url": "\\emoticons\\da_jia_gao_gay.png"
+    },
+    {
+      "keyword": "炎拳",
+      "level": 0,
+      "align": "block",
+      "height": 120,
+      "url": "\\emoticons\\fire_smash.jpg"
+    },
+    {
       "keyword": "emotional damage",
       "level": 0,
       "align": "block",
@@ -78,7 +197,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       "keyword": "苦路西",
-      "level": 0,
+      "level": 3,
       "align": "block",
       "height": 120,
       "url": "\\emoticons\\ku_ru_shi.jpg"
@@ -168,7 +287,7 @@ export const DEFAULT_CONFIG = {
       "url": "\\emoticons\\fa_bu_hui.png"
     },
     {
-      "keyword": "你是真滴棒",
+      "keyword": "美兔的肯定",
       "level": 0,
       "align": "block",
       "height": 120,
@@ -204,7 +323,7 @@ export const DEFAULT_CONFIG = {
     },
     {
       "keyword": "嘿嘿",
-      "level": 3,
+      "level": 0,
       "align": "block",
       "height": 120,
       "url": "\\emoticons\\hei_hei.jpg"
@@ -238,7 +357,7 @@ export const DEFAULT_CONFIG = {
       "url": "\\emoticons\\na_o_mi_angleXY.gif"
     },
     {
-      "keyword": "好",
+      "keyword": "好！",
       "level": 0,
       "align": "inline",
       "height": 48,
@@ -269,21 +388,21 @@ export const DEFAULT_CONFIG = {
       "keyword": "吓我一跳",
       "level": 0,
       "align": "block",
-      "height": 101,
+      "height": 100,
       "url": "\\emoticons\\bi_ku_ri_si_da.gif"
     },
     {
       "keyword": "哭了",
       "level": 0,
-      "align": "inline",
-      "height": 49,
+      "align": "block",
+      "height": 120,
       "url": "\\emoticons\\cry.png"
     },
     {
       "keyword": "希望人没事",
       "level": 0,
       "align": "block",
-      "height": 121,
+      "height": 120,
       "url": "\\emoticons\\da_i_jo_u_bu.jpg"
     },
     {
@@ -304,7 +423,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "喝茶",
       "level": 0,
       "align": "block",
-      "height": 121,
+      "height": 120,
       "url": "\\emoticons\\drink_tea.gif"
     },
     {
@@ -339,7 +458,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "地铁老人手机",
       "level": 0,
       "align": "block",
-      "height": 101,
+      "height": 120,
       "url": "\\emoticons\\i_mi_wa_ka_ran.jpg"
     },
     {
@@ -388,7 +507,7 @@ export const DEFAULT_CONFIG = {
       "keyword": "二次元是大家的家",
       "level": 0,
       "align": "block",
-      "height": 101,
+      "height": 140,
       "url": "\\emoticons\\yamero.jpg"
     },
     {
@@ -401,15 +520,15 @@ export const DEFAULT_CONFIG = {
     {
       "keyword": "晚安",
       "level": 0,
-      "align": "inline",
-      "height": 101,
+      "align": "block",
+      "height": 100,
       "url": "\\emoticons\\o_ya_su_mi.jpg"
     },
     {
       "keyword": "中嘞",
       "level": 0,
       "align": "block",
-      "height": 101,
+      "height": 100,
       "url": "\\emoticons\\ojbk.jpg"
     },
     {
