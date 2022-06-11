@@ -42,8 +42,7 @@
                 <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
                   display="block"
                   :style="` 
-                    ${content.textColor === 'initial' ? '' : `--text-color: ${content.textColor}` };
-                    color: var(--text-color, --default-color) !important;
+                    ${content.textColor === 'initial' ? '' : `color: ${content.textColor} !important;`};
                    `"
                 >{{ content.text }}</span>
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_IMAGE"
