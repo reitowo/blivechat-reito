@@ -2,7 +2,7 @@ export default {
   sidebar: {
     home: 'トップページ',
     stylegen: 'スタイルジェネレータ',
-    help: 'ヘルプ',
+    help: '使用教程（ヘルプ）',
     projectAddress: 'プロジェクトアドレス',
     giftRecordOfficial: '公式スーパーチャット記録',
   },
@@ -139,6 +139,7 @@ export default {
     roomUrl: 'ルームのURL',
     copy: 'コピー',
     enterBilibili: 'Bilibiliルームに入る',
+    openTutorial: '使用教程',
 
     enterRoom: 'ルームに入る',
     enterTestRoom: 'テストルームに入る',

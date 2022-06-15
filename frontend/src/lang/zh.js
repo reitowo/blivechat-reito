@@ -2,7 +2,7 @@ export default {
   sidebar: {
     home: '首页',
     stylegen: '样式生成器',
-    help: '帮助',
+    help: '使用教程/帮助',
     projectAddress: '项目地址',
     giftRecordOfficial: '官方打赏记录',
   },
@@ -140,7 +140,8 @@ export default {
     roomUrl: '房间URL',
     copy: '复制',
     enterBilibili: '进入B站直播间',
-
+    openTutorial: '使用教程',
+    
     enterRoom: '进入房间',
     enterTestRoom: '进入测试房间',
     exportConfig: '导出配置',

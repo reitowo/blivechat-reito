@@ -2,7 +2,7 @@ export default {
   sidebar: {
     home: 'Home',
     stylegen: 'Style Generator',
-    help: 'Help',
+    help: 'Tutorial(Help)',
     projectAddress: 'Project Address',
     giftRecordOfficial: 'Official Super Chat Record',
   },
@@ -139,6 +139,7 @@ export default {
     roomUrl: 'Room URL',
     copy: 'Copy',
     enterBilibili: 'Enter bilibili room',
+    openTutorial: 'Tutorial',
 
     enterRoom: 'Enter room',
     enterTestRoom: 'Enter test room',

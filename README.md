@@ -1,7 +1,8 @@
 # 相比[原版blivechat](https://github.com/xfgryujk/blivechat)新增的功能
 
-### 特别感谢（排名不分先后）：椅子_Official，海式policturn，小川尚未，梅林Kitsune，因扎因·内比娅，玲玲
-
+特别感谢（排名不分先后）：椅子_Official，海式policturn，小川尚未，梅林Kitsune，因扎因·内比娅，玲玲
+## **blivechat**结合OBS**浏览器**源使用说明
+![blivechat结合OBS浏览器源使用说明](./screenshots/blivechatUsage.png) 
 ## **首页-常规**——参数说明
 
 ![网页上的编辑位置](./screenshots/homePageSetting.png) 
@@ -10,10 +11,12 @@
 ![单独显示不同类型弹幕](./screenshots/basicDanmakuSetting.png)
 
 #### 弹幕类型
-1. 普通弹幕(Message)
-2. 醒目留言 Super Chat (SC)
-3. 上舰信息(Member)
-4. 礼物信息(Gift)
+可以通过创建多个浏览器源配合不同的 弹幕类型开关设置，达到分离特定类型弹幕的效果
+1. 显示普通弹幕(Message)
+2. 显示醒目留言 Super Chat (SC)
+3. 显示上舰信息(Member)
+4. 显示礼物(Gift)
+5. 显示礼物信息(Gift Info)——如礼物名称、数量等
 
 #### 弹幕显示方式
 1. 弹幕居下——弹幕从下方出现
@@ -161,7 +164,7 @@
 #### `图片高度`
 图片的高度：inline(同行) 建议和字体大小设置相近，block(换行) 建议设置为字体大小的3~4倍
 
-## **首页-样式生成器**——参数说明
+## **样式生成器**——参数说明
 ### 1.粉丝牌子显示(适配样式生成器)
 
 ![粉丝牌子设置](./screenshots/fanMedalStyle.jpg) 

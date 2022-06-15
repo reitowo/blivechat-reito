@@ -396,6 +396,7 @@
             <el-button type="primary" icon="el-icon-copy-document" @click="copyUrl"></el-button>
           </el-form-item>
           <el-form-item>
+            <el-button type="primary" @click="openTutorial" style="background: #bed742; border-color: #bed742;" >{{$t('home.openTutorial')}}</el-button>
             <el-button type="primary" @click="enterBilibili">{{$t('home.enterBilibili')}}</el-button>
             <el-button type="primary" :disabled="!roomUrl" @click="enterRoom">{{$t('home.enterRoom')}}</el-button>
             <el-button @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
@@ -421,7 +422,6 @@
 .el-card__body {
   padding: 20px 20px 4px 20px;
 }
-
 
 </style>
 <script>
@@ -485,6 +485,9 @@ export default {
 
     enterBilibili() {
       window.open(`https://live.bilibili.com/${this.form.roomId}`, '_blank')
+    },
+    openTutorial() {
+      window.open(`https://www.yuque.com/doodle-irifi/ueaigm/laogg2`, '_blank')
     },
 
     addEmoticon() {
