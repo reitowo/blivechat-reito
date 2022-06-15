@@ -14,7 +14,7 @@ export const DEFAULT_CONFIG = {
   showNewMember: true,
   showGift: true,
   showGiftInfo: true,
-  mergeSameUserDanmaku: true,
+  mergeSameUserDanmaku: false,
   mergeSameUserDanmakuInterval: 60,
   mergeSimilarDanmaku: false,
   mergeGift: false,
@@ -28,10 +28,10 @@ export const DEFAULT_CONFIG = {
   randomYRangeMax: 500,
   randomXInitialOffset: 0,
   randomYInitialOffset: 0,
-  floatDistanceXMin: -500,
-  floatDistanceXMax: 1200,
-  floatDistanceYMin: -500,
-  floatDistanceYMax: 1200,
+  floatDistanceXMin: 0,
+  floatDistanceXMax: 0,
+  floatDistanceYMin: 0,
+  floatDistanceYMax: 0,
   floatDistanceThreshold: 0,
   floatTime: 60,
   maxNumber: 30,
@@ -62,20 +62,6 @@ export const DEFAULT_CONFIG = {
   giftUsernamePronunciation: '',
 
   emoticons: [
-    {
-      "keyword": "?",
-      "align": "block",
-      "level": 0,
-      "height": 300,
-      "url": "\\emoticons\\confuse.png"
-    },
-    {
-      "keyword": "？",
-      "align": "block",
-      "level": 0,
-      "height": 300,
-      "url": "\\emoticons\\confuse.png"
-    },
     {
       "keyword": "/",
       "level": 0,

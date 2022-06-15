@@ -96,18 +96,6 @@
                     <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-            </el-card>
-          </el-tab-pane>
-
-          <el-tab-pane :label="$t('home.special')">
-            <el-card shadow="never">
-              <el-form-item :label="$t('home.allowTextColorSetting')">
-                <el-switch v-model="form.allowTextColorSetting"></el-switch>
-              </el-form-item>
-            </el-card>
-            <el-card shadow="never">
-              <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.fadeOutNum')">
                     <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
@@ -119,6 +107,14 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+            </el-card>
+          </el-tab-pane>
+
+          <el-tab-pane :label="$t('home.special')">
+            <el-card shadow="never">
+              <el-form-item :label="$t('home.allowTextColorSetting')">
+                <el-switch v-model="form.allowTextColorSetting"></el-switch>
+              </el-form-item>
             </el-card>
             <el-card shadow="never">
               <el-row :gutter="20">
@@ -204,24 +200,24 @@
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.floatDistanceXMin')">
-                    <el-input v-model.number="form.floatDistanceXMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                    <el-input v-model.number="form.floatDistanceXMin" type="number" :placeholder="$t('home.floatDistanceXPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.floatDistanceXMax')">
-                    <el-input v-model.number="form.floatDistanceXMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                    <el-input v-model.number="form.floatDistanceXMax" type="number" :placeholder="$t('home.floatDistanceXPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.floatDistanceYMin')">
-                    <el-input v-model.number="form.floatDistanceYMin" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                    <el-input v-model.number="form.floatDistanceYMin" type="number" :placeholder="$t('home.floatDistanceYPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.floatDistanceYMax')">
-                    <el-input v-model.number="form.floatDistanceYMax" type="number" :placeholder="$t('home.pixelPlaceholder')"></el-input>
+                    <el-input v-model.number="form.floatDistanceYMax" type="number" :placeholder="$t('home.floatDistanceYPlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

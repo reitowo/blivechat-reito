@@ -27,7 +27,7 @@ export default {
     minGiftPricePlaceholder: '(元)',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
-    pinTime: '弹幕停留时长(秒)',
+    pinTime: '淡出前停留时长(秒)',
     pinTimePlaceholder: '0持续停留',
     
     special: '特殊功能',
@@ -43,11 +43,13 @@ export default {
     randomYInitialOffset: '初始Y轴偏移',
     floatDistanceXMin: '最小X移动距离',
     floatDistanceXMax: '最大X移动距离',
+    floatDistanceXPlaceholder: 'X往右正数，往左负数',
     floatDistanceYMin: '最小Y移动距离',
     floatDistanceYMax: '最大Y移动距离',
+    floatDistanceYPlaceholder: 'Y往下正数，往上负数',
     floatDistanceThreshold: '移动距离阈值',
     pixelPlaceholder: '(px)',
-    floatTime: '移动时长',
+    floatTime: '停留时长(漂浮时长)',
     timePlaceholder: '(秒)',
     allowTextColorSetting: '用户自定义弹幕颜色',
 
