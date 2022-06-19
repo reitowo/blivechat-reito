@@ -246,6 +246,10 @@ yt-live-chat-text-message-renderer[is-dimmed]::before {
   background: var(--yt-live-chat-error-message-color, #f44336);
 }
 
+#thread {
+  width: 100%;
+}
+
 /** block 的消失动画 */
 yt-live-chat-text-message-renderer[is-deleted] {
   animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
