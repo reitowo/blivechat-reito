@@ -7,6 +7,7 @@
   :randomYOffset="config.randomYOffset"
   :floatTime="config.floatTime"
   :mergeSameUserDanmakuInterval="config.mergeSameUserDanmakuInterval"
+  :mergeSameUserDanmaku="config.mergeSameUserDanmaku"
   :minGiftPrice="config.minGiftPrice"
   :minTickerPrice="config.minTickerPrice"
   :maxNumber="config.maxNumber"

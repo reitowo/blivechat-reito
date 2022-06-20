@@ -447,8 +447,8 @@ export const DEFAULT_CONFIG = {
   messageFontSize: 18,
   messageLineHeight: 0,
   messageColor: '#000000',
-  messageMergeSameUser: true,
-  messageGroupBlockPadding: 4,
+  messageMergeSameUser: false,
+  messageGroupBlockPadding: 0,
   
   emoticonSize: 48,
   emoticonInlineBorderRadius: 0,
@@ -696,7 +696,7 @@ yt-live-chat-text-message-renderer #thread>#card:last-child #image-and-message{
 #thread>#card:first-child img.yt-img-shadow {
     visibility: visible;
     height: auto;
-}`:`/* The triangle beside dialog */
+}` : `/* The triangle beside dialog */
 yt-live-chat-text-message-renderer #image-and-message::before {
   content: "";
   display: inline-block;

@@ -11,7 +11,7 @@
     :is-owner="authorType === 3"
     :is-deleted="isDelete"
     >
-    <div id="thread">
+    <div v-if="mergeSameUserDanmaku === true" id="thread">
       <template v-for="(richContent, richContentIndex) in richContents">
         <div id="card" class="style-scope yt-live-chat-text-message-renderer" :style="{'--text-color': textColor}">
           <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
@@ -66,6 +66,62 @@
         </div>
       </template>
     </div>
+    <template v-else>
+      <template v-for="(richContent, richContentIndex) in richContents">
+        <div id="card" class="style-scope yt-live-chat-text-message-renderer" :style="{'--text-color': textColor}">
+          <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-text-message-renderer"
+            :imgUrl="avatarUrl"
+          ></img-shadow>
+          <div id="content" class="style-scope yt-live-chat-text-message-renderer">
+            <yt-live-chat-author-chip class="style-scope yt-live-chat-text-message-renderer">
+              <span id="timestamp" class="style-scope yt-live-chat-text-message-renderer">{{timeText}}</span>
+              <span id="author-name" dir="auto" class="style-scope yt-live-chat-author-chip" :type="authorTypeText">{{
+                authorName
+                }}<!-- 这里是已验证勋章 -->
+                <span id="chip-badges" class="style-scope yt-live-chat-author-chip"></span>
+              </span>
+              <span id="chat-medal" class="style-scope yt-live-chat-author-chip">
+                <author-medal class="style-scope yt-live-chat-author-chip"
+                  :medalLevel="medalLevel" :medalName="medalName" :isFanGroup="isFanGroup"
+                ></author-medal>
+              </span>
+              <span id="chat-badges" class="style-scope yt-live-chat-author-chip">
+                <author-badge class="style-scope yt-live-chat-author-chip"
+                  :isAdmin="authorType === 2" :privilegeType="privilegeType"
+                ></author-badge>
+              </span>
+            </yt-live-chat-author-chip>
+            <!-- 直接替换表情包 -->
+            <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
+              <template v-for="(content, contentIndex) in richContent">
+                <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
+                  display="block"
+                  :style="` 
+                    ${content.textColor === 'initial' ? '' : `color: ${content.textColor} !important;`};
+                   `"
+                >{{ content.text }}</span>
+                <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_IMAGE"
+                  class="image yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+                  :style="`display: ${content.align};`"
+                  width="auto"
+                  :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`image-${content.text}`"
+                  :height="content.height"
+                  :display="content.align"
+                >
+                <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_EMOTICON"
+                  class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
+                  :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
+                >
+              </template>
+              <el-badge :value="getRepeatedValue(richContentIndex)" :max="99" v-show="getRepeatedValue(richContentIndex) > 1" class="style-scope yt-live-chat-text-message-renderer"
+                :style="{ '--repeated-mark-color': repeatedMarkColor }"
+              ></el-badge>
+            </div>
+          </div>
+        </div>
+      </template>
+    </template>
+
   </yt-live-chat-text-message-renderer>
 </template>
 
@@ -115,7 +171,8 @@ export default {
     imageShowType: Number,
     maxImage: Number,
     maxEmoji: Number,
-    textColor: String
+    textColor: String,
+    mergeSameUserDanmaku: Boolean
   },
   methods: {
     getRepeatedValue(index) {

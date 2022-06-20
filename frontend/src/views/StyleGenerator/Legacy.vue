@@ -508,8 +508,8 @@ export const DEFAULT_CONFIG = {
   messageLineHeight: 0,
   messageColor: '#ffffff',
   messageOnNewLine: false,
-  messageMergeSameUser: true,
-  messageGroupBlockPadding: 4,
+  messageMergeSameUser: false,
+  messageGroupBlockPadding: 0,
 
   emoticonSize: 48,
   emoticonInlineBorderRadius: 0,
