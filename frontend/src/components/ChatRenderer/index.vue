@@ -28,6 +28,7 @@
                     --float-distance-y: ${message.floatDistanceY}px;
                     --float-time: ${getFloatTime}s;`
                   "
+                  :mergeSameUserDanmaku="mergeSameUserDanmaku"
                   :textColor="message.textColor"
                   :randomXOffset="randomXOffset"
                   :randomYOffset="randomYOffset"
@@ -169,6 +170,10 @@ export default {
     floatTime: {
       type: Number,
       default: chatConfig.DEFAULT_CONFIG.floatTime
+    },
+    mergeSameUserDanmaku: {
+      type: Boolean,
+      default: chatConfig.DEFAULT_CONFIG.mergeSameUserDanmaku
     },
     mergeSameUserDanmakuInterval: {
       type: Number,
