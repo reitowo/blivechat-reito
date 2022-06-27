@@ -248,34 +248,55 @@ export function getPriceConfig(price) {
 }
 
 export function getShowContent(message) {
-  let newMessage = message.content[message.threadLength - 1]
-  // console.log(`newMsg: ${newMessage}`)
   if (message.translation) {
-    // TODO: 新的翻译句子，只用翻译最新的句子
-    if(message.type === MESSAGE_TYPE_TEXT) {
-      message.content[message.threadLength - 1] = `${newMessage.content}（${newMessage.translation}）`
-      return message.content
-    } else {
-      return `${message.content}（${message.translation}）`
-    }
+    return `${message.content}（${message.translation}）`
   }
   return message.content
 }
 
 export function getShowRichContent(message) {
-  
-  let newRichContent = message.richContent[message.threadLength - 1]
+  let richContent = [...message.richContent]
   if (message.translation) {
-    // 只需要在最新消息的 richContent (Array) 里面再塞入一行 Text 作为 translation
-    newRichContent.push({
+    richContent.push({
       type: CONTENT_TYPE_TEXT,
       text: `（${message.translation}）`
     })
-    message.richContent[message.threadLength - 1] = newRichContent
   }
-  // console.log(`getShowRichContent, length: ${message.richContent.length}`)
+  return richContent
+}
 
-  return message.richContent
+// export function getShowContentThread(message) {
+//   let newMessage = message.content[message.threadLength - 1]
+//   // console.log(`newMsg: ${newMessage}`)
+//   if (message.translation) {
+//     // TODO: 新的翻译句子，只用翻译最新的句子
+//     if(message.type === MESSAGE_TYPE_TEXT) {
+//       message.content[message.threadLength - 1] = `${newMessage.content}（${newMessage.translation}）`
+//       return message.content
+//     } else {
+//       return `${message.content}（${message.translation}）`
+//     }
+//   }
+//   return message.content
+// }
+
+export function getShowRichContentThread(message) {
+  // FIXME: 合并消息后的翻译功能（目前合并消息不能翻译）
+  // ... 复制 array
+  let richContents = [...message.richContents]
+  // ... 复制 array 最后一项
+  let richContent = [...richContents[message.threadLength - 1]]
+  // ... 在最后一项添加翻译文本
+  if (message.translation) {
+    // 只需要在最新消息的 richContent (Array) 里面再塞入一行 Text 作为 translation
+    richContent.push({
+      type: CONTENT_TYPE_TEXT,
+      text: `（${message.translation}）`
+    })
+    richContents[message.threadLength - 1] = richContent
+  }
+
+  return richContents
 }
 
 export function getGiftShowContent (message, showGiftInfo) {
