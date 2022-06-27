@@ -284,6 +284,8 @@ export default {
       contentThread[0] = data.content
       let richContentThread = []
       richContentThread[0] = this.getRichContent(data)
+      let translationThread = []
+      translationThread[0] = data.translation
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
       
@@ -312,6 +314,8 @@ export default {
         }
       }
 
+      // FIXME: thread 中的翻译文本
+
       let message = {
         id: data.id,
         type: constants.MESSAGE_TYPE_TEXT,
@@ -319,8 +323,10 @@ export default {
         time: new Date(data.timestamp * 1000),
         authorName: data.authorName,
         authorType: data.authorType,
-        content: contentThread,
-        richContent: richContentThread,
+        // content: data.content,
+        // contents: contentThread,
+        // richContent: this.getRichContent(data),
+        richContents: richContentThread,
         privilegeType: data.privilegeType,
         medalName: data.medalName,
         medalLevel: data.medalLevel,
@@ -523,6 +529,7 @@ export default {
     onDelSuperChat(data) {
       this.$refs.renderer.delMessages(data.ids)
     },
+    // FIXME: 更新翻译
     onUpdateTranslation(data) {
       if (!this.config.autoTranslate) {
         return

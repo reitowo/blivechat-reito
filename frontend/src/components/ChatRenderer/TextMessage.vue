@@ -42,8 +42,7 @@
                 <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
                   display="block"
                   :style="` 
-                    ${content.textColor === 'initial' ? '' : `color: ${content.textColor} !important;`};
-                   `"
+                    ${content.textColor === 'initial' ? '' : `color: ${content.textColor} !important;`};`"
                 >{{ content.text }}</span>
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_IMAGE"
                   class="image yt-formatted-string style-scope yt-live-chat-text-message-renderer"
@@ -95,10 +94,10 @@
             <div id='image-and-message' class="style-scope yt-live-chat-text-message-renderer">
               <template v-for="(content, contentIndex) in richContent">
                 <span :key="contentIndex" v-if="content.type === CONTENT_TYPE_TEXT" id="message" class="style-scope yt-live-chat-text-message-renderer"
-                  display="block"
+                  display="block" 
                   :style="` 
                     ${content.textColor === 'initial' ? '' : `color: ${content.textColor} !important;`};
-                   `"
+                    `"
                 >{{ content.text }}</span>
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_IMAGE"
                   class="image yt-formatted-string style-scope yt-live-chat-text-message-renderer"
@@ -163,7 +162,9 @@ export default {
     isFanGroup: Boolean,
     isDelete: Boolean,
     emoticon: String,
-    contents: Array,
+    // content: String,
+    // contents: Array,
+    // richContent: Array,
     richContents: Array,
     privilegeType: Number,
     repeated: Number,
@@ -177,7 +178,8 @@ export default {
   methods: {
     getRepeatedValue(index) {
       // console.log(`index ${index}: ${this.repeatedThread[index]}`)
-      return this.repeatedThread[index]
+      return this.repeated
+      // return this.repeatedThread[index]
     },
   },
   computed: {

@@ -36,7 +36,7 @@
                   :avatarUrl="message.avatarUrl"
                   :authorName="message.authorName"
                   :authorType="message.authorType"
-                  :contents="getShowContent(message)"
+                  
                   :privilegeType="message.privilegeType"
                   :repeated="message.repeated"
                   :repeatedThread="message.repeatedThread"
@@ -45,7 +45,8 @@
                   :medalLevel="message.medalLevel"
                   :isFanGroup="message.isFanGroup"
                   :isDelete="message.isDelete"
-                  :richContents="getShowRichContent(message)"
+                  
+                  :richContents="getShowRichContentThread(message)"
                 ></text-message>
                 <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                   class="style-scope yt-live-chat-item-list-renderer"
@@ -311,6 +312,7 @@ export default {
     },
     getShowContent: constants.getShowContent,
     getShowRichContent: constants.getShowRichContent,
+    getShowRichContentThread: constants.getShowRichContentThread,
     getShowAuthorName: constants.getShowAuthorName,
     
 
@@ -359,7 +361,7 @@ export default {
       })
       return res
     },
-    mergeSameUserText(newContent, newRichContent, authorName, time) {
+    mergeSameUserText(newContent, newRichContent, newTranslation, authorName, time) {
       let res = false
       // 遍历最新消息，看是不是同一个用户发送的
       this.forEachRecentMessage(1, message => {
@@ -370,10 +372,10 @@ export default {
           if(new Date(time * 1000) - message.time > this.mergeSameUserDanmakuInterval * 1000) {
             return true
           }
+          // FIXME: 翻译bug
           // 塞入最新消息的 newContent, newRichContent
           // console.log(`newContent: ${newContent}`)
-          message.content.push(newContent)
-          message.richContent.push(newRichContent)
+          message.richContents.push(newRichContent)
           message.repeatedThread.push(1)
 
           message.threadLength++
