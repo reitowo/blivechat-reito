@@ -6,7 +6,7 @@
       >
         <yt-live-chat-ticker-paid-message-item-renderer v-for="message in showMessages" :key="message.raw.id"
           tabindex="0" class="style-scope yt-live-chat-ticker-renderer" style="overflow: hidden;"
-          @click="onItemClick(message.raw.type)"
+          @click="onItemClick(message.raw)"
           :privilegeType="message.raw.type == MESSAGE_TYPE_MEMBER ? message.raw.privilegeType : ''"
           :type="message.raw.type"
           :price="message.raw.price"
@@ -182,8 +182,8 @@ export default {
     },
     getText(message) {
       if (message.type === constants.MESSAGE_TYPE_MEMBER) {
-        return ''
         // 方便用户 CSS 自定义
+        return ''
         // return this.$t('chat.tickerMembership')
       }
       return `CN¥${formatCurrency(message.price)}`

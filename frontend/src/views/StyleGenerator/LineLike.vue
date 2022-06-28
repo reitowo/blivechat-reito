@@ -696,7 +696,7 @@ yt-live-chat-text-message-renderer #thread>#card:last-child #image-and-message{
 #thread>#card:first-child img.yt-img-shadow {
     visibility: visible;
     height: auto;
-}`:`/* The triangle beside dialog */
+}` : `/* The triangle beside dialog */
 yt-live-chat-text-message-renderer #image-and-message::before {
   content: "";
   display: inline-block;

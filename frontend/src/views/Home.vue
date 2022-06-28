@@ -77,16 +77,6 @@
                     <el-switch v-model="form.mergeGift"></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :xs="24" :sm="6">
-                  <el-form-item :label="$t('home.mergeSameUserDanmaku')">
-                    <el-switch v-model="form.mergeSameUserDanmaku"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.mergeSameUserDanmakuInterval')">
-                    <el-input v-model.number="form.mergeSameUserDanmakuInterval" type="number" min="1"></el-input>
-                  </el-form-item>
-                </el-col>
               </el-row>
             </el-card>
             <el-card shadow="never">
@@ -94,16 +84,6 @@
                 <el-col :xs="24" :sm="8">
                   <el-form-item :label="$t('home.maxNumber')">
                     <el-input v-model.number="form.maxNumber" type="number" min="1"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.fadeOutNum')">
-                    <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :xs="24" :sm="8">
-                  <el-form-item :label="$t('home.pinTime')">
-                    <el-input v-model.number="form.pinTime" type="number" min="1" :placeholder="$t('home.pinTimePlaceholder')"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -265,6 +245,30 @@
 
           <el-tab-pane :label="$t('home.advanced')">
             <el-row :gutter="20">
+              <el-col :xs="24" :sm="6">
+                <el-form-item :label="$t('home.mergeSameUserDanmaku')">
+                  <el-switch v-model="form.mergeSameUserDanmaku" :disabled="form.autoTranslate"></el-switch>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.mergeSameUserDanmakuInterval')">
+                  <el-input v-model.number="form.mergeSameUserDanmakuInterval" type="number" min="1"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.fadeOutNum')">
+                  <el-input v-model.number="form.fadeOutNum" type="number" min="1"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :xs="24" :sm="8">
+                <el-form-item :label="$t('home.pinTime')">
+                  <el-input v-model.number="form.pinTime" type="number" min="1" :placeholder="$t('home.pinTimePlaceholder')"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
               <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.relayMessagesByServer')">
                   <el-switch v-model="form.relayMessagesByServer"></el-switch>
@@ -272,7 +276,7 @@
               </el-col>
               <el-col :xs="24" :sm="8">
                 <el-form-item :label="$t('home.autoTranslate')">
-                  <el-switch v-model="form.autoTranslate" :disabled="!serverConfig.enableTranslate || !form.relayMessagesByServer"></el-switch>
+                  <el-switch v-model="form.autoTranslate" :disabled="!serverConfig.enableTranslate || !form.relayMessagesByServer || form.mergeSameUserDanmaku"></el-switch>
                 </el-form-item>
               </el-col>
             </el-row>
