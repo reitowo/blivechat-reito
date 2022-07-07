@@ -10,6 +10,8 @@ export default {
     roomIdEmpty: "Room ID can't be empty",
     roomIdInteger: 'Room ID must be positive integer',
 
+    openSpecificTutorial: 'Open Tutorial',
+
     general: 'General',
     roomId: 'Room ID',
     showDanmaku: 'Show messages',

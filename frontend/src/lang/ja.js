@@ -10,6 +10,8 @@ export default {
     roomIdEmpty: 'ルームのIDを空白にすることはできません',
     roomIdInteger: 'ルームは正の整数でなければなりません',
 
+    openSpecificTutorial: '使用教程',
+
     general: '常規',
     roomId: 'ルームID',
     showDanmaku: 'コメントを表示する',

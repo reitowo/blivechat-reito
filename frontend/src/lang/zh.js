@@ -10,6 +10,8 @@ export default {
     roomIdEmpty: '房间ID不能为空',
     roomIdInteger: '房间ID必须为正整数',
 
+    openSpecificTutorial: '打开对应教程',
+
     general: '常规',
     roomId: '直播房间ID',
     showDanmaku: '显示消息弹幕',
