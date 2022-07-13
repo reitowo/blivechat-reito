@@ -677,12 +677,13 @@ yt-live-chat-text-message-renderer #image-and-message {
   overflow: visible !important;
   margin-top:${this.form.messageGroupBlockPadding}px;
   padding: 14px;
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
-  border-top-right-radius: 14px !important;
-  border-bottom-right-radius: 14px !important;
+  border-radius: 14px !important;
 }
 /* 单独处理圆角 */
+yt-live-chat-text-message-renderer #thread>#card #image-and-message{
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
 yt-live-chat-text-message-renderer #thread>#card:first-child #image-and-message{
     margin-top:4px;
     border-top-left-radius: 14px !important;
