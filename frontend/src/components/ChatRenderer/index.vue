@@ -361,7 +361,7 @@ export default {
       })
       return res
     },
-    mergeSameUserText(newContent, newRichContent, newTranslation, authorName, time) {
+    mergeSameUserText(newContent, newRichContent, authorName, time) {
       let res = false
       // 遍历最新消息，看是不是同一个用户发送的
       this.forEachRecentMessage(1, message => {
@@ -374,7 +374,7 @@ export default {
           }
           // FIXME: 翻译bug
           // 塞入最新消息的 newContent, newRichContent
-          // console.log(`newContent: ${newContent}`)
+          console.log(`newContent: ${newContent}`)
           message.richContents.push(newRichContent)
           message.repeatedThread.push(1)
 

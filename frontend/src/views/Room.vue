@@ -249,7 +249,7 @@ export default {
         return
       }
       // 合并同一用户短期内的发言
-      if(this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
+      if(await this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
         // 合并消息，即插入到 Thread 的消息需要单独写平滑（拉了，和原本的平滑方案没有很好的融合）
         this.$refs.renderer.calculateHeight()

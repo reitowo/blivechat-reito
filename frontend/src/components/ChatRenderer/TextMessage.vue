@@ -178,8 +178,8 @@ export default {
   methods: {
     getRepeatedValue(index) {
       // console.log(`index ${index}: ${this.repeatedThread[index]}`)
-      return this.repeated
-      // return this.repeatedThread[index]
+      // return this.repeated
+      return this.repeatedThread[index]
     },
   },
   computed: {
