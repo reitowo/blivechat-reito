@@ -60,6 +60,7 @@ export default {
     translationSign: '翻译弹幕首字符',
     onlyOneCharacter: '只能输入一个字符，如【',
 
+    useLocalEmoticonSetting: '使用json文件设定表情',
     autoRenderOfficialEmoji: '自动添加官方表情',
     isGreedyMatch: '贪婪匹配',
     isSkipSameImage: '不重复显示相同图片',

@@ -374,7 +374,7 @@ export default {
           }
           // FIXME: 翻译bug
           // 塞入最新消息的 newContent, newRichContent
-          console.log(`newContent: ${newContent}`)
+          // console.log(`newContent: ${newContent}`)
           message.richContents.push(newRichContent)
           message.repeatedThread.push(1)
 

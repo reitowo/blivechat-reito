@@ -38,7 +38,7 @@ export const DEFAULT_CONFIG = {
   fadeOutNum: 3,
   pinTime: 0,
 
-
+  useLocalEmoticonSetting: false,
   autoRenderOfficialEmoji: true,
   isGreedyMatch: true,
   isSkipSameImage: false,

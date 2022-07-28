@@ -58,6 +58,7 @@ export default {
     translationSign: 'translation sign',
     onlyOneCharacter: 'one character only, like:【',
     
+    useLocalEmoticonSetting: 'use json file to add emoji',
     autoRenderOfficialEmoji: 'auto add official emoji',
     isGreedyMatch: 'is greedy match',
     isSkipSameImage: 'not show same image multiple times',

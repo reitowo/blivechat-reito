@@ -58,6 +58,7 @@ export default {
     translationSign: '翻訳コメントの合図キャラクタ',
     onlyOneCharacter: '一個キャラクタだけ、例：【',
 
+    useLocalEmoticonSetting: 'jsonファイルでスタンプを編集',
     autoRenderOfficialEmoji: '自動表示公式スタンプ',
     isGreedyMatch: '貪欲(Greedy)マッチ',
     isSkipSameImage: '相同画像を表示しない',

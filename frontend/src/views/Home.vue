@@ -482,7 +482,7 @@
           <el-tab-pane :label="$t('home.emoticon')">
             <el-card shadow="never">
               <el-row :gutter="20">
-                <el-col :xs="24" :sm="8">
+                <el-col :xs="24" :sm="6">
                   <el-form-item :title="$t('home.openSpecificTutorial')">
                     <span slot="label">
                       <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#147119dc" target="_blank">
@@ -492,17 +492,17 @@
                     <el-switch v-model="form.autoRenderOfficialEmoji"></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :xs="24" :sm="8">
+                <el-col :xs="24" :sm="6">
                   <el-form-item :title="$t('home.openSpecificTutorial')">
                     <span slot="label">
-                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#8337b9f9" target="_blank">
-                        {{$t('home.isGreedyMatch')}}
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#OIykb" target="_blank">
+                        {{$t('home.useLocalEmoticonSetting')}}
                       </a>
                     </span>
-                    <el-switch v-model="form.isGreedyMatch"></el-switch>
+                    <el-switch v-model="form.useLocalEmoticonSetting"></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :xs="24" :sm="8">
+                <el-col :xs="24" :sm="6">
                   <el-form-item :title="$t('home.openSpecificTutorial')">
                     <span slot="label">
                       <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#185e7d0c" target="_blank">
@@ -510,6 +510,16 @@
                       </a>
                     </span>
                     <el-switch v-model="form.isSkipSameImage"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :title="$t('home.openSpecificTutorial')">
+                    <span slot="label">
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#8337b9f9" target="_blank">
+                        {{$t('home.isGreedyMatch')}}
+                      </a>
+                    </span>
+                    <el-switch v-model="form.isGreedyMatch"></el-switch>
                   </el-form-item>
                 </el-col>
               </el-row>

@@ -28,6 +28,7 @@ import ChatClientDirect from '@/api/chat/ChatClientDirect'
 import ChatClientRelay from '@/api/chat/ChatClientRelay'
 import ChatRenderer from '@/components/ChatRenderer'
 import * as constants from '@/components/ChatRenderer/constants'
+import axios from 'axios'
 
 export default {
   name: 'Room',
@@ -79,7 +80,19 @@ export default {
     // 解析用户设置的 emoticons
     emoticonsTrie() {
       let res = new trie.Trie()
-      for (let emoticon of this.config.emoticons) {
+      // TODO: 允许读取本地 json
+      let danmu_emoticons
+      
+      if (this.config.useLocalEmoticonSetting) {
+        // console.log("使用本地json设置")
+        danmu_emoticons = this.danmu_pic_json
+      } else {
+        // console.log("使用网页设置")
+        danmu_emoticons = this.config.emoticons
+      } 
+      // console.log(danmu_emoticons)
+
+      for (let emoticon of danmu_emoticons) {
         // 1个个添加 emoticon
         if (emoticon.keyword !== '' && emoticon.align !== '' && emoticon.height !== '' && emoticon.url !== '') {
           res.set(emoticon.keyword, emoticon)
@@ -95,6 +108,12 @@ export default {
       this.pronunciationConverter = new pronunciation.PronunciationConverter()
       this.pronunciationConverter.loadDict(this.config.giftUsernamePronunciation)
     }
+    // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
+    axios.get('/danmu_pic.json')
+    .then((res) => {
+      this.danmu_pic_json = res.data
+      // console.log(this.danmu_pic_json)
+    })
 
     // 提示用户已加载
     this.$message({
@@ -162,15 +181,18 @@ export default {
       cfg.showTranslateDanmakuOnly = toBool(cfg.showTranslateDanmakuOnly)
       cfg.translationSign = cfg.translationSign.toString()
 
+      cfg.emoticons = this.toObjIfJson(cfg.emoticons)
+      cfg.useLocalEmoticonSetting = toBool(cfg.useLocalEmoticonSetting)
       cfg.autoRenderOfficialEmoji = toBool(cfg.autoRenderOfficialEmoji)
       cfg.isGreedyMatch = toBool(cfg.isGreedyMatch)
       cfg.isSkipSameImage = toBool(cfg.isSkipSameImage)
+      cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
+      cfg.maxEmoji = toInt(cfg.maxEmoji, chatConfig.DEFAULT_CONFIG.maxEmoji)
+
       cfg.maxNumber = toInt(cfg.maxNumber, chatConfig.DEFAULT_CONFIG.maxNumber)
       cfg.fadeOutNum = toInt(cfg.fadeOutNum, chatConfig.DEFAULT_CONFIG.fadeOutNum)
       cfg.pinTime = toInt(cfg.pinTime, chatConfig.DEFAULT_CONFIG.pinTime)
       cfg.imageShowType = toInt(cfg.imageShowType, chatConfig.DEFAULT_CONFIG.imageShowType)
-      cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
-      cfg.maxEmoji = toInt(cfg.maxEmoji, chatConfig.DEFAULT_CONFIG.maxEmoji)
 
       cfg.blockGiftDanmaku = toBool(cfg.blockGiftDanmaku)
       cfg.blockLevel = toInt(cfg.blockLevel, chatConfig.DEFAULT_CONFIG.blockLevel)
@@ -180,7 +202,6 @@ export default {
 
       cfg.relayMessagesByServer = toBool(cfg.relayMessagesByServer)
       cfg.autoTranslate = toBool(cfg.autoTranslate)
-      cfg.emoticons = this.toObjIfJson(cfg.emoticons)
 
       cfg.minDanmakuInterval = toInt(cfg.minDanmakuInterval, chatConfig.DEFAULT_CONFIG.minDanmakuInterval)
       cfg.maxDanmakuInterval = toInt(cfg.maxDanmakuInterval, chatConfig.DEFAULT_CONFIG.maxDanmakuInterval)
@@ -634,7 +655,7 @@ export default {
       }
 
       // 没有自定义表情，只能是文本
-      if (this.config.emoticons.length === 0) {
+      if (this.config.emoticons.length === 0 && this.danmu_pic_json.length === 0) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
           text: data.content,
