@@ -138,6 +138,7 @@ export default {
     operation: 'Operation',
     addEmoticon: 'Add emote(inline)',
     addPicture: 'Add picture(block)',
+    delAllEmoticon: 'Delete all pictures',
 
     roomUrl: 'Room URL',
     copy: 'Copy',
@@ -148,6 +149,7 @@ export default {
     enterTestRoom: 'Enter test room',
     exportConfig: 'Export config',
     importConfig: 'Import config',
+    exportDanmuPictureConfig: 'Export emoticon config',
 
     failedToParseConfig: 'Failed to parse config: '
   },

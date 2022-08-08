@@ -139,6 +139,7 @@ export default {
     operation: '操作',
     addEmoticon: '添加表情(同行)',
     addPicture: '添加图片(换行)',
+    delAllEmoticon: '删除所有表情包',
 
     roomUrl: '房间URL',
     copy: '复制',
@@ -149,6 +150,7 @@ export default {
     enterTestRoom: '进入测试房间',
     exportConfig: '导出配置',
     importConfig: '导入配置',
+    exportEmoticonConfig: '导出表情包配置',
 
     failedToParseConfig: '配置解析失败：'
   },

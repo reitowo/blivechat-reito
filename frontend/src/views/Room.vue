@@ -108,8 +108,8 @@ export default {
       this.pronunciationConverter = new pronunciation.PronunciationConverter()
       this.pronunciationConverter.loadDict(this.config.giftUsernamePronunciation)
     }
-    // 在页面刷新缓存时, 读取用户danmu_pic.json, 并建立表情包库
-    axios.get('/danmu_pic.json')
+    // 在页面刷新缓存时, 读取用户emoticons.json, 并建立表情包库
+    axios.get('/emoticons.json')
     .then((res) => {
       this.danmu_pic_json = res.data
       // console.log(this.danmu_pic_json)

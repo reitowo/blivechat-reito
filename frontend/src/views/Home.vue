@@ -568,6 +568,8 @@
             <p>
               <el-button type="primary" icon="el-icon-plus" @click="addEmoticon">{{$t('home.addEmoticon')}}</el-button>
               <el-button type="primary" icon="el-icon-plus" @click="addPicture">{{$t('home.addPicture')}}</el-button>
+              <el-button type="danger" icon="el-icon-minus" @click="delAllEmoticon">{{$t('home.delAllEmoticon')}}</el-button>
+              <el-button type="primary" @click="exportEmoticonConfig">{{$t('home.exportEmoticonConfig')}}</el-button>
               <el-button type="primary" @click="openSpecificTutorial('https://www.yuque.com/doodle-irifi/ueaigm/laogg2#67902a4a')" style="background: #bed742; border-color: #bed742;">{{$t('home.openTutorial')}}</el-button>
             </p>
             <el-table :data="form.emoticons">
@@ -768,6 +770,9 @@ export default {
     delEmoticon(index) {
       this.form.emoticons.splice(index, 1)
     },
+    delAllEmoticon(index) {
+      this.form.emoticons.splice(0)
+    },
     uploadEmoticon() {
       // TODO WIP
     },
@@ -805,6 +810,9 @@ export default {
     exportConfig() {
       let cfg = mergeConfig(this.form, chatConfig.DEFAULT_CONFIG)
       download(JSON.stringify(cfg, null, 2), 'blivechat.json', 'application/json')
+    },
+    exportEmoticonConfig() {
+      download(JSON.stringify(this.form.emoticons, null, 2), 'emoticons.json', 'application/json')
     },
     importConfig() {
       let input = document.createElement('input')

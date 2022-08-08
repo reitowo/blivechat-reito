@@ -138,6 +138,7 @@ export default {
     operation: '操作',
     addEmoticon: 'スタンプ追加（後で付け）',
     addPicture: '画像追加（新たな行）',
+    delAllEmoticon: '全部スタンプを消す',
 
     roomUrl: 'ルームのURL',
     copy: 'コピー',
@@ -148,6 +149,7 @@ export default {
     enterTestRoom: 'テストルームに入る',
     exportConfig: 'コンフィグの導出',
     importConfig: 'コンフィグの導入',
+    exportEmoticonConfig: 'スタンプコンフィグの導出',
 
     failedToParseConfig: 'コンフィグ解析に失敗しました'
   },
