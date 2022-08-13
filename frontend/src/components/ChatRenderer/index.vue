@@ -331,7 +331,7 @@ export default {
           return true
         }
         let index = 0
-        for (let innerContent of message.content) {
+        for (let innerContent of message.contents) {
           // console.log(`判断index:${index}: ${innerContent}`)
           
           let messageContent = innerContent.trim().toLowerCase()
@@ -375,6 +375,7 @@ export default {
           // FIXME: 翻译bug
           // 塞入最新消息的 newContent, newRichContent
           // console.log(`newContent: ${newContent}`)
+          message.contents.push(newContent)
           message.richContents.push(newRichContent)
           message.repeatedThread.push(1)
 
