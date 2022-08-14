@@ -132,7 +132,7 @@ yt-live-chat-text-message-renderer,
 yt-live-chat-membership-item-renderer,
 yt-live-chat-paid-message-renderer {
   animation: anim ${totalTime}ms;
-  animation-fill-mode: forward;
+  animation-fill-mode: both;
 }
 `
 }
