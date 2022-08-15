@@ -677,6 +677,22 @@ a:hover {
   color: #409eff;
 }
 
+.el-message-box__content {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.del-all-confirm-button:hover {
+  background: #f78989;
+  border-color: #f78989;
+}
+
+.del-all-confirm-button:focus,
+.del-all-confirm-button {
+  background: #f56c6c;
+  border-color: #f56c6c;
+}
+
 
 </style>
 <script>
@@ -770,8 +786,17 @@ export default {
     delEmoticon(index) {
       this.form.emoticons.splice(index, 1)
     },
-    delAllEmoticon(index) {
-      this.form.emoticons.splice(0)
+    delAllEmoticon() {
+      this.$confirm('确定删除所有表情包吗 ?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        confirmButtonClass: 'del-all-confirm-button'
+      })
+        .then(() => {
+          this.form.emoticons.splice(0)
+        })
+        .catch(() => {})
     },
     uploadEmoticon() {
       // TODO WIP
