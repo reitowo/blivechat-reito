@@ -80,17 +80,16 @@ export default {
     // 解析用户设置的 emoticons
     emoticonsTrie() {
       let res = new trie.Trie()
-      // TODO: 允许读取本地 json
       let danmu_emoticons
       
       if (this.config.useLocalEmoticonSetting) {
-        // console.log("使用本地json设置")
+        // 使用本地json设置
+        console.log("使用本地 json 文件设置表情包")
         danmu_emoticons = this.danmu_pic_json
       } else {
-        // console.log("使用网页设置")
+        // 使用网页设置
         danmu_emoticons = this.config.emoticons
       } 
-      // console.log(danmu_emoticons)
 
       for (let emoticon of danmu_emoticons) {
         // 1个个添加 emoticon
@@ -247,7 +246,7 @@ export default {
 
     async onAddText(data) {
       
-      // TODO: 匹配 #Hex 的正则表达式
+      // 匹配 #Hex 的正则表达式
       let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
         if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
@@ -666,6 +665,27 @@ export default {
 
       // 可能含有自定义表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
+      // 设置B站自带emoji（如 [dog]）
+      // 详情看：frontend\src\api\chat\ChatClientDirect\index.js 的 danmuMsgCallback ()
+      if(data.emots !== null) {
+        for(let emotIndex in data.emots) {
+          let emot = data.emots[emotIndex]
+          // console.log("是否存在关键词 " + emot.descript + "————" + emoticonsTrie.has(emot.descript))
+          if(emoticonsTrie.has(emot.descript) === false) {
+            // console.log("不存在关键词: " + emot.descript)
+            let emotValue = {
+              type: constants.CONTENT_TYPE_EMOTICON,
+              keyword: emot.descript,
+              align: "inline",
+              height: emot.height,
+              level: 0,
+              url: emot.url
+            }
+            emoticonsTrie.set(emot.descript, emotValue)
+          } 
+        }
+      }
+
       let startPos = 0
       let pos = 0
       let emoticonCount = 0
@@ -731,8 +751,10 @@ export default {
               imageCount++
             }
             // 添加图片到消息内容
+            let emot_type = matchEmoticon.type === constants.CONTENT_TYPE_EMOTICON ? constants.CONTENT_TYPE_EMOTICON : constants.CONTENT_TYPE_IMAGE
+         
             richContent.push({
-              type: constants.CONTENT_TYPE_IMAGE,
+              type: emot_type,
               text: matchEmoticon.keyword,
               align: matchEmoticon.align,
               height: matchEmoticon.height,

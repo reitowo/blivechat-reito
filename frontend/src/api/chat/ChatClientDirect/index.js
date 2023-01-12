@@ -341,6 +341,35 @@ export default class ChatClientDirect {
       translation: '',
       emoticon: info[0][13].url || null
     }
+    // 存储emoji占位符和图片对应关系
+    if (info[0][15] && info[0][15].extra) {
+
+      const extraMap = JSON.parse(info[0][15].extra)
+      if (extraMap.emots) {
+        data.emots = extraMap.emots
+      }
+    // TODO: Json Example
+    //   {
+    //     "[哇]": {
+    //         "emoticon_id": 211,
+    //         "emoji": "[哇]",
+    //         "descript": "[哇]",
+    //         "url": "http://i0.hdslb.com/bfs/live/650c3e22c06edcbca9756365754d38952fc019c3.png",
+    //         "width": 20,
+    //         "height": 20,
+    //         "emoticon_unique": "emoji_211"
+    //     },
+    //     "[妙]": {
+    //         "emoticon_id": 210,
+    //         "emoji": "[妙]",
+    //         "descript": "[妙]",
+    //         "url": "http://i0.hdslb.com/bfs/live/08f735d950a0fba267dda140673c9ab2edf6410d.png",
+    //         "width": 20,
+    //         "height": 20,
+    //         "emoticon_unique": "emoji_210"
+    //     }
+    //  }
+    }
     this.onAddText(data)
   }
 
