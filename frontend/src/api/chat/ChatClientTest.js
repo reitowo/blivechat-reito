@@ -7,9 +7,9 @@ const NAMES = [
   'ジョナサン・ジョースター', 'ジョセフ・ジョースター', 'ディオ・ブランドー', '空條承太郎', '博丽灵梦', '雾雨魔理沙', 'Rick Astley',
   '只熊KUMA', 'DoodleBear', '椅子_Official', '星界璃海', '玲玲', '海式policturn', '小川尚未', '梅林Kitsune', '因扎因·内比娅',
   '只熊KUMA', 'DoodleBear', '椅子_Official', '星界璃海', '玲玲', '海式policturn', '小川尚未', '梅林Kitsune', '因扎因·内比娅',
-  '只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA',
-  '只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA',
-  '只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA','只熊KUMA'
+  '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA',
+  '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA',
+  '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA', '只熊KUMA'
 
 ]
 
@@ -40,6 +40,10 @@ const SC_CONTENTS = [
 ]
 
 const CONTENTS = [
+  '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]',
+  '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]', '狗头[dog]',
+  '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]',
+  '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]', '比心捏[比心]',
   'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds', 'yyds',
   '草', '草', '草', '草', '草', '草', '草', '草', '草', '草',
   '测试', '测试', '测试', '测试', '测试', '测试',
@@ -90,6 +94,29 @@ const EMOTICONS = [
   '/static/img/emoticons/233.png',
   '/static/img/emoticons/miaoa.png',
   '/static/img/emoticons/lipu.png'
+]
+
+const EMOT_INFO_LIST = [
+  {
+    "[dog]": {
+      "emoticon_id": 208,
+      "emoji": "[dog]",
+      "descript": "[dog]",
+      "url": "/static/img/emoticons/dog.png",
+      "width": 20,
+      "height": 20,
+      "emoticon_unique": "emoji_208"
+    },
+    "[比心]": {
+      "emoticon_id": 217,
+      "emoji": "[比心]",
+      "descript": "[比心]",
+      "url": "/static/img/emoticons/bixin.png",
+      "width": 20,
+      "height": 20,
+      "emoticon_unique": "emoji_217"
+    }
+  }
 ]
 
 const AUTHOR_TYPES = [
@@ -170,7 +197,8 @@ const MESSAGE_GENERATORS = [
           isFanGroup: Boolean(Math.round(Math.random())),
           id: getUuid4Hex(),
           translation: '',
-          emoticon: null
+          emoticon: null,
+          emots: randomChoose(EMOT_INFO_LIST)
         }
       }
     }

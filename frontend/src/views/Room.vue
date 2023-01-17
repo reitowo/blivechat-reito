@@ -89,7 +89,7 @@ export default {
       } else {
         // 使用网页设置
         danmu_emoticons = this.config.emoticons
-      } 
+      }
 
       for (let emoticon of danmu_emoticons) {
         // 1个个添加 emoticon
@@ -109,10 +109,10 @@ export default {
     }
     // 在页面刷新缓存时, 读取用户emoticons.json, 并建立表情包库
     axios.get('/emoticons.json')
-    .then((res) => {
-      this.danmu_pic_json = res.data
+      .then(res => {
+        this.danmu_pic_json = res.data
       // console.log(this.danmu_pic_json)
-    })
+      })
 
     // 提示用户已加载
     this.$message({
@@ -269,7 +269,7 @@ export default {
         return
       }
       // 合并同一用户短期内的发言
-      if(await this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
+      if (await this.mergeSameUserText(data.content, this.getRichContent(data), data.authorName, data.timestamp)) {
         // console.log("收到同一个 User 发送的消息")
         // 合并消息，即插入到 Thread 的消息需要单独写平滑（拉了，和原本的平滑方案没有很好的融合）
         this.$refs.renderer.calculateHeight()
@@ -294,7 +294,6 @@ export default {
           return
         }
       }
-
       
       
       // 不是同一个user的消息的话，开启新的 thread
@@ -315,12 +314,12 @@ export default {
         } else if (this.config.randomYOffset) {
           xOffset = this.config.randomXInitialOffset
         }
-      } 
+      }
 
       let floatDistanceX = this.config.floatDistanceXMin + Math.floor(Math.random() * (this.config.floatDistanceXMax - this.config.floatDistanceXMin + 1))
       if (Math.abs(floatDistanceX) < this.config.floatDistanceThreshold) {
         if (floatDistanceX < 0) {
-          floatDistanceX = - this.config.floatDistanceThreshold
+          floatDistanceX = -this.config.floatDistanceThreshold
         } else {
           floatDistanceX = this.config.floatDistanceThreshold
         }
@@ -328,7 +327,7 @@ export default {
       let floatDistanceY = this.config.floatDistanceYMin + Math.floor(Math.random() * (this.config.floatDistanceYMax - this.config.floatDistanceYMin + 1))
       if (Math.abs(floatDistanceY) < this.config.floatDistanceThreshold) {
         if (floatDistanceY < 0) {
-          floatDistanceY = - this.config.floatDistanceThreshold
+          floatDistanceY = -this.config.floatDistanceThreshold
         } else {
           floatDistanceY = this.config.floatDistanceThreshold
         }
@@ -352,7 +351,7 @@ export default {
         medalLevel: data.medalLevel,
         isFanGroup: data.isFanGroup,
         repeated: 1,
-        repeatedThread:[1],
+        repeatedThread: [1],
         threadLength: 1,
         translation: data.translation,
         xOffset: xOffset,
@@ -391,12 +390,12 @@ export default {
         } else if (this.config.randomYOffset) {
           xOffset = this.config.randomXInitialOffset
         }
-      } 
+      }
 
       let floatDistanceX = this.config.floatDistanceXMin + Math.floor(Math.random() * (this.config.floatDistanceXMax - this.config.floatDistanceXMin + 1))
       if (Math.abs(floatDistanceX) < this.config.floatDistanceThreshold) {
         if (floatDistanceX < 0) {
-          floatDistanceX = - this.config.floatDistanceThreshold
+          floatDistanceX = -this.config.floatDistanceThreshold
         } else {
           floatDistanceX = this.config.floatDistanceThreshold
         }
@@ -404,7 +403,7 @@ export default {
       let floatDistanceY = this.config.floatDistanceYMin + Math.floor(Math.random() * (this.config.floatDistanceYMax - this.config.floatDistanceYMin + 1))
       if (Math.abs(floatDistanceY) < this.config.floatDistanceThreshold) {
         if (floatDistanceY < 0) {
-          floatDistanceY = - this.config.floatDistanceThreshold
+          floatDistanceY = -this.config.floatDistanceThreshold
         } else {
           floatDistanceY = this.config.floatDistanceThreshold
         }
@@ -451,12 +450,12 @@ export default {
         } else if (this.config.randomYOffset) {
           xOffset = this.config.randomXInitialOffset
         }
-      } 
+      }
 
       let floatDistanceX = this.config.floatDistanceXMin + Math.floor(Math.random() * (this.config.floatDistanceXMax - this.config.floatDistanceXMin + 1))
       if (Math.abs(floatDistanceX) < this.config.floatDistanceThreshold) {
         if (floatDistanceX < 0) {
-          floatDistanceX = - this.config.floatDistanceThreshold
+          floatDistanceX = -this.config.floatDistanceThreshold
         } else {
           floatDistanceX = this.config.floatDistanceThreshold
         }
@@ -464,7 +463,7 @@ export default {
       let floatDistanceY = this.config.floatDistanceYMin + Math.floor(Math.random() * (this.config.floatDistanceYMax - this.config.floatDistanceYMin + 1))
       if (Math.abs(floatDistanceY) < this.config.floatDistanceThreshold) {
         if (floatDistanceY < 0) {
-          floatDistanceY = - this.config.floatDistanceThreshold
+          floatDistanceY = -this.config.floatDistanceThreshold
         } else {
           floatDistanceY = this.config.floatDistanceThreshold
         }
@@ -510,12 +509,12 @@ export default {
         } else if (this.config.randomYOffset) {
           xOffset = this.config.randomXInitialOffset
         }
-      } 
+      }
 
       let floatDistanceX = this.config.floatDistanceXMin + Math.floor(Math.random() * (this.config.floatDistanceXMax - this.config.floatDistanceXMin + 1))
       if (Math.abs(floatDistanceX) < this.config.floatDistanceThreshold) {
         if (floatDistanceX < 0) {
-          floatDistanceX = - this.config.floatDistanceThreshold
+          floatDistanceX = -this.config.floatDistanceThreshold
         } else {
           floatDistanceX = this.config.floatDistanceThreshold
         }
@@ -523,7 +522,7 @@ export default {
       let floatDistanceY = this.config.floatDistanceYMin + Math.floor(Math.random() * (this.config.floatDistanceYMax - this.config.floatDistanceYMin + 1))
       if (Math.abs(floatDistanceY) < this.config.floatDistanceThreshold) {
         if (floatDistanceY < 0) {
-          floatDistanceY = - this.config.floatDistanceThreshold
+          floatDistanceY = -this.config.floatDistanceThreshold
         } else {
           floatDistanceY = this.config.floatDistanceThreshold
         }
@@ -614,8 +613,24 @@ export default {
       }
       return this.pronunciationConverter.getPronunciation(text)
     },
+    generateTextData(content, textColor) {
+      return {
+        type: constants.CONTENT_TYPE_TEXT,
+        text: content,
+        textColor: textColor
+      }
+    },
+    generateImageData(imageType, matchEmoticon) {
+      return {
+        type: imageType,
+        text: matchEmoticon.keyword,
+        align: matchEmoticon.align,
+        height: matchEmoticon.height,
+        level: matchEmoticon.level,
+        url: matchEmoticon.url
+      }
+    },
     getRichContent(data) {
-      // TODO: 匹配 #Hex 的正则表达式
       let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
         if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
@@ -627,24 +642,18 @@ export default {
       }
       let richContent = []
       
-      if(this.config.imageShowType > 1) {
+      if (this.config.imageShowType > 1) {
         this.config.imageShowType = 1
       }
 
       // 翻译弹幕，只显示文字
       if (this.config.showTranslateDanmakuOnly == true) {
-        richContent.push({
-          type: constants.CONTENT_TYPE_TEXT,
-          text: data.content,
-          textColor: textColor
-        })
+        richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
       
-
-      // B站官方表情
-      // 屏蔽官方表情
-      if (data.emoticon !== null && this.config.autoRenderOfficialEmoji === true) {
+      // B站官方表情 (包括B站主播自定义表情)
+      if (this.config.autoRenderOfficialEmoji === true && data.emoticon !== null) {
         richContent.push({
           type: constants.CONTENT_TYPE_EMOTICON,
           text: data.content,
@@ -655,24 +664,16 @@ export default {
 
       // 没有自定义表情，只能是文本
       if (this.config.emoticons.length === 0 && this.danmu_pic_json.length === 0) {
-        richContent.push({
-          type: constants.CONTENT_TYPE_TEXT,
-          text: data.content,
-          textColor: textColor
-        })
+        richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
 
-      // 可能含有自定义表情，需要解析
+      // 可能含有自定义表情，需要解析（B站自带emoji，如：[dog]）
       let emoticonsTrie = this.emoticonsTrie
-      // 设置B站自带emoji（如 [dog]）
-      // 详情看：frontend\src\api\chat\ChatClientDirect\index.js 的 danmuMsgCallback ()
-      if(data.emots !== null) {
-        for(let emotIndex in data.emots) {
+      if (data.emots !== null) {
+        for (let emotIndex in data.emots) {
           let emot = data.emots[emotIndex]
-          // console.log("是否存在关键词 " + emot.descript + "————" + emoticonsTrie.has(emot.descript))
-          if(emoticonsTrie.has(emot.descript) === false) {
-            // console.log("不存在关键词: " + emot.descript)
+          if (emoticonsTrie.has(emot.descript) === false) {
             let emotValue = {
               type: constants.CONTENT_TYPE_EMOTICON,
               keyword: emot.descript,
@@ -682,7 +683,7 @@ export default {
               url: emot.url
             }
             emoticonsTrie.set(emot.descript, emotValue)
-          } 
+          }
         }
       }
 
@@ -691,14 +692,10 @@ export default {
       let emoticonCount = 0
       let imageCount = 0
       let emoticonMap = {}
-      if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_ADD_AFTER) {
-        richContent.push({
-          type: constants.CONTENT_TYPE_TEXT,
-          text: data.content,
-          textColor: textColor
-        })
+      if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_ADD_AFTER) { // 在文字之后添加图片的情况，直接添加文字
+        richContent.push(this.generateTextData(data.content, textColor))
       }
-      while (pos < data.content.length) {
+      while (pos < data.content.length) { // 寻找需要添加的图片
         let remainContent = data.content.substring(pos)
         let matchEmoticon
         if (this.config.isGreedyMatch) {
@@ -710,73 +707,42 @@ export default {
         if (matchEmoticon === null) {
           pos++
           continue
-          // 直到找到第1个 emoticon
         }
 
-        // 如果是替换文字为图片，则加入之前的文本
+        // 如果是替换文字为图片，则加入之前的文本（只有【替换文字为表情包】的模式需要添加文字）
         if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
-          richContent.push({
-            type: constants.CONTENT_TYPE_TEXT,
-            text: data.content.slice(startPos, pos),
-            textColor: textColor
-          })
+          richContent.push(this.generateTextData(data.content.slice(startPos, pos), textColor))
         }
-
-        // 加入表情
         let emoticonLevel = toInt(matchEmoticon.level)
         let privilegeType = toInt(data.privilegeType)
 
-        // 如果不满足使用权限
-        // 或者超过inline, block类型图片各自的上限
+        // 如果不满足使用权限，或者超过inline, block类型图片各自的上限 ———— 则此时显示文字，而不是图片
         if ((emoticonLevel > constants.PRIVILEGE_TYPE_ALL && (privilegeType > emoticonLevel || privilegeType === constants.PRIVILEGE_TYPE_ALL))
           || (matchEmoticon.align === 'inline' && emoticonCount >= this.config.maxEmoji)
           || (matchEmoticon.align === 'block' && imageCount >= this.config.maxImage)) {
-          // 如果是替换文字为图片才需要添加文字
-          if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
-            richContent.push({
-              type: constants.CONTENT_TYPE_TEXT,
-              text: matchEmoticon.keyword,
-              textColor: textColor
-            })
+          if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) { // 只有【替换文字为表情包】的模式需要添加文字，否则直接跳过
+            richContent.push(this.generateTextData(matchEmoticon.keyword, textColor))
           }
-        } else { // 如果没有
-          
-          // 如果没有开启【不多次显示重复图片】或者说【当前图片没出现过】
-          if(this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) {
-            emoticonMap[matchEmoticon.url] = true; // 将出现过的图片记录到 map
-            // 记录图片数量，对应inline, block类型
+        } else { // 如果满足使用权限
+          if (this.config.isSkipSameImage === false || emoticonMap[matchEmoticon.url] === undefined) { // 且【不多次显示重复图片】或者说【当前图片没出现过】
+            emoticonMap[matchEmoticon.url] = true // 将出现过的图片记录到 map
             if (matchEmoticon.align === 'inline') {
               emoticonCount++
             } else {
               imageCount++
             }
-            // 添加图片到消息内容
-            let emot_type = matchEmoticon.type === constants.CONTENT_TYPE_EMOTICON ? constants.CONTENT_TYPE_EMOTICON : constants.CONTENT_TYPE_IMAGE
-         
-            richContent.push({
-              type: emot_type,
-              text: matchEmoticon.keyword,
-              align: matchEmoticon.align,
-              height: matchEmoticon.height,
-              level: matchEmoticon.level,
-              url: matchEmoticon.url
-            })
+            // 添加图片到消息内容（有官方大、小表情 [dog]，和网页自定义表情中设置的表情）
+            richContent.push(this.generateImageData(matchEmoticon.type ?? constants.CONTENT_TYPE_IMAGE, matchEmoticon))
           } else {
-            // 只有替换文字为表情包的模式需要添加文字，否则直接跳过
-            if(this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
-              richContent.push({
-                type: constants.CONTENT_TYPE_TEXT,
-                text: matchEmoticon.keyword,
-                textColor: textColor
-             })
+            if (this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) { // 只有【替换文字为表情包】的模式需要添加文字，否则直接跳过
+              richContent.push(this.generateTextData(matchEmoticon.keyword, textColor))
             } // end if
           } // end else
-
         } // end else
         pos += matchEmoticon.keyword.length
         startPos = pos
       } // end while
-      // 如果是替换文字为表情包，则加入尾部的文本
+      // 当没有出现表情时候 如果是替换文字为表情包，则加入尾部的文本
       if (pos !== startPos && this.config.imageShowType === constants.IMAGE_SHOW_TYPE_REPLACE) {
         richContent.push({
           type: constants.CONTENT_TYPE_TEXT,
