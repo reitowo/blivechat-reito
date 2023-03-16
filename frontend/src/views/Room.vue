@@ -670,7 +670,7 @@ export default {
 
       // 可能含有自定义表情，需要解析（B站自带emoji，如：[dog]）
       let emoticonsTrie = this.emoticonsTrie
-      if (data.emots !== null) {
+      if (this.config.autoRenderOfficialEmoji === true && data.emots !== null) {
         for (let emotIndex in data.emots) {
           let emot = data.emots[emotIndex]
           if (emoticonsTrie.has(emot.descript) === false) {
