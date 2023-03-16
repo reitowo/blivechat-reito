@@ -644,7 +644,7 @@ yt-live-chat-text-message-renderer #image-and-message {
   border-radius: 14px;
 }
 
-yt-live-chat-text-message-renderer #message .emoji {
+yt-live-chat-text-message-renderer #image-and-message .emoji {
   width: auto !important;
   height: ${this.form.emoticonSize}px !important;
 }
