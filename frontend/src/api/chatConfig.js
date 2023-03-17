@@ -6,9 +6,9 @@ export const DEFAULT_CONFIG = {
   minGiftPrice: 0, // ￥0.0
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,
-  showInteractWordEnter: true,
-  showInteractWordFollow: true,
-  showInteractWordShare: true,
+  showInteractWordEnter: false,
+  showInteractWordFollow: false,
+  showInteractWordShare: false,
   showTranslateDanmakuOnly: false,
   allowTextColorSetting: true,
   blockTranslateDanmaku: false,

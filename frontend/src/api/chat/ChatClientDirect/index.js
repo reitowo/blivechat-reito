@@ -313,7 +313,7 @@ export default class ChatClientDirect {
       medalName: data.fans_medal.medal_name,
       medalLevel: data.fans_medal.medal_level,
       isFanGroup: data.roomid === data.fans_medal.medal_room_id ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
-      privilegeType: data.fans_medal.guard_level // 舰队等级，0非舰队，1总督，2提督，3舰长
+      privilegeType: data.fans_medal.guard_level // 所带勋章牌子的舰队等级，0非舰队，1总督，2提督，3舰长（不一定是当前直播间的粉丝勋章）
     }
     this.onInteractWord(data)
   }
