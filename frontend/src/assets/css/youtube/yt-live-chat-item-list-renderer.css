@@ -143,7 +143,8 @@ yt-live-chat-paid-sticker-renderer.yt-live-chat-item-list-renderer[dashboard-mon
   transition: height 0.2s ease-in-out;
   /* transition: none; */
 }
-
+/* TODO: 弹幕消失，移除弹幕动画设定 */
+yt-live-chat-interact-message-renderer.leaving,
 yt-live-chat-text-message-renderer.leaving,
 yt-live-chat-membership-item-renderer.leaving,
 yt-live-chat-paid-message-renderer.leaving {
@@ -151,12 +152,15 @@ yt-live-chat-paid-message-renderer.leaving {
   transition: opacity 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
+yt-live-chat-interact-message-renderer.collapsing,
 yt-live-chat-text-message-renderer.collapsing,
 yt-live-chat-membership-item-renderer.collapsing,
 yt-live-chat-paid-message-renderer.collapsing {
   transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
+/* TODO: 弹幕随机位置设定 */
+yt-live-chat-interact-message-renderer[randomXOffset],
 yt-live-chat-text-message-renderer[randomXOffset],
 yt-live-chat-membership-item-renderer[randomXOffset],
 yt-live-chat-paid-message-renderer[randomXOffset] {
@@ -182,6 +186,7 @@ yt-live-chat-paid-message-renderer[randomXOffset] {
   }
 }
 
+yt-live-chat-interact-message-renderer[randomYOffset],
 yt-live-chat-text-message-renderer[randomYOffset],
 yt-live-chat-membership-item-renderer[randomYOffset],
 yt-live-chat-paid-message-renderer[randomYOffset] {
@@ -207,6 +212,7 @@ yt-live-chat-paid-message-renderer[randomYOffset] {
   }
 }
 
+yt-live-chat-interact-message-renderer[randomXOffset][randomYOffset],
 yt-live-chat-text-message-renderer[randomXOffset][randomYOffset],
 yt-live-chat-membership-item-renderer[randomXOffset][randomYOffset],
 yt-live-chat-paid-message-renderer[randomXOffset][randomYOffset] {
