@@ -15,6 +15,7 @@ export default {
     general: '常規',
     roomId: 'ルームID',
     showDanmaku: 'コメントを表示する',
+    showInteractWord: 'イントラクションコメントを表示する（部屋に入る）',
     showSuperchat: 'スーパーチャットを表示する',
     showNewMember: '新メンバーを表示する',
     showGift: 'ギフトを表示する',

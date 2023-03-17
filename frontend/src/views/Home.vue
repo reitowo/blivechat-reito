@@ -25,6 +25,16 @@
                   </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="6">
+                  <el-form-item>
+                    <span slot="label" :title="$t('home.openSpecificTutorial')">
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#fee625d8" target="_blank">
+                        {{$t('home.showInteractWord')}}
+                      </a>
+                    </span>
+                    <el-switch v-model="form.showInteractWord"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
                   <el-form-item :label="$t('home.danmakuAtBottom')" :title="$t('home.openSpecificTutorial')">
                     <span slot="label">
                       <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#585f2fe0" target="_blank">

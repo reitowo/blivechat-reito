@@ -147,6 +147,7 @@ export default {
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
 
       cfg.showDanmaku = toBool(cfg.showDanmaku)
+      cfg.showInteractWord = toBool(cfg.showInteractWord)
       cfg.showSuperchat = toBool(cfg.showSuperchat)
       cfg.showNewMember = toBool(cfg.showNewMember)
       cfg.showGift = toBool(cfg.showGift)
@@ -234,6 +235,7 @@ export default {
       this.chatClient.onAddSuperChat = this.onAddSuperChat
       this.chatClient.onDelSuperChat = this.onDelSuperChat
       this.chatClient.onUpdateTranslation = this.onUpdateTranslation
+      this.chatClient.onInteractWord = this.onInteractWord // chatClient 定义来自 frontend\src\api\chat\ChatClientDirect\index.js
       this.chatClient.start()
     },
 
@@ -244,6 +246,66 @@ export default {
       this.chatClient.stop()
     },
 
+    // TODO: 前端显示欢迎入场
+    onInteractWord(data) {
+      if (!this.config.showInteractWord) {
+        return
+      }
+      // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
+
+      let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
+      let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
+      
+      if (this.config.randomXOffset ^ this.config.randomYOffset) {
+        if (this.config.randomXOffset) {
+          yOffset = this.config.randomYInitialOffset
+        } else if (this.config.randomYOffset) {
+          xOffset = this.config.randomXInitialOffset
+        }
+      }
+
+      let floatDistanceX = this.config.floatDistanceXMin + Math.floor(Math.random() * (this.config.floatDistanceXMax - this.config.floatDistanceXMin + 1))
+      if (Math.abs(floatDistanceX) < this.config.floatDistanceThreshold) {
+        if (floatDistanceX < 0) {
+          floatDistanceX = -this.config.floatDistanceThreshold
+        } else {
+          floatDistanceX = this.config.floatDistanceThreshold
+        }
+      }
+      let floatDistanceY = this.config.floatDistanceYMin + Math.floor(Math.random() * (this.config.floatDistanceYMax - this.config.floatDistanceYMin + 1))
+      if (Math.abs(floatDistanceY) < this.config.floatDistanceThreshold) {
+        if (floatDistanceY < 0) {
+          floatDistanceY = -this.config.floatDistanceThreshold
+        } else {
+          floatDistanceY = this.config.floatDistanceThreshold
+        }
+      }
+
+
+      let message = {
+        id: data.id,
+        type: constants.MESSAGE_TYPE_INTERACT,
+        avatarUrl: data.avatarUrl,
+        time: new Date(data.timestamp * 1000),
+        msgType: data.msgType,
+        authorName: data.authorName,
+        authorNamePronunciation: this.getPronunciation(data.authorName),
+
+        medalName: data.medalName,
+        medalLevel: data.medalLevel,
+        isFanGroup: data.isFanGroup,
+
+        privilegeType: data.privilegeType,
+        
+        xOffset: xOffset,
+        yOffset: yOffset,
+        floatDistanceX: floatDistanceX,
+        floatDistanceY: floatDistanceY,
+      }
+
+
+      this.$refs.renderer.addMessage(message)
+    },
     async onAddText(data) {
       
       // 匹配 #Hex 的正则表达式

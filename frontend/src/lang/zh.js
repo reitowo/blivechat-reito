@@ -15,6 +15,7 @@ export default {
     general: '常规',
     roomId: '直播房间ID',
     showDanmaku: '显示消息弹幕',
+    showInteractWord: '显示用户互动（进房）',
     showSuperchat: '显示醒目留言(SC)',
     showNewMember: '显示新舰长',
     showGift: '显示礼物',

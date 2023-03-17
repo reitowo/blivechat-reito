@@ -64,6 +64,8 @@ export function getImportStyle(allFonts) {
 
 export function getAvatarStyle(config) {
   return `/* Avatars */
+yt-live-chat-interact-message-renderer #author-photo,
+yt-live-chat-interact-message-renderer #author-photo img,
 yt-live-chat-text-message-renderer #author-photo,
 yt-live-chat-text-message-renderer #author-photo img,
 yt-live-chat-paid-message-renderer #author-photo,

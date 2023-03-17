@@ -200,7 +200,30 @@ class ClientRoom:
 
 
 class LiveMsgHandler(blivedm.BaseHandler):
+    # 关于 Python 的继承：https://zhuanlan.zhihu.com/p/30239694
     # 重新定义XXX_callback是为了减少对字段名的依赖，防止B站改字段名
+
+    # TODO: 收到 interact word 产生 callback
+    def __interact_word_callback(self, client: LiveClient, command: dict):
+        data = command['data']
+        fans_medal = data['fans_medal']
+        # 下面 data['XX']中的 XX 是ws回传的attribute name
+        # print('__interact_word_callback data 是 '+ data)
+        
+        message = blivedm.InteractMessage(
+            msg_type=data['msg_type'],
+            uname=data['uname'],
+            uid=data['uid'],
+            room_id=data['roomid'],
+            timestamp=data['timestamp'],
+            privilege_type=data['privilege_type'],
+
+            medal_level=fans_medal['medal_level'],
+            medal_name=fans_medal['medal_name'],
+            medal_room_id=fans_medal['anchor_roomid'],
+        )
+        return self._on_interact_word(client, message)
+
     def __danmu_msg_callback(self, client: LiveClient, command: dict):
         info = command['info']
         if len(info[3]) != 0:
@@ -272,15 +295,42 @@ class LiveMsgHandler(blivedm.BaseHandler):
 
     _CMD_CALLBACK_DICT = {
         **blivedm.BaseHandler._CMD_CALLBACK_DICT,
+        'INTERACT_WORD': __interact_word_callback,
         'DANMU_MSG': __danmu_msg_callback,
         'SEND_GIFT': __send_gift_callback,
         'GUARD_BUY': __guard_buy_callback,
         'SUPER_CHAT_MESSAGE': __super_chat_message_callback
     }
 
+    # TODO: 当出现 interact word 的时候，从 __interact_word_callback 过来的信息，到 ChatClientDirect\index.js
+    async def _on_interact_word(self, client: LiveClient, message: blivedm.InteractMessage):
+        asyncio.ensure_future(self.__on_interact_word(client, message))
+
+    async def __on_interact_word(self, client: LiveClient, message: blivedm.InteractMessage):
+        # 先异步调用再获取房间，因为返回时房间可能已经不存在了
+        avatar_url = await services.avatar.get_avatar_url(message.uid)
+        
+        room = client_room_manager.get_room(client.tmp_room_id)
+        if room is None:
+            return
+
+        room.send_cmd_data(api.chat.Command.INTERACT, {
+            'id': uuid.uuid4().hex,
+            'room_id': message.room_id,
+            'avatarUrl': avatar_url,
+            'msg_type': message.msg_type,
+            'timestamp': message.timestamp,
+            'authorName': message.uname,
+            'medal_name': message.medal_name,
+            'medal_level': message.medal_level,
+            'medal_room_id': message.medal_room_id,
+            'privilege_type': message.privilege_type
+        })
+    
     async def _on_danmaku(self, client: LiveClient, message: blivedm.DanmakuMessage):
         asyncio.ensure_future(self.__on_danmaku(client, message))
 
+    @staticmethod
     async def __on_danmaku(self, client: LiveClient, message: blivedm.DanmakuMessage):
         # 先异步调用再获取房间，因为返回时房间可能已经不存在了
         avatar_url = await services.avatar.get_avatar_url(message.uid)

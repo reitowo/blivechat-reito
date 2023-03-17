@@ -31,6 +31,7 @@ class Command(enum.IntEnum):
     ADD_SUPER_CHAT = 5
     DEL_SUPER_CHAT = 6
     UPDATE_TRANSLATION = 7
+    INTERACT = 8
 
 
 class ContentType(enum.IntEnum):

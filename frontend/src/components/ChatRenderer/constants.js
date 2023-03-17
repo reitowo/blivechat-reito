@@ -16,6 +16,12 @@ export const AUTHOR_TYPE_MEMBER = 1
 export const AUTHOR_TYPE_ADMIN = 2
 export const AUTHOR_TYPE_OWNER = 3
 
+export const INTERACT_TYPE_ENTER = 1
+export const INTERACT_TYPE_FOLLOW = 2
+export const INTERACT_TYPE_SHARE = 3
+export const INTERACT_TYPE_SPECIAL_FOLLOW = 4
+export const INTERACT_TYPE_MUTUAL_FOLLOW = 5
+
 export const AUTHOR_TYPE_TO_TEXT = [
   '',
   'member', // 舰队
@@ -44,6 +50,7 @@ export const MESSAGE_TYPE_MEMBER = 2
 export const MESSAGE_TYPE_SUPER_CHAT = 3
 export const MESSAGE_TYPE_DEL = 4
 export const MESSAGE_TYPE_UPDATE = 5
+export const MESSAGE_TYPE_INTERACT = 6
 
 export const MEDAL_CONFIGS = [
   {

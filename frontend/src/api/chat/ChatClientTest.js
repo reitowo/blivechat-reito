@@ -176,6 +176,25 @@ const SC_PRICES = [
 ]
 
 const MESSAGE_GENERATORS = [
+  // 进场
+  {
+    weight: 10,
+    value() {
+      return {
+        type: constants.MESSAGE_TYPE_INTERACT,
+        message: {
+          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          timestamp: new Date().getTime() / 1000,
+          msgType: randInt(1, 5),
+          authorName: randomChoose(NAMES),
+          medalName: randomChoose(MEDAL_NAME),
+          medalLevel: randInt(1, 40),
+          isFanGroup: Boolean(Math.round(Math.random())),
+          id: getUuid4Hex(),
+        }
+      }
+    }
+  },
   // 文字
   {
     weight: 10,
@@ -323,6 +342,7 @@ export default class ChatClientTest {
     this.onAddSuperChat = null
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
+    this.onInteractWord = null
 
     this.timerId = null
   }
@@ -347,6 +367,9 @@ export default class ChatClientTest {
 
     let { type, message } = randomChoose(MESSAGE_GENERATORS)()
     switch (type) {
+    case constants.MESSAGE_TYPE_INTERACT:
+      this.onInteractWord(message)
+      break
     case constants.MESSAGE_TYPE_TEXT:
       this.onAddText(message)
       break

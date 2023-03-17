@@ -6,6 +6,7 @@ const COMMAND_ADD_MEMBER = 4
 const COMMAND_ADD_SUPER_CHAT = 5
 const COMMAND_DEL_SUPER_CHAT = 6
 const COMMAND_UPDATE_TRANSLATION = 7
+const COMMAND_INTERACT = 8
 
 // const CONTENT_TYPE_TEXT = 0
 const CONTENT_TYPE_EMOTICON = 1
@@ -24,6 +25,7 @@ export default class ChatClientRelay {
     this.onAddSuperChat = null
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
+    this.onInteractWord = null
 
     this.websocket = null
     this.retryCount = 0
@@ -119,6 +121,12 @@ export default class ChatClientRelay {
     let { cmd, data } = JSON.parse(event.data)
     switch (cmd) {
     case COMMAND_HEARTBEAT: {
+      break
+    }
+    case COMMAND_INTERACT: {
+      if (this.onInteractWord) {
+        this.onInteractWord(data)
+      }
       break
     }
     case COMMAND_ADD_TEXT: {

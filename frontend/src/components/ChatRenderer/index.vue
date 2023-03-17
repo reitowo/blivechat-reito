@@ -19,7 +19,29 @@
               id="chat-items" class="style-scope yt-live-chat-item-list-renderer"
             >
               <template v-for="message in messages">
-                <text-message :key="message.id" v-if="message.type === MESSAGE_TYPE_TEXT"
+                <interact-message :key="message.id" v-if="message.type === MESSAGE_TYPE_INTERACT"
+                  class="style-scope yt-live-chat-item-list-renderer"
+                  :style="
+                    `--x-offset:${message.xOffset}px;
+                    --y-offset:${message.yOffset}px;
+                    --float-distance-x: ${message.floatDistanceX}px;
+                    --float-distance-y: ${message.floatDistanceY}px;
+                    --float-time: ${getFloatTime}s;`
+                  "
+                  :randomXOffset="randomXOffset"
+                  :randomYOffset="randomYOffset"
+                  :time="message.time"
+                  :avatarUrl="message.avatarUrl"
+                  :authorName="getShowAuthorName(message)"
+
+                  :medalName="message.medalName"
+                  :medalLevel="message.medalLevel"
+                  :isFanGroup="message.isFanGroup"
+
+                  :privilegeType="message.privilegeType"
+                  :msgType="message.msgType"
+                ></interact-message>
+                <text-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_TEXT"
                   class="style-scope yt-live-chat-item-list-renderer"
                   :style="
                     `--x-offset:${message.xOffset}px;
@@ -116,6 +138,7 @@
 <script>
 import * as chatConfig from '@/api/chatConfig'
 import Ticker from './Ticker'
+import InteractMessage from './InteractMessage'
 import TextMessage from './TextMessage'
 import MembershipItem from './MembershipItem'
 import PaidMessage from './PaidMessage'
@@ -124,6 +147,7 @@ import * as constants from './constants'
 
 // 只有要添加的消息需要平滑
 const NEED_SMOOTH_MESSAGE_TYPES = [
+  constants.MESSAGE_TYPE_INTERACT,
   constants.MESSAGE_TYPE_TEXT,
   constants.MESSAGE_TYPE_GIFT,
   constants.MESSAGE_TYPE_MEMBER,
@@ -143,6 +167,7 @@ export default {
   name: 'ChatRenderer',
   components: {
     Ticker,
+    InteractMessage,
     TextMessage,
     MembershipItem,
     PaidMessage
@@ -203,6 +228,7 @@ export default {
   },
   data() {
     return {
+      MESSAGE_TYPE_INTERACT: constants.MESSAGE_TYPE_INTERACT,
       MESSAGE_TYPE_TEXT: constants.MESSAGE_TYPE_TEXT,
       MESSAGE_TYPE_GIFT: constants.MESSAGE_TYPE_GIFT,
       MESSAGE_TYPE_MEMBER: constants.MESSAGE_TYPE_MEMBER,
@@ -569,6 +595,7 @@ export default {
 
       for (let message of messageGroup) {
         switch (message.type) {
+        case constants.MESSAGE_TYPE_INTERACT:
         case constants.MESSAGE_TYPE_TEXT:
         case constants.MESSAGE_TYPE_GIFT:
         case constants.MESSAGE_TYPE_MEMBER:

@@ -15,6 +15,7 @@ export default {
     general: 'General',
     roomId: 'Room ID',
     showDanmaku: 'Show messages',
+    showInteractWord: 'Show interaction (enter room)',
     showSuperchat: 'Show Super Chats',
     showNewMember: 'Show New Member',
     showGift: 'Show Gift',

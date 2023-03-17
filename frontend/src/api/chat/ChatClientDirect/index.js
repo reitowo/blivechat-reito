@@ -57,6 +57,7 @@ export default class ChatClientDirect {
     this.onAddSuperChat = null
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
+    this.onInteractWord = null
 
     this.websocket = null
     this.retryCount = 0
@@ -293,6 +294,30 @@ export default class ChatClientDirect {
       callback.call(this, command)
     }
   }
+  
+  // TODO: 欢迎入场 ws 的信息，然后给到 Room.vue
+  async interactWordCallback(command) {
+    if (!this.onInteractWord) {
+      return
+    }
+    let data = command.data
+    // console.log(`interactWordCallback data 是 ${JSON.stringify(data, null, 4)}`)
+
+    data = {
+      id: getUuid4Hex(),
+      roomId: data.roomid,
+      timestamp: data.timestamp,
+      avatarUrl: await avatar.getAvatarUrl(data.uid),
+      msgType: data.msg_type,
+      authorName: data.uname,
+      medalName: data.fans_medal.medal_name,
+      medalLevel: data.fans_medal.medal_level,
+      isFanGroup: data.roomid === data.fans_medal.medal_room_id ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
+      privilegeType: data.privilege_type
+    }
+    this.onInteractWord(data)
+  }
+
 
   async danmuMsgCallback(command) {
     if (!this.onAddText) {
@@ -443,6 +468,7 @@ export default class ChatClientDirect {
 }
 
 const CMD_CALLBACK_MAP = {
+  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback,
   DANMU_MSG: ChatClientDirect.prototype.danmuMsgCallback,
   SEND_GIFT: ChatClientDirect.prototype.sendGiftCallback,
   GUARD_BUY: ChatClientDirect.prototype.guardBuyCallback,
