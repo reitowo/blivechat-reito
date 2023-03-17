@@ -432,6 +432,9 @@
             <el-form-item :label="$t('home.blockUsers')">
               <el-input v-model="form.blockUsers" type="textarea" :rows="5" :placeholder="$t('home.onePerLine')"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('home.blockUsersByKeywords')">
+              <el-input v-model="form.blockUsersByKeywords" type="textarea" :rows="5" :placeholder="$t('home.onePerLine')"></el-input>
+            </el-form-item>
           </el-tab-pane>
 
           <el-tab-pane :label="$t('home.advanced')">

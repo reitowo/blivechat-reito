@@ -77,6 +77,16 @@ export default {
       }
       return res
     },
+    blockUsersByKeywordsTrie() {
+      let blockUsersByKeywords = this.config.blockUsersByKeywords.split('\n')
+      let res = new trie.Trie()
+      for (let user of blockUsersByKeywords) {
+        if (user !== '') {
+          res.set(user, true)
+        }
+      }
+      return res
+    },
     // 解析用户设置的 emoticons
     emoticonsTrie() {
       let res = new trie.Trie()
@@ -264,7 +274,11 @@ export default {
           return
         }
       }
-      console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
+
+      if (!this.filterInteractMessage(data)) {
+        return
+      }
+      // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
 
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
@@ -631,6 +645,9 @@ export default {
       this.$refs.renderer.updateMessage(data.id, { translation: data.translation })
     },
 
+    filterInteractMessage(data) {
+      return this.filterByAuthorName(data.authorName)
+    },
     filterTextMessage(data) {
       if (this.config.blockGiftDanmaku && data.isGiftDanmaku) {
         return false
@@ -661,8 +678,19 @@ export default {
       }
       return true
     },
+    // NOTE: 根据关键词屏蔽用户（当用户名中包含关键词，如【人气】时候，屏蔽）
+    filterByAuthorNameKeywords(authorName) {
+      let blockUsersByKeywordsTrie = this.blockUsersByKeywordsTrie
+      for (let i = 0; i < authorName.length; i++) {
+        let remainContent = authorName.substring(i)
+        if (blockUsersByKeywordsTrie.nonGreedyMatch(remainContent) !== null) {
+          return false
+        }
+      }
+      return true
+    },
     filterByAuthorName(authorName) {
-      return !this.blockUsersTrie.has(authorName)
+      return !this.blockUsersTrie.has(authorName) && this.filterByAuthorNameKeywords(authorName)
     },
     mergeSameUserText(content, richContent, authorName, time) {
       if (!this.config.mergeSameUserDanmaku) {

@@ -119,7 +119,8 @@ export default {
     unverifiedUser: '屏蔽未绑定手机用户',
     blockKeywords: '屏蔽关键词',
     onePerLine: '一行一个',
-    blockUsers: '屏蔽用户',
+    blockUsers: '屏蔽用户名',
+    blockUsersByKeywords: '屏蔽含关键词用户名',
     blockMedalLevel: '屏蔽当前直播间勋章等级低于',
 
     advanced: '高级',

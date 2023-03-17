@@ -119,6 +119,7 @@ export default {
     blockKeywords: 'Block keywords',
     onePerLine: 'One per line',
     blockUsers: 'Block users',
+    blockUsersByKeywords: 'Block users by keywords',
     blockMedalLevel: 'Block medal level lower than',
 
     advanced: 'Advanced',

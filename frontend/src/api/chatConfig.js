@@ -55,6 +55,7 @@ export const DEFAULT_CONFIG = {
   blockNotMobileVerified: false,
   blockKeywords: '',
   blockUsers: '',
+  blockUsersByKeywords: '',
   blockMedalLevel: 0,
 
   minDanmakuInterval: 400,

@@ -118,6 +118,7 @@ export default {
     blockKeywords: 'ブロックキーワード',
     onePerLine: '1行に1つずつ',
     blockUsers: 'ブロックユーザー',
+    blockUsersByKeywords: 'ブロックユーザーキーワード',
     blockMedalLevel: 'ブロック勲章等級がx未満',
 
     advanced: 'アドバンスド',
