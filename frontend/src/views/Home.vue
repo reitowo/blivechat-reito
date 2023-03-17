@@ -416,23 +416,48 @@
             </el-row>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="12">
-                <el-form-item :label="$t('home.blockLevel')">
+                <el-form-item>
+                  <span slot="label" :title="$t('home.openSpecificTutorial')">
+                    <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                      {{$t('home.blockLevel')}}
+                    </a>
+                  </span>
                   <el-slider v-model="form.blockLevel" show-input :min="0" :max="60"></el-slider>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="12">
-                <el-form-item :label="$t('home.blockMedalLevel')">
+                <el-form-item>
+                  <span slot="label" :title="$t('home.openSpecificTutorial')">
+                    <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                      {{$t('home.blockMedalLevel')}}
+                    </a>
+                  </span>
                   <el-slider v-model="form.blockMedalLevel" show-input :min="0" :max="40"></el-slider>
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-form-item :label="$t('home.blockKeywords')">
+            <el-form-item>
+              <span slot="label" :title="$t('home.openSpecificTutorial')">
+                <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                  {{$t('home.blockKeywords')}}
+                </a>
+              </span>
               <el-input v-model="form.blockKeywords" type="textarea" :rows="5" :placeholder="$t('home.onePerLine')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('home.blockUsers')">
+            <el-form-item>
+              <span slot="label" :title="$t('home.openSpecificTutorial')">
+                <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                  {{$t('home.blockUsers')}}
+                </a>
+              </span>
               <el-input v-model="form.blockUsers" type="textarea" :rows="5" :placeholder="$t('home.onePerLine')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('home.blockUsersByKeywords')">
+            <el-form-item>
+              <span slot="label" :title="$t('home.openSpecificTutorial')">
+                <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                  {{$t('home.blockUsersByKeywords')}}
+                </a>
+              </span>
               <el-input v-model="form.blockUsersByKeywords" type="textarea" :rows="5" :placeholder="$t('home.onePerLine')"></el-input>
             </el-form-item>
           </el-tab-pane>
@@ -660,12 +685,22 @@
           <el-tab-pane :label="$t('home.testing')">
             <el-row :gutter="20">
               <el-col :xs="24" :sm="12">
-                <el-form-item :label="$t('home.minDanmakuInterval')">
+                <el-form-item>
+                  <span slot="label" :title="$t('home.openSpecificTutorial')">
+                    <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                      {{$t('home.minDanmakuInterval')}}
+                    </a>
+                  </span>
                   <el-slider v-model="form.minDanmakuInterval" show-input :min="35" :max="5000"></el-slider>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="12">
-                <el-form-item :label="$t('home.maxDanmakuInterval')">
+                <el-form-item>
+                  <span slot="label" :title="$t('home.openSpecificTutorial')">
+                    <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#AtoJ3" target="_blank">
+                      {{$t('home.maxDanmakuInterval')}}
+                    </a>
+                  </span>
                   <el-slider v-model="form.maxDanmakuInterval" show-input :min="35" :max="5000"></el-slider>
                 </el-form-item>
               </el-col>

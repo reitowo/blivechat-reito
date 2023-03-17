@@ -187,6 +187,7 @@ const MESSAGE_GENERATORS = [
           timestamp: new Date().getTime() / 1000,
           msgType: randInt(1, 5),
           authorName: randomChoose(NAMES),
+          privilegeType: randInt(0, 3),
           medalName: randomChoose(MEDAL_NAME),
           medalLevel: randInt(1, 40),
           isFanGroup: Boolean(Math.round(Math.random())),

@@ -646,6 +646,13 @@ export default {
     },
 
     filterInteractMessage(data) {
+      if (this.config.blockMedalLevel > 0) {
+        // 如果未佩戴当前直播间勋章，或者勋章等级低于屏蔽等级，屏蔽信息
+        if (data.medalLevel < this.config.blockMedalLevel || !data.isFanGroup) {
+          return false
+        }
+      }
+
       return this.filterByAuthorName(data.authorName)
     },
     filterTextMessage(data) {
