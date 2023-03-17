@@ -20,6 +20,7 @@ yt-live-chat-item-list-renderer #item-scroller {
   overflow: hidden !important;
 }
 
+yt-live-chat-interact-message-renderer #content,
 yt-live-chat-text-message-renderer #content,
 yt-live-chat-membership-item-renderer #content {
   overflow: visible !important;
@@ -32,6 +33,7 @@ yt-live-chat-message-input-renderer {
 }
 
 /* Hide unimportant messages */
+yt-live-chat-interact-message-renderer[is-deleted],
 yt-live-chat-text-message-renderer[is-deleted],
 yt-live-chat-membership-item-renderer[is-deleted] {
   display: none !important;
@@ -83,7 +85,7 @@ yt-live-chat-membership-item-renderer #author-photo img {
 export function getTimeStyle(config) {
   return `/* Timestamps */
   ${config.showTime
-    ? `#timestamp.yt-live-chat-text-message-renderer {
+    ? `#timestamp.yt-live-chat-interact-message-renderer, #timestamp.yt-live-chat-text-message-renderer {
   display: inline;
   padding: 0 2px;
   order: ${config.showTimeRight ? 3 : 'initial'};
@@ -129,7 +131,7 @@ export function getAnimationStyle(config) {
 ${keyframes.join('\n')}
 }
 
-
+yt-live-chat-interact-message-renderer,
 yt-live-chat-text-message-renderer,
 yt-live-chat-membership-item-renderer,
 yt-live-chat-paid-message-renderer {

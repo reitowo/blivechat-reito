@@ -147,7 +147,9 @@ export default {
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
 
       cfg.showDanmaku = toBool(cfg.showDanmaku)
-      cfg.showInteractWord = toBool(cfg.showInteractWord)
+      cfg.showInteractWordEnter = toBool(cfg.showInteractWordEnter)
+      cfg.showInteractWordFollow = toBool(cfg.showInteractWordFollow)
+      cfg.showInteractWordShare = toBool(cfg.showInteractWordShare)
       cfg.showSuperchat = toBool(cfg.showSuperchat)
       cfg.showNewMember = toBool(cfg.showNewMember)
       cfg.showGift = toBool(cfg.showGift)
@@ -248,10 +250,21 @@ export default {
 
     // TODO: 前端显示欢迎入场
     onInteractWord(data) {
-      if (!this.config.showInteractWord) {
-        return
+      // NOTE: 判断不同的 Interact 是否显示（进入房间、关注房间、分享房间）
+      if (data.msgType === constants.INTERACT_TYPE_ENTER) {
+        if (!this.config.showInteractWordEnter) {
+          return
+        }
+      } else if (data.msgType === constants.INTERACT_TYPE_FOLLOW || data.msgType === constants.INTERACT_TYPE_SPECIAL_FOLLOW || data.msgType === constants.INTERACT_TYPE_MUTUAL_FOLLOW) {
+        if (!this.config.showInteractWordFollow) {
+          return
+        }
+      } else if (data.msgType === constants.INTERACT_TYPE_SHARE) {
+        if (!this.config.showInteractWordShare) {
+          return
+        }
       }
-      // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
+      console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
 
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))

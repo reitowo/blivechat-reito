@@ -32,7 +32,7 @@
                   :randomYOffset="randomYOffset"
                   :time="message.time"
                   :avatarUrl="message.avatarUrl"
-                  :authorName="getShowAuthorName(message)"
+                  :authorName="message.authorName"
 
                   :medalName="message.medalName"
                   :medalLevel="message.medalLevel"
@@ -40,6 +40,8 @@
 
                   :privilegeType="message.privilegeType"
                   :msgType="message.msgType"
+
+                  :isDelete="message.isDelete"
                 ></interact-message>
                 <text-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_TEXT"
                   class="style-scope yt-live-chat-item-list-renderer"

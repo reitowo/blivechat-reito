@@ -1,10 +1,11 @@
 <template>
   <yt-live-chat-interact-message-renderer class="style-scope yt-live-chat-item-list-renderer"
+    :is-fan-group="isFanGroup"
+    :medal-level="medalLevel"
+    :medal-name="medalName"
     :privilegeType="privilegeType"
-    :msgType="msgType"
-    :medalLevel="medalLevel"
-    :medalName="medalName"
-    :isFanGroup="isFanGroup"
+    :msg-type="msgType"
+    :is-deleted="isDelete"
   >
     <div id="card" class="style-scope yt-live-chat-interact-message-renderer">
       <img-shadow id="author-photo" height="24" width="24" class="style-scope yt-live-chat-interact-message-renderer"
@@ -13,9 +14,7 @@
       <div id="content" class="style-scope yt-live-chat-interact-message-renderer">
         <yt-live-chat-author-chip class="style-scope yt-live-chat-interact-message-renderer">
           <span id="timestamp" class="style-scope yt-live-chat-interact-message-renderer">{{timeText}}</span>
-          <span id="author-name" dir="auto" class="style-scope yt-live-chat-author-chip">{{
-            authorName
-            }}
+          <span id="author-name" dir="auto" class="style-scope yt-live-chat-author-chip">{{ authorName }}
           </span>
           <span id="chat-medal" class="style-scope yt-live-chat-author-chip">
             <author-medal class="style-scope yt-live-chat-author-chip"
@@ -32,7 +31,6 @@
           display="block"
         >{{ interactText }}</span>
       </div>
-
     </div>
   </yt-live-chat-interact-message-renderer>
 </template>
@@ -57,6 +55,7 @@ export default {
     medalName: String,
     medalLevel: Number,
     isFanGroup: Boolean,
+    isDelete: Boolean,
     privilegeType: Number,
     msgType: Number,
     time: Date
