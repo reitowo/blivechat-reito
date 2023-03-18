@@ -9,7 +9,7 @@
         </router-link>
       </div>
       <div class="version">
-        {{ APP_VERSION }}-230317
+        {{ APP_VERSION }}-230319
       </div>
       <div class="version">
         <a href="https://space.bilibili.com/12236936" target="_blank">只熊KUMA</a>
