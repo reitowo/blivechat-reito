@@ -158,11 +158,14 @@ export default {
     failedToParseConfig: 'Failed to parse config: '
   },
   stylegen: {
+    general: 'General',
     legacy: 'Classic',
     lineLike: 'Line-like',
 
     light: 'light',
     dark: 'dark',
+
+    copyBlockCss: 'Left-Click to copy CSS',
 
     global: 'Global setting',
     danmakuAtBottom: 'Show messages at bottom',

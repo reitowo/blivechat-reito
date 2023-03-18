@@ -2,6 +2,9 @@
   <el-row :gutter="20">
     <el-col :sm="24" :md="16">
       <el-tabs v-model="activeTab">
+        <el-tab-pane :label="$t('stylegen.general')" name="general">
+          <general ref="general" v-model="subComponentResults.general"></general>
+        </el-tab-pane>
         <el-tab-pane :label="$t('stylegen.legacy')" name="legacy">
           <legacy ref="legacy" v-model="subComponentResults.legacy"></legacy>
         </el-tab-pane>
@@ -47,6 +50,7 @@
 <script>
 import _ from 'lodash'
 
+import general from './general'
 import Legacy from './Legacy'
 import LineLike from './LineLike'
 import Room from '@/views/Room'
@@ -54,7 +58,7 @@ import Room from '@/views/Room'
 export default {
   name: 'StyleGenerator',
   components: {
-    Legacy, LineLike, Room
+    general, Legacy, LineLike, Room
   },
   data() {
     let styleElement = document.createElement('style')
@@ -65,10 +69,11 @@ export default {
     return {
       // 子组件的结果
       subComponentResults: {
+        general: '',
         legacy: '',
         lineLike: ''
       },
-      activeTab: 'legacy',
+      activeTab: 'general',
       // 输入框的结果
       inputResult: '',
       // 防抖后延迟变化的结果

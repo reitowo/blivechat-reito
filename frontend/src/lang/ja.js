@@ -158,6 +158,7 @@ export default {
     failedToParseConfig: 'コンフィグ解析に失敗しました'
   },
   stylegen: {
+    general: '通常',
     legacy: '古典',
     lineLike: 'Line風',
 

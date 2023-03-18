@@ -64,6 +64,36 @@ export function getImportStyle(allFonts) {
   return res.join('\n')
 }
 
+export function getTextMessageTimeStyle(config) {
+  return `/* 一般消息时间 TextMessageTime */
+  ${config.textMessageTimeShow
+    ? `#timestamp.yt-live-chat-text-message-renderer {
+  display: inline;
+  padding: 0 2px;
+  order: ${config.textMessageTimeShowRight ? 3 : 'initial'};
+  ${config.textMessageTimeColor ? `color: ${config.textMessageTimeColor} !important;` : ''}
+  font-family: "${cssEscapeStr(config.textMessageTimeFont)}"${FALLBACK_FONTS};
+  font-size: ${config.textMessageTimeFontSize}px !important;
+  line-height: ${config.textMessageTimeLineHeight || config.textMessageTimeFontSize}px !important;
+}` : ``}
+`
+}
+
+export function getInteractMessageTimeStyle(config) {
+  return `/* 互动消息时间 InteractMessageTime */
+  ${config.interactMessageTimeShow
+    ? `#timestamp.yt-live-chat-interact-message-renderer {
+  display: inline;
+  padding: 0 2px;
+  order: ${config.interactMessageTimeShowRight ? 3 : 'initial'};
+  ${config.interactMessageTimeColor ? `color: ${config.interactMessageTimeColor} !important;` : ''}
+  font-family: "${cssEscapeStr(config.interactMessageTimeFont)}"${FALLBACK_FONTS};
+  font-size: ${config.interactMessageTimeFontSize}px !important;
+  line-height: ${config.interactMessageTimeLineHeight || config.interactMessageTimeFontSize}px !important;
+}` : ``}
+`
+}
+
 export function getAvatarStyle(config) {
   return `/* Avatars */
 yt-live-chat-interact-message-renderer #author-photo,
@@ -98,34 +128,8 @@ export function getTimeStyle(config) {
 }
 
 export function getAnimationStyle(config) {
-  if (!config.animateIn && !config.animateOut) {
-    return ''
-  }
-  let totalTime = 0
-  if (config.animateIn) {
-    totalTime += config.fadeInTime
-  }
-  if (config.animateOut) {
-    totalTime += config.animateOutWaitTime * 1000
-    totalTime += config.fadeOutTime
-  }
-  let keyframes = []
-  let curTime = 0
-  if (config.animateIn) {
-    keyframes.push(`  0% { opacity: 0;${!config.slide ? ''
-      : ` transform: translateX(${config.reverseSlide ? 16 : -16}px);`
-    } }`)
-    curTime += config.fadeInTime
-    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 1; transform: none; }`)
-  }
-  if (config.animateOut) {
-    curTime += config.animateOutWaitTime * 1000
-    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 1; transform: none; }`)
-    curTime += config.fadeOutTime
-    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 0;${!config.slide ? ''
-      : ` transform: translateX(${config.reverseSlide ? -16 : 16}px);`
-    } }`)
-  }
+  let totalTime = getAnimationTotalTime(config)
+  let keyframes = getAnimationKeyframe(totalTime, config)
   return `/* Animation */
 @keyframes anim {
 ${keyframes.join('\n')}
@@ -141,12 +145,150 @@ yt-live-chat-paid-message-renderer {
 `
 }
 
+export function getTextMessageAnimationStyle(config) {
+  if (!config.textMessageAnimateIn && !config.textMessageAnimateOut) {
+    return ''
+  }
+  let animateIn = config.textMessageAnimateIn
+  let fadeInTime = config.textMessageFadeInTime
+  let animateOut = config.textMessageAnimateOut
+  let fadeOutTime = config.textMessageFadeOutTime
+  let animateOutWaitTime = config.textMessageAnimateOutWaitTime
+  let slide = config.textMessageSlide
+  let reverseSlide = config.textMessageReverseSlide
+  let totalTime = 0
+  let keyframes = []
+  totalTime = getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime)
+  keyframes = getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide)
+  return `/* 一般消息动画 TextMessageAnimation */
+@keyframes textMessageAnimation {
+${keyframes.join('\n')}
+}
+yt-live-chat-text-message-renderer {
+  animation: textMessageAnimation ${totalTime}ms;
+  animation-fill-mode: both;
+}
+`
+}
+
+export function getPaidMessageAnimationStyle(config) {
+  if (!config.paidMessageAnimateIn && !config.paidMessageAnimateOut) {
+    return ''
+  }
+  let animateIn = config.paidMessageAnimateIn
+  let fadeInTime = config.paidMessageFadeInTime
+  let animateOut = config.paidMessageAnimateOut
+  let fadeOutTime = config.paidMessageFadeOutTime
+  let animateOutWaitTime = config.paidMessageAnimateOutWaitTime
+  let slide = config.paidMessageSlide
+  let reverseSlide = config.paidMessageReverseSlide
+  let totalTime = 0
+  let keyframes = []
+  totalTime = getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime)
+  keyframes = getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide)
+  return `/* 打赏消息动画 PaidMessageAnimation */
+@keyframes paidMessageAnimation {
+${keyframes.join('\n')}
+}
+yt-live-chat-paid-message-renderer {
+  animation: paidMessageAnimation ${totalTime}ms;
+  animation-fill-mode: both;
+}
+`
+}
+
+export function getMembershipMessageAnimationStyle(config) {
+  if (!config.membershipMessageAnimateIn && !config.membershipMessageAnimateOut) {
+    return ''
+  }
+  let animateIn = config.membershipMessageAnimateIn
+  let fadeInTime = config.membershipMessageFadeInTime
+  let animateOut = config.membershipMessageAnimateOut
+  let fadeOutTime = config.membershipMessageFadeOutTime
+  let animateOutWaitTime = config.membershipMessageAnimateOutWaitTime
+  let slide = config.membershipMessageSlide
+  let reverseSlide = config.membershipMessageReverseSlide
+  let totalTime = 0
+  let keyframes = []
+  totalTime = getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime)
+  keyframes = getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide)
+  return `/* 上舰消息动画 MembershipMessageAnimation */
+@keyframes membershipMessageAnimation {
+${keyframes.join('\n')}
+}
+yt-live-chat-membership-item-renderer {
+  animation: membershipMessageAnimation ${totalTime}ms;
+  animation-fill-mode: both;
+}
+`
+}
+
+export function getInteractMessageAnimationStyle(config) {
+  if (!config.interactMessageAnimateIn && !config.interactMessageAnimateOut) {
+    return ''
+  }
+  let animateIn = config.interactMessageAnimateIn
+  let fadeInTime = config.interactMessageFadeInTime
+  let animateOut = config.interactMessageAnimateOut
+  let fadeOutTime = config.interactMessageFadeOutTime
+  let animateOutWaitTime = config.interactMessageAnimateOutWaitTime
+  let slide = config.interactMessageSlide
+  let reverseSlide = config.interactMessageReverseSlide
+  let totalTime = 0
+  let keyframes = []
+  totalTime = getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime)
+  keyframes = getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide)
+  return `/* 互动消息动画 InteractMessageAnimation */
+@keyframes interactMessageAnimation {
+${keyframes.join('\n')}
+}
+yt-live-chat-interact-message-renderer {
+  animation: interactMessageAnimation ${totalTime}ms;
+  animation-fill-mode: both;
+}
+`
+}
+
+
 export function cssEscapeStr(str) {
   let res = []
   for (let char of str) {
     res.push(cssEscapeChar(char))
   }
   return res.join('')
+}
+
+function getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime) {
+  let totalTime = 0
+  if (animateIn) {
+    totalTime += fadeInTime
+  }
+  if (animateOut) {
+    totalTime += animateOutWaitTime * 1000
+    totalTime += fadeOutTime
+  }
+  return totalTime
+}
+
+function getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide) {
+  let keyframes = []
+  let curTime = 0
+  if (animateIn) {
+    keyframes.push(`  0% { opacity: 0;${!slide ? ''
+      : ` transform: translateX(${reverseSlide ? 16 : -16}px);`
+    } }`)
+    curTime += fadeInTime
+    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 1; transform: none; }`)
+  }
+  if (animateOut) {
+    curTime += animateOutWaitTime * 1000
+    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 1; transform: none; }`)
+    curTime += fadeOutTime
+    keyframes.push(`  ${curTime / totalTime * 100}% { opacity: 0;${!slide ? ''
+      : ` transform: translateX(${reverseSlide ? -16 : 16}px);`
+    } }`)
+  }
+  return keyframes
 }
 
 function cssEscapeChar(char) {
