@@ -260,6 +260,8 @@ export default {
 
     // TODO: 前端显示欢迎入场
     onInteractWord(data) {
+      // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
+      
       // NOTE: 判断不同的 Interact 是否显示（进入房间、关注房间、分享房间）
       if (data.msgType === constants.INTERACT_TYPE_ENTER) {
         if (!this.config.showInteractWordEnter) {
@@ -273,12 +275,14 @@ export default {
         if (!this.config.showInteractWordShare) {
           return
         }
+      } else {
+        // 不满足指定类型的互动
+        return
       }
 
       if (!this.filterInteractMessage(data)) {
         return
       }
-      // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
 
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
@@ -307,7 +311,6 @@ export default {
           floatDistanceY = this.config.floatDistanceThreshold
         }
       }
-
 
       let message = {
         id: data.id,

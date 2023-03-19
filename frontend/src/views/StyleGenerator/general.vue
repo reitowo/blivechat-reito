@@ -1328,11 +1328,11 @@
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
-                <a @click="copyResult(interactMessageShowBadges)">
-                  {{$t('stylegen.interactMessageShowBadges')}}
+                <a @click="copyResult(interactMessageBadgesShow)">
+                  {{$t('stylegen.interactMessageBadgesShow')}}
                 </a>
               </span>
-              <el-switch v-model="form.interactMessageShowBadges"></el-switch>
+              <el-switch v-model="form.interactMessageBadgesShow"></el-switch>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
@@ -1352,21 +1352,21 @@
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
-                <a @click="copyResult(interactMessageShowMedal)">
-                  {{$t('stylegen.interactMessageShowMedal')}}
+                <a @click="copyResult(interactMessageMedalShow)">
+                  {{$t('stylegen.interactMessageMedalShow')}}
                 </a>
               </span>
-              <el-switch v-model="form.interactMessageShowMedal"></el-switch>
+              <el-switch v-model="form.interactMessageMedalShow"></el-switch>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
-                <a @click="copyResult(interactMessageShowOnlyOwnerMedal)">
-                  {{$t('stylegen.interactMessageShowOnlyOwnerMedal')}}
+                <a @click="copyResult(interactMessageMedalShowOnlyOwner)">
+                  {{$t('stylegen.interactMessageMedalShowOnlyOwner')}}
                 </a>
               </span>
-              <el-switch v-model="form.interactMessageShowOnlyOwnerMedal"></el-switch>
+              <el-switch v-model="form.interactMessageMedalShowOnlyOwner"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -1374,21 +1374,21 @@
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
-                <a @click="copyResult(interactMessageShowMedalName)">
-                  {{$t('stylegen.interactMessageShowMedalName')}}
+                <a @click="copyResult(interactMessageMedalShowName)">
+                  {{$t('stylegen.interactMessageMedalShowName')}}
                 </a>
               </span>
-              <el-switch v-model="form.interactMessageShowMedalName"></el-switch>
+              <el-switch v-model="form.interactMessageMedalShowName"></el-switch>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
-                <a @click="copyResult(interactMessageShowMedalLevel)">
-                  {{$t('stylegen.interactMessageShowMedalLevel')}}
+                <a @click="copyResult(interactMessageMedalShowLevel)">
+                  {{$t('stylegen.interactMessageMedalShowLevel')}}
                 </a>
               </span>
-              <el-switch v-model="form.interactMessageShowMedalLevel"></el-switch>
+              <el-switch v-model="form.interactMessageMedalShowLevel"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -1397,7 +1397,7 @@
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
                 <a @click="copyResult(interactMessageMedalFontSize)">
-                  {{$t('stylegen.fontSize')}}
+                  {{$t('stylegen.interactMessageMedalFontSize')}}
                 </a>
               </span>
               <el-input v-model.number="form.interactMessageMedalFontSize" type="number" min="0"></el-input>
@@ -1843,14 +1843,14 @@ export const DEFAULT_CONFIG = {
   interactMessageUserNameMember2Color: '#9a30fa',
   interactMessageUserNameMember1Color: '#e43f1f',
 
-  interactMessageShowBadges: true,
+  interactMessageBadgesShow: true,
   interactMessageShowColon: true,
   interactMessageBadgesSize: 20,
   
-  interactMessageShowMedal: true,
-  interactMessageShowOnlyOwnerMedal: true,
-  interactMessageShowMedalName: true,
-  interactMessageShowMedalLevel: true,
+  interactMessageMedalShow: true,
+  interactMessageMedalShowOnlyOwner: true,
+  interactMessageMedalShowName: true,
+  interactMessageMedalShowLevel: true,
   interactMessageMedalFontSize: 14,
   interactMessageMedalLineHeight: 0,
 
@@ -2938,15 +2938,15 @@ ${!this.form.interactMessageShowColon ? '' : `yt-live-chat-interact-message-rend
     // TODO: 互动消息舰队勋章
     interactMessageBadgeStyle() {
       return `/* 互动消息舰队勋章 interactMessageBadgeStyle */
-${this.interactMessageShowBadges}
+${this.interactMessageBadgesShow}
 ${this.interactMessageBadgesSize}
 `
     },
     // NOTE: 互动消息舰队勋章显示
-    interactMessageShowBadges() {
-      return `/* 互动消息舰队勋章显示 interactMessageShowBadges */
+    interactMessageBadgesShow() {
+      return `/* 互动消息舰队勋章显示 interactMessageBadgesShow */
 yt-live-chat-interact-message-renderer[is-fan-group] #chat-badges {
-  ${this.form.interactMessageShowBadges ? '' : 'display: none !important;'}
+  ${this.form.interactMessageBadgesShow ? '' : 'display: none !important;'}
   vertical-align: interact-top !important;
 }
 `
@@ -2964,33 +2964,33 @@ yt-live-chat-interact-message-renderer[is-fan-group] yt-icon.yt-live-chat-author
     // TODO: 互动消息粉丝勋章
     interactMessageMedalStyle() {
       return `/* 互动消息粉丝勋章 interactMessageMedalStyle */
-${this.interactMessageShowMedal}
-${this.interactMessageShowMedalName}
-${this.interactMessageShowMedalLevel}
+${this.interactMessageMedalShow}
+${this.interactMessageMedalShowName}
+${this.interactMessageMedalShowLevel}
 ${this.interactMessageMedalFontSize}
 ${this.interactMessageMedalLineHeight}
 `
     },
     // NOTE: 互动消息粉丝勋章显示
-    interactMessageShowMedal() {
-      return `/* 互动消息粉丝勋章 interactMessageShowMedal */
+    interactMessageMedalShow() {
+      return `/* 互动消息粉丝勋章 interactMessageMedalShow */
 yt-live-chat-interact-message-renderer yt-live-chat-author-medal-renderer {
-    ${this.form.interactMessageShowMedal && !this.form.interactMessageShowOnlyOwnerMedal ? `display: flex;` : 'display: none;'}
+    ${this.form.interactMessageMedalShow && !this.form.interactMessageMedalShowOnlyOwner ? `display: flex;` : 'display: none;'}
 }
 yt-live-chat-interact-message-renderer[is-fan-group] yt-live-chat-author-medal-renderer {
-  ${this.form.interactMessageShowMedal ? `display: flex;` : ''}
+  ${this.form.interactMessageMedalShow ? `display: flex;` : ''}
 }
 `
     },
     // NOTE: 互动消息粉丝勋章只显示当前房间勋章
-    interactMessageShowOnlyOwnerMedal() {
-      return this.interactMessageShowMedal
+    interactMessageMedalShowOnlyOwner() {
+      return this.interactMessageMedalShow
     },
     // NOTE: 互动消息粉丝勋章显示勋章名
-    interactMessageShowMedalName() {
-      return `/* 互动消息粉丝勋章 interactMessageShowMedalName */
+    interactMessageMedalShowName() {
+      return `/* 互动消息粉丝勋章 interactMessageMedalShowName */
 yt-live-chat-interact-message-renderer #medal-name.yt-live-chat-author-medal-renderer {
-  ${this.form.interactMessageShowMedalName ? '' : `visibility: hidden;
+  ${this.form.interactMessageMedalShowName ? '' : `visibility: hidden;
   width: 0;
   height: 0;
   padding: 0;`}
@@ -2998,10 +2998,10 @@ yt-live-chat-interact-message-renderer #medal-name.yt-live-chat-author-medal-ren
 `
     },
     // NOTE: 互动消息粉丝勋章显示勋章等级
-    interactMessageShowMedalLevel() {
-      return `/* 互动消息粉丝勋章显示勋章等级 interactMessageShowMedalLevel */
+    interactMessageMedalShowLevel() {
+      return `/* 互动消息粉丝勋章显示勋章等级 interactMessageMedalShowLevel */
 yt-live-chat-interact-message-renderer #medal-level.yt-live-chat-author-medal-renderer {
-  ${this.form.interactMessageShowMedalLevel ? '' : `visibility: hidden;
+  ${this.form.interactMessageMedalShowLevel ? '' : `visibility: hidden;
   width: 0;
   height: 0;
   padding: 0;`}

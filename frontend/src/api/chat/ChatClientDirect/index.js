@@ -302,7 +302,7 @@ export default class ChatClientDirect {
     }
     let data = command.data
     // console.log(`interactWordCallback data 是 ${JSON.stringify(data, null, 4)}`)
-
+    
     data = {
       id: getUuid4Hex(),
       roomId: data.roomid,
@@ -310,8 +310,8 @@ export default class ChatClientDirect {
       avatarUrl: await avatar.getAvatarUrl(data.uid),
       msgType: data.msg_type,
       authorName: data.uname,
-      medalName: data.fans_medal.medal_name,
-      medalLevel: data.fans_medal.medal_level,
+      medalName: data.fans_medal.medal_level === 0 ? undefined : data.fans_medal.medal_name,
+      medalLevel: data.fans_medal.medal_level === 0 ? undefined : data.fans_medal.medal_level,
       isFanGroup: data.roomid === data.fans_medal.medal_room_id ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       privilegeType: data.fans_medal.guard_level // 所带勋章牌子的舰队等级，0非舰队，1总督，2提督，3舰长（不一定是当前直播间的粉丝勋章）
     }
@@ -467,11 +467,12 @@ export default class ChatClientDirect {
   }
 }
 
+// 设置收到 指定 cmd 对应处理的function
 const CMD_CALLBACK_MAP = {
-  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback,
   DANMU_MSG: ChatClientDirect.prototype.danmuMsgCallback,
   SEND_GIFT: ChatClientDirect.prototype.sendGiftCallback,
   GUARD_BUY: ChatClientDirect.prototype.guardBuyCallback,
   SUPER_CHAT_MESSAGE: ChatClientDirect.prototype.superChatMessageCallback,
-  SUPER_CHAT_MESSAGE_DELETE: ChatClientDirect.prototype.superChatMessageDeleteCallback
+  SUPER_CHAT_MESSAGE_DELETE: ChatClientDirect.prototype.superChatMessageDeleteCallback,
+  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback
 }

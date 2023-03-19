@@ -6,7 +6,7 @@ const COMMAND_ADD_MEMBER = 4
 const COMMAND_ADD_SUPER_CHAT = 5
 const COMMAND_DEL_SUPER_CHAT = 6
 const COMMAND_UPDATE_TRANSLATION = 7
-const COMMAND_INTERACT = 8
+const COMMAND_ADD_INTERACT = 8
 
 // const CONTENT_TYPE_TEXT = 0
 const CONTENT_TYPE_EMOTICON = 1
@@ -123,12 +123,6 @@ export default class ChatClientRelay {
     case COMMAND_HEARTBEAT: {
       break
     }
-    case COMMAND_INTERACT: {
-      if (this.onInteractWord) {
-        this.onInteractWord(data)
-      }
-      break
-    }
     case COMMAND_ADD_TEXT: {
       if (!this.onAddText) {
         break
@@ -193,6 +187,12 @@ export default class ChatClientRelay {
         translation: data[1]
       }
       this.onUpdateTranslation(data)
+      break
+    }
+    case COMMAND_ADD_INTERACT: {
+      if (this.onInteractWord) {
+        this.onInteractWord(data)
+      }
       break
     }
     }

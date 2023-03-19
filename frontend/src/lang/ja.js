@@ -264,7 +264,7 @@ export default {
     textMessageSlide: 'スライド',
     textMessageReverseSlide: '逆スライド',
 
-    // TODO: スーパーチャット 
+    // TODO: スーパーチャット
     paidMessage: 'スーパーチャット / ギフト',
 
     paidMessageAvatar: 'スーパーチャットアイコン',
@@ -368,14 +368,16 @@ export default {
     interactMessageShowColon: 'ユーザー名の後にコロンを表示する',
     
     interactMessageBadges: 'イントラクションコメント勲章',
-    interactMessageShowBadges: '勲章を表示する',
+    interactMessageBadgesShow: '勲章を表示する',
     interactMessageBadgesSize: '勲章サイズ',
 
     interactMessageMedal: 'イントラクションコメントファン勲章',
-    interactMessageShowMedal: 'ファン勲章を表示する',
-    interactMessageShowOnlyOwnerMedal: 'オーナー勲章だけを表示する',
-    interactMessageShowMedalName: 'ファン勲章名を表示する',
-    interactMessageShowMedalLevel: 'ファン勲章レベルを表示する',
+    interactMessageMedalShow: 'ファン勲章を表示する',
+    interactMessageMedalShowOnlyOwner: 'オーナー勲章だけを表示する',
+    interactMessageMedalShowName: 'ファン勲章名を表示する',
+    interactMessageMedalShowLevel: 'ファン勲章レベルを表示する',
+    interactMessageMedalFontSize: 'ファン勲章フォントサイズ',
+    interactMessageMedalLineHeight: 'ファン勲章行の高さ',
 
     interactMessageContent: 'イントラクションコメント内容',
     interactMessageContentColor: '内容色',
@@ -413,7 +415,7 @@ export default {
     interactMessageSlide: 'スライド',
     interactMessageReverseSlide: '逆スライド',
 
-    // TODO: TickerMessage 
+    // TODO: TickerMessage
     Ticker: 'スーパーチャット固定',
     TickerShowTicker: 'スーパーチャット固定を表示する',
     TickerShowThingsOtherThanTicker: 'スーパーチャット以外を表示する',

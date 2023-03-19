@@ -65,7 +65,6 @@ export default {
       return utils.getTimeTextHourMin(this.time)
     },
     interactText() {
-      // console.log(`看看数据 msgType: ${this.msgType}, privilegeType: ${this.privilegeType}, constants.INTERACT_TYPE_ENTER: ${constants.INTERACT_TYPE_ENTER}`)
       if (this.msgType === constants.INTERACT_TYPE_ENTER) {
         return '进入直播间'
       } else if (this.msgType === constants.INTERACT_TYPE_FOLLOW) {

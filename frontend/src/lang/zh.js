@@ -369,14 +369,16 @@ export default {
     interactMessageShowColon: '用户名后显示冒号',
     
     interactMessageBadges: '互动消息勋章',
-    interactMessageShowBadges: '显示勋章',
+    interactMessageBadgesShow: '显示勋章',
     interactMessageBadgesSize: '勋章大小',
 
     interactMessageMedal: '互动消息粉丝勋章',
-    interactMessageShowMedal: '显示粉丝勋章',
-    interactMessageShowOnlyOwnerMedal: '只显示直播主勋章',
-    interactMessageShowMedalName: '显示粉丝勋章名',
-    interactMessageShowMedalLevel: '显示粉丝勋章等级',
+    interactMessageMedalShow: '显示粉丝勋章',
+    interactMessageMedalShowOnlyOwner: '只显示直播主勋章',
+    interactMessageMedalShowName: '显示粉丝勋章名',
+    interactMessageMedalShowLevel: '显示粉丝勋章等级',
+    interactMessageMedalFontSize: '粉丝勋章字体尺寸',
+    interactMessageMedalLineHeight: '粉丝勋章行高（0为默认）',
 
     interactMessageContent: '互动消息内容',
     interactMessageContentColor: '内容颜色',

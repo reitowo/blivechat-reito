@@ -181,7 +181,7 @@ export default {
     avatarSize: 'Avatar size',
 
     // FIXME: 注意不要删除其他命名，其他命名仍用于其他tab页面
-    // TODO: Normal Message 
+    // TODO: Normal Message
     textMessage: 'Normal Message',
 
     textMessageAvatar: 'Normal Message Avatar',
@@ -264,7 +264,7 @@ export default {
     textMessageSlide: 'slide',
     textMessageReverseSlide: 'reverse slide',
 
-    // TODO: Super Chat 
+    // TODO: Super Chat
     paidMessage: 'Super Chat / Gift',
 
     paidMessageAvatar: 'Super Chat Avatar',
@@ -304,7 +304,7 @@ export default {
     paidMessageSlide: 'slide',
     paidMessageReverseSlide: 'reverse slide',
     
-    // TODO: Membership 
+    // TODO: Membership
     membershipMessage: 'Membership',
 
     membershipMessageAvatar: 'Membership Avatar',
@@ -342,7 +342,7 @@ export default {
     membershipMessageSlide: 'slide',
     membershipMessageReverseSlide: 'reverse slide',
 
-    // TODO: Interact Message 
+    // TODO: Interact Message
     interactMessage: 'Interact Message (Enter, Follow stream)',
 
     interactMessageAvatar: 'Interact Message Avatar',
@@ -368,14 +368,16 @@ export default {
     interactMessageShowColon: 'Show Colon After Name',
     
     interactMessageBadges: 'Interact Message Badge',
-    interactMessageShowBadges: 'Show Badge',
+    interactMessageBadgesShow: 'Show Badge',
     interactMessageBadgesSize: 'Badge Size',
 
     interactMessageMedal: 'Interact Message fan medal',
-    interactMessageShowMedal: 'Show fan medal',
-    interactMessageShowOnlyOwnerMedal: 'Only Show Owner',
-    interactMessageShowMedalName: 'Show Fan Medal Name',
-    interactMessageShowMedalLevel: 'Show Fan Medal Level',
+    interactMessageMedalShow: 'Show fan medal',
+    interactMessageMedalShowOnlyOwner: 'Only Show Owner',
+    interactMessageMedalShowName: 'Show Fan Medal Name',
+    interactMessageMedalShowLevel: 'Show Fan Medal Level',
+    interactMessageMedalFontSize: 'Fan Medal Font Size',
+    interactMessageMedalLineHeight: 'Show Fan Medal Line Height',
 
     interactMessageContent: 'Interact Message Content',
     interactMessageContentColor: 'Content Color',
@@ -413,7 +415,7 @@ export default {
     interactMessageSlide: 'slide',
     interactMessageReverseSlide: 'reverse slide',
 
-    // TODO: TickerMessage 
+    // TODO: TickerMessage
     Ticker: 'Paid Ticker',
     TickerShowTicker: 'Show Paid Ticker',
     TickerShowThingsOtherThanTicker: 'Show Things Other than Ticker',
