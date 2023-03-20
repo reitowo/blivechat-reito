@@ -64,7 +64,10 @@ export default {
     onlyOneCharacter: '只能输入一个字符，如【',
 
     useLocalEmoticonSetting: '使用json文件设定表情',
-    autoRenderOfficialEmoji: '自动添加官方表情',
+    autoRenderOfficialSmallEmoji: '显示官方小表情',
+    autoRenderOfficialGeneralEmoji: '显示官方通用表情',
+    autoRenderStreamerEmoji: '显示主播表情',
+    autoRenderPersonalEmoji: '显示个人购买表情',
     isGreedyMatch: '贪婪匹配',
     isSkipSameImage: '不重复显示相同图片',
     imageShowType: '图片展示方式',
@@ -252,7 +255,11 @@ export default {
     textMessageTimeOutlineColor: '时间描边颜色',
 
     textMessageEmoticon: '表情',
-    textMessageEmoticonSize: '表情大小',
+    textMessageOfficialSmallEmojiSize: 'B站官方小表情大小',
+    textMessageOfficialGeneralEmojiSize: 'B站官方通用表情大小',
+    textMessageStreamerEmojiSize: '主播房间表情大小',
+    textMessagePersonalEmojiSize: '个人购买表情大小',
+    
     textMessageEmoticonInlineBorderRadius: '同行表情圆角',
     textMessageEmoticonBlockBorderRadius: '换行表情圆角',
 

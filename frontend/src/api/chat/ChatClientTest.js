@@ -119,6 +119,36 @@ const EMOT_INFO_LIST = [
   }
 ]
 
+const EMOT_DETAIL_LIST = [
+  {
+    "bulge_display": 0,
+    "emoticon_unique": "official_147",
+    "height": 60,
+    "in_player_area": 1,
+    "is_dynamic": 0,
+    "url": "http://i0.hdslb.com/bfs/live/bbd9045570d0c022a984c637e406cb0e1f208aa9.png",
+    "width": 150
+  },
+  {
+    "bulge_display": 1,
+    "emoticon_unique": "room_21782115_10262",
+    "height": 162,
+    "in_player_area": 1,
+    "is_dynamic": 1,
+    "url": "http://i0.hdslb.com/bfs/live/f6126c31b95501778c120c20aa11e7cbadd3cd35.png",
+    "width": 162
+  },
+  {
+    "bulge_display": 1,
+    "emoticon_unique": "upower_[Cat_escort]",
+    "height": 20,
+    "in_player_area": 1,
+    "is_dynamic": 0,
+    "url": "http://i0.hdslb.com/bfs/emote/81784f53f5ca7004a90d316c81889d8161dc05a6.png",
+    "width": 20
+  },
+]
+
 const AUTHOR_TYPES = [
   { weight: 2, value: constants.AUTHOR_TYPE_NORMAL },
   { weight: 3, value: constants.AUTHOR_TYPE_MEMBER },
@@ -242,7 +272,8 @@ const MESSAGE_GENERATORS = [
           medalLevel: randInt(0, 40),
           id: getUuid4Hex(),
           translation: '',
-          emoticon: randomChoose(EMOTICONS)
+          emoticon: randomChoose(EMOTICONS),
+          emoticonDetail: randomChoose(EMOT_DETAIL_LIST)
         }
       }
     }

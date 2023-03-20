@@ -195,7 +195,11 @@ export default {
 
       cfg.emoticons = this.toObjIfJson(cfg.emoticons)
       cfg.useLocalEmoticonSetting = toBool(cfg.useLocalEmoticonSetting)
-      cfg.autoRenderOfficialEmoji = toBool(cfg.autoRenderOfficialEmoji)
+      cfg.autoRenderOfficialSmallEmoji = toBool(cfg.autoRenderOfficialSmallEmoji)
+      cfg.autoRenderOfficialGeneralEmoji = toBool(cfg.autoRenderOfficialGeneralEmoji)
+      cfg.autoRenderStreamerEmoji = toBool(cfg.autoRenderStreamerEmoji)
+      cfg.autoRenderPersonalEmoji = toBool(cfg.autoRenderPersonalEmoji)
+
       cfg.isGreedyMatch = toBool(cfg.isGreedyMatch)
       cfg.isSkipSameImage = toBool(cfg.isSkipSameImage)
       cfg.maxImage = toInt(cfg.maxImage, chatConfig.DEFAULT_CONFIG.maxImage)
@@ -733,9 +737,9 @@ export default {
         textColor: textColor
       }
     },
-    generateImageData(imageType, matchEmoticon) {
+    generateImageData(type, matchEmoticon) {
       return {
-        type: imageType,
+        type: type,
         text: matchEmoticon.keyword,
         align: matchEmoticon.align,
         height: matchEmoticon.height,
@@ -743,6 +747,16 @@ export default {
         url: matchEmoticon.url
       }
     },
+    generateEmoticonData(type, text, emoticon_unique, url, height) {
+      return {
+        type: type,
+        text: text,
+        emoticon_unique: emoticon_unique,
+        url: url,
+        height: height
+      }
+    },
+    // TODO: 处理不同类型表情包
     getRichContent(data) {
       let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
@@ -764,29 +778,47 @@ export default {
         richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
-      
-      // B站官方表情 (包括B站主播自定义表情)
-      if (this.config.autoRenderOfficialEmoji === true && data.emoticon !== null) {
-        richContent.push({
-          type: constants.CONTENT_TYPE_EMOTICON,
-          text: data.content,
-          url: data.emoticon
-        })
-        return richContent
+      // TODO: 处理表情相关
+      let emoticonsTrie = this.emoticonsTrie
+
+      // 存在用户自定义关键词则优先显示用户设定表情，不存在则考虑B站自带表情（通用表情、房间表情、个人购买表情）
+      if (emoticonsTrie.has(data.content) === false && data.emoticonDetail) {
+        // 通过 startsWith 来区分3种表情
+        let emoticon_unique = data.emoticonDetail.emoticon_unique
+        // B站直播间通用表情（不包括 黄豆表情 autoRenderOfficialSmallEmoji）
+        if (this.config.autoRenderOfficialGeneralEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('official')) {
+          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+          return richContent
+        }
+
+        // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
+        if (this.config.autoRenderStreamerEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('room')) {
+          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+          return richContent
+        }
+
+        // 个人购买表情（用户购买的）
+        if (this.config.autoRenderPersonalEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('upower')) {
+          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+          return richContent
+        }
       }
 
-      // 没有自定义表情，只能是文本
-      if (this.config.emoticons.length === 0 && this.danmu_pic_json.length === 0) {
+      // NOTE: 上面处理了一般的表情（B站点击后显示单个图片的表情），下面开始处理可以和文字同时显示的黄豆表情和blivechat自定义表情
+      let has_blivechat_emoticon = this.config.emoticons.length !== 0 || this.danmu_pic_json.length !== 0
+      let has_bilibili_official_small_emoji = data.emots !== null
+
+      // 没有blivechat自定义表情和B站官方小表情，只能是文本
+      if (!has_blivechat_emoticon && !has_bilibili_official_small_emoji) {
         richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
 
-      // 可能含有自定义表情，需要解析（B站自带emoji，如：[dog]）
-      let emoticonsTrie = this.emoticonsTrie
-      if (this.config.autoRenderOfficialEmoji === true && data.emots !== null) {
+      // 若含有【B站官方小表情如：[dog]】需要解析，添加到 emoticonsTrie
+      if (this.config.autoRenderOfficialSmallEmoji === true && has_blivechat_emoticon) {
         for (let emotIndex in data.emots) {
           let emot = data.emots[emotIndex]
-          if (emoticonsTrie.has(emot.descript) === false) {
+          if (emoticonsTrie.has(emot.descript) === false) { // 存在用户自定义关键词则优先显示用户设定表情
             let emotValue = {
               type: constants.CONTENT_TYPE_EMOTICON,
               keyword: emot.descript,
@@ -800,6 +832,7 @@ export default {
         }
       }
 
+      // 开始分析弹幕文字，并按需求和表情替换
       let startPos = 0
       let pos = 0
       let emoticonCount = 0

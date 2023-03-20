@@ -62,7 +62,10 @@ export default {
     onlyOneCharacter: 'one character only, like:【',
     
     useLocalEmoticonSetting: 'use json file to add emoji',
-    autoRenderOfficialEmoji: 'auto add official emoji',
+    autoRenderOfficialSmallEmoji: 'Show official small emoji',
+    autoRenderOfficialGeneralEmoji: 'Show official general emoji',
+    autoRenderStreamerEmoji: 'Show streamer emoji',
+    autoRenderPersonalEmoji: 'Show personal emoji',
     isGreedyMatch: 'is greedy match',
     isSkipSameImage: 'not show same image multiple times',
     imageShowType: 'Way image show',
@@ -251,7 +254,11 @@ export default {
     textMessageTimeOutlineColor: 'Time Outline Color',
 
     textMessageEmoticon: 'Emoji',
-    textMessageEmoticonSize: 'Emoji Size',
+    textMessageOfficialSmallEmojiSize: 'Official Small Emoji Size',
+    textMessageOfficialGeneralEmojiSize: 'Official General Emoji Size',
+    textMessageStreamerEmojiSize: 'Streamer Emoji Size',
+    textMessagePersonalEmojiSize: 'Personal Emoji Size',
+    
     textMessageEmoticonInlineBorderRadius: 'Inline Emoji Border Radius',
     textMessageEmoticonBlockBorderRadius: 'Block Emoji Border Radius',
 

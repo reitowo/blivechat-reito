@@ -364,7 +364,11 @@ export default class ChatClientDirect {
       isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
       translation: '',
-      emoticon: info[0][13].url || null
+      emoticon: info[0][13].url || null // 如果是B站小表情（黄豆表情）则没有[13]属性
+    }
+    // 增加区分表情的细节数据
+    if (info[0][13]) {
+      data.emoticonDetail = info[0][13]
     }
     // 存储emoji占位符和图片对应关系
     if (info[0][15] && info[0][15].extra) {

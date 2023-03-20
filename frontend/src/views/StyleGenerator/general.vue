@@ -536,17 +536,54 @@
         <h4 @click="copyResult(textMessageEmoticonStyle)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.textMessageEmoticon') }}</h4>
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
-            <el-form-item :label="$t('stylegen.textMessageEmoticonSize')">
-              <el-input v-model.number="form.textMessageEmoticonSize" type="number" min="0"></el-input>
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(textMessageOfficialSmallEmojiSize)">
+                  {{$t('stylegen.textMessageOfficialSmallEmojiSize')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.textMessageOfficialSmallEmojiSize" type="number" min="0"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(textMessageOfficialGeneralEmojiSize)">
+                  {{$t('stylegen.textMessageOfficialGeneralEmojiSize')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.textMessageOfficialGeneralEmojiSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(textMessageStreamerEmojiSize)">
+                  {{$t('stylegen.textMessageStreamerEmojiSize')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.textMessageStreamerEmojiSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(textMessagePersonalEmojiSize)">
+                  {{$t('stylegen.textMessagePersonalEmojiSize')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.textMessagePersonalEmojiSize" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.textMessageEmoticonInlineBorderRadius')">
               <el-input v-model.number="form.textMessageEmoticonInlineBorderRadius" type="number" min="0"></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.textMessageEmoticonBlockBorderRadius')">
               <el-input v-model.number="form.textMessageEmoticonBlockBorderRadius" type="number" min="0"></el-input>
@@ -1747,7 +1784,11 @@ export const DEFAULT_CONFIG = {
   textMessageTimeOutlineSize: 0,
   textMessageTimeOutlineColor: '#000000',
 
-  textMessageEmoticonSize: 48,
+  textMessageOfficialSmallEmojiSize: 16,
+  textMessageOfficialGeneralEmojiSize: 60,
+  textMessageStreamerEmojiSize: 60,
+  textMessagePersonalEmojiSize: 60,
+
   textMessageEmoticonInlineBorderRadius: 0,
   textMessageEmoticonBlockBorderRadius: 4,
 
@@ -2368,11 +2409,10 @@ ${this.getTextMessageBgStyleForPrivilegeType('3', this.form.textMessageMember3Me
     // TODO: 一般消息表情
     textMessageEmoticonStyle() {
       return `/* 一般消息表情 textMessageEmoticonStyle */
-yt-live-chat-text-message-renderer #image-and-message .emoji {
-  width: auto !important;
-  height: ${this.form.textMessageEmoticonSize}px !important;
-}
-
+${this.textMessageOfficialSmallEmojiSize}
+${this.textMessageOfficialGeneralEmojiSize}
+${this.textMessageStreamerEmojiSize}
+${this.textMessageStreamerEmojiSize}
 #image-and-message img[display="block"] {
   border-radius: ${this.form.textMessageEmoticonBlockBorderRadius}px;
 }
@@ -2382,6 +2422,38 @@ yt-live-chat-text-message-renderer #image-and-message .emoji {
   top: 3px;
   border-radius: ${this.form.textMessageEmoticonInlineBorderRadius}px;
 }
+`
+    },
+    // NOTE: B站官方小表情大小
+    textMessageOfficialSmallEmojiSize() {
+      return `${this.form.textMessageOfficialSmallEmojiSize === 0 ? `` : `/* B站官方小表情大小 */
+yt-live-chat-text-message-renderer #image-and-message .emoji {
+  height: ${this.form.textMessageOfficialSmallEmojiSize}px !important;
+}`}
+`
+    },
+    // NOTE: B站官方通用表情大小
+    textMessageOfficialGeneralEmojiSize() {
+      return `${this.form.textMessageOfficialGeneralEmojiSize === 0 ? `` : `/* B站官方通用表情大小 */
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=official] {
+  height: ${this.form.textMessageOfficialGeneralEmojiSize}px !important;
+}`}
+`
+    },
+    // NOTE: 主播房间表情大小
+    textMessageStreamerEmojiSize() {
+      return `${this.form.textMessageStreamerEmojiSize === 0 ? `` : `/* 主播房间表情大小 */
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=room] {
+  height: ${this.form.textMessageStreamerEmojiSize}px !important;
+}`}
+`
+    },
+    // NOTE: 个人购买表情大小
+    textMessagePersonalEmojiSize() {
+      return `${this.form.textMessagePersonalEmojiSize === 0 ? `` : `/* 个人购买表情大小 */
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=upower] {
+  height: ${this.form.textMessagePersonalEmojiSize}px !important;
+}`}
 `
     },
     // TODO: 一般消息动画

@@ -54,7 +54,12 @@
                 >
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_EMOTICON"
                   class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
-                  :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
+                  :src="content.url"
+                  :alt="content.text"
+                  :shared-tooltip-text="content.text"
+                  :id="content.emoticon_unique"
+                  :height="content.height"
+                  width="auto"
                 >
               </template>
               <el-badge :value="getRepeatedValue(richContentIndex)" :max="99" v-show="getRepeatedValue(richContentIndex) > 1" class="style-scope yt-live-chat-text-message-renderer"
@@ -109,7 +114,12 @@
                 >
                 <img :key="contentIndex" v-else-if="content.type === CONTENT_TYPE_EMOTICON"
                   class="emoji yt-formatted-string style-scope yt-live-chat-text-message-renderer"
-                  :src="content.url" :alt="content.text" :shared-tooltip-text="content.text" :id="`emoji-${content.text}`"
+                  :src="content.url"
+                  :alt="content.text"
+                  :shared-tooltip-text="content.text"
+                  :id="content.emoticon_unique"
+                  :height="content.height"
+                  width="auto"
                 >
               </template>
               <el-badge :value="getRepeatedValue(richContentIndex)" :max="99" v-show="getRepeatedValue(richContentIndex) > 1" class="style-scope yt-live-chat-text-message-renderer"

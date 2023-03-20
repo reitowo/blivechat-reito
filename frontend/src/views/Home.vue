@@ -555,12 +555,46 @@
                   <el-form-item :title="$t('home.openSpecificTutorial')">
                     <span slot="label">
                       <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#147119dc" target="_blank">
-                        {{$t('home.autoRenderOfficialEmoji')}}
+                        {{$t('home.autoRenderOfficialSmallEmoji')}}
                       </a>
                     </span>
-                    <el-switch v-model="form.autoRenderOfficialEmoji"></el-switch>
+                    <el-switch v-model="form.autoRenderOfficialSmallEmoji"></el-switch>
                   </el-form-item>
                 </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :title="$t('home.openSpecificTutorial')">
+                    <span slot="label">
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#147119dc" target="_blank">
+                        {{$t('home.autoRenderOfficialGeneralEmoji')}}
+                      </a>
+                    </span>
+                    <el-switch v-model="form.autoRenderOfficialGeneralEmoji"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :title="$t('home.openSpecificTutorial')">
+                    <span slot="label">
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#147119dc" target="_blank">
+                        {{$t('home.autoRenderStreamerEmoji')}}
+                      </a>
+                    </span>
+                    <el-switch v-model="form.autoRenderStreamerEmoji"></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="6">
+                  <el-form-item :title="$t('home.openSpecificTutorial')">
+                    <span slot="label">
+                      <a href="https://www.yuque.com/doodle-irifi/ueaigm/laogg2#147119dc" target="_blank">
+                        {{$t('home.autoRenderPersonalEmoji')}}
+                      </a>
+                    </span>
+                    <el-switch v-model="form.autoRenderPersonalEmoji"></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+            <el-card shadow="never">
+              <el-row :gutter="20">
                 <el-col :xs="24" :sm="6">
                   <el-form-item :title="$t('home.openSpecificTutorial')">
                     <span slot="label">

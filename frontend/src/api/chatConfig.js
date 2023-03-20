@@ -42,7 +42,12 @@ export const DEFAULT_CONFIG = {
   pinTime: 0,
 
   useLocalEmoticonSetting: false,
-  autoRenderOfficialEmoji: true,
+  autoRenderOfficialSmallEmoji: true,
+  autoRenderOfficialGeneralEmoji: true,
+  autoRenderStreamerEmoji: true,
+  autoRenderPersonalEmoji: true,
+
+
   isGreedyMatch: true,
   isSkipSameImage: false,
   imageShowType: 0,
