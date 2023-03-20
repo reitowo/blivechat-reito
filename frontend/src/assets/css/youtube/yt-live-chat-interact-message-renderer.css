@@ -166,22 +166,6 @@ yt-live-chat-author-chip.yt-live-chat-interact-message-renderer {
   opacity: var(--yt-live-chat-interact-message-renderer-message-message-style_-_opacity);
 }
 
-#message img[display="block"] {
-  margin-top: 3px;
-}
-#message img[display="inline"] {
-  position: relative;
-  top: 3px;
-}
-
-#message.yt-live-chat-interact-message-renderer .emoji.yt-live-chat-interact-message-renderer {
-  /* B站表情有不是正方形的 */
-  width: auto;
-  height: var(--yt-live-chat-emoji-size);
-  margin: -1px 2px 1px 2px;
-  vertical-align: middle;
-}
-
 a.yt-live-chat-interact-message-renderer {
   display: inline;
   text-decoration: underline;

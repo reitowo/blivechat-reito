@@ -174,12 +174,20 @@ yt-live-chat-author-chip.yt-live-chat-text-message-renderer {
   top: 3px;
 }
 
-#image-and-message.yt-live-chat-text-message-renderer .emoji.yt-live-chat-text-message-renderer {
+yt-live-chat-text-message-renderer #image-and-message .emoji {
   /* B站表情有不是正方形的 */
   width: auto;
   height: var(--yt-live-chat-emoji-size);
   margin: -1px 2px 1px 2px;
   vertical-align: middle;
+}
+
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=official] {
+  height: 32px;
+}
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=upower],
+yt-live-chat-text-message-renderer #image-and-message .emoji[id^=room] {
+  height: 64px;
 }
 
 a.yt-live-chat-text-message-renderer {
