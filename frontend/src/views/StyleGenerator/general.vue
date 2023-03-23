@@ -2412,7 +2412,7 @@ ${this.getTextMessageBgStyleForPrivilegeType('3', this.form.textMessageMember3Me
 ${this.textMessageOfficialSmallEmojiSize}
 ${this.textMessageOfficialGeneralEmojiSize}
 ${this.textMessageStreamerEmojiSize}
-${this.textMessageStreamerEmojiSize}
+${this.textMessagePersonalEmojiSize}
 #image-and-message img[display="block"] {
   border-radius: ${this.form.textMessageEmoticonBlockBorderRadius}px;
 }
