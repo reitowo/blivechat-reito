@@ -57,7 +57,6 @@ export default class ChatClientDirect {
     this.onAddSuperChat = null
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
-    this.onInteractWord = null
 
     this.websocket = null
     this.retryCount = 0
@@ -108,7 +107,7 @@ export default class ChatClientDirect {
 
   sendAuth() {
     let authParams = {
-      uid: 0,
+      uid: this.roomOwnerUid,
       roomid: this.roomId,
       protover: 3,
       platform: 'web',
@@ -148,7 +147,7 @@ export default class ChatClientDirect {
   }
 
   onReceiveTimeout() {
-    window.console.warn('接收消息超时')
+    console.warn('接收消息超时')
     this.discardWebsocket()
   }
 
@@ -179,14 +178,14 @@ export default class ChatClientDirect {
       return
     }
     this.retryCount++
-    window.console.warn('掉线重连中', this.retryCount)
+    console.warn('掉线重连中', this.retryCount)
     window.setTimeout(this.wsConnect.bind(this), 1000)
   }
 
   onWsMessage(event) {
     this.refreshReceiveTimeoutTimer()
     if (!(event.data instanceof ArrayBuffer)) {
-      window.console.warn('未知的websocket消息类型，data=', event.data)
+      console.warn('未知的websocket消息类型，data=', event.data)
       return
     }
 
@@ -232,7 +231,7 @@ export default class ChatClientDirect {
     default: {
       // 未知消息
       let body = new Uint8Array(data.buffer, offset + rawHeaderSize, packLen - rawHeaderSize)
-      window.console.warn('未知包类型，operation=', operation, dataView, body)
+      console.warn('未知包类型，operation=', operation, dataView, body)
       break
     }
     }
@@ -256,7 +255,7 @@ export default class ChatClientDirect {
             body = JSON.parse(textDecoder.decode(body))
             this.handlerCommand(body)
           } catch (e) {
-            window.console.error('body=', body)
+            console.error('body=', body)
             throw e
           }
         }
@@ -267,7 +266,7 @@ export default class ChatClientDirect {
       // 认证响应
       body = JSON.parse(textDecoder.decode(body))
       if (body.code !== AUTH_REPLY_CODE_OK) {
-        window.console.error('认证响应错误，body=', body)
+        console.error('认证响应错误，body=', body)
         // 这里应该重新获取token再重连的，但前端没有用到token，所以不重新init了
         this.discardWebsocket()
         throw new Error('认证响应错误')
@@ -277,7 +276,7 @@ export default class ChatClientDirect {
     }
     default: {
       // 未知消息
-      window.console.warn('未知包类型，operation=', operation, dataView, body)
+      console.warn('未知包类型，operation=', operation, dataView, body)
       break
     }
     }
@@ -294,30 +293,6 @@ export default class ChatClientDirect {
       callback.call(this, command)
     }
   }
-  
-  // TODO: 欢迎入场 ws 的信息，然后给到 Room.vue
-  async interactWordCallback(command) {
-    if (!this.onInteractWord) {
-      return
-    }
-    let data = command.data
-    // console.log(`interactWordCallback data 是 ${JSON.stringify(data, null, 4)}`)
-    
-    data = {
-      id: getUuid4Hex(),
-      roomId: data.roomid,
-      timestamp: data.timestamp,
-      avatarUrl: await avatar.getAvatarUrl(data.uid),
-      msgType: data.msg_type,
-      authorName: data.uname,
-      medalName: data.fans_medal.medal_level === 0 ? undefined : data.fans_medal.medal_name,
-      medalLevel: data.fans_medal.medal_level === 0 ? undefined : data.fans_medal.medal_level,
-      isFanGroup: data.roomid === data.fans_medal.medal_room_id ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
-      privilegeType: data.fans_medal.guard_level // 所带勋章牌子的舰队等级，0非舰队，1总督，2提督，3舰长（不一定是当前直播间的粉丝勋章）
-    }
-    this.onInteractWord(data)
-  }
-
 
   async danmuMsgCallback(command) {
     if (!this.onAddText) {
@@ -325,14 +300,14 @@ export default class ChatClientDirect {
     }
     let info = command.info
 
-    let roomId, medalLevel, medalName
+    let roomId, medalLevel
     if (info[3]) {
       roomId = info[3][3]
       medalLevel = info[3][0]
-      medalName = info[3][1]
     } else {
-      medalName = roomId = medalLevel = 0
+      roomId = medalLevel = 0
     }
+
     let uid = info[2][0]
     let isAdmin = info[2][2]
     let privilegeType = info[7]
@@ -347,7 +322,6 @@ export default class ChatClientDirect {
       authorType = 0
     }
 
-
     let data = {
       avatarUrl: await avatar.getAvatarUrl(uid),
       timestamp: info[0][4] / 1000,
@@ -359,45 +333,10 @@ export default class ChatClientDirect {
       authorLevel: info[4][0],
       isNewbie: info[2][5] < 10000,
       isMobileVerified: Boolean(info[2][6]),
-      medalName: medalName,
-      medalLevel: medalLevel,
-      isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
+      medalLevel: roomId === this.roomId ? medalLevel : 0,
       id: getUuid4Hex(),
       translation: '',
-      emoticon: info[0][13].url || null // 如果是B站小表情（黄豆表情）则没有[13]属性
-    }
-    // 增加区分表情的细节数据
-    if (info[0][13]) {
-      data.emoticonDetail = info[0][13]
-    }
-    // 存储emoji占位符和图片对应关系
-    if (info[0][15] && info[0][15].extra) {
-
-      const extraMap = JSON.parse(info[0][15].extra)
-      if (extraMap.emots) {
-        data.emots = extraMap.emots
-      }
-    // TODO: Json Example
-    //   {
-    //     "[哇]": {
-    //         "emoticon_id": 211,
-    //         "emoji": "[哇]",
-    //         "descript": "[哇]",
-    //         "url": "http://i0.hdslb.com/bfs/live/650c3e22c06edcbca9756365754d38952fc019c3.png",
-    //         "width": 20,
-    //         "height": 20,
-    //         "emoticon_unique": "emoji_211"
-    //     },
-    //     "[妙]": {
-    //         "emoticon_id": 210,
-    //         "emoji": "[妙]",
-    //         "descript": "[妙]",
-    //         "url": "http://i0.hdslb.com/bfs/live/08f735d950a0fba267dda140673c9ab2edf6410d.png",
-    //         "width": 20,
-    //         "height": 20,
-    //         "emoticon_unique": "emoji_210"
-    //     }
-    //  }
+      emoticon: info[0][13].url || null
     }
     this.onAddText(data)
   }
@@ -407,16 +346,15 @@ export default class ChatClientDirect {
       return
     }
     let data = command.data
-    //  if (data.coin_type !== 'gold') { // 白嫖不丢人
-    //    return
-    //  }
+    if (data.coin_type !== 'gold') { // 丢人
+      return
+    }
 
     data = {
       id: getUuid4Hex(),
       avatarUrl: avatar.processAvatarUrl(data.face),
       timestamp: data.timestamp,
       authorName: data.uname,
-      coinType: data.coin_type,
       totalCoin: data.total_coin,
       giftName: data.giftName,
       num: data.num
@@ -471,12 +409,10 @@ export default class ChatClientDirect {
   }
 }
 
-// 设置收到 指定 cmd 对应处理的function
 const CMD_CALLBACK_MAP = {
   DANMU_MSG: ChatClientDirect.prototype.danmuMsgCallback,
   SEND_GIFT: ChatClientDirect.prototype.sendGiftCallback,
   GUARD_BUY: ChatClientDirect.prototype.guardBuyCallback,
   SUPER_CHAT_MESSAGE: ChatClientDirect.prototype.superChatMessageCallback,
-  SUPER_CHAT_MESSAGE_DELETE: ChatClientDirect.prototype.superChatMessageDeleteCallback,
-  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback
+  SUPER_CHAT_MESSAGE_DELETE: ChatClientDirect.prototype.superChatMessageDeleteCallback
 }
