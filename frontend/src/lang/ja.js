@@ -237,6 +237,7 @@ export default {
     textMessageBg: '一般コメント背景',
     textMessageUseBarsInsteadOfBg: '背景に代わります',
     textMessageMessageBgColor: 'コメント背景色',
+    textMessageMessageBgShadow: 'コメント背景の影',
     textMessageOwnerMessageBgColor: 'オーナーのコメント背景色',
     textMessageModeratorMessageBgColor: '管理者コメント背景色',
     textMessageMember3MessageBgColor: '艦長コメント背景色',
@@ -276,6 +277,9 @@ export default {
     paidMessageAvatar: 'スーパーチャットアイコン',
     paidMessageShowAvatar: 'アイコンを表示する',
     paidMessageAvatarSize: 'アイコンのサイズ',
+
+    paidMessageBg: 'スーパーチャット背景',
+    paidMessageMessageBgShadow: 'スーパーチャット背景の影',
 
     paidMessageFirstLine: 'スーパーチャット第一行',
     paidMessageFirstLineColor: '第一行色',
@@ -319,6 +323,7 @@ export default {
 
     membershipMessageBg: 'メンバー背景',
     membershipMessageShowBg: 'メンバー背景を表示する',
+    membershipMessageMessageBgShadow: 'メンバー背景の影',
     membershipMessageMember3MessageBgColor: '艦長背景色',
     membershipMessageMember2MessageBgColor: '提督背景色',
     membershipMessageMember1MessageBgColor: '総督背景色',
@@ -396,6 +401,7 @@ export default {
     interactMessageBg: 'イントラクションコメント背景',
     interactMessageUseBarsInsteadOfBg: '背景に代わります',
     interactMessageMessageBgColor: 'コメント背景色',
+    interactMessageMessageBgShadow: 'コメント背景の影',
     interactMessageOwnerMessageBgColor: 'オーナーのコメント背景色',
     interactMessageModeratorMessageBgColor: '管理者コメント背景色',
     interactMessageMember3MessageBgColor: '艦長コメント背景色',
@@ -420,6 +426,27 @@ export default {
     interactMessageAnimateOutWaitTime: '消す待つ時間（秒）',
     interactMessageSlide: 'スライド',
     interactMessageReverseSlide: '逆スライド',
+
+    // TODO: Global Padding
+    globalPadding: 'グローバルパディング',
+    globalPaddingTop: 'グローバルパディング - 上',
+    globalPaddingBottom: 'グローバルパディング - 下',
+    globalPaddingLeft: 'グローバルパディング - 左',
+    globalPaddingRight: 'グローバルパディング - 右',
+
+    // TODO: Global Margin
+    globalMargin: 'グローバルマージン',
+    globalMarginTop: 'グローバルマージン - 上',
+    globalMarginBottom: 'グローバルマージン - 下',
+    globalMarginLeft: 'グローバルマージン - 左',
+    globalMarginRight: 'グローバルマージン - 右',
+
+    // TODO: Global Border Radius
+    globalBorderRadius: 'グローバルボーダーラジウス',
+    globalBorderRadiusTopLeft: 'グローバルボーダーラジウス - 左上',
+    globalBorderRadiusTopRight: 'グローバルボーダーラジウス - 右上',
+    globalBorderRadiusBottomLeft: 'グローバルボーダーラジウス - 左下',
+    globalBorderRadiusBottomRight: 'グローバルボーダーラジウス - 右下',
 
     // TODO: TickerMessage
     Ticker: 'スーパーチャット固定',

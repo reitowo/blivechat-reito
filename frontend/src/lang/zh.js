@@ -237,6 +237,7 @@ export default {
     
     textMessageBg: '一般消息背景',
     textMessageUseBarsInsteadOfBg: '用条代替消息背景',
+    textMessageMessageBgShadow: '消息背景阴影',
     textMessageMessageBgColor: '消息背景色',
     textMessageOwnerMessageBgColor: '主播消息背景色',
     textMessageModeratorMessageBgColor: '房管消息背景色',
@@ -278,6 +279,9 @@ export default {
     paidMessageAvatar: '打赏消息头像',
     paidMessageShowAvatar: '显示头像',
     paidMessageAvatarSize: '头像尺寸',
+
+    paidMessageBg: '打赏消息背景',
+    paidMessageMessageBgShadow: '打赏消息背景阴影',
 
     paidMessageFirstLine: '打赏消息（SC、礼物）第一行',
     paidMessageFirstLineColor: '第一行颜色',
@@ -321,6 +325,7 @@ export default {
 
     membershipMessageBg: '上舰消息背景',
     membershipMessageShowBg: '显示上舰背景',
+    membershipMessageMessageBgShadow: '消息背景阴影',
     membershipMessageMember3MessageBgColor: '舰长背景颜色',
     membershipMessageMember2MessageBgColor: '提督背景颜色',
     membershipMessageMember1MessageBgColor: '总督背景颜色',
@@ -397,6 +402,7 @@ export default {
     
     interactMessageBg: '互动消息背景',
     interactMessageUseBarsInsteadOfBg: '用条代替消息背景',
+    interactMessageMessageBgShadow: '消息背景阴影',
     interactMessageMessageBgColor: '消息背景色',
     interactMessageOwnerMessageBgColor: '主播消息背景色',
     interactMessageModeratorMessageBgColor: '房管消息背景色',
@@ -422,6 +428,27 @@ export default {
     interactMessageAnimateOutWaitTime: '移除前等待时间（秒）',
     interactMessageSlide: '滑动',
     interactMessageReverseSlide: '反向滑动',
+
+    // TODO: 全局内边距
+    globalPadding: '全局内边距',
+    globalPaddingTop: '全局内边距-上侧',
+    globalPaddingBottom: '全局内边距-下侧',
+    globalPaddingLeft: '全局内边距-左侧',
+    globalPaddingRight: '全局内边距-右侧',
+
+    // TODO: 全局外边距
+    globalMargin: '全局外边距',
+    globalMarginTop: '全局外边距-上侧',
+    globalMarginBottom: '全局外边距-下侧',
+    globalMarginLeft: '全局外边距-左侧',
+    globalMarginRight: '全局外边距-右侧',
+
+    // TODO: 全局圆角大小
+    globalBorderRadius: '全局圆角大小',
+    globalBorderRadiusTopLeft: '全局圆角大小-左上',
+    globalBorderRadiusTopRight: '全局圆角大小-右上',
+    globalBorderRadiusBottomLeft: '全局圆角大小-左下',
+    globalBorderRadiusBottomRight: '全局圆角大小-右下',
 
     // TODO: 固定栏消息
     Ticker: '打赏固定栏',

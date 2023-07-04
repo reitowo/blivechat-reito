@@ -1,12 +1,147 @@
 <template>
   <div>
     <el-form label-width="150px" size="mini">
-      <h3>{{ $t('stylegen.global') }}</h3>
+      <h3 @click="copyResult(globalStyle)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.global') }}</h3>
       <el-card shadow="never">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :label="$t('stylegen.bgColor')">
               <el-color-picker v-model="form.bgColor" show-alpha></el-color-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <h4 @click="copyResult(globalPadding)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.globalPadding') }}</h4>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalPaddingTop)">
+                  {{$t('stylegen.globalPaddingTop')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalPaddingTop" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalPaddingBottom)">
+                  {{$t('stylegen.globalPaddingBottom')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalPaddingBottom" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalPaddingLeft)">
+                  {{$t('stylegen.globalPaddingLeft')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalPaddingLeft" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalPaddingRight)">
+                  {{$t('stylegen.globalPaddingRight')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalPaddingRight" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <h4 @click="copyResult(globalMargin)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.globalMargin') }}</h4>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalMarginTop)">
+                  {{$t('stylegen.globalMarginTop')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalMarginTop" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalMarginBottom)">
+                  {{$t('stylegen.globalMarginBottom')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalMarginBottom" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalMarginLeft)">
+                  {{$t('stylegen.globalMarginLeft')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalMarginLeft" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalMarginRight)">
+                  {{$t('stylegen.globalMarginRight')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalMarginRight" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <h4 @click="copyResult(globalBorderRadius)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.globalBorderRadius') }}</h4>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalBorderRadiusTopLeft)">
+                  {{$t('stylegen.globalBorderRadiusTopLeft')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalBorderRadiusTopLeft" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalBorderRadiusTopRight)">
+                  {{$t('stylegen.globalBorderRadiusTopRight')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalBorderRadiusTopRight" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalBorderRadiusBottomLeft)">
+                  {{$t('stylegen.globalBorderRadiusBottomLeft')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalBorderRadiusBottomLeft" type="number" min="0"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item :title="$t('stylegen.copyBlockCss')">
+              <span slot="label">
+                <a @click="copyResult(globalBorderRadiusBottomRight)">
+                  {{$t('stylegen.globalBorderRadiusBottomRight')}}
+                </a>
+              </span>
+              <el-input v-model.number="form.globalBorderRadiusBottomRight" type="number" min="0"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -334,7 +469,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 一般消息内容描边-->
+        <!--TODO: 一般消息内容描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -402,6 +537,16 @@
                 </a>
               </span>
               <el-switch v-model="form.textMessageUseBarsInsteadOfBg"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item>
+              <span slot="label">
+                <a>
+                  {{$t('stylegen.textMessageMessageBgShadow')}}
+                </a>
+              </span>
+              <el-switch v-model="form.textMessageMessageBgShadow"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -509,7 +654,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 一般消息时间描边-->
+        <!--TODO: 一般消息时间描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -659,6 +804,20 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <!--TODO: 打赏消息背景-->
+        <h4 @click="copyResult(paidMessageBackgroundStyle)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.paidMessageBg') }}</h4>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
+            <el-form-item>
+              <span slot="label">
+                <a>
+                  {{$t('stylegen.paidMessageMessageBgShadow')}}
+                </a>
+              </span>
+              <el-switch v-model="form.paidMessageMessageBgShadow"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <!-- TODO: 打赏消息（SC、礼物）第一行 -->
         <h4 @click="copyResult(paidMessageFirstLineStyle)" :title="$t('stylegen.copyBlockCss')">{{ $t('stylegen.paidMessageFirstLine') }}</h4>
         <el-row :gutter="20">
@@ -705,7 +864,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 打赏消息（SC、礼物）第一行描边-->
+        <!--TODO: 打赏消息（SC、礼物）第一行描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -774,7 +933,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 打赏消息（SC、礼物）第二行描边-->
+        <!--TODO: 打赏消息（SC、礼物）第二行描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -843,7 +1002,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 打赏消息（SC、礼物）内容行描边-->
+        <!--TODO: 打赏消息（SC、礼物）内容行描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -963,6 +1122,18 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12">
+            <el-form-item>
+              <span slot="label">
+                <a>
+                  {{$t('stylegen.membershipMessageMessageBgShadow')}}
+                </a>
+              </span>
+              <el-switch v-model="form.membershipMessageMessageBgShadow"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
                 <a @click="copyResult(membershipMessageMember3MessageBgColor)">
@@ -972,8 +1143,6 @@
               <el-color-picker v-model="form.membershipMessageMember3MessageBgColor" show-alpha></el-color-picker>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
@@ -984,6 +1153,8 @@
               <el-color-picker v-model="form.membershipMessageMember2MessageBgColor" show-alpha></el-color-picker>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
               <span slot="label">
@@ -1041,7 +1212,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 上舰消息第一行描边-->
+        <!--TODO: 上舰消息第一行描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -1110,7 +1281,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 上舰消息第二行描边-->
+        <!--TODO: 上舰消息第二行描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -1248,7 +1419,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 互动消息用户名描边-->
+        <!--TODO: 互动消息用户名描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -1497,7 +1668,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--FIXME: 互动消息内容描边-->
+        <!--TODO: 互动消息内容描边-->
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
             <el-form-item :title="$t('stylegen.copyBlockCss')">
@@ -1531,6 +1702,16 @@
                 </a>
               </span>
               <el-switch v-model="form.interactMessageUseBarsInsteadOfBg"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12">
+            <el-form-item>
+              <span slot="label">
+                <a>
+                  {{$t('stylegen.interactMessageMessageBgShadow')}}
+                </a>
+              </span>
+              <el-switch v-model="form.interactMessageMessageBgShadow"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
@@ -1730,19 +1911,19 @@ export const DEFAULT_CONFIG = {
 
   textMessageShowUserName: true,
   textMessageUserNameFont: 'Changa One',
-  textMessageUserNameFontSize: 20,
+  textMessageUserNameFontSize: 18,
   textMessageUserNameLineHeight: 0,
 
   textMessageUserNameOutlineSize: 0,
   textMessageUserNameOutlineColor: '#000000',
 
   textMessageUserNameRandomColor: false,
-  textMessageUserNameColor: '#cccccc',
-  textMessageUserNameOwnerColor: '#ffd600',
-  textMessageUserNameModeratorColor: '#5e84f1',
-  textMessageUserNameMember3Color: '#0f9d58',
-  textMessageUserNameMember2Color: '#9a30fa',
-  textMessageUserNameMember1Color: '#e43f1f',
+  textMessageUserNameColor: '#303030',
+  textMessageUserNameOwnerColor: '#303030',
+  textMessageUserNameModeratorColor: '#303030',
+  textMessageUserNameMember3Color: '#303030',
+  textMessageUserNameMember2Color: '#303030',
+  textMessageUserNameMember1Color: '#303030',
 
   textMessageShowBadges: true,
   textMessageShowColon: true,
@@ -1755,25 +1936,26 @@ export const DEFAULT_CONFIG = {
   textMessageMedalFontSize: 14,
   textMessageMedalLineHeight: 0,
 
-  textMessageContentColor: '#ffffff',
+  textMessageContentColor: '#303030',
   textMessageContentFont: 'Imprima',
-  textMessageContentFontSize: 18,
+  textMessageContentFontSize: 22,
   textMessageContentLineHeight: 0,
 
-  textMessageContentOutlineSize: 2,
+  textMessageContentOutlineSize: 0,
   textMessageContentOutlineColor: '#000000',
 
-  textMessageOnNewLine: false,
+  textMessageOnNewLine: true,
   textMessageMergeSameUser: false,
   textMessageGroupBlockPadding: 0,
 
   textMessageUseBarsInsteadOfBg: false,
-  textMessageMessageBgColor: 'rgba(204, 204, 204, 0)',
-  textMessageOwnerMessageBgColor: 'rgba(255, 214, 0, 0)',
-  textMessageModeratorMessageBgColor: 'rgba(94, 132, 241, 0)',
-  textMessageMember3MessageBgColor: 'rgba(15, 157, 88, 0)',
-  textMessageMember2MessageBgColor: 'rgba(170, 12, 255, 0)',
-  textMessageMember1MessageBgColor: 'rgba(255, 12, 12, 0)',
+  textMessageMessageBgShadow: false,
+  textMessageMessageBgColor: 'rgba(255, 255, 255, 1)',
+  textMessageOwnerMessageBgColor: 'rgba(255, 255, 255, 1)',
+  textMessageModeratorMessageBgColor: 'rgba(94, 132, 241, 1)',
+  textMessageMember3MessageBgColor: 'rgba(118, 206, 164, 1)',
+  textMessageMember2MessageBgColor: 'rgba(199, 125, 239, 1)',
+  textMessageMember1MessageBgColor: 'rgba(250, 97, 148, 1)',
 
   textMessageTimeShow: false,
   textMessageTimeShowRight: true,
@@ -1792,18 +1974,20 @@ export const DEFAULT_CONFIG = {
   textMessageEmoticonInlineBorderRadius: 0,
   textMessageEmoticonBlockBorderRadius: 4,
 
-  textMessageAnimateIn: false,
+  textMessageAnimateIn: true,
   textMessageFadeInTime: 200, // ms
   textMessageAnimateOut: false,
   textMessageFadeOutTime: 30, // s
   textMessageAnimateOutWaitTime: 200, // ms
-  textMessageSlide: false,
+  textMessageSlide: true,
   textMessageReverseSlide: false,
 
 
   // TODO: 打赏消息（SC、礼物）
   paidMessageShowAvatar: true,
   paidMessageAvatarSize: 24,
+
+  paidMessageMessageBgShadow: false,
 
   paidMessageFirstLineColor: '#ffffff',
   paidMessageFirstLineFont: 'Changa One',
@@ -1826,12 +2010,12 @@ export const DEFAULT_CONFIG = {
   paidMessageContentLineOutlineSize: 0,
   paidMessageContentLineOutlineColor: '#000000',
 
-  paidMessageAnimateIn: false,
+  paidMessageAnimateIn: true,
   paidMessageFadeInTime: 200, // ms
   paidMessageAnimateOut: false,
   paidMessageFadeOutTime: 30, // s
   paidMessageAnimateOutWaitTime: 200, // ms
-  paidMessageSlide: false,
+  paidMessageSlide: true,
   paidMessageReverseSlide: false,
 
   // TODO: 上舰消息
@@ -1839,9 +2023,10 @@ export const DEFAULT_CONFIG = {
   membershipMessageAvatarSize: 24,
 
   membershipMessageShowBg: true,
-  membershipMessageMember3MessageBgColor: '#0f9d58',
-  membershipMessageMember2MessageBgColor: '#9a30fa',
-  membershipMessageMember1MessageBgColor: '#e43f1f',
+  membershipMessageMessageBgShadow: false,
+  membershipMessageMember3MessageBgColor: 'rgba(15, 157, 88, 1)',
+  membershipMessageMember2MessageBgColor: 'rgba(199, 125, 239, 1)',
+  membershipMessageMember1MessageBgColor: 'rgba(250, 97, 148, 1)',
 
   membershipMessageFirstLineColor: '#ffffff',
   membershipMessageFirstLineFont: 'Changa One',
@@ -1857,12 +2042,12 @@ export const DEFAULT_CONFIG = {
   membershipMessageSecondLineOutlineSize: 0,
   membershipMessageSecondLineOutlineColor: '#000000',
 
-  membershipMessageAnimateIn: false,
+  membershipMessageAnimateIn: true,
   membershipMessageFadeInTime: 200, // ms
   membershipMessageAnimateOut: false,
   membershipMessageFadeOutTime: 30, // s
   membershipMessageAnimateOutWaitTime: 200, // ms
-  membershipMessageSlide: false,
+  membershipMessageSlide: true,
   membershipMessageReverseSlide: false,
   
   // TODO: 互动消息
@@ -1877,14 +2062,14 @@ export const DEFAULT_CONFIG = {
   interactMessageUserNameOutlineColor: '#000000',
 
   interactMessageUserNameRandomColor: false,
-  interactMessageUserNameColor: '#cccccc',
-  interactMessageUserNameOwnerColor: '#ffd600',
-  interactMessageUserNameModeratorColor: '#5e84f1',
-  interactMessageUserNameMember3Color: '#0f9d58',
-  interactMessageUserNameMember2Color: '#9a30fa',
-  interactMessageUserNameMember1Color: '#e43f1f',
+  interactMessageUserNameColor: '#FFFFFF',
+  interactMessageUserNameOwnerColor: '#FFFFFF',
+  interactMessageUserNameModeratorColor: '#FFFFFF',
+  interactMessageUserNameMember3Color: '#FFFFFF',
+  interactMessageUserNameMember2Color: '#FFFFFF',
+  interactMessageUserNameMember1Color: '#FFFFFF',
 
-  interactMessageBadgesShow: true,
+  interactMessageBadgesShow: false,
   interactMessageShowColon: true,
   interactMessageBadgesSize: 20,
   
@@ -1903,12 +2088,13 @@ export const DEFAULT_CONFIG = {
   interactMessageContentOutlineColor: '#000000',
 
   interactMessageUseBarsInsteadOfBg: false,
-  interactMessageMessageBgColor: 'rgba(204, 204, 204, 0)',
-  interactMessageOwnerMessageBgColor: 'rgba(255, 214, 0, 0)',
-  interactMessageModeratorMessageBgColor: 'rgba(94, 132, 241, 0)',
-  interactMessageMember3MessageBgColor: 'rgba(15, 157, 88, 0)',
-  interactMessageMember2MessageBgColor: 'rgba(170, 12, 255, 0)',
-  interactMessageMember1MessageBgColor: 'rgba(255, 12, 12, 0)',
+  interactMessageMessageBgShadow: false,
+  interactMessageMessageBgColor: 'rgba(0, 0, 0, 1)',
+  interactMessageOwnerMessageBgColor: 'rgba(0, 0, 0, 1)',
+  interactMessageModeratorMessageBgColor: 'rgba(0, 0, 0, 1)',
+  interactMessageMember3MessageBgColor: 'rgba(0, 0, 0, 1)',
+  interactMessageMember2MessageBgColor: 'rgba(0, 0, 0, 1)',
+  interactMessageMember1MessageBgColor: 'rgba(0, 0, 0, 1)',
 
   interactMessageTimeShow: false,
   interactMessageTimeShowRight: true,
@@ -1920,13 +2106,31 @@ export const DEFAULT_CONFIG = {
   interactMessageTimeOutlineColor: '#000000',
   
 
-  interactMessageAnimateIn: false,
+  interactMessageAnimateIn: true,
   interactMessageFadeInTime: 200, // ms
   interactMessageAnimateOut: false,
   interactMessageFadeOutTime: 30, // s
   interactMessageAnimateOutWaitTime: 200, // ms
-  interactMessageSlide: false,
+  interactMessageSlide: true,
   interactMessageReverseSlide: false,
+
+  // TODO: 全局内边距
+  globalPaddingTop: 8,
+  globalPaddingBottom: 8,
+  globalPaddingLeft: 12,
+  globalPaddingRight: 12,
+
+  // TODO: 全局外边距
+  globalMarginTop: 8,
+  globalMarginBottom: 8,
+  globalMarginLeft: 12,
+  globalMarginRight: 12,
+
+  // TODO: 全局圆角大小
+  globalBorderRadiusTopLeft: 12,
+  globalBorderRadiusTopRight: 4,
+  globalBorderRadiusBottomLeft: 4,
+  globalBorderRadiusBottomRight: 12,
 
   // TODO: 固定栏消息
   TickerShowTicker: false,
@@ -1984,8 +2188,185 @@ body {
   overflow: hidden;
   ${this.form.bgColor ? `background-color: ${this.form.bgColor};` : ''}
 }
+${this.globalPadding}
+${this.globalMargin}
+${this.globalBorderRadius}
 `
     },
+    // NOTE: 全局内边距
+    globalPadding() {
+      return `/* 全局内边距 GlobalPadding */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-paid-message-renderer {
+  padding: 0;
+}
+${this.globalPaddingTop}
+${this.globalPaddingBottom}
+${this.globalPaddingLeft}
+${this.globalPaddingRight}
+`
+    },
+    // NOTE: 全局内边距-上侧
+    globalPaddingTop() {
+      return `/* 全局内边距-上侧 GlobalPaddingTop */
+#header.yt-live-chat-membership-item-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  padding-top: ${this.form.globalPaddingTop}px;
+}
+#header.yt-live-chat-paid-message-renderer {
+  padding-top: ${this.form.globalPaddingTop}px;
+  padding-bottom: ${this.form.globalPaddingTop}px;
+}
+`
+    },
+    // NOTE: 全局内边距-下侧
+    globalPaddingBottom() {
+      return `/* 全局内边距-下侧 GlobalPaddingBottom */
+#header.yt-live-chat-membership-item-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  padding-bottom: ${this.form.globalPaddingBottom}px;
+}
+#content.yt-live-chat-paid-message-renderer {
+  padding-top: ${this.form.globalPaddingBottom}px;
+  padding-bottom: ${this.form.globalPaddingBottom}px;
+}
+`
+    },
+    // NOTE: 全局内边距-左侧
+    globalPaddingLeft() {
+      return `/* 全局内边距-左侧 GlobalPaddingLeft */
+#header.yt-live-chat-membership-item-renderer,
+#header.yt-live-chat-paid-message-renderer,
+#content.yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  padding-left: ${this.form.globalPaddingLeft}px;
+}`
+    },
+    // NOTE: 全局内边距-右侧
+    globalPaddingRight() {
+      return `/* 全局内边距-右侧 GlobalPaddingRight */
+#header.yt-live-chat-membership-item-renderer,
+#header.yt-live-chat-paid-message-renderer,
+#content.yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  padding-right: ${this.form.globalPaddingRight}px;
+}`
+    },
+
+    // NOTE: 全局外边距
+    globalMargin() {
+      return `/* 全局外边距 GlobalMargin */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  margin-top: ${this.form.globalMarginTop}px;
+  margin-bottom: ${this.form.globalMarginBottom}px;
+  margin-left: ${this.form.globalMarginLeft}px;
+  margin-right: ${this.form.globalMarginRight}px;
+}`
+    },
+    // NOTE: 全局外边距-上侧
+    globalMarginTop() {
+      return `/* 全局外边距-上侧 GlobalMarginTop */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  margin-top: ${this.form.globalMarginTop}px;
+}`
+    },
+    // NOTE: 全局外边距-下侧
+    globalMarginBottom() {
+      return `/* 全局外边距-下侧 GlobalMarginBottom */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  margin-bottom: ${this.form.globalMarginBottom}px;
+}`
+    },
+    // NOTE: 全局外边距-左侧
+    globalMarginLeft() {
+      return `/* 全局外边距-左侧 GlobalMarginLeft */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  margin-left: ${this.form.globalMarginLeft}px;
+}`
+    },
+    // NOTE: 全局外边距-右侧
+    globalMarginRight() {
+      return `/* 全局外边距-右侧 GlobalMarginRight */
+yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer,
+yt-live-chat-text-message-renderer,
+yt-live-chat-interact-message-renderer {
+  margin-right: ${this.form.globalMarginRight}px;
+}`
+    },
+    globalBorderRadius() {
+      return `/* 全局圆角 GlobalBorderRadius */
+${this.globalBorderRadiusTopLeft}
+${this.globalBorderRadiusTopRight}
+${this.globalBorderRadiusBottomLeft}
+${this.globalBorderRadiusBottomRight}
+`
+    },
+    // NOTE: 全局圆角-左上
+    globalBorderRadiusTopLeft() {
+      return `/* 全局圆角-左上 GlobalBorderRadiusTopLeft */
+yt-live-chat-text-message-renderer,
+#card.yt-live-chat-paid-message-renderer,
+#card.yt-live-chat-membership-item-renderer,
+#header.yt-live-chat-paid-message-renderer,
+yt-live-chat-interact-message-renderer {
+  border-top-left-radius: ${this.form.globalBorderRadiusTopLeft}px;
+}`
+    },
+    // NOTE: 全局圆角-右上
+    globalBorderRadiusTopRight() {
+      return `/* 全局圆角-右上 GlobalBorderRadiusTopRight */
+yt-live-chat-text-message-renderer,
+#card.yt-live-chat-paid-message-renderer,
+#card.yt-live-chat-membership-item-renderer,
+#header.yt-live-chat-paid-message-renderer,
+yt-live-chat-interact-message-renderer {
+  border-top-right-radius: ${this.form.globalBorderRadiusTopRight}px;
+}`
+    },
+    // NOTE: 全局圆角-左下
+    globalBorderRadiusBottomLeft() {
+      return `/* 全局圆角-左下 GlobalBorderRadiusBottomLeft */
+yt-live-chat-text-message-renderer,
+#card.yt-live-chat-paid-message-renderer,
+#card.yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer[show-only-header] #header.yt-live-chat-paid-message-renderer,
+#content.yt-live-chat-paid-message-renderer,
+yt-live-chat-interact-message-renderer {
+  border-bottom-left-radius: ${this.form.globalBorderRadiusBottomLeft}px;
+}`
+    },
+    // NOTE: 全局圆角-右下
+    globalBorderRadiusBottomRight() {
+      return `/* 全局圆角-右下 GlobalBorderRadiusBottomRight */
+yt-live-chat-text-message-renderer,
+#card.yt-live-chat-paid-message-renderer,
+#card.yt-live-chat-membership-item-renderer,
+yt-live-chat-paid-message-renderer[show-only-header] #header.yt-live-chat-paid-message-renderer,
+#content.yt-live-chat-paid-message-renderer,
+yt-live-chat-interact-message-renderer {
+  border-bottom-right-radius: ${this.form.globalBorderRadiusBottomRight}px;
+}`
+    },
+
+
     // TODO: 一般消息
     textMessageStyle() {
       return `/* 一般消息 textMessageStyle */
@@ -2170,7 +2551,7 @@ ${this.textMessageBadgesSize}
       return `/* 一般消息舰队勋章显示 textMessageShowBadges */
 yt-live-chat-text-message-renderer #chat-badges {
   ${this.form.textMessageShowBadges ? '' : 'display: none !important;'}
-  vertical-align: text-top !important;
+  align-self: baseline;
 }
 `
     },
@@ -2297,7 +2678,7 @@ yt-live-chat-text-message-renderer #message * {
       return `/* 一般消息内容行高 textMessageContentLineHeight */
 yt-live-chat-text-message-renderer #message,
 yt-live-chat-text-message-renderer #message * {
-  line-height: ${this.form.textMessageContentLineHeight || this.form.textMessageContentFontSize}px !important;
+  line-height: ${this.form.textMessageContentLineHeight || this.form.textMessageContentFontSize + 4}px !important;
 }
 `
     },
@@ -2365,6 +2746,7 @@ yt-live-chat-text-message-renderer #message {
     textMessageBackgroundStyle() {
       return `/* 一般消息背景 textMessageBackgroundStyle */
 ${this.textMessageMessageBgColor}
+${this.textMessageMessageBgShadow}
 ${this.textMessageOwnerMessageBgColor}
 ${this.textMessageModeratorMessageBgColor}
 ${this.textMessageMember3MessageBgColor}
@@ -2375,6 +2757,18 @@ ${this.textMessageMember1MessageBgColor}
     // NOTE: 一般消息消息背景色
     textMessageMessageBgColor() {
       return this.getTextMessageBgStyleForAuthorType('', this.form.textMessageMessageBgColor)
+    },
+    // NOTE: 一般消息消息背景阴影
+    textMessageMessageBgShadow() {
+      return `/* 一般消息消息背景阴影 textMessageMessageBgShadow */
+yt-live-chat-text-message-renderer {
+  ${this.form.textMessageMessageBgShadow ? `
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+` : `
+    -webkit-box-shadow: none;
+    box-shadow: none;
+`}}`
     },
     // NOTE: 一般消息消息主播背景色
     textMessageOwnerMessageBgColor() {
@@ -2463,10 +2857,8 @@ yt-live-chat-text-message-renderer #image-and-message .emoji[id^=upower] {
     // TODO: 打赏消息（SC、礼物）
     paidMessageStyle() {
       return `/* 打赏消息（SC、礼物） paidMessageStyle */
-yt-live-chat-paid-message-renderer {
-  margin: 4px 0 !important;
-}
 ${this.paidMessageAvatarStyle}
+${this.paidMessageBgStyle}
 ${this.paidMessageFirstLineStyle}
 ${this.paidMessageSecondLineStyle}
 ${this.paidMessageContentLineStyle}
@@ -2500,6 +2892,24 @@ yt-live-chat-paid-message-renderer #author-photo img {
   margin-right: ${this.form.paidMessageAvatarSize / 4}px !important;
 }
 `
+    },
+    // TODO: 打赏消息背景
+    paidMessageBgStyle() {
+      return `/* 打赏消息背景 paidMessageBgStyle */
+${this.paidMessageMessageBgShadow}
+`
+    },
+    // NOTE: 打赏消息消息背景阴影
+    paidMessageMessageBgShadow() {
+      return `/* 一般消息消息背景阴影 paidMessageMessageBgShadow */
+#card.yt-live-chat-paid-message-renderer {
+  ${this.form.paidMessageMessageBgShadow ? `
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+` : `
+    -webkit-box-shadow: none;
+    box-shadow: none;
+`}}`
     },
     // TODO: 打赏消息（SC、礼物）第一行
     paidMessageFirstLineStyle() {
@@ -2696,6 +3106,7 @@ ${this.membershipMember3MessageBgColor}
 ${this.membershipMember2MessageBgColor}
 ${this.membershipMember1MessageBgColor}
 ${this.membershipMessageShowBg}
+${this.membershipMessageMessageBgShadow}
 `
     },
     // NOTE: 上舰消息背景显示
@@ -2708,6 +3119,18 @@ yt-live-chat-membership-item-renderer #header {
   box-shadow: none !important;
   margin: 0 !important;`}
 }`
+    },
+    // NOTE: 上舰消息消息背景阴影
+    membershipMessageMessageBgShadow() {
+      return `/* 一般消息消息背景阴影 membershipMessageMessageBgShadow */
+#card.yt-live-chat-membership-item-renderer {
+  ${this.form.membershipMessageMessageBgShadow ? `
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+` : `
+    -webkit-box-shadow: none;
+    box-shadow: none;
+`}}`
     },
     // NOTE: 上舰消息舰长消息背景色
     membershipMessageMember3MessageBgColor() {
@@ -2892,10 +3315,11 @@ yt-live-chat-interact-message-renderer #author-photo img {
     interactMessageUserNameStyle() {
       return `/* 互动消息弹幕用户名 interactMessageUserNameStyle  */
 ${this.interactMessageShowUserName}
+${this.interactMessageUserNameColor}
 ${this.interactMessageUserNameFont}
 ${this.interactMessageUserNameFontSize}
 ${this.interactMessageUserNameLineHeight}
-${this.interactMessageUserNameColor}
+${this.interactMessageUserNameOutlineStyle}
 
 ${this.interactMessageUserNameOwnerColor}
 ${this.interactMessageUserNameModeratorColor}
@@ -3017,17 +3441,17 @@ ${this.interactMessageBadgesSize}
     // NOTE: 互动消息舰队勋章显示
     interactMessageBadgesShow() {
       return `/* 互动消息舰队勋章显示 interactMessageBadgesShow */
-yt-live-chat-interact-message-renderer[is-fan-group] #chat-badges {
+yt-live-chat-interact-message-renderer #chat-badges {
   ${this.form.interactMessageBadgesShow ? '' : 'display: none !important;'}
-  vertical-align: interact-top !important;
+  align-self: baseline;
 }
 `
     },
     // NOTE: 互动消息舰队勋章大小
     interactMessageBadgesSize() {
       return `/* 互动消息舰队勋章大小 interactMessageBadgesSize */
-yt-live-chat-interact-message-renderer[is-fan-group] img.yt-live-chat-author-badge-renderer,
-yt-live-chat-interact-message-renderer[is-fan-group] yt-icon.yt-live-chat-author-badge-renderer {
+yt-live-chat-interact-message-renderer img.yt-live-chat-author-badge-renderer,
+yt-live-chat-interact-message-renderer yt-icon.yt-live-chat-author-badge-renderer {
   width: ${this.form.interactMessageBadgesSize}px;
   height: ${this.form.interactMessageBadgesSize}px;
 }
@@ -3109,6 +3533,7 @@ ${this.interactMessageContentColor}
 ${this.interactMessageContentFont}
 ${this.interactMessageContentFontSize}
 ${this.interactMessageContentLineHeight}
+${this.interactMessageContentOutlineStyle}
 `
     },
     // NOTE: 互动消息内容颜色
@@ -3143,7 +3568,7 @@ yt-live-chat-interact-message-renderer #message * {
       return `/* 互动消息内容行高 interactMessageContentLineHeight */
 yt-live-chat-interact-message-renderer #message,
 yt-live-chat-interact-message-renderer #message * {
-  line-height: ${this.form.interactMessageContentLineHeight || this.form.interactMessageContentFontSize}px !important;
+  line-height: ${this.form.interactMessageContentLineHeight || this.form.interactMessageContentFontSize + 4}px !important;
 }
 `
     },
@@ -3158,6 +3583,7 @@ yt-live-chat-interact-message-renderer #message {
     interactMessageBackgroundStyle() {
       return `/* 互动消息背景 interactMessageBackgroundStyle */
 ${this.interactMessageMessageBgColor}
+${this.interactMessageMessageBgShadow}
 ${this.interactMessageOwnerMessageBgColor}
 ${this.interactMessageModeratorMessageBgColor}
 ${this.interactMessageMember3MessageBgColor}
@@ -3168,6 +3594,18 @@ ${this.interactMessageMember1MessageBgColor}
     // NOTE: 互动消息消息背景色
     interactMessageMessageBgColor() {
       return this.getInteractMessageBgStyleForAuthorType('', this.form.interactMessageMessageBgColor)
+    },
+    // NOTE: 互动消息消息背景阴影
+    interactMessageMessageBgShadow() {
+      return `/* 一般消息消息背景阴影 interactMessageMessageBgShadow */
+#card.yt-live-chat-interact-message-renderer {
+  ${this.form.interactMessageMessageBgShadow ? `
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+` : `
+    -webkit-box-shadow: none;
+    box-shadow: none;
+`}}`
     },
     // NOTE: 互动消息消息主播背景色
     interactMessageOwnerMessageBgColor() {
@@ -3321,7 +3759,7 @@ yt-live-chat-text-message-renderer${typeSelector}[is-highlighted] {
     },
     getInteractMessageBgStyleForPrivilegeType(privilegeType, color) {
       let typeSelector = privilegeType ? `[is-fan-group][privilegeType="${privilegeType}"]` : ''
-      if (!this.form.textMessageUseBarsInsteadOfBg) {
+      if (!this.form.interactMessageUseBarsInsteadOfBg) {
         return `yt-live-chat-interact-message-renderer${typeSelector},
 yt-live-chat-interact-message-renderer${typeSelector}[is-highlighted] {
   ${color ? `background-color: ${color} !important;` : ''}
@@ -3343,7 +3781,7 @@ yt-live-chat-interact-message-renderer${typeSelector}[is-highlighted] {
     },
     getInteractMessageBgStyleForAuthorType(authorType, color) {
       let typeSelector = authorType ? `[author-type="${authorType}"]` : ''
-      if (!this.form.textMessageUseBarsInsteadOfBg) {
+      if (!this.form.interactMessageUseBarsInsteadOfBg) {
         return `yt-live-chat-interact-message-renderer${typeSelector},
 yt-live-chat-interact-message-renderer${typeSelector}[is-highlighted] {
   ${color ? `background-color: ${color} !important;` : ''}

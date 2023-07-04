@@ -236,6 +236,7 @@ export default {
     
     textMessageBg: 'Normal Message Background',
     textMessageUseBarsInsteadOfBg: 'Block Bar (instead of BG)',
+    textMessageMessageBgShadow: 'Message Background Shadow',
     textMessageMessageBgColor: 'Message Background Color',
     textMessageOwnerMessageBgColor: 'Owner Message Background Color',
     textMessageModeratorMessageBgColor: 'Moderator Message Background Color',
@@ -277,6 +278,9 @@ export default {
     paidMessageAvatar: 'Super Chat Avatar',
     paidMessageShowAvatar: 'Show Avatar',
     paidMessageAvatarSize: 'Avatar Size',
+
+    paidMessageBg: 'Super Chat Background',
+    paidMessageMessageBgShadow: 'Super Chat Background Shadow',
 
     paidMessageFirstLine: 'Super Chat First Line',
     paidMessageFirstLineColor: 'First Line Color',
@@ -320,6 +324,7 @@ export default {
 
     membershipMessageBg: 'Membership Background',
     membershipMessageShowBg: 'Show Membership Background',
+    membershipMessageMessageBgShadow: 'Membership Background Shadow',
     membershipMessageMember3MessageBgColor: 'Captain Background Color',
     membershipMessageMember2MessageBgColor: 'Governor Background Color',
     membershipMessageMember1MessageBgColor: 'Admiral Background Color',
@@ -397,6 +402,7 @@ export default {
     interactMessageBg: 'Interact Message Background',
     interactMessageUseBarsInsteadOfBg: 'Block Bar (instead of BG)',
     interactMessageMessageBgColor: 'Message Background Color',
+    interactMessageMessageBgShadow: 'Message Background Shadow',
     interactMessageOwnerMessageBgColor: 'Owner Message Background Color',
     interactMessageModeratorMessageBgColor: 'Moderator Message Background Color',
     interactMessageMember3MessageBgColor: 'Captain Message Background Color',
@@ -421,6 +427,27 @@ export default {
     interactMessageAnimateOutWaitTime: 'Remove Waiting Time (s)',
     interactMessageSlide: 'slide',
     interactMessageReverseSlide: 'reverse slide',
+
+    // TODO: Global Padding
+    globalPadding: 'Global Padding',
+    globalPaddingTop: 'Global Padding - Top',
+    globalPaddingBottom: 'Global Padding - Bottom',
+    globalPaddingLeft: 'Global Padding - Left',
+    globalPaddingRight: 'Global Padding - Right',
+
+    // TODO: Global Margin
+    globalMargin: 'Global Margin',
+    globalMarginTop: 'Global Margin - Top',
+    globalMarginBottom: 'Global Margin - Bottom',
+    globalMarginLeft: 'Global Margin - Left',
+    globalMarginRight: 'Global Margin - Right',
+
+    // TODO: Global Border Radius
+    globalBorderRadius: 'Global Border Radius',
+    globalBorderRadiusTopLeft: 'Global Border Radius - Top Left',
+    globalBorderRadiusTopRight: 'Global Border Radius - Top Right',
+    globalBorderRadiusBottomLeft: 'Global Border Radius - Bottom Left',
+    globalBorderRadiusBottomRight: 'Global Border Radius - Bottom Right',
 
     // TODO: TickerMessage
     Ticker: 'Paid Ticker',
