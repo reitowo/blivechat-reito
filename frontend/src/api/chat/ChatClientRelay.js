@@ -11,8 +11,7 @@ const COMMAND_ADD_INTERACT = 8
 // const CONTENT_TYPE_TEXT = 0
 const CONTENT_TYPE_EMOTICON = 1
 
-const HEARTBEAT_INTERVAL = 10 * 1000
-const RECEIVE_TIMEOUT = HEARTBEAT_INTERVAL + (5 * 1000)
+const RECEIVE_TIMEOUT = 15 * 1000
 
 export default class ChatClientRelay {
   constructor(roomId, autoTranslate) {
@@ -30,7 +29,6 @@ export default class ChatClientRelay {
     this.websocket = null
     this.retryCount = 0
     this.isDestroying = false
-    this.heartbeatTimerId = null
     this.receiveTimeoutTimerId = null
   }
 
@@ -70,14 +68,7 @@ export default class ChatClientRelay {
         }
       }
     }))
-    this.heartbeatTimerId = window.setInterval(this.sendHeartbeat.bind(this), HEARTBEAT_INTERVAL)
     this.refreshReceiveTimeoutTimer()
-  }
-
-  sendHeartbeat() {
-    this.websocket.send(JSON.stringify({
-      cmd: COMMAND_HEARTBEAT
-    }))
   }
 
   refreshReceiveTimeoutTimer() {
@@ -99,10 +90,6 @@ export default class ChatClientRelay {
 
   onWsClose() {
     this.websocket = null
-    if (this.heartbeatTimerId) {
-      window.clearInterval(this.heartbeatTimerId)
-      this.heartbeatTimerId = null
-    }
     if (this.receiveTimeoutTimerId) {
       window.clearTimeout(this.receiveTimeoutTimerId)
       this.receiveTimeoutTimerId = null
@@ -121,6 +108,10 @@ export default class ChatClientRelay {
     let { cmd, data } = JSON.parse(event.data)
     switch (cmd) {
     case COMMAND_HEARTBEAT: {
+      // 不能由定时器触发发心跳包，因为浏览器会把不活动页面的定时器调到1分钟以上
+      this.websocket.send(JSON.stringify({
+        cmd: COMMAND_HEARTBEAT
+      }))
       break
     }
     case COMMAND_ADD_TEXT: {
