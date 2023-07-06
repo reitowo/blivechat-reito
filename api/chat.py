@@ -313,7 +313,6 @@ class RoomInfoHandler(api.base.ApiHandler):  # noqa
                     'Origin': 'https://live.bilibili.com',
                     'Referer': f'https://live.bilibili.com/{room_id}'
                 },
-                cookies=utils.request.BILIBILI_COMMON_COOKIES,
                 params={
                     'room_id': room_id
                 }
