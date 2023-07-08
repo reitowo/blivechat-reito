@@ -192,7 +192,7 @@ async def _do_get_avatar_url_from_web(user_id):
             _wbi_key = ''
         return None
 
-    avatar_url = process_avatar_url(data['data']['rface'])
+    avatar_url = process_avatar_url(data['data']['face'])
     update_avatar_cache(user_id, avatar_url)
     return avatar_url
 

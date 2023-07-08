@@ -128,8 +128,17 @@ export function getTimeStyle(config) {
 }
 
 export function getAnimationStyle(config) {
-  let totalTime = getAnimationTotalTime(config)
-  let keyframes = getAnimationKeyframe(totalTime, config)
+  let animateIn = config.animateIn
+  let fadeInTime = config.fadeInTime
+  let animateOut = config.animateOut
+  let fadeOutTime = config.fadeOutTime
+  let animateOutWaitTime = config.animateOutWaitTime
+  let slide = config.slide
+  let reverseSlide = config.reverseSlide
+  let totalTime = 0
+  let keyframes = []
+  totalTime = getAnimationTotalTime(animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime)
+  keyframes = getAnimationKeyframe(totalTime, animateIn, fadeInTime, animateOut, animateOutWaitTime, fadeOutTime, slide, reverseSlide)
   return `/* Animation */
 @keyframes anim {
 ${keyframes.join('\n')}

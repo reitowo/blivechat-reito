@@ -1978,7 +1978,7 @@ export const DEFAULT_CONFIG = {
   textMessageFadeInTime: 200, // ms
   textMessageAnimateOut: false,
   textMessageFadeOutTime: 30, // s
-  textMessageAnimateOutWaitTime: 200, // ms
+  textMessageAnimateOutWaitTime: 30, // s
   textMessageSlide: true,
   textMessageReverseSlide: false,
 
@@ -2014,7 +2014,7 @@ export const DEFAULT_CONFIG = {
   paidMessageFadeInTime: 200, // ms
   paidMessageAnimateOut: false,
   paidMessageFadeOutTime: 30, // s
-  paidMessageAnimateOutWaitTime: 200, // ms
+  paidMessageAnimateOutWaitTime: 30, // s
   paidMessageSlide: true,
   paidMessageReverseSlide: false,
 
@@ -2046,7 +2046,7 @@ export const DEFAULT_CONFIG = {
   membershipMessageFadeInTime: 200, // ms
   membershipMessageAnimateOut: false,
   membershipMessageFadeOutTime: 30, // s
-  membershipMessageAnimateOutWaitTime: 200, // ms
+  membershipMessageAnimateOutWaitTime: 30, // s
   membershipMessageSlide: true,
   membershipMessageReverseSlide: false,
   
@@ -2110,7 +2110,7 @@ export const DEFAULT_CONFIG = {
   interactMessageFadeInTime: 200, // ms
   interactMessageAnimateOut: false,
   interactMessageFadeOutTime: 30, // s
-  interactMessageAnimateOutWaitTime: 200, // ms
+  interactMessageAnimateOutWaitTime: 30, // s
   interactMessageSlide: true,
   interactMessageReverseSlide: false,
 
