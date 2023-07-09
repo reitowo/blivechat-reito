@@ -53,7 +53,8 @@ export default {
     return {
       config: chatConfig.deepCloneDefaultConfig(),
       chatClient: null,
-      pronunciationConverter: null
+      pronunciationConverter: null,
+      danmu_pic_json: []
     }
   },
   computed: {
@@ -91,7 +92,7 @@ export default {
     emoticonsTrie() {
       let res = new trie.Trie()
       let danmu_emoticons
-      
+
       if (this.config.useLocalEmoticonSetting) {
         // 使用本地json设置
         console.log("使用本地 json 文件设置表情包")
@@ -120,7 +121,10 @@ export default {
     // 在页面刷新缓存时, 读取用户emoticons.json, 并建立表情包库
     axios.get('/emoticons.json')
       .then(res => {
-        this.danmu_pic_json = res.data
+        if (res && res.data) {
+          this.danmu_pic_json = res.data
+        }
+
       // console.log(this.danmu_pic_json)
       })
 
@@ -152,7 +156,7 @@ export default {
       //* 若上次预设值有留空，则使用默认值
       // cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
       cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
-  
+
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
 
@@ -221,7 +225,7 @@ export default {
 
       cfg.minDanmakuInterval = toInt(cfg.minDanmakuInterval, chatConfig.DEFAULT_CONFIG.minDanmakuInterval)
       cfg.maxDanmakuInterval = toInt(cfg.maxDanmakuInterval, chatConfig.DEFAULT_CONFIG.maxDanmakuInterval)
-      
+
       chatConfig.sanitizeConfig(cfg)
       this.config = cfg
     },
@@ -265,7 +269,7 @@ export default {
     // TODO: 前端显示欢迎入场
     onInteractWord(data) {
       // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
-      
+
       // NOTE: 判断不同的 Interact 是否显示（进入房间、关注房间、分享房间）
       if (data.msgType === constants.INTERACT_TYPE_ENTER) {
         if (!this.config.showInteractWordEnter) {
@@ -290,7 +294,7 @@ export default {
 
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
-      
+
       if (this.config.randomXOffset ^ this.config.randomYOffset) {
         if (this.config.randomXOffset) {
           yOffset = this.config.randomYInitialOffset
@@ -330,7 +334,7 @@ export default {
         isFanGroup: data.isFanGroup,
 
         privilegeType: data.privilegeType,
-        
+
         xOffset: xOffset,
         yOffset: yOffset,
         floatDistanceX: floatDistanceX,
@@ -341,7 +345,7 @@ export default {
       this.$refs.renderer.addMessage(message)
     },
     async onAddText(data) {
-      
+
       // 匹配 #Hex 的正则表达式
       let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
@@ -390,8 +394,8 @@ export default {
           return
         }
       }
-      
-      
+
+
       // 不是同一个user的消息的话，开启新的 thread
       // 拉了，为了减少对 key 的修改
       // 直接把Thread塞到原本的 content 和 richContent
@@ -403,7 +407,7 @@ export default {
       translationThread[0] = data.translation
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
-      
+
       if (this.config.randomXOffset ^ this.config.randomYOffset) {
         if (this.config.randomXOffset) {
           yOffset = this.config.randomYInitialOffset
@@ -467,7 +471,7 @@ export default {
         // console.log("只显示以“"+ this.config.translationSign +"”开头的翻译弹幕")
         return
       }
-      
+
       let price = data.coinType == 'gold' ? data.totalCoin / 1000 : 0
       if (this.mergeSimilarGift(data.authorName, price, data.giftName, data.num)) {
         return
@@ -476,10 +480,10 @@ export default {
       // if (price < this.config.minGiftPrice) {
       //  return
       // }
-      
+
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
-      
+
       if (this.config.randomXOffset ^ this.config.randomYOffset) {
         if (this.config.randomXOffset) {
           yOffset = this.config.randomYInitialOffset
@@ -539,7 +543,7 @@ export default {
       }
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
-      
+
       if (this.config.randomXOffset ^ this.config.randomYOffset) {
         if (this.config.randomXOffset) {
           yOffset = this.config.randomYInitialOffset
@@ -598,7 +602,7 @@ export default {
 
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
-      
+
       if (this.config.randomXOffset ^ this.config.randomYOffset) {
         if (this.config.randomXOffset) {
           yOffset = this.config.randomYInitialOffset
@@ -768,7 +772,7 @@ export default {
         }
       }
       let richContent = []
-      
+
       if (this.config.imageShowType > 1) {
         this.config.imageShowType = 1
       }
@@ -815,7 +819,7 @@ export default {
       }
 
       // 若含有【B站官方小表情如：[dog]】需要解析，添加到 emoticonsTrie
-      if (this.config.autoRenderOfficialSmallEmoji === true && has_blivechat_emoticon) {
+      if (this.config.autoRenderOfficialSmallEmoji === true && has_bilibili_official_small_emoji) {
         for (let emotIndex in data.emots) {
           let emot = data.emots[emotIndex]
           if (emoticonsTrie.has(emot.descript) === false) { // 存在用户自定义关键词则优先显示用户设定表情

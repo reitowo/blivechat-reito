@@ -189,7 +189,6 @@ export default class ChatClientDirect {
       window.console.warn('未知的websocket消息类型，data=', event.data)
       return
     }
-
     let data = new Uint8Array(event.data)
     this.parseWsMessage(data)
 
@@ -244,6 +243,7 @@ export default class ChatClientDirect {
 
     switch (operation) {
     case OP_SEND_MSG_REPLY: {
+
       // 业务消息
       if (ver == WS_BODY_PROTOCOL_VERSION_BROTLI) {
         // 压缩过的先解压
@@ -289,20 +289,24 @@ export default class ChatClientDirect {
     if (pos != -1) {
       cmd = cmd.substr(0, pos)
     }
+    // console.log(command)
     let callback = CMD_CALLBACK_MAP[cmd]
     if (callback) {
       callback.call(this, command)
     }
   }
-  
+
   // TODO: 欢迎入场 ws 的信息，然后给到 Room.vue
   async interactWordCallback(command) {
     if (!this.onInteractWord) {
       return
     }
+    if (command.data.text_large) {
+      return
+    }
     let data = command.data
     // console.log(`interactWordCallback data 是 ${JSON.stringify(data, null, 4)}`)
-    
+
     data = {
       id: getUuid4Hex(),
       roomId: data.roomid,
@@ -478,5 +482,7 @@ const CMD_CALLBACK_MAP = {
   GUARD_BUY: ChatClientDirect.prototype.guardBuyCallback,
   SUPER_CHAT_MESSAGE: ChatClientDirect.prototype.superChatMessageCallback,
   SUPER_CHAT_MESSAGE_DELETE: ChatClientDirect.prototype.superChatMessageDeleteCallback,
-  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback
+  INTERACT_WORD: ChatClientDirect.prototype.interactWordCallback,
+  // 2023-07-08 短暂出现过用 WATCHED_CHANGE 展示进房信息，后又改回 INTERACT_WORD ，现在 WATCHED_CHANGE 用来刷新 X 人看过，未开播时进房不会发送 INTERACT_WORD。 这里暂时先保留
+  WATCHED_CHANGE: ChatClientDirect.prototype.interactWordCallback
 }
