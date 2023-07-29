@@ -690,7 +690,7 @@ export default {
       let blockKeywordsTrie = this.blockKeywordsTrie
       for (let i = 0; i < content.length; i++) {
         let remainContent = content.substring(i)
-        if (blockKeywordsTrie.nonGreedyMatch(remainContent) !== null) {
+        if (blockKeywordsTrie.lazyMatch(remainContent) !== null) {
           return false
         }
       }
@@ -701,7 +701,7 @@ export default {
       let blockUsersByKeywordsTrie = this.blockUsersByKeywordsTrie
       for (let i = 0; i < authorName.length; i++) {
         let remainContent = authorName.substring(i)
-        if (blockUsersByKeywordsTrie.nonGreedyMatch(remainContent) !== null) {
+        if (blockKeywordsTrie.lazyMatch(remainContent) !== null) {
           return false
         }
       }
@@ -851,9 +851,8 @@ export default {
         if (this.config.isGreedyMatch) {
           matchEmoticon = emoticonsTrie.greedyMatch(remainContent)
         } else {
-          matchEmoticon = emoticonsTrie.nonGreedyMatch(remainContent)
+          matchEmoticon = emoticonsTrie.lazyMatch(remainContent)
         }
-
         if (matchEmoticon === null) {
           pos++
           continue

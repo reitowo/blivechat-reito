@@ -67,7 +67,7 @@ export class Trie {
     }
   }
 
-  nonGreedyMatch(str) {
+  lazyMatch(str) {
     let node = this._root
     for (let char of str) {
       let nextNode = node.children[char]
