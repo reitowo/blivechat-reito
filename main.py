@@ -93,10 +93,10 @@ def run_server(host, port, debug):
         logger.warning('Address is used %s:%d', host, port)
         return
     finally:
-        url = 'http://localhost/' if port == 80 else f'http://localhost:{port}/'
-        # 防止更新版本后浏览器加载缓存
-        url += '?_v=' + update.DOODLEBEAR_VERSION
-        webbrowser.open(url)
+        if cfg.open_browser_at_startup:
+            url = 'http://localhost/' if port == 80 else f'http://localhost:{port}/'
+            url += '?_v=' + update.DOODLEBEAR_VERSION
+            webbrowser.open(url)
     logger.info('Server started: %s:%d', host, port)
     logger.info('服务器启动: 请不要关闭此黑框，否则不能继续获取头像或弹幕')
     logger.info('blivechat使用教程: https://www.yuque.com/doodle-irifi/ueaigm/laogg2')

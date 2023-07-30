@@ -52,6 +52,8 @@ class AppConfig:
         self.database_url = 'sqlite:///data/database.db'
         self.tornado_xheaders = False
         self.loader_url = ''
+        self.open_browser_at_startup = True
+        self.enable_upload_file = True
 
         self.fetch_avatar_interval = 3.5
         self.fetch_avatar_max_queue_size = 2
@@ -76,9 +78,12 @@ class AppConfig:
 
     def _load_app_config(self, config):
         app_section = config['app']
-        self.database_url = app_section['database_url']
-        self.tornado_xheaders = app_section.getboolean('tornado_xheaders')
-        self.loader_url = app_section['loader_url']
+        self.database_url = app_section.get('database_url', self.database_url)
+        self.tornado_xheaders = app_section.getboolean('tornado_xheaders', fallback=self.tornado_xheaders)
+        self.loader_url = app_section.get('loader_url', self.loader_url)
+        self.open_browser_at_startup = app_section.getboolean('open_browser_at_startup',
+                                                              fallback=self.open_browser_at_startup)
+        self.enable_upload_file = app_section.getboolean('enable_upload_file', fallback=self.enable_upload_file)
 
         self.fetch_avatar_interval = app_section.getfloat('fetch_avatar_interval')
         self.fetch_avatar_max_queue_size = app_section.getint('fetch_avatar_max_queue_size')
