@@ -351,6 +351,7 @@ export default class ChatClientDirect {
       authorType = 0
     }
 
+    let textEmoticons = this.parseTextEmoticons(info)
 
     let data = {
       avatarUrl: await avatar.getAvatarUrl(uid),
@@ -368,20 +369,22 @@ export default class ChatClientDirect {
       isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
       translation: '',
-      emoticon: info[0][13].url || null // 如果是B站小表情（黄豆表情）则没有[13]属性
+      emoticon: info[0][13].url || null,
+      textEmoticons: textEmoticons,
     }
     // 增加区分表情的细节数据
     if (info[0][13]) {
       data.emoticonDetail = info[0][13]
     }
     // 存储emoji占位符和图片对应关系
-    if (info[0][15] && info[0][15].extra) {
-
-      const extraMap = JSON.parse(info[0][15].extra)
-      if (extraMap.emots) {
-        data.emots = extraMap.emots
-      }
-    // TODO: Json Example
+    // FIXME: 对齐原 Repo 的逻辑，注解掉 emots
+    // if (info[0][15] && info[0][15].extra) {
+    //   const extraMap = JSON.parse(info[0][15].extra)
+    //   if (extraMap.emots) {
+    //     data.emots = extraMap.emots
+    //   }
+    // }
+    
     //   {
     //     "[哇]": {
     //         "emoticon_id": 211,
@@ -402,8 +405,21 @@ export default class ChatClientDirect {
     //         "emoticon_unique": "emoji_210"
     //     }
     //  }
-    }
     this.onAddText(data)
+  }
+
+  parseTextEmoticons(info) {
+    try {
+      let modeInfo = info[0][15]
+      let extra = JSON.parse(modeInfo.extra)
+      if (!extra.emots) {
+        return []
+      }
+      let res = Object.values(extra.emots).map(emoticon => [emoticon.descript, emoticon.url])
+      return res
+    } catch {
+      return []
+    }
   }
 
   sendGiftCallback(command) {

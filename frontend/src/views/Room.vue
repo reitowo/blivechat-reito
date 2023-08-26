@@ -54,7 +54,8 @@ export default {
       config: chatConfig.deepCloneDefaultConfig(),
       chatClient: null,
       pronunciationConverter: null,
-      danmu_pic_json: []
+      danmu_pic_json: [],
+      textEmoticons: {}, // 官方的文本表情，运行时从弹幕消息收集
     }
   },
   computed: {
@@ -106,6 +107,24 @@ export default {
         // 1个个添加 emoticon
         if (emoticon.keyword !== '' && emoticon.align !== '' && emoticon.height !== '' && emoticon.url !== '') {
           res.set(emoticon.keyword, emoticon)
+        }
+      }
+      // TODO: 本地设置的表情包，会覆盖官方的表情包
+      // NOTE: 原 blivechat 解析 textEmoticons 的代码
+      // for (let emoticon of Object.values(this.textEmoticons)) {
+      //   res.set(emoticon.keyword, emoticon)
+      // }
+      for (let emoticon of Object.values(this.textEmoticons)) {
+        // 不覆盖用户自定义的表情包
+        if (res.has(emoticon.keyword) === false) {
+          let data = {
+            keyword: emoticon.keyword,
+            align: 'inline',
+            height: 24,
+            level: 0,
+            url: emoticon.url
+          }
+          res.set(emoticon.keyword, data)
         }
       }
       return res
@@ -783,6 +802,8 @@ export default {
         return richContent
       }
       // TODO: 处理表情相关
+
+      // 可能含有文本表情，需要解析
       let emoticonsTrie = this.emoticonsTrie
 
       // 存在用户自定义关键词则优先显示用户设定表情，不存在则考虑B站自带表情（通用表情、房间表情、个人购买表情）
@@ -809,29 +830,53 @@ export default {
       }
 
       // NOTE: 上面处理了一般的表情（B站点击后显示单个图片的表情），下面开始处理可以和文字同时显示的黄豆表情和blivechat自定义表情
-      let has_blivechat_emoticon = this.config.emoticons.length !== 0 || this.danmu_pic_json.length !== 0
-      let has_bilibili_official_small_emoji = data.emots !== null
+      let has_blivechat_emoticon = this.config.emoticons.length !== 0
+      let has_user_defined_danmu_pic = this.danmu_pic_json.length !== 0
+      // FIXME: 如果通过服务器转发，只会有 textEmoticons，没有 emots
+      let has_bilibili_official_small_emoji = data.emots !== null || Object.keys(this.textEmoticons).length !== 0
+      // let has_bilibili_official_small_emoji = Object.keys(this.textEmoticons).length !== 0
 
-      // 没有blivechat自定义表情和B站官方小表情，只能是文本
-      if (!has_blivechat_emoticon && !has_bilibili_official_small_emoji) {
+
+      // 没有blivechat自定义表情
+      // 没有用户自定义文字转图片
+      // 没有B站官方小表情
+      // 只能是文本
+      if (!has_blivechat_emoticon && !has_user_defined_danmu_pic && !has_bilibili_official_small_emoji) {
         richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
 
       // 若含有【B站官方小表情如：[dog]】需要解析，添加到 emoticonsTrie
       if (this.config.autoRenderOfficialSmallEmoji === true && has_bilibili_official_small_emoji) {
-        for (let emotIndex in data.emots) {
-          let emot = data.emots[emotIndex]
-          if (emoticonsTrie.has(emot.descript) === false) { // 存在用户自定义关键词则优先显示用户设定表情
-            let emotValue = {
-              type: constants.CONTENT_TYPE_EMOTICON,
-              keyword: emot.descript,
-              align: "inline",
-              height: emot.height,
-              level: 0,
-              url: emot.url
+        // for (let emotIndex in data.emots) {
+        //   let emot = data.emots[emotIndex]
+        //   if (emoticonsTrie.has(emot.descript) === false) { // 存在用户自定义关键词则优先显示用户设定表情
+        //     let emotValue = {
+        //       type: constants.CONTENT_TYPE_EMOTICON,
+        //       keyword: emot.descript,
+        //       align: "inline",
+        //       height: emot.height,
+        //       level: 0,
+        //       url: emot.url
+        //     }
+        //     emoticonsTrie.set(emot.descript, emotValue)
+        //   }
+        // }
+        for (let [keyword, url] of data.textEmoticons) {
+          if (!(keyword in this.textEmoticons)) {
+            let emoticon = { keyword, url }
+            this.$set(this.textEmoticons, keyword, emoticon)
+            if (emoticonsTrie.has(keyword) === false) { // 不覆盖用户自定义关键词
+              let emotValue = {
+                type: constants.CONTENT_TYPE_EMOTICON,
+                keyword: keyword,
+                align: "inline",
+                height: 24,
+                level: 0,
+                url: url
+              }
+              emoticonsTrie.set(keyword, emotValue)
             }
-            emoticonsTrie.set(emot.descript, emotValue)
           }
         }
       }
