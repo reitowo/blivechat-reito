@@ -278,7 +278,8 @@ const MESSAGE_GENERATORS = [
           id: getUuid4Hex(),
           translation: '',
           emoticon: null,
-          emots: randomChoose(EMOT_INFO_LIST)
+          emots: randomChoose(EMOT_INFO_LIST),
+          textEmoticons: [],
         }
       }
     }
@@ -303,7 +304,8 @@ const MESSAGE_GENERATORS = [
           id: getUuid4Hex(),
           translation: '',
           emoticon: randomChoose(EMOTICONS),
-          emoticonDetail: randomChoose(EMOT_DETAIL_LIST)
+          emoticonDetail: randomChoose(EMOT_DETAIL_LIST),
+          textEmoticons: [],
         }
       }
     }
