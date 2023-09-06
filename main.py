@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import argparse
+import asyncio
 import logging
 import logging.handlers
 import os
+import signal
 import webbrowser
+from typing import *
 
 import tornado.ioloop
 import tornado.web
@@ -20,21 +23,38 @@ import utils.request
 
 logger = logging.getLogger(__name__)
 
-routes = [
+ROUTES = [
     (r'/api/server_info', api.main.ServerInfoHandler),
     (r'/api/chat', api.chat.ChatHandler),
     (r'/api/room_info', api.chat.RoomInfoHandler),
     (r'/api/avatar_url', api.chat.AvatarHandler),
 
     (rf'{api.main.EMOTICON_BASE_URL}/(.*)', tornado.web.StaticFileHandler, {'path': api.main.EMOTICON_UPLOAD_PATH}),
-    (r'/(.*)', api.main.MainHandler, {'path': config.WEB_ROOT})
+    (r'/(.*)', api.main.MainHandler, {'path': config.WEB_ROOT}),
 ]
 
+server: Optional[tornado.httpserver.HTTPServer] = None
 
-def main():
+shut_down_event: Optional[asyncio.Event] = None
+
+
+async def main():
+    if not init():
+        return 1
+    try:
+        await run()
+    finally:
+        await shut_down()
+    return 0
+
+
+def init():
+    init_signal_handlers()
+
     args = parse_args()
 
     init_logging(args.debug)
+    logger.info('App started, initializing')
     config.init()
 
     utils.request.init()
@@ -46,7 +66,27 @@ def main():
 
     update.check_update()
 
-    run_server(args.host, args.port, args.debug)
+    init_server(args.host, args.port, args.debug)
+    return server is not None
+
+
+def init_signal_handlers():
+    global shut_down_event
+    shut_down_event = asyncio.Event()
+
+    signums = (signal.SIGINT, signal.SIGTERM)
+    try:
+        loop = asyncio.get_running_loop()
+        for signum in signums:
+            loop.add_signal_handler(signum, on_shut_down_signal)
+    except NotImplementedError:
+        # 不太安全，但Windows只能用这个
+        for signum in signums:
+            signal.signal(signum, on_shut_down_signal)
+
+
+def on_shut_down_signal(*_args):
+    shut_down_event.set()
 
 
 def parse_args():
@@ -74,7 +114,7 @@ def init_logging(debug):
     logging.getLogger('tornado.access').setLevel(logging.WARNING)
 
 
-def run_server(host, port, debug):
+def init_server(host, port, debug):
     cfg = config.get_config()
     if host is None:
         host = cfg.host
@@ -82,13 +122,14 @@ def run_server(host, port, debug):
         port = cfg.port
 
     app = tornado.web.Application(
-        routes,
+        ROUTES,
         websocket_ping_interval=10,
         debug=debug,
         autoreload=False
     )
     try:
-        app.listen(
+        global server
+        server = app.listen(
             port,
             host,
             xheaders=cfg.tornado_xheaders
@@ -102,10 +143,26 @@ def run_server(host, port, debug):
             url += '?_v=' + update.DOODLEBEAR_VERSION
             webbrowser.open(url)
     logger.info('Server started: %s:%d', host, port)
-    logger.info('服务器启动: 请不要关闭此黑框，否则不能继续获取头像或弹幕')
-    logger.info('blivechat使用教程: https://www.yuque.com/doodle-irifi/ueaigm/laogg2')
-    tornado.ioloop.IOLoop.current().start()
+
+
+async def run():
+    logger.info('Running event loop')
+    await shut_down_event.wait()
+    logger.info('Received shutdown signal')
+
+
+async def shut_down():
+    logger.info('Closing server')
+    server.stop()
+    await server.close_all_connections()
+
+    logger.info('Closing websocket connections')
+    await services.chat.shut_down()
+
+    await utils.request.shut_down()
+
+    logger.info('App shut down')
 
 
 if __name__ == '__main__':
-    main()
+    exit(asyncio.run(main()))
