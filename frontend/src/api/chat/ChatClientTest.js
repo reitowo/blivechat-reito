@@ -1,6 +1,6 @@
 import { getUuid4Hex } from '@/utils'
 import * as constants from '@/components/ChatRenderer/constants'
-import * as avatar from './avatar'
+import * as chat from '.'
 
 const NAMES = [
   'xfgryujk', 'Simon', 'Il Harper', 'Kinori', 'shugen', 'yuyuyzl', '3Shain', '光羊', '黑炎', 'Misty', '孤梦星影',
@@ -264,7 +264,7 @@ const MESSAGE_GENERATORS = [
         type: constants.MESSAGE_TYPE_TEXT,
         message: {
           ...randGuardInfo(),
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
           content: randomChoose(CONTENTS),
@@ -292,7 +292,7 @@ const MESSAGE_GENERATORS = [
         type: constants.MESSAGE_TYPE_TEXT,
         message: {
           ...randGuardInfo(),
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
           content: randomChoose(OFFICIAL_EMOJI_NAME),
@@ -319,7 +319,7 @@ const MESSAGE_GENERATORS = [
         message: {
           ...randomChoose(GIFT_INFO_LIST),
           id: getUuid4Hex(),
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES)
           // num: 1
@@ -335,7 +335,7 @@ const MESSAGE_GENERATORS = [
         type: constants.MESSAGE_TYPE_SUPER_CHAT,
         message: {
           id: getUuid4Hex(),
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
           price: randomChoose(SC_PRICES),
@@ -353,7 +353,7 @@ const MESSAGE_GENERATORS = [
         type: constants.MESSAGE_TYPE_MEMBER,
         message: {
           id: getUuid4Hex(),
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
           privilegeType: randInt(1, 3)

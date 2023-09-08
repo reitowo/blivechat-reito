@@ -23,6 +23,7 @@ import { mergeConfig, toBool, toInt, toFloat } from '@/utils'
 import * as trie from '@/utils/trie'
 import * as pronunciation from '@/utils/pronunciation'
 import * as chatConfig from '@/api/chatConfig'
+import * as chat from '@/api/chat'
 import ChatClientTest from '@/api/chat/ChatClientTest'
 import ChatClientDirect from '@/api/chat/ChatClientDirect'
 import ChatClientRelay from '@/api/chat/ChatClientRelay'
@@ -55,7 +56,7 @@ export default {
       chatClient: null,
       pronunciationConverter: null,
       danmu_pic_json: [],
-      textEmoticons: {}, // 官方的文本表情，运行时从弹幕消息收集
+      textEmoticons: [], // 官方的文本表情
     }
   },
   computed: {
@@ -114,7 +115,7 @@ export default {
       // for (let emoticon of Object.values(this.textEmoticons)) {
       //   res.set(emoticon.keyword, emoticon)
       // }
-      for (let emoticon of Object.values(this.textEmoticons)) {
+      for (let emoticon of this.textEmoticons) {
         // 不覆盖用户自定义的表情包
         if (res.has(emoticon.keyword) === false) {
           let data = {
@@ -133,6 +134,7 @@ export default {
   mounted() {
     this.initConfig()
     this.initChatClient()
+    this.initTextEmoticons()
     if (this.config.giftUsernamePronunciation !== '') {
       this.pronunciationConverter = new pronunciation.PronunciationConverter()
       this.pronunciationConverter.loadDict(this.config.giftUsernamePronunciation)
@@ -276,6 +278,9 @@ export default {
       this.chatClient.onUpdateTranslation = this.onUpdateTranslation
       this.chatClient.onInteractWord = this.onInteractWord // chatClient 定义来自 frontend\src\api\chat\ChatClientDirect\index.js
       this.chatClient.start()
+    },
+    async initTextEmoticons() {
+      this.textEmoticons = await chat.getTextEmoticons()
     },
 
     start() {
@@ -833,7 +838,7 @@ export default {
       let has_blivechat_emoticon = this.config.emoticons.length !== 0
       let has_user_defined_danmu_pic = this.danmu_pic_json.length !== 0
       // FIXME: 如果通过服务器转发，只会有 textEmoticons，没有 emots
-      let has_bilibili_official_small_emoji = data.emots !== null || Object.keys(this.textEmoticons).length !== 0
+      let has_bilibili_official_small_emoji = data.emots !== null || this.textEmoticons.length !== 0
       // let has_bilibili_official_small_emoji = Object.keys(this.textEmoticons).length !== 0
 
 

@@ -693,29 +693,4 @@ class LiveMsgHandler(blivedm.BaseHandler):
             )
         )
 
-    # TODO: 当出现 interact word 的时候，从 __interact_word_callback 过来的信息，到 ChatClientDirect\index.js
-    async def _on_interact_word(self, client: LiveClient, message: blivedm.InteractMessage):
-        asyncio.ensure_future(self.__on_interact_word(client, message))
-
-    async def __on_interact_word(self, client: LiveClient, message: blivedm.InteractMessage):
-        # print('__on_interact_word')
-        # 先异步调用再获取房间，因为返回时房间可能已经不存在了
-        avatar_url = await services.avatar.get_avatar_url(message.uid)
-        
-        room = client_room_manager.get_room(client.tmp_room_id)
-        if room is None:
-            return
-
-        room.send_cmd_data(api.chat.Command.ADD_INTERACT, {
-            'timestamp': message.timestamp,
-            'room_id': message.room_id,
-            'msg_type': message.msg_type,
-            'authorName': message.uname,
-            'id': uuid.uuid4().hex,
-            'avatarUrl': avatar_url,
-            'medal_level': message.medal_level,
-            'medal_name': message.medal_name,
-            'medal_room_id': message.medal_room_id,
-            'privilege_type': message.guard_level
-        })
-    
+    # TODO 开放平台消息处理
