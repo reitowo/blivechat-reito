@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import json
+from typing import *
 
 import tornado.web
 
 
-class ApiHandler(tornado.web.RequestHandler):  # noqa
+class ApiHandler(tornado.web.RequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.json_args = None
+        self.json_args: Optional[dict] = None
 
     def set_default_headers(self):
         # 跨域测试用

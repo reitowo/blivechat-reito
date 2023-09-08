@@ -119,7 +119,7 @@ def make_translation_message_data(msg_id, translation):
     ]
 
 
-class ChatHandler(tornado.websocket.WebSocketHandler):  # noqa
+class ChatHandler(tornado.websocket.WebSocketHandler):
     HEARTBEAT_INTERVAL = 10
     RECEIVE_TIMEOUT = HEARTBEAT_INTERVAL + 5
 
@@ -318,7 +318,7 @@ class ChatHandler(tornado.websocket.WebSocketHandler):  # noqa
         self.send_cmd_data(Command.ADD_GIFT, gift_data)
 
 
-class RoomInfoHandler(api.base.ApiHandler):  # noqa
+class RoomInfoHandler(api.base.ApiHandler):
     async def get(self):
         room_id = int(self.get_query_argument('roomId'))
         logger.info('client=%s getting room info, room=%d', self.request.remote_ip, room_id)
@@ -368,7 +368,7 @@ class RoomInfoHandler(api.base.ApiHandler):  # noqa
         return room_info['room_id'], room_info['uid']
 
 
-class AvatarHandler(api.base.ApiHandler):  # noqa
+class AvatarHandler(api.base.ApiHandler):
     async def get(self):
         uid = int(self.get_query_argument('uid'))
         avatar_url = await services.avatar.get_avatar_url_or_none(uid)
@@ -382,3 +382,10 @@ class AvatarHandler(api.base.ApiHandler):  # noqa
         self.write({
             'avatarUrl': avatar_url
         })
+
+
+ROUTES = [
+    (r'/api/chat', ChatHandler),
+    (r'/api/room_info', RoomInfoHandler),
+    (r'/api/avatar_url', AvatarHandler),
+]
