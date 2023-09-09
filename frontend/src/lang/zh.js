@@ -9,11 +9,14 @@ export default {
   home: {
     roomIdEmpty: '房间ID不能为空',
     roomIdInteger: '房间ID必须为正整数',
+    authCodeEmpty: '身份码不能为空',
 
     openSpecificTutorial: '打开对应教程',
 
     general: '常规',
-    roomId: '直播房间ID',
+    room: '房间',
+    roomId: '房间ID',
+    authCode: '身份码',
     showDanmaku: '显示消息弹幕',
     showInteractWordEnter: '显示进房互动',
     showInteractWordFollow: '显示关注互动',
@@ -25,6 +28,7 @@ export default {
     mergeSameUserDanmaku: '合并同用户连续弹幕',
     mergeSameUserDanmakuInterval: '合并弹幕发送间隔(秒)',
     mergeSimilarDanmaku: '合并相似消息弹幕',
+
     mergeGift: '合并礼物',
     
     minGiftPrice: '显示高于价格打赏',

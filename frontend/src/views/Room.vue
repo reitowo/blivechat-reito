@@ -37,8 +37,12 @@ export default {
     ChatRenderer
   },
   props: {
-    roomId: {
+    roomKeyType: {
       type: Number,
+      default: 1
+    },
+    roomKeyValue: {
+      type: [Number, String],
       default: null
     },
     strConfig: {
@@ -263,11 +267,18 @@ export default {
     initChatClient() {
       if (this.roomId === null) {
         this.chatClient = new ChatClientTest(this.config.minDanmakuInterval, this.config.maxDanmakuInterval)
+      } else if (this.config.relayMessagesByServer) {
+        let roomKey = {
+          type: this.roomKeyType,
+          value: this.roomKeyValue
+        }
+        this.chatClient = new ChatClientRelay(roomKey, this.config.autoTranslate)
       } else {
-        if (!this.config.relayMessagesByServer) {
-          this.chatClient = new ChatClientDirect(this.roomId)
+        if (this.roomKeyType === 1) {
+          this.chatClient = new ChatClientDirect(this.roomKeyValue)
         } else {
-          this.chatClient = new ChatClientRelay(this.roomId, this.config.autoTranslate)
+          // TODO 支持authCode
+          // this.chatClient = new ChatClientDirect(this.roomKeyValue)
         }
       }
       this.chatClient.onAddText = this.onAddText

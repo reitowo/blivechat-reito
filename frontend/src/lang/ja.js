@@ -9,11 +9,14 @@ export default {
   home: {
     roomIdEmpty: 'ルームのIDを空白にすることはできません',
     roomIdInteger: 'ルームは正の整数でなければなりません',
+    authCodeEmpty: 'アイデンティティコードを空白にすることはできません',
 
     openSpecificTutorial: '使用教程',
 
     general: '常規',
+    room: 'ルーム',
     roomId: 'ルームID',
+    authCode: 'アイデンティティコード',
     showDanmaku: 'コメントを表示する',
     showイントラクションWordEnter: '部屋に入るを表示する',
     showイントラクションWordFollow: 'フォローを表示する',
