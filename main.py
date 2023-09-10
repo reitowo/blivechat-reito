@@ -5,6 +5,7 @@ import logging
 import logging.handlers
 import os
 import signal
+import sys
 import webbrowser
 from typing import *
 
@@ -163,4 +164,4 @@ async def shut_down():
 
 
 if __name__ == '__main__':
-    exit(asyncio.run(main()))
+    sys.exit(asyncio.run(main()))
