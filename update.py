@@ -5,8 +5,8 @@ import aiohttp
 
 import utils.request
 
-VERSION = 'v1.7.0'
-DOODLEBEAR_VERSION = 'v1.7.2-230916'
+VERSION = 'v1.8.0'
+DOODLEBEAR_VERSION = 'v1.8.0-230917'
 
 def check_update():
     asyncio.get_running_loop().create_task(_do_check_update())
