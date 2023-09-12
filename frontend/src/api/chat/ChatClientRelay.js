@@ -1,3 +1,5 @@
+import * as chat from '.'
+
 const COMMAND_HEARTBEAT = 0
 const COMMAND_JOIN_ROOM = 1
 const COMMAND_ADD_TEXT = 2
@@ -6,7 +8,7 @@ const COMMAND_ADD_MEMBER = 4
 const COMMAND_ADD_SUPER_CHAT = 5
 const COMMAND_DEL_SUPER_CHAT = 6
 const COMMAND_UPDATE_TRANSLATION = 7
-const COMMAND_ADD_INTERACT = 8
+const COMMAND_FATAL_ERROR = 8
 
 // const CONTENT_TYPE_TEXT = 0
 const CONTENT_TYPE_EMOTICON = 1
@@ -25,6 +27,8 @@ export default class ChatClientRelay {
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
     this.onInteractWord = null
+
+    this.onFatalError = null
 
     this.websocket = null
     this.retryCount = 0
@@ -180,10 +184,12 @@ export default class ChatClientRelay {
       this.onUpdateTranslation(data)
       break
     }
-    case COMMAND_ADD_INTERACT: {
-      if (this.onInteractWord) {
-        this.onInteractWord(data)
+    case COMMAND_FATAL_ERROR: {
+      if (!this.onFatalError) {
+        break
       }
+      let error = new chat.ChatClientFatalError(data.type, data.msg)
+      this.onFatalError(error)
       break
     }
     }

@@ -407,6 +407,8 @@ export default class ChatClientTest {
     this.onUpdateTranslation = null
     this.onInteractWord = null
 
+    this.onFatalError = null
+
     this.timerId = null
   }
 
