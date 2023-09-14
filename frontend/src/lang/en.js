@@ -10,6 +10,7 @@ export default {
     roomIdEmpty: "Room ID can't be empty",
     roomIdInteger: 'Room ID must be positive integer',
     authCodeEmpty: "Identity code can't be empty",
+    authCodeFormatError: 'Identity code format error',
     useAuthCodeWarning: 'Please prioritize the identity code',
 
     openSpecificTutorial: 'Open Tutorial',
@@ -18,6 +19,7 @@ export default {
     room: 'Room',
     roomId: 'Room ID',
     authCode: 'Identity code',
+    howToGetAuthCode: 'How to get identity code',
     showDanmaku: 'Show messages',
     showInteractWordEnter: 'Show enter room',
     showInteractWordFollow: 'show follow room',
@@ -533,7 +535,8 @@ export default {
   },
   help: {
     help: 'Help',
-    p1: '1. Copy the identity code (身份码) from the webpage where you start streaming',
+    p1_1: '1. Copy the identity code (身份码) from this webpage:',
+    p1_2: '. NOTE: DO NOT refresh the identity code, unless it is leaked. Once you refresh the identity code, the old one will be invalid',
     p2: '2. Enter the identity code into the room configuration on the home page. Copy the room URL',
     p3: '3. Generate styles with the style generator. Copy the CSS',
     p4: '4. Add browser source in OBS',
