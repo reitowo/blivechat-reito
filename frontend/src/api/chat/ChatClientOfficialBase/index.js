@@ -192,8 +192,15 @@ export default class ChatClientOfficialBase {
       return
     }
     this.retryCount++
-    window.console.warn('掉线重连中', this.retryCount)
-    window.setTimeout(this.wsConnect.bind(this), 1000)
+    console.warn('掉线重连中', this.retryCount)
+    window.setTimeout(this.wsConnect.bind(this), this.getReconnectInterval())
+  }
+
+  getReconnectInterval() {
+    return Math.min(
+      1000 + ((this.retryCount - 1) * 2000),
+      10 * 1000
+    )
   }
 
   onWsMessage(event) {
