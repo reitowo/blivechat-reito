@@ -137,35 +137,52 @@ export default {
     }
   },
   mounted() {
-    this.initConfig()
-    this.initChatClient()
-    this.initTextEmoticons()
-    if (this.config.giftUsernamePronunciation !== '') {
-      this.pronunciationConverter = new pronunciation.PronunciationConverter()
-      this.pronunciationConverter.loadDict(this.config.giftUsernamePronunciation)
+    if (document.visibilityState === 'visible') {
+      this.init()
+    } else {
+      // 当前窗口不可见，延迟到可见时加载，防止OBS中一次并发太多请求（OBS中浏览器不可见时也会加载网页，除非显式设置）
+      document.addEventListener('visibilitychange', this.onVisibilityChange)
     }
-    // 在页面刷新缓存时, 读取用户emoticons.json, 并建立表情包库
-    axios.get('/emoticons.json')
-      .then(res => {
-        if (res && res.data) {
-          this.danmu_pic_json = res.data
-        }
-
-      // console.log(this.danmu_pic_json)
-      })
-
-    // 提示用户已加载
-    this.$message({
-      message: 'Loaded',
-      duration: 500
-    })
   },
   beforeDestroy() {
+    document.removeEventListener('visibilitychange', this.onVisibilityChange)
     if (this.chatClient) {
       this.chatClient.stop()
     }
   },
   methods: {
+    onVisibilityChange() {
+      if (document.visibilityState !== 'visible') {
+        return
+      }
+      document.removeEventListener('visibilitychange', this.onVisibilityChange)
+      this.init()
+    },
+    init() {
+      this.initConfig()
+      this.initChatClient()
+      this.initTextEmoticons()
+      if (this.config.giftUsernamePronunciation !== '') {
+        this.pronunciationConverter = new pronunciation.PronunciationConverter()
+        this.pronunciationConverter.loadDict(this.config.giftUsernamePronunciation)
+      }
+
+      // 在页面刷新缓存时, 读取用户emoticons.json, 并建立表情包库
+      axios.get('/emoticons.json')
+        .then(res => {
+          if (res && res.data) {
+            this.danmu_pic_json = res.data
+          }
+
+        // console.log(this.danmu_pic_json)
+        })
+
+      // 提示用户已加载
+      this.$message({
+        message: 'Loaded',
+        duration: 500
+      })
+    },
     initConfig() {
       let locale = this.strConfig.lang
       if (locale) {
