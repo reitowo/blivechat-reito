@@ -57,7 +57,7 @@
                   :src="content.url"
                   :alt="content.text"
                   :shared-tooltip-text="content.text"
-                  :id="content.emoticon_unique"
+                  :id="`emoticon-${content.text}`"
                   :height="content.height"
                   width="auto"
                 >
@@ -117,7 +117,7 @@
                   :src="content.url"
                   :alt="content.text"
                   :shared-tooltip-text="content.text"
-                  :id="content.emoticon_unique"
+                  :id="`emoticon-${content.text}`"
                   :height="content.height"
                   width="auto"
                 >

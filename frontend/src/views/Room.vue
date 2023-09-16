@@ -860,25 +860,31 @@ export default {
       let emoticonsTrie = this.emoticonsTrie
 
       // 存在用户自定义关键词则优先显示用户设定表情，不存在则考虑B站自带表情（通用表情、房间表情、个人购买表情）
-      if (emoticonsTrie.has(data.content) === false && data.emoticonDetail) {
-        // 通过 startsWith 来区分3种表情
-        let emoticon_unique = data.emoticonDetail.emoticon_unique
-        if (this.config.autoRenderOfficialGeneralEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('official')) {
-          // B站直播间通用表情（不包括 黄豆表情 autoRenderOfficialSmallEmoji）
-          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
-          return richContent
-        }
-        if (this.config.autoRenderStreamerEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('room')) {
+      if (emoticonsTrie.has(data.content) === false && data.emoticon !== null) {
+        if (data.emoticonDetail) {
+          let emoticon_unique = data.emoticonDetail.emoticon_unique
+          if (this.config.autoRenderOfficialGeneralEmoji === true && emoticon_unique.startsWith('official')) {
+            // B站直播间通用表情（不包括 黄豆表情 autoRenderOfficialSmallEmoji）
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+            return richContent
+          }
+          if (this.config.autoRenderStreamerEmoji === true && emoticon_unique.startsWith('room')) {
+            // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+            return richContent
+          }
+          if (this.config.autoRenderPersonalEmoji === true && emoticon_unique.startsWith('upower')) {
+            // 个人购买表情（用户购买的）
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+            return richContent
+          }
+        } else {
           // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
-          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
-          return richContent
-        }
-        if (this.config.autoRenderPersonalEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('upower')) {
-          // 个人购买表情（用户购买的）
-          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
+          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
           return richContent
         }
       }
+      
 
       // NOTE: 上面处理了一般的表情（B站点击后显示单个图片的表情），下面开始处理可以和文字同时显示的黄豆表情和blivechat自定义表情
       let has_blivechat_emoticon = this.config.emoticons.length !== 0
@@ -891,27 +897,6 @@ export default {
         richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
-
-      // 若含有【B站官方小表情如：[dog]】需要解析，添加到 emoticonsTrie
-      // if (this.config.autoRenderOfficialSmallEmoji === true && has_bilibili_official_small_emoji) {
-      //   for (let [keyword, url] of data.textEmoticons) {
-      //     if (!(keyword in this.textEmoticons)) {
-      //       let emoticon = { keyword, url }
-      //       this.$set(this.textEmoticons, keyword, emoticon)
-      //       if (emoticonsTrie.has(keyword) === false) { // 不覆盖用户自定义关键词
-      //         let emotValue = {
-      //           type: constants.CONTENT_TYPE_EMOTICON,
-      //           keyword: keyword,
-      //           align: "inline",
-      //           height: 24,
-      //           level: 0,
-      //           url: url
-      //         }
-      //         emoticonsTrie.set(keyword, emotValue)
-      //       }
-      //     }
-      //   }
-      // }
 
       // 开始分析弹幕文字，并按需求和表情替换
       let startPos = 0
