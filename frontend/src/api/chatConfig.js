@@ -640,7 +640,6 @@ export function getLocalConfig() {
   }
 }
 
-// FIXME: 前端上传表情包设置
 export function sanitizeConfig(config) {
   let newEmoticons = []
   if (config.emoticons instanceof Array) {

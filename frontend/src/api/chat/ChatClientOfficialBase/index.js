@@ -51,7 +51,6 @@ export default class ChatClientOfficialBase {
     this.onAddSuperChat = null
     this.onDelSuperChat = null
     this.onUpdateTranslation = null
-    this.onInteractWord = null
 
     this.onFatalError = null
 
@@ -161,7 +160,7 @@ export default class ChatClientOfficialBase {
   }
 
   onReceiveTimeout() {
-    window.console.warn('接收消息超时')
+    console.warn('接收消息超时')
     this.discardWebsocket()
   }
 
@@ -205,9 +204,10 @@ export default class ChatClientOfficialBase {
 
   onWsMessage(event) {
     if (!(event.data instanceof ArrayBuffer)) {
-      window.console.warn('未知的websocket消息类型，data=', event.data)
+      console.warn('未知的websocket消息类型，data=', event.data)
       return
     }
+
     let data = new Uint8Array(event.data)
     this.parseWsMessage(data)
 
@@ -251,7 +251,7 @@ export default class ChatClientOfficialBase {
     default: {
       // 未知消息
       let body = new Uint8Array(data.buffer, offset + rawHeaderSize, packLen - rawHeaderSize)
-      window.console.warn('未知包类型，operation=', operation, dataView, body)
+      console.warn('未知包类型，operation=', operation, dataView, body)
       break
     }
     }
@@ -263,7 +263,6 @@ export default class ChatClientOfficialBase {
 
     switch (operation) {
     case OP_SEND_MSG_REPLY: {
-
       // 业务消息
       if (ver == WS_BODY_PROTOCOL_VERSION_BROTLI) {
         // 压缩过的先解压
@@ -280,7 +279,7 @@ export default class ChatClientOfficialBase {
             body = JSON.parse(textDecoder.decode(body))
             this.handlerCommand(body)
           } catch (e) {
-            window.console.error('body=', body)
+            console.error('body=', body)
             throw e
           }
         }
@@ -301,7 +300,7 @@ export default class ChatClientOfficialBase {
     }
     default: {
       // 未知消息
-      window.console.warn('未知包类型，operation=', operation, dataView, body)
+      console.warn('未知包类型，operation=', operation, dataView, body)
       break
     }
     }

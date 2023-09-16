@@ -752,6 +752,9 @@
               <el-table-column :label="$t('home.operation')" width="170">
                 <template slot-scope="scope">
                   <el-button-group>
+                    <el-button type="primary" icon="el-icon-upload2" :disabled="!serverConfig.enableUploadFile"
+                      @click="uploadEmoticon(scope.row)"
+                    ></el-button>
                     <el-button type="danger" icon="el-icon-minus" @click="delEmoticon(scope.$index)"></el-button>
                   </el-button-group>
                 </template>
@@ -852,10 +855,10 @@ a:hover {
 </style>
 <script>
 import _ from 'lodash'
-import axios from 'axios'
 import download from 'downloadjs'
 
 import { mergeConfig } from '@/utils'
+import * as mainApi from '@/api/main'
 import * as chatConfig from '@/api/chatConfig'
 
 export default {
@@ -915,9 +918,10 @@ export default {
   methods: {
     async updateServerConfig() {
       try {
-        this.serverConfig = (await axios.get('/api/server_info')).data.config
+        this.serverConfig = (await mainApi.getServerInfo()).config
       } catch (e) {
         this.$message.error(`Failed to fetch server information: ${e}`)
+        throw e
       }
     },
 
@@ -965,8 +969,27 @@ export default {
         })
         .catch(() => {})
     },
-    uploadEmoticon() {
-      // TODO WIP
+    uploadEmoticon(emoticon) {
+      let input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'image/png, image/jpeg, image/jpg, image/gif'
+      input.onchange = async() => {
+        let file = input.files[0]
+        if (file.size > 1024 * 1024) {
+          this.$message.error(this.$t('home.emoticonFileTooLarge'))
+          return
+        }
+
+        let res
+        try {
+          res = await mainApi.uploadEmoticon(file)
+        } catch (e) {
+          this.$message.error(`Failed to upload: ${e}`)
+          throw e
+        }
+        emoticon.url = res.url
+      }
+      input.click()
     },
 
     enterRoom() {

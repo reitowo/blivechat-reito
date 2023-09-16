@@ -243,7 +243,7 @@ const MESSAGE_GENERATORS = [
       return {
         type: constants.MESSAGE_TYPE_INTERACT,
         message: {
-          avatarUrl: avatar.DEFAULT_AVATAR_URL,
+          avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           msgType: randInt(1, 5),
           authorName: randomChoose(NAMES),
@@ -279,7 +279,6 @@ const MESSAGE_GENERATORS = [
           translation: '',
           emoticon: null,
           emots: randomChoose(EMOT_INFO_LIST),
-          textEmoticons: [],
         }
       }
     }
@@ -305,7 +304,6 @@ const MESSAGE_GENERATORS = [
           translation: '',
           emoticon: randomChoose(EMOTICONS),
           emoticonDetail: randomChoose(EMOT_DETAIL_LIST),
-          textEmoticons: [],
         }
       }
     }
@@ -321,8 +319,8 @@ const MESSAGE_GENERATORS = [
           id: getUuid4Hex(),
           avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
-          authorName: randomChoose(NAMES)
-          // num: 1
+          authorName: randomChoose(NAMES),
+          num: 1
         }
       }
     }

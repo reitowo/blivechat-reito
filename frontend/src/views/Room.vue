@@ -50,10 +50,10 @@ export default {
       type: Object,
       default: () => ({})
     },
-    uidColorMap: {
-      type: Object,
-      default: () => ({})
-    },
+    // uidColorMap: {
+    //   type: Object,
+    //   default: () => ({})
+    // },
   },
   data() {
     return {
@@ -62,6 +62,7 @@ export default {
       pronunciationConverter: null,
       danmu_pic_json: [],
       textEmoticons: [], // 官方的文本表情
+      uidColorMap: {},
     }
   },
   computed: {
@@ -283,7 +284,7 @@ export default {
       }
     },
     initChatClient() {
-      if (this.roomId === null) {
+      if (this.roomKeyValue === null) {
         this.chatClient = new ChatClientTest(this.config.minDanmakuInterval, this.config.maxDanmakuInterval)
       } else if (this.config.relayMessagesByServer) {
         let roomKey = {
@@ -304,11 +305,14 @@ export default {
       this.chatClient.onAddSuperChat = this.onAddSuperChat
       this.chatClient.onDelSuperChat = this.onDelSuperChat
       this.chatClient.onUpdateTranslation = this.onUpdateTranslation
+      this.chatClient.onInteractWord = this.onInteractWord
       this.chatClient.onFatalError = this.onFatalError
       this.chatClient.start()
     },
     async initTextEmoticons() {
-      this.textEmoticons = await chat.getTextEmoticons()
+      if (this.config.autoRenderOfficialSmallEmoji) {
+        this.textEmoticons = await chat.getTextEmoticons()
+      }
     },
 
     start() {
@@ -765,7 +769,7 @@ export default {
       let blockUsersByKeywordsTrie = this.blockUsersByKeywordsTrie
       for (let i = 0; i < authorName.length; i++) {
         let remainContent = authorName.substring(i)
-        if (blockKeywordsTrie.lazyMatch(remainContent) !== null) {
+        if (blockUsersByKeywordsTrie.lazyMatch(remainContent) !== null) {
           return false
         }
       }
@@ -824,8 +828,7 @@ export default {
         height: height
       }
     },
-    // TODO: 处理不同类型表情包
-    getRichContent(data) {
+    getTextColor(data) {
       let textColor = 'initial'
       if (this.config.allowTextColorSetting) {
         if (constants.UID_COLOR_MAP_REGEX.test(data.content)) {
@@ -835,6 +838,11 @@ export default {
           textColor = this.uidColorMap[data.authorName]
         }
       }
+      return textColor
+    },
+    // TODO: 处理不同类型表情包
+    getRichContent(data) {
+      let textColor = this.getTextColor(data)
       let richContent = []
 
       if (this.config.imageShowType > 1) {
@@ -855,20 +863,18 @@ export default {
       if (emoticonsTrie.has(data.content) === false && data.emoticonDetail) {
         // 通过 startsWith 来区分3种表情
         let emoticon_unique = data.emoticonDetail.emoticon_unique
-        // B站直播间通用表情（不包括 黄豆表情 autoRenderOfficialSmallEmoji）
         if (this.config.autoRenderOfficialGeneralEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('official')) {
+          // B站直播间通用表情（不包括 黄豆表情 autoRenderOfficialSmallEmoji）
           richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
           return richContent
         }
-
-        // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
         if (this.config.autoRenderStreamerEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('room')) {
+          // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
           richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
           return richContent
         }
-
-        // 个人购买表情（用户购买的）
         if (this.config.autoRenderPersonalEmoji === true && data.emoticon !== null && emoticon_unique.startsWith('upower')) {
+          // 个人购买表情（用户购买的）
           richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.emoticonDetail.emoticon_unique, data.emoticonDetail.url, data.emoticonDetail.height))
           return richContent
         }
@@ -879,52 +885,33 @@ export default {
       let has_user_defined_danmu_pic = this.danmu_pic_json.length !== 0
       // FIXME: 如果通过服务器转发，只会有 textEmoticons，没有 emots
       let has_bilibili_official_small_emoji = data.emots !== null || this.textEmoticons.length !== 0
-      // let has_bilibili_official_small_emoji = Object.keys(this.textEmoticons).length !== 0
 
-
-      // 没有blivechat自定义表情
-      // 没有用户自定义文字转图片
-      // 没有B站官方小表情
-      // 只能是文本
       if (!has_blivechat_emoticon && !has_user_defined_danmu_pic && !has_bilibili_official_small_emoji) {
+        // 只能是文本（没有blivechat自定义表情, 没有用户自定义文字转图片, 没有B站官方小表情）
         richContent.push(this.generateTextData(data.content, textColor))
         return richContent
       }
 
       // 若含有【B站官方小表情如：[dog]】需要解析，添加到 emoticonsTrie
-      if (this.config.autoRenderOfficialSmallEmoji === true && has_bilibili_official_small_emoji) {
-        // for (let emotIndex in data.emots) {
-        //   let emot = data.emots[emotIndex]
-        //   if (emoticonsTrie.has(emot.descript) === false) { // 存在用户自定义关键词则优先显示用户设定表情
-        //     let emotValue = {
-        //       type: constants.CONTENT_TYPE_EMOTICON,
-        //       keyword: emot.descript,
-        //       align: "inline",
-        //       height: emot.height,
-        //       level: 0,
-        //       url: emot.url
-        //     }
-        //     emoticonsTrie.set(emot.descript, emotValue)
-        //   }
-        // }
-        for (let [keyword, url] of data.textEmoticons) {
-          if (!(keyword in this.textEmoticons)) {
-            let emoticon = { keyword, url }
-            this.$set(this.textEmoticons, keyword, emoticon)
-            if (emoticonsTrie.has(keyword) === false) { // 不覆盖用户自定义关键词
-              let emotValue = {
-                type: constants.CONTENT_TYPE_EMOTICON,
-                keyword: keyword,
-                align: "inline",
-                height: 24,
-                level: 0,
-                url: url
-              }
-              emoticonsTrie.set(keyword, emotValue)
-            }
-          }
-        }
-      }
+      // if (this.config.autoRenderOfficialSmallEmoji === true && has_bilibili_official_small_emoji) {
+      //   for (let [keyword, url] of data.textEmoticons) {
+      //     if (!(keyword in this.textEmoticons)) {
+      //       let emoticon = { keyword, url }
+      //       this.$set(this.textEmoticons, keyword, emoticon)
+      //       if (emoticonsTrie.has(keyword) === false) { // 不覆盖用户自定义关键词
+      //         let emotValue = {
+      //           type: constants.CONTENT_TYPE_EMOTICON,
+      //           keyword: keyword,
+      //           align: "inline",
+      //           height: 24,
+      //           level: 0,
+      //           url: url
+      //         }
+      //         emoticonsTrie.set(keyword, emotValue)
+      //       }
+      //     }
+      //   }
+      // }
 
       // 开始分析弹幕文字，并按需求和表情替换
       let startPos = 0

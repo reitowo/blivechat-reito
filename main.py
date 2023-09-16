@@ -131,7 +131,9 @@ def init_server(host, port, debug):
         server = app.listen(
             port,
             host,
-            xheaders=cfg.tornado_xheaders
+            xheaders=cfg.tornado_xheaders,
+            max_body_size=1024 * 1024,
+            max_buffer_size=1024 * 1024
         )
     except OSError:
         logger.warning('Address is used %s:%d', host, port)
