@@ -204,7 +204,7 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
       authorName: data.uname,
       privilegeType: data.guard_level,
       paid: data.paid,
-      totalCoin: data.price,
+      totalCoin: data.price * data.gift_num,
       giftName: data.gift_name,
       num: data.gift_num,
       medalName: data.fans_medal_name,
