@@ -106,6 +106,10 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
       translation: '',
       emoticon: info[0][13].url || null,
     }
+    // 增加区分表情的细节数据
+    if (info[0][13]) {
+      data.emoticonDetail = info[0][13]
+    }
     this.onAddText(data)
   }
 

@@ -459,8 +459,6 @@ export default {
       contentThread[0] = data.content
       let richContentThread = []
       richContentThread[0] = this.getRichContent(data)
-      let translationThread = []
-      translationThread[0] = data.translation
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
 
@@ -879,18 +877,22 @@ export default {
             return richContent
           }
         } else {
-          // 主播房间表情（主播在B站网页端上传的个人表情（房间表情，房间粉丝团表情）
-          richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
-          return richContent
+          if ((this.config.autoRenderOfficialGeneralEmoji === true || this.config.autoRenderPersonalEmoji === true) && data.emoticon.startsWith('http://i0.hdslb.com/bfs/live')) {
+            // 无法区分是通用表情还是主播自己上传的表情，开启任意一个两个都会显示
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
+            return richContent
+          } else if (this.config.autoRenderStreamerEmoji === true && data.emoticon.startsWith('http://i0.hdslb.com/bfs/emote')) {
+            // 只能区分是否是用户自己购买的表情
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
+            return richContent
+          }
         }
       }
-      
 
       // NOTE: 上面处理了一般的表情（B站点击后显示单个图片的表情），下面开始处理可以和文字同时显示的黄豆表情和blivechat自定义表情
       let has_blivechat_emoticon = this.config.emoticons.length !== 0
       let has_user_defined_danmu_pic = this.danmu_pic_json.length !== 0
-      // FIXME: 如果通过服务器转发，只会有 textEmoticons，没有 emots
-      let has_bilibili_official_small_emoji = data.emots !== null || this.textEmoticons.length !== 0
+      let has_bilibili_official_small_emoji = this.textEmoticons.length !== 0
 
       if (!has_blivechat_emoticon && !has_user_defined_danmu_pic && !has_bilibili_official_small_emoji) {
         // 只能是文本（没有blivechat自定义表情, 没有用户自定义文字转图片, 没有B站官方小表情）
