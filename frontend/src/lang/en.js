@@ -547,6 +547,8 @@ export default {
     guardLevel1: 'governor',
     guardLevel2: 'admiral',
     guardLevel3: 'captain',
+    month: 'month',
+    year: 'year',
     sendGift: 'Sent {giftName}x{num}',
     membershipTitle: 'New member',
     tickerMembership: 'Member'

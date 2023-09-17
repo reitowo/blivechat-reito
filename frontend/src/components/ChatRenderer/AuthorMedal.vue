@@ -1,5 +1,6 @@
 <template>
-  <yt-live-chat-author-medal-renderer v-if="medalName != undefined" :medal-name="medalName" :medal-nevel="medalLevel" :is-fan-group="isFanGroup"
+  <!-- 如果 medal-level == 0 或者 medalName === undefined 不显示 -->
+  <yt-live-chat-author-medal-renderer v-if="medalName != undefined && medalLevel > 0" :medal-name="medalName" :medal-level="medalLevel" :is-fan-group="isFanGroup"
   :style="{
       '--yt-live-chat-medal-background-color': medalColor.bgColor,
       '--yt-live-chat-medal-border-color': medalColor.borderColor,

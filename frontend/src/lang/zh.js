@@ -550,6 +550,8 @@ export default {
     guardLevel1: '总督',
     guardLevel2: '提督',
     guardLevel3: '舰长',
+    month: '个月',
+    year: '年',
     sendGift: '赠送 {giftName}x{num}',
     membershipTitle: '新会员',
     tickerMembership: '会员'

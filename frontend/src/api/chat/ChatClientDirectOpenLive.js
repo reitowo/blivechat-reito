@@ -178,7 +178,9 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
       authorLevel: 1,
       isNewbie: false,
       isMobileVerified: true,
-      medalLevel: data.fans_medal_wearing_status ? data.fans_medal_level : 0,
+      medalName: data.fans_medal_name,
+      medalLevel: data.fans_medal_level,
+      isFanGroup: data.fans_medal_wearing_status ? true : false,
       id: data.msg_id,
       translation: '',
       emoticon: emoticon,
@@ -192,7 +194,7 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
     }
     let data = command.data
     if (!data.paid) { // 丢人
-      return
+      data.price = 0
     }
 
     data = {
@@ -200,9 +202,14 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
       avatarUrl: chat.processAvatarUrl(data.uface),
       timestamp: data.timestamp,
       authorName: data.uname,
+      privilegeType: data.guard_level,
+      paid: data.paid,
       totalCoin: data.price,
       giftName: data.gift_name,
-      num: data.gift_num
+      num: data.gift_num,
+      medalName: data.fans_medal_name,
+      medalLevel: data.fans_medal_level,
+      isFanGroup: data.fans_medal_wearing_status ? true : false
     }
     this.onAddGift(data)
   }
@@ -218,7 +225,12 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
       avatarUrl: chat.processAvatarUrl(data.user_info.uface),
       timestamp: data.timestamp,
       authorName: data.user_info.uname,
-      privilegeType: data.guard_level
+      privilegeType: data.guard_level,
+      guardNum: data.guard_num,
+      guardUnit: data.guard_unit,
+      medalName: data.fans_medal_name,
+      medalLevel: data.fans_medal_level,
+      isFanGroup: data.fans_medal_wearing_status ? true : false
     }
     this.onAddMember(data)
   }
@@ -236,7 +248,10 @@ export default class ChatClientDirectOpenLive extends ChatClientOfficialBase {
       authorName: data.uname,
       price: data.rmb,
       content: data.message,
-      translation: ''
+      translation: '',
+      medalName: data.fans_medal_name,
+      medalLevel: data.fans_medal_level,
+      isFanGroup: data.fans_medal_wearing_status ? true : false
     }
     this.onAddSuperChat(data)
   }

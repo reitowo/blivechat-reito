@@ -127,7 +127,7 @@ export default {
           let data = {
             keyword: emoticon.keyword,
             align: 'inline',
-            height: 24,
+            height: 64,
             level: 0,
             url: emoticon.url
           }
@@ -526,7 +526,7 @@ export default {
         return
       }
 
-      let price = data.coinType == 'gold' ? data.totalCoin / 1000 : 0
+      let price = data.paid ? data.totalCoin / 1000 : 0
       if (this.mergeSimilarGift(data.authorName, price, data.giftName, data.num)) {
         return
       }
@@ -595,6 +595,13 @@ export default {
       } else if (data.privilegeType == 3) {
         price = 19998
       }
+
+      if (data.guardUnit === '月') {
+        price *= data.guardNum
+      } else if (data.guardUnit === '年') {
+        price *= data.guardNum * 12
+      }
+
       let xOffset = this.config.randomXRangeMin + Math.floor(Math.random() * (this.config.randomXRangeMax - this.config.randomXRangeMin + 1))
       let yOffset = this.config.randomYRangeMin + Math.floor(Math.random() * (this.config.randomYRangeMax - this.config.randomYRangeMin + 1))
 
@@ -622,6 +629,22 @@ export default {
           floatDistanceY = this.config.floatDistanceThreshold
         }
       }
+      // membershipText 会是舰长或者提督，或者总督
+      let membershipText = ''
+      if (data.privilegeType === 1) {
+        membershipText = this.$t('chat.guardLevel1')
+      } else if (data.privilegeType === 2) {
+        membershipText = this.$t('chat.guardLevel2')
+      } else if (data.privilegeType === 3) {
+        membershipText = this.$t('chat.guardLevel3')
+      }
+      // 如果单位是 月，则为 '个月'，如果单位是 年，则为 '年'
+      let postFix = ''
+      if (data.guardUnit === '月') {
+        postFix = this.$t('chat.month')
+      } else if (data.guardUnit === '年') {
+        postFix = this.$t('chat.year')
+      }
 
       let message = {
         id: data.id,
@@ -632,7 +655,9 @@ export default {
         authorNamePronunciation: this.getPronunciation(data.authorName),
         privilegeType: data.privilegeType,
         price: price,
-        title: this.$t('chat.membershipTitle'),
+        guardNum: data.guardNum,
+        guardUnit: data.guardUnit,
+        title: `${membershipText} x ${data.guardNum}${postFix}`,
         xOffset: xOffset,
         yOffset: yOffset,
         floatDistanceX: floatDistanceX,
@@ -879,11 +904,11 @@ export default {
         } else {
           if ((this.config.autoRenderOfficialGeneralEmoji === true || this.config.autoRenderPersonalEmoji === true) && data.emoticon.startsWith('http://i0.hdslb.com/bfs/live')) {
             // 无法区分是通用表情还是主播自己上传的表情，开启任意一个两个都会显示
-            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `official-${data.content}`, data.emoticon, 64))
             return richContent
           } else if (this.config.autoRenderStreamerEmoji === true && data.emoticon.startsWith('http://i0.hdslb.com/bfs/emote')) {
             // 只能区分是否是用户自己购买的表情
-            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, data.content, data.emoticon, 64))
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `room-${data.content}`, data.emoticon, 64))
             return richContent
           }
         }

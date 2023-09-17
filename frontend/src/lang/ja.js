@@ -546,6 +546,8 @@ export default {
     guardLevel1: '総督',
     guardLevel2: '提督',
     guardLevel3: '艦長',
+    month: 'か月',
+    year: '年',
     sendGift: '{giftName}x{num} を贈りました',
     membershipTitle: '新規メンバー',
     tickerMembership: 'メンバー'

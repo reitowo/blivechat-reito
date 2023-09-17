@@ -67,14 +67,14 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
     }
     let info = command.info
 
-    let roomId, medalLevel
+    let roomId, medalLevel, medalName
     if (info[3]) {
       roomId = info[3][3]
       medalLevel = info[3][0]
+      medalName = info[3][1]
     } else {
-      roomId = medalLevel = 0
+      medalName = roomId = medalLevel = 0
     }
-
     let uid = info[2][0]
     let isAdmin = info[2][2]
     let privilegeType = info[7]
@@ -101,7 +101,9 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
       authorLevel: info[4][0],
       isNewbie: info[2][5] < 10000,
       isMobileVerified: Boolean(info[2][6]),
-      medalLevel: roomId === this.roomId ? medalLevel : 0,
+      medalName: medalName,
+      medalLevel: medalLevel,
+      isFanGroup: roomId === this.roomId ? true : false,  // 是否是粉丝团（即粉丝勋章为当前直播间的粉丝勋章）
       id: getUuid4Hex(),
       translation: '',
       emoticon: info[0][13].url || null,
@@ -118,15 +120,16 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
       return
     }
     let data = command.data
-    if (data.coin_type !== 'gold') { // 丢人
-      return
-    }
+    //  if (data.coin_type !== 'gold') { // 白嫖不丢人
+    //    return
+    //  }
 
     data = {
       id: getUuid4Hex(),
       avatarUrl: chat.processAvatarUrl(data.face),
       timestamp: data.timestamp,
       authorName: data.uname,
+      paid: data.coinType == 'gold' ? true : false,
       totalCoin: data.total_coin,
       giftName: data.giftName,
       num: data.num
@@ -145,7 +148,9 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
       avatarUrl: await chat.getAvatarUrl(data.uid, data.username),
       timestamp: data.start_time,
       authorName: data.username,
-      privilegeType: data.guard_level
+      privilegeType: data.guard_level,
+      guardNum: 1,
+      guardUnit: '月'
     }
     this.onAddMember(data)
   }
