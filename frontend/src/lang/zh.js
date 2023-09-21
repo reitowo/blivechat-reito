@@ -155,6 +155,7 @@ export default {
     addPicture: '添加图片(换行)',
     delAllEmoticon: '删除所有表情包',
 
+    urlTooLong: '房间URL太长了，会被直播姬截断（OBS不会）',
     roomUrl: '房间URL',
     copy: '复制',
     enterBilibili: '进入B站直播间',

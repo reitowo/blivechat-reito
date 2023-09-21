@@ -153,6 +153,7 @@ export default {
     addPicture: '画像追加（新たな行）',
     delAllEmoticon: '全部スタンプを消す',
 
+    urlTooLong: 'ルームのURLが長すぎて、直播姬によって切り詰められます（ただし、OBSでは切り詰められません）',
     roomUrl: 'ルームのURL',
     copy: 'コピー',
     enterBilibili: 'Bilibiliルームに入る',

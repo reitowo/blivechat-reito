@@ -153,6 +153,7 @@ export default {
     addPicture: 'Add picture(block)',
     delAllEmoticon: 'Delete all pictures',
 
+    urlTooLong: 'The room URL is too long, and will be truncated by Livehime (but not by OBS)',
     roomUrl: 'Room URL',
     copy: 'Copy',
     enterBilibili: 'Enter bilibili room',
