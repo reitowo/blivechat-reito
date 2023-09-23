@@ -2,12 +2,16 @@
 
 支持扫码登录的 blivechat， 避免身份码（开放平台）部分信息缺失。
 
-原版的请看 [orig-reito 分支](https://github.com/cnSchwarzer/blivechat-reito/tree/orig-reito)
-
-记得复制原作者的发行版中部分资源文件，如 `data/emoticons` 或其他 `frontend` 中的资源文件
+原版的请看 [orig-reito 分支](https://github.com/cnSchwarzer/blivechat-reito/tree/orig-reito) 
 
 ## 声明
 必须使用小号进行扫码，一个号同一时间只能进入一个直播间。凭据会本地储存，如执意使用大号扫码所造成的一切损失与我无关。
+
+## 下载
+
+[前往下载](https://github.com/cnSchwarzer/blivechat-reito/releases/tag/bear)
+
+记得复制原作者的发行版中部分资源文件，如 `data/emoticons` 或其他 `frontend` 中需要使用的样式资源文件
 
 ## 打包
 
