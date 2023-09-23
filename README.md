@@ -12,7 +12,7 @@
 ## 打包
 
 ```shell
-git clone --recursive https://github.com/cnSchwarzer/blivechat-reito.git
+git clone --recursive https://github.com/cnSchwarzer/blivechat-reito.git -b orig-reito
 
 cd frontend
 npm i
