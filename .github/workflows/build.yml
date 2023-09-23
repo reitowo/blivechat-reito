@@ -104,5 +104,6 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          name: orig
           body: 基于原版 blivechat 修改
           files: ./**/blivechat-*.zip
