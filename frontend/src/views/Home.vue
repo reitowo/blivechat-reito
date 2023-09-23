@@ -185,7 +185,7 @@
                       </a>
                     </span>
                     <el-input v-model.number="form.minGiftPrice" type="number" min="0" :placeholder="$t('home.minGiftPricePlaceholder')">
-                      <template v-slot="append">{{$t('home.minGiftPriceCurrency')}}</template>
+                      <template slot="append">{{$t('home.minGiftPriceCurrency')}}</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
@@ -792,9 +792,9 @@
     </p>
 
     <p v-if="form.roomKeyType === 1">
-      <el-card class="login-card">
+      <el-card class="top-card">
         <el-alert :title="$t('home.useSecondaryScanCode')" type="warning" style="background-color: #fef0f0; color: #F56C6C;" show-icon :closable="false"></el-alert>
-        <div class="login-card-content">
+        <div class="top-card-content">
           <el-tag :type="this.login.isLogin ? 'success' : 'danger'">{{ this.login.isLogin ? $t('home.isLoginTrue') : $t('home.isLoginFalse') }}</el-tag>
           <div v-if="this.login.isLogin"> <el-tag>登录日期： {{ this.login.loginDate  }}</el-tag></div>
           <el-button type="primary" @click="startLogin">{{$t('home.startLogin')}}</el-button>
@@ -805,7 +805,7 @@
     </p>
 
     <p>
-      <el-card>
+      <el-card class="top-card">
         <el-form :model="form" label-width="150px">
           <el-form-item :label="$t('home.roomUrl')">
             <el-input ref="roomUrlInput" readonly :value="obsRoomUrl" style="width: calc(100% - 8em); margin-right: 1em;"></el-input>
@@ -870,13 +870,14 @@ a:hover {
   border-color: #f56c6c;
 }
 
-.login-card > .el-card__body {
+.top-card > .el-card__body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 20px 20px 20px 20px;
 }
 
-.login-card-content {
+.top-card-content {
   display: flex;
   flex-direction: row;
   align-items: center;
