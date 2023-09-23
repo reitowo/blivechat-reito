@@ -2,7 +2,6 @@ name: Build
 
 on:
   push:
-    branches: [ "orig-reito", "bear-reito" ]
   workflow_dispatch:
 
 concurrency:
