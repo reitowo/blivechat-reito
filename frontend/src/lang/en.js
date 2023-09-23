@@ -39,11 +39,11 @@ export default {
     mergeSameUserDanmakuInterval: "Message Interval of merge same user's message(sec)",
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
-    minGiftPrice: 'Min price of Super Chats to show',
-    minGiftPriceCurrency: 'CNY',
     danmakuAtBottom: 'Align messages to bottom',
     tickerAtButtom: 'Show on-top Super Chats at bottom',
 
+    minGiftPriceCurrency: 'CNY',
+    minGiftPrice: 'Min price of Super Chats to show',
     minTickerPrice: 'Min price of on-top Super Chats to keep',
     minGiftPricePlaceholder: '(CNY)',
     maxNumber: 'Max number of messages',

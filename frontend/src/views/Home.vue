@@ -4,8 +4,7 @@
       <el-form :model="form" ref="form" label-width="150px">
         <el-tabs type="border-card">
           <el-tab-pane :label="$t('home.general')">
-            <template v-if="form.roomKeyType === 1">
-              <el-form-item
+            <el-form-item v-if="form.roomKeyType === 1"
                 :label="$t('home.room')" prop="roomId" :rules="[
                   { required: true, message: $t('home.roomIdEmpty') },
                   { type: 'integer', min: 1, message: $t('home.roomIdInteger') }
@@ -22,11 +21,8 @@
                     <el-input v-model.number="form.roomId" type="number" min="1"></el-input>
                   </el-col>
                 </el-row>
-              </el-form-item>
-              <p>
-                <el-alert :title="$t('home.useAuthCodeWarning')" type="warning" show-icon :closable="false"></el-alert>
-              </p>
-            </template>
+              <el-row style="color: red">{{ $t('home.useAuthCodeWarning') }}</el-row>
+            </el-form-item>
 
             <el-form-item v-else-if="form.roomKeyType === 2"
               :label="$t('home.room')" prop="authCode" :rules="[
@@ -189,7 +185,7 @@
                       </a>
                     </span>
                     <el-input v-model.number="form.minGiftPrice" type="number" min="0" :placeholder="$t('home.minGiftPricePlaceholder')">
-                      <template slot="append">{{$t('home.minGiftPriceCurrency')}}</template>
+                      <template v-slot="append">{{$t('home.minGiftPriceCurrency')}}</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
@@ -819,7 +815,6 @@
             <el-switch v-model="useLoaderUrl"></el-switch>
           </el-form-item>
           <el-form-item style="margin-bottom: 0;">
-          <el-form-item>
             <el-button type="primary" @click="openTutorial" style="background: #bed742; border-color: #bed742;">{{$t('home.openTutorial')}}</el-button>
             <el-button type="primary" @click="enterBilibili">{{$t('home.enterBilibili')}}</el-button>
             <el-button type="primary" :disabled="!roomUrl" @click="enterRoom">{{$t('home.enterRoom')}}</el-button>
@@ -908,7 +903,7 @@ export default {
       serverConfig: {
         enableTranslate: true,
         enableUploadFile: true,
-        loaderUrl: '',
+        loaderUrl: ''
       },
       useLoaderUrl: true,
       form: {
@@ -917,9 +912,6 @@ export default {
         roomId: parseInt(window.localStorage.roomId || '1'),
         authCode: window.localStorage.authCode || '',
       },
-      // 因为$refs.form.validate是异步的所以不能直接用计算属性
-      // getUnvalidatedRoomUrl -> unvalidatedRoomUrl -> updateRoomUrl -> roomUrl
-      roomUrl: '',
       login: {
         image: '',
         isLogin: false,

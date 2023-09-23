@@ -39,9 +39,10 @@ export default {
     mergeSameUserDanmakuInterval: '同じリスナーのコメントを合併するタイム間隔（秒）',
     mergeSimilarDanmaku: '同じコメントを合併する',
     mergeGift: 'ギフトを合併する',
+
+    minGiftPriceCurrency: 'CNY',
     minGiftPrice: '最低表示スーパーチャット価格',
     minTickerPrice: '最低表示常駐Topスーパーチャット価格',
-    minGiftPriceCurrency: 'CNY',
     minGiftPricePlaceholder: '(CNY)',
     maxNumber: '最大コメント数',
     fadeOutNum: '消えるコメント数',

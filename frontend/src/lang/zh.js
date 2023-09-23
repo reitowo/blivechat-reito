@@ -40,10 +40,11 @@ export default {
     mergeSimilarDanmaku: '合并相似消息弹幕',
 
     mergeGift: '合并礼物',
+
+    minGiftPriceCurrency: '元',
     minGiftPrice: '最低显示打赏价格',
     minTickerPrice: '停驻高于价格打赏',
     minGiftPricePlaceholder: '(元)',
-    minGiftPriceCurrency: '元',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
     pinTime: '淡出前停留时长(秒)',
