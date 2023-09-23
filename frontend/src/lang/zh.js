@@ -11,7 +11,14 @@ export default {
     roomIdInteger: '房间ID必须为正整数',
     authCodeEmpty: '身份码不能为空',
     authCodeFormatError: '身份码格式错误',
-    useAuthCodeWarning: '请优先使用身份码',
+    useAuthCodeWarning: '请优先使用身份码，或请在下方使用小号扫码登陆',
+
+    logout: '登出',
+    startLogin: '开始登录',
+    isLoginTrue: '已登录',
+    isLoginFalse: '未登录',
+    useSecondaryScanCode: '为确保账号安全，请使用小号进行扫码登录',
+    useLoaderUrl: '使用加载器',
 
     openSpecificTutorial: '打开对应教程',
 
@@ -33,15 +40,15 @@ export default {
     mergeSimilarDanmaku: '合并相似消息弹幕',
 
     mergeGift: '合并礼物',
-    
-    minGiftPrice: '显示高于价格打赏',
+    minGiftPrice: '最低显示打赏价格',
     minTickerPrice: '停驻高于价格打赏',
     minGiftPricePlaceholder: '(元)',
+    minGiftPriceCurrency: '元',
     maxNumber: '最大弹幕数',
     fadeOutNum: '预留淡出弹幕数',
     pinTime: '淡出前停留时长(秒)',
     pinTimePlaceholder: '0持续停留',
-    
+
     special: '特殊功能',
     danmakuAtBottom: '弹幕居下',
     tickerAtButtom: '底部显示SC固定栏',
@@ -159,7 +166,7 @@ export default {
     copy: '复制',
     enterBilibili: '进入B站直播间',
     openTutorial: '使用教程',
-    
+
     enterRoom: '进入房间',
     enterTestRoom: '进入测试房间',
     exportConfig: '导出配置',
@@ -181,7 +188,7 @@ export default {
     global: '全局',
     danmakuAtBottom: '弹幕从底部出现',
     tickerAtButtom: '底部显示SC固定栏',
-    
+
     outlines: '描边',
     showOutlines: '显示描边',
     outlineSize: '描边尺寸',
@@ -198,7 +205,7 @@ export default {
     textMessageAvatar: '一般消息头像',
     textMessageShowAvatar: '显示头像',
     textMessageAvatarSize: '头像尺寸',
-    
+
     textMessageUserName: '一般消息用户名',
     textMessageShowUserName: '显示用户名',
     textMessageUserNameFont: '用户名字体',
@@ -216,7 +223,7 @@ export default {
     textMessageUserNameMember2Color: '提督颜色',
     textMessageUserNameMember1Color: '总督颜色',
     textMessageShowColon: '用户名后显示冒号',
-    
+
     textMessageBadges: '一般消息勋章',
     textMessageShowBadges: '显示勋章',
     textMessageBadgesSize: '勋章大小',
@@ -241,7 +248,7 @@ export default {
     textMessageOnNewLine: '内容在新行显示',
     textMessageMergeSameUser: '合并同用户内容为组',
     textMessageGroupBlockPadding: '内容组内间距',
-    
+
     textMessageBg: '一般消息背景',
     textMessageUseBarsInsteadOfBg: '用条代替消息背景',
     textMessageMessageBgShadow: '消息背景阴影',
@@ -251,7 +258,7 @@ export default {
     textMessageMember3MessageBgColor: '舰长消息背景色',
     textMessageMember2MessageBgColor: '提督消息背景色',
     textMessageMember1MessageBgColor: '总督消息背景色',
-    
+
     textMessageTime: '一般消息时间',
     textMessageTimeShow: '显示消息时间',
     textMessageTimeShowRight: '在右侧显示时间',
@@ -267,7 +274,7 @@ export default {
     textMessageOfficialGeneralEmojiSize: 'B站官方通用表情大小',
     textMessageStreamerEmojiSize: '主播房间表情大小',
     textMessagePersonalEmojiSize: '个人购买表情大小',
-    
+
     textMessageEmoticonInlineBorderRadius: '同行表情圆角',
     textMessageEmoticonBlockBorderRadius: '换行表情圆角',
 
@@ -305,7 +312,7 @@ export default {
     paidMessageSecondLineLineHeight: '第二行行高（0为默认）',
     paidMessageSecondLineOutlineSize: '第二行描边尺寸',
     paidMessageSecondLineOutlineColor: '第二行描边颜色',
-    
+
     paidMessageContentLine: '打赏消息（SC、礼物）内容行',
     paidMessageContentLineColor: '内容行颜色',
     paidMessageContentLineFont: '内容行字体',
@@ -322,7 +329,7 @@ export default {
     paidMessageAnimateOutWaitTime: '移除前等待时间（秒）',
     paidMessageSlide: '滑动',
     paidMessageReverseSlide: '反向滑动',
-    
+
     // TODO: 上舰消息
     membershipMessage: '上舰消息',
 
@@ -368,7 +375,7 @@ export default {
     interactMessageAvatar: '互动消息头像',
     interactMessageShowAvatar: '显示头像',
     interactMessageAvatarSize: '头像尺寸',
-    
+
     interactMessageUserName: '互动消息用户名',
     interactMessageShowUserName: '显示用户名',
     interactMessageUserNameFont: '用户名字体',
@@ -386,7 +393,7 @@ export default {
     interactMessageUserNameMember2Color: '提督颜色',
     interactMessageUserNameMember1Color: '总督颜色',
     interactMessageShowColon: '用户名后显示冒号',
-    
+
     interactMessageBadges: '互动消息勋章',
     interactMessageBadgesShow: '显示勋章',
     interactMessageBadgesSize: '勋章大小',
@@ -406,7 +413,7 @@ export default {
     interactMessageContentLineHeight: '内容字体行高（0为默认）',
     interactMessageContentOutlineSize: '内容描边尺寸',
     interactMessageContentOutlineColor: '内容描边颜色',
-    
+
     interactMessageBg: '互动消息背景',
     interactMessageUseBarsInsteadOfBg: '用条代替消息背景',
     interactMessageMessageBgShadow: '消息背景阴影',
@@ -416,7 +423,7 @@ export default {
     interactMessageMember3MessageBgColor: '舰长消息背景色',
     interactMessageMember2MessageBgColor: '提督消息背景色',
     interactMessageMember1MessageBgColor: '总督消息背景色',
-    
+
     interactMessageTime: '互动消息时间',
     interactMessageTimeShow: '显示消息时间',
     interactMessageTimeShowRight: '在右侧显示时间',
@@ -491,7 +498,7 @@ export default {
     onNewLine: '在新行显示',
     mergeSameUser: '合并同用户消息为组',
     groupBlockPadding: '消息组内消息的间距',
-    
+
 
     time: '时间',
     showTime: '显示时间',

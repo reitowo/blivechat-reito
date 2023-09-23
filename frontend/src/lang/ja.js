@@ -13,6 +13,13 @@ export default {
     authCodeFormatError: 'アイデンティティコードの形式エラー',
     useAuthCodeWarning: 'アイデンティティコードを優先的に使用してください',
 
+    logout: 'ログアウト',
+    startLogin: 'ログインを開始',
+    isLoginTrue: 'ログイン済み',
+    isLoginFalse: '未ログイン',
+    useSecondaryScanCode: 'アカウントのセキュリティを保つため、サブアカウントを使ってQRコードでログインしてください。',
+    useLoaderUrl: 'ローダーURLを使用する',
+
     openSpecificTutorial: '使用教程',
 
     general: '常規',
@@ -32,9 +39,9 @@ export default {
     mergeSameUserDanmakuInterval: '同じリスナーのコメントを合併するタイム間隔（秒）',
     mergeSimilarDanmaku: '同じコメントを合併する',
     mergeGift: 'ギフトを合併する',
-    
     minGiftPrice: '最低表示スーパーチャット価格',
     minTickerPrice: '最低表示常駐Topスーパーチャット価格',
+    minGiftPriceCurrency: 'CNY',
     minGiftPricePlaceholder: '(CNY)',
     maxNumber: '最大コメント数',
     fadeOutNum: '消えるコメント数',
@@ -61,7 +68,7 @@ export default {
     floatTime: '移動時間',
     timePlaceholder: '(秒)',
     allowTextColorSetting: '文字の色を変更（Hex）',
-    
+
     showTranslateDanmakuOnly: '翻訳コメントだけを表示する',
     blockTranslateDanmaku: '翻訳コメントをブロック',
     translationSign: '翻訳コメントの合図キャラクタ',
@@ -85,7 +92,7 @@ export default {
         name: 'コメントの後で付ける'
       }
     ],
-   
+
     maxImage: '最大画像数',
     maxEmoji: '最大絵文字数',
     imageAlignType: 'スタンプの揃え',
@@ -196,7 +203,7 @@ export default {
     textMessageAvatar: '一般コメントアイコン',
     textMessageShowAvatar: 'アイコンを表示する',
     textMessageAvatarSize: 'アイコンのサイズ',
-    
+
     textMessageUserName: '一般コメントユーザー名',
     textMessageShowUserName: 'ユーザー名を表示する',
     textMessageUserNameFont: 'ユーザー名フォント',
@@ -214,7 +221,7 @@ export default {
     textMessageUserNameMember2Color: '提督ユーザー名色',
     textMessageUserNameMember1Color: '総督ユーザー名色',
     textMessageShowColon: 'ユーザー名の後にコロンを表示する',
-    
+
     textMessageBadges: '一般コメント勲章',
     textMessageShowBadges: '勲章を表示する',
     textMessageBadgesSize: '勲章サイズ',
@@ -239,7 +246,7 @@ export default {
     textMessageOnNewLine: '内容を新たな行に表示する',
     textMessageMergeSameUser: '同じユーザーのコメントを合併',
     textMessageGroupBlockPadding: '合併コメントの間隔',
-    
+
     textMessageBg: '一般コメント背景',
     textMessageUseBarsInsteadOfBg: '背景に代わります',
     textMessageMessageBgColor: 'コメント背景色',
@@ -302,7 +309,7 @@ export default {
     paidMessageSecondLineLineHeight: '第二行 行の高さ（0はデフォルト）',
     paidMessageSecondLineOutlineSize: '第二行 アウトラインサイズ',
     paidMessageSecondLineOutlineColor: '第二行アウトライン色',
-    
+
     paidMessageContentLine: 'スーパーチャット内容 Line',
     paidMessageContentLineColor: '内容 Line色',
     paidMessageContentLineFont: '内容 Lineフォント',
@@ -319,7 +326,7 @@ export default {
     paidMessageAnimateOutWaitTime: '消す待つ時間（秒）',
     paidMessageSlide: 'スライド',
     paidMessageReverseSlide: '逆スライド',
-    
+
     // TODO: メンバー
     membershipMessage: 'メンバー',
 
@@ -365,7 +372,7 @@ export default {
     interactMessageAvatar: 'イントラクションコメントアイコン',
     interactMessageShowAvatar: 'アイコンを表示する',
     interactMessageAvatarSize: 'アイコンのサイズ',
-    
+
     interactMessageUserName: 'イントラクションコメントユーザー名',
     interactMessageShowUserName: 'ユーザー名を表示する',
     interactMessageUserNameFont: 'ユーザー名フォント',
@@ -383,7 +390,7 @@ export default {
     interactMessageUserNameMember2Color: '提督ユーザー名色',
     interactMessageUserNameMember1Color: '総督ユーザー名色',
     interactMessageShowColon: 'ユーザー名の後にコロンを表示する',
-    
+
     interactMessageBadges: 'イントラクションコメント勲章',
     interactMessageBadgesShow: '勲章を表示する',
     interactMessageBadgesSize: '勲章サイズ',
@@ -403,7 +410,7 @@ export default {
     interactMessageContentLineHeight: '内容フォント 行の高さ（0はデフォルト）',
     interactMessageContentOutlineSize: '内容 アウトラインサイズ',
     interactMessageContentOutlineColor: '内容アウトライン色',
-    
+
     interactMessageBg: 'イントラクションコメント背景',
     interactMessageUseBarsInsteadOfBg: '背景に代わります',
     interactMessageMessageBgColor: 'コメント背景色',
@@ -413,7 +420,7 @@ export default {
     interactMessageMember3MessageBgColor: '艦長コメント背景色',
     interactMessageMember2MessageBgColor: '提督コメント背景色',
     interactMessageMember1MessageBgColor: '総督コメント背景色',
-    
+
     interactMessageTime: 'イントラクションコメント時間',
     interactMessageTimeShow: 'コメント時間を表示する',
     interactMessageTimeShowRight: 'コメント時間を右に',

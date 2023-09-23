@@ -13,6 +13,13 @@ export default {
     authCodeFormatError: 'Identity code format error',
     useAuthCodeWarning: 'Please prioritize the identity code',
 
+    logout: 'Logout',
+    startLogin: 'Start Login',
+    isLoginTrue: 'Logged in',
+    isLoginFalse: 'Not logged in',
+    useSecondaryScanCode: 'To ensure account security, please use the secondary account for scan code login',
+    useLoaderUrl: 'Use loader url',
+
     openSpecificTutorial: 'Open Tutorial',
 
     general: 'General',
@@ -32,10 +39,11 @@ export default {
     mergeSameUserDanmakuInterval: "Message Interval of merge same user's message(sec)",
     mergeSimilarDanmaku: 'Merge similar messages',
     mergeGift: 'Merge gifts',
+    minGiftPrice: 'Min price of Super Chats to show',
+    minGiftPriceCurrency: 'CNY',
     danmakuAtBottom: 'Align messages to bottom',
     tickerAtButtom: 'Show on-top Super Chats at bottom',
 
-    minGiftPrice: 'Min price of Super Chats to show',
     minTickerPrice: 'Min price of on-top Super Chats to keep',
     minGiftPricePlaceholder: '(CNY)',
     maxNumber: 'Max number of messages',
@@ -66,7 +74,7 @@ export default {
     blockTranslateDanmaku: 'Block translation message',
     translationSign: 'translation sign',
     onlyOneCharacter: 'one character only, like:【',
-    
+
     useLocalEmoticonSetting: 'use json file to add emoji',
     autoRenderOfficialSmallEmoji: 'Show official small emoji',
     autoRenderOfficialGeneralEmoji: 'Show official general emoji',
@@ -196,7 +204,7 @@ export default {
     textMessageAvatar: 'Normal Message Avatar',
     textMessageShowAvatar: 'Show Avatar',
     textMessageAvatarSize: 'Avatar Size',
-    
+
     textMessageUserName: 'Normal Message User Name',
     textMessageShowUserName: 'Show User Name',
     textMessageUserNameFont: 'User Name Font',
@@ -214,7 +222,7 @@ export default {
     textMessageUserNameMember2Color: 'Governor Color',
     textMessageUserNameMember1Color: 'Admiral Color',
     textMessageShowColon: 'Show Colon After Name',
-    
+
     textMessageBadges: 'Normal Message Badge',
     textMessageShowBadges: 'Show Badge',
     textMessageBadgesSize: 'Badge Size',
@@ -239,7 +247,7 @@ export default {
     textMessageOnNewLine: 'Content On New LineShow',
     textMessageMergeSameUser: 'Merge Same User',
     textMessageGroupBlockPadding: 'Content Block Padding',
-    
+
     textMessageBg: 'Normal Message Background',
     textMessageUseBarsInsteadOfBg: 'Block Bar (instead of BG)',
     textMessageMessageBgShadow: 'Message Background Shadow',
@@ -265,7 +273,7 @@ export default {
     textMessageOfficialGeneralEmojiSize: 'Official General Emoji Size',
     textMessageStreamerEmojiSize: 'Streamer Emoji Size',
     textMessagePersonalEmojiSize: 'Personal Emoji Size',
-    
+
     textMessageEmoticonInlineBorderRadius: 'Inline Emoji Border Radius',
     textMessageEmoticonBlockBorderRadius: 'Block Emoji Border Radius',
 
@@ -303,7 +311,7 @@ export default {
     paidMessageSecondLineLineHeight: 'Second Line Line Height(default 0)',
     paidMessageSecondLineOutlineSize: 'Second Line Outline Size',
     paidMessageSecondLineOutlineColor: 'Second Line Outline Color',
-    
+
     paidMessageContentLine: 'Super Chat Content Line',
     paidMessageContentLineColor: 'Content Line Color',
     paidMessageContentLineFont: 'Content Line Font',
@@ -320,7 +328,7 @@ export default {
     paidMessageAnimateOutWaitTime: 'remote waiting Time (s)',
     paidMessageSlide: 'slide',
     paidMessageReverseSlide: 'reverse slide',
-    
+
     // TODO: Membership
     membershipMessage: 'Membership',
 
@@ -366,7 +374,7 @@ export default {
     interactMessageAvatar: 'Interact Message Avatar',
     interactMessageShowAvatar: 'Show Avatar',
     interactMessageAvatarSize: 'Avatar Size',
-    
+
     interactMessageUserName: 'Interact Message User Name',
     interactMessageShowUserName: 'Show User Name',
     interactMessageUserNameFont: 'User Name Font',
@@ -384,7 +392,7 @@ export default {
     interactMessageUserNameMember2Color: 'Governor Color',
     interactMessageUserNameMember1Color: 'Admiral Color',
     interactMessageShowColon: 'Show Colon After Name',
-    
+
     interactMessageBadges: 'Interact Message Badge',
     interactMessageBadgesShow: 'Show Badge',
     interactMessageBadgesSize: 'Badge Size',
@@ -404,7 +412,7 @@ export default {
     interactMessageContentLineHeight: 'Content Font Line Height(default 0)',
     interactMessageContentOutlineSize: 'Content Outline Size',
     interactMessageContentOutlineColor: 'Content Outline Color',
-    
+
     interactMessageBg: 'Interact Message Background',
     interactMessageUseBarsInsteadOfBg: 'Block Bar (instead of BG)',
     interactMessageMessageBgColor: 'Message Background Color',
@@ -414,7 +422,7 @@ export default {
     interactMessageMember3MessageBgColor: 'Captain Message Background Color',
     interactMessageMember2MessageBgColor: 'Governor Message Background Color',
     interactMessageMember1MessageBgColor: 'Admiral Message Background Color',
-    
+
     interactMessageTime: 'Interact Message Time',
     interactMessageTimeShow: 'Show Message Time',
     interactMessageTimeShowRight: 'Show Time Right',
@@ -483,7 +491,7 @@ export default {
     emoticonSize: 'Emoticon size',
     emoticonInlineBorderRadius: 'Inline emoticon border radius',
     emoticonBlockBorderRadius: 'Block picture border radius',
-    
+
     messages: 'Messages',
     color: 'Color',
     onNewLine: 'On new line',
