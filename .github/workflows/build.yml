@@ -105,5 +105,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release
-          body: 'bear: 基于只熊KUMA orig: 基于原版'
+          body: 'bear: 基于只熊KUMA
+                 orig: 基于原版'
           files: ./**/blivechat-*.zip

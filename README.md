@@ -10,7 +10,7 @@
 
 ## 下载
 
-[前往下载](https://github.com/cnSchwarzer/blivechat-reito/releases/tag/orig)
+[前往下载](https://github.com/cnSchwarzer/blivechat-reito/releases/tag/release)
 
 记得复制原作者的发行版中部分资源文件，如 `data/emoticons` 或其他 `frontend` 中需要使用的样式资源文件
 
