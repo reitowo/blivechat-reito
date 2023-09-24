@@ -1021,7 +1021,7 @@ export default {
       }
       let backFields = {
         lang: this.$i18n.locale,
-        emoticons: this.useLocalEmoticonSetting ?  JSON.stringify([]) : JSON.stringify(this.form.emoticons),
+        emoticons: this.useLocalEmoticonSetting ? JSON.stringify([]) : JSON.stringify(this.form.emoticons),
       }
       let ignoredNames = new Set(['roomId', 'authCode'])
       let query = { ...frontFields }
