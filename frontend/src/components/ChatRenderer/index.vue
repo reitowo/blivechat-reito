@@ -178,6 +178,10 @@ export default {
     PaidMessage
   },
   props: {
+    customCss: {
+      type: String,
+      default: chatConfig.DEFAULT_CONFIG.customCss
+    },
     showGiftInfo: {
       type: Boolean,
       default: chatConfig.DEFAULT_CONFIG.showGiftInfo
@@ -276,7 +280,10 @@ export default {
   watch: {
     canScrollToBottom(val) {
       this.cantScrollStartTime = val ? null : new Date()
-    }
+    },
+    customCss() {
+      this.setCustomCss()
+    },
   },
   mounted() {
     this.scrollToBottom()
@@ -841,6 +848,21 @@ export default {
       if (this.cantScrollStartTime) {
         this.cantScrollStartTime = new Date()
       }
+    },
+    setCustomCss() {
+      // check if custom css already exists
+      let customCss = document.querySelector('#custom-css')
+      if (customCss) {
+        customCss.href = this.customCss
+      } else {
+        // create custom css
+        let link = document.createElement('link')
+        link.id = 'custom-css'
+        link.rel = 'stylesheet'
+        link.href = this.customCss
+        document.head.appendChild(link)
+      }
+     
     }
   }
 }

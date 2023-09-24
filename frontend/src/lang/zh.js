@@ -154,9 +154,12 @@ export default {
     addEmoticon: '添加表情(同行)',
     addPicture: '添加图片(换行)',
     delAllEmoticon: '删除所有表情包',
+    emoticonFileTooLarge: '表情包文件太大',
 
     urlTooLong: '房间URL太长了，会被直播姬截断（OBS不会）',
     roomUrl: '房间URL',
+    customCss: '自定义CSS',
+    cssFileTooLarge: 'CSS文件太大',
     copy: '复制',
     enterBilibili: '进入B站直播间',
     openTutorial: '使用教程',
@@ -165,6 +168,7 @@ export default {
     enterTestRoom: '进入测试房间',
     exportConfig: '导出配置',
     importConfig: '导入配置',
+    resetConfig: '恢复默认设置',
     exportEmoticonConfig: '导出表情包配置',
 
     failedToParseConfig: '配置解析失败：'

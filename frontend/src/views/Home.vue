@@ -798,6 +798,18 @@
             <el-input ref="roomUrlInput" readonly :value="obsRoomUrl" style="width: calc(100% - 8em); margin-right: 1em;"></el-input>
             <el-button type="primary" icon="el-icon-copy-document" @click="copyUrl"></el-button>
           </el-form-item>
+          <el-form-item :label="$t('home.customCss')">
+            <el-input v-model="form.customCss" style="width: calc(100% - 16em); margin-right: 1em;"></el-input>
+            <el-button-group>
+              <!-- check button -->
+                <el-button type="primary" icon="el-icon-check" @click="confirmCustomCSS" style="background: #bed742; border-color: #bed742;"></el-button>
+                <el-button type="primary" icon="el-icon-upload2" :disabled="!serverConfig.enableUploadFile"
+                  @click="uploadCustomCSS"
+                ></el-button>
+                <!-- delete css setting -->
+                <el-button type="danger" icon="el-icon-minus" @click="deleteCustomCSS"></el-button>
+              </el-button-group>
+            </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="openTutorial" style="background: #bed742; border-color: #bed742;">{{$t('home.openTutorial')}}</el-button>
             <el-button type="primary" @click="enterBilibili">{{$t('home.enterBilibili')}}</el-button>
@@ -805,6 +817,7 @@
             <el-button @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
             <el-button @click="exportConfig">{{$t('home.exportConfig')}}</el-button>
             <el-button @click="importConfig">{{$t('home.importConfig')}}</el-button>
+            <el-button type="danger" @click="resetConfig">{{$t('home.resetConfig')}}</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -877,6 +890,7 @@ export default {
         roomKeyType: parseInt(window.localStorage.roomKeyType || '2'),
         roomId: parseInt(window.localStorage.roomId || '1'),
         authCode: window.localStorage.authCode || '',
+        customCss: window.localStorage.customCss || '',
       },
       // 因为$refs.form.validate是异步的所以不能直接用计算属性
       // getUnvalidatedRoomUrl -> unvalidatedRoomUrl -> updateRoomUrl -> roomUrl
@@ -912,6 +926,7 @@ export default {
       window.localStorage.roomKeyType = this.form.roomKeyType
       window.localStorage.roomId = this.form.roomId
       window.localStorage.authCode = this.form.authCode
+      window.localStorage.customCss = this.form.customCss
       chatConfig.setLocalConfig(this.form)
     }, 500)
   },
@@ -1007,7 +1022,48 @@ export default {
       }
       input.click()
     },
+    confirmCustomCSS() {
+      window.localStorage.customCss = this.form.customCss
+      chatConfig.setLocalConfig(this.form)
+    },
+    uploadCustomCSS() {
+      let input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'text/css'
+      input.onchange = async() => {
+        let file = input.files[0]
+        if (file.size > 10240 * 10240 * 3) { // 300MB
+          this.$message.error(this.$t('home.cssFileTooLarge'))
+          return
+        }
 
+        let res
+        try {
+          res = await mainApi.uploadCustomCSS(file)
+        } catch (e) {
+          this.$message.error(`Failed to upload: ${e}`)
+          throw e
+        }
+        this.form.customCss = res.url
+        window.localStorage.customCss = this.form.customCss
+        chatConfig.setLocalConfig(this.form)
+      }
+      input.click()
+    },
+    deleteCustomCSS() {
+      this.$confirm('确定删除自定义CSS吗 ?你可以在 blivechat/data/custom_css 找到你上传的 CSS', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        confirmButtonClass: 'del-all-confirm-button'
+      })
+        .then(() => {
+          this.form.customCss = ''
+          window.localStorage.customCss = this.form.customCss
+          chatConfig.setLocalConfig(this.form)
+        })
+        .catch(() => {})
+    },
     enterRoom() {
       window.open(this.roomUrl, `room ${this.roomKeyValue}`, 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
     },
@@ -1023,7 +1079,7 @@ export default {
         lang: this.$i18n.locale,
         emoticons: this.useLocalEmoticonSetting ? JSON.stringify([]) : JSON.stringify(this.form.emoticons),
       }
-      let ignoredNames = new Set(['roomId', 'authCode'])
+      let ignoredNames = new Set(['roomId', 'authCode', 'customCss'])
       let query = { ...frontFields }
       for (let name in this.form) {
         if (!(name in frontFields || name in backFields || ignoredNames.has(name))) {
@@ -1058,7 +1114,25 @@ export default {
       this.$refs.roomUrlInput.select()
       document.execCommand('Copy')
     },
-
+    resetConfig() {
+      this.$confirm('确定重置配置吗 ?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        confirmButtonClass: 'del-all-confirm-button'
+      })
+        .then(() => {
+          let cfg = {
+            ...chatConfig.deepCloneDefaultConfig(),
+            roomKeyType: this.form.roomKeyType ? this.form.roomKeyType : '2',
+            roomId: this.form.roomId ? this.form.roomId : '1',
+            authCode: this.form.authCode ? this.form.authCode : '',
+          }
+          chatConfig.sanitizeConfig(cfg)
+          this.form = cfg
+        })
+        .catch(() => {})
+    },
     exportConfig() {
       let cfg = mergeConfig(this.form, chatConfig.DEFAULT_CONFIG)
       download(JSON.stringify(cfg, null, 2), 'blivechat.json', 'application/json')

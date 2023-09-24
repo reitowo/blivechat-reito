@@ -13,6 +13,7 @@
   :maxNumber="config.maxNumber"
   :fadeOutNum="config.fadeOutNum"
   :pinTime="config.pinTime"
+  :customCss="config.customCss"
   >
   </chat-renderer>
 </template>
@@ -200,6 +201,11 @@ export default {
       //* 若上次预设值有留空，则使用默认值
       // cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
       cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
+      
+      cfg.customCss = cfg.customCss.toString()
+      // print info of custom css
+      console.log('custom css:')
+      console.log(cfg.customCss)
 
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)

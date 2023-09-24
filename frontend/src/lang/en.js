@@ -155,6 +155,8 @@ export default {
 
     urlTooLong: 'The room URL is too long, and will be truncated by Livehime (but not by OBS)',
     roomUrl: 'Room URL',
+    customCss: 'Custom CSS',
+    cssFileTooLarge: 'The CSS file is too large',
     copy: 'Copy',
     enterBilibili: 'Enter bilibili room',
     openTutorial: 'Tutorial',
@@ -163,6 +165,7 @@ export default {
     enterTestRoom: 'Enter test room',
     exportConfig: 'Export config',
     importConfig: 'Import config',
+    resetConfig: 'Reset config',
     exportDanmuPictureConfig: 'Export emoticon config',
 
     failedToParseConfig: 'Failed to parse config: '

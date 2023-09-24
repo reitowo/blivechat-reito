@@ -9,3 +9,9 @@ export async function uploadEmoticon(file) {
   body.set('file', file)
   return (await axios.post('/api/emoticon', body)).data
 }
+
+export async function uploadCustomCSS(file) {
+  let body = new FormData()
+  body.set('file', file)
+  return (await axios.post('/api/custom_css', body)).data
+}
