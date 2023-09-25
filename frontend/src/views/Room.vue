@@ -934,6 +934,9 @@ export default {
             // 只能区分是否是用户自己购买的表情
             richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `room-${data.content}`, data.emoticon, 64))
             return richContent
+          } else {
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `other-${data.content}`, data.emoticon, 64))
+            return richContent
           }
         }
       }
