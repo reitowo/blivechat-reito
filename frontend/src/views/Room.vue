@@ -141,6 +141,7 @@ export default {
   mounted() {
     if (document.visibilityState === 'visible') {
       this.init()
+      this.setCustomCss()
     } else {
       // 当前窗口不可见，延迟到可见时加载，防止OBS中一次并发太多请求（OBS中浏览器不可见时也会加载网页，除非显式设置）
       document.addEventListener('visibilitychange', this.onVisibilityChange)
@@ -153,6 +154,26 @@ export default {
     }
   },
   methods: {
+    setCustomCss() {
+      // check if custom css already exists
+      console.log('custom css is')
+      console.log(this.config.customCss)
+      let customCss = document.querySelector('#custom-css')
+      if (customCss) {
+        customCss.href = this.config.customCss
+        if (this.config.customCss === '') {
+          customCss.remove()
+        }
+      } else {
+        // create custom css, add to yt-live-chat-renderer
+        let link = document.createElement('link')
+        link.id = 'custom-css'
+        link.rel = 'stylesheet'
+        link.href = this.config.customCss
+        document.head.appendChild(link)
+      }
+     
+    },
     onVisibilityChange() {
       if (document.visibilityState !== 'visible') {
         return

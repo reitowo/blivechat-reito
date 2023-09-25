@@ -858,7 +858,7 @@ export default {
           customCss.remove()
         }
       } else {
-        // create custom css
+        // create custom css, add to yt-live-chat-renderer
         let link = document.createElement('link')
         link.id = 'custom-css'
         link.rel = 'stylesheet'

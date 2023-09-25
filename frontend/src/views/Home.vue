@@ -1078,7 +1078,7 @@ export default {
       let backFields = {
         lang: this.$i18n.locale,
       }
-      let ignoredNames = new Set(['roomId', 'authCode', 'customCss'])
+      let ignoredNames = new Set(['roomId', 'authCode'])
       if (this.form.useLocalEmoticonSetting === true) {
         ignoredNames.add('emoticons')
       } else {
