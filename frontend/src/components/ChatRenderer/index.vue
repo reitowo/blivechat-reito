@@ -854,6 +854,9 @@ export default {
       let customCss = document.querySelector('#custom-css')
       if (customCss) {
         customCss.href = this.customCss
+        if (this.customCss === '') {
+          customCss.remove()
+        }
       } else {
         // create custom css
         let link = document.createElement('link')

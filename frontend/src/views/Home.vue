@@ -1077,15 +1077,20 @@ export default {
       }
       let backFields = {
         lang: this.$i18n.locale,
-        emoticons: this.useLocalEmoticonSetting ? JSON.stringify([]) : JSON.stringify(this.form.emoticons),
       }
       let ignoredNames = new Set(['roomId', 'authCode', 'customCss'])
+      if (this.form.useLocalEmoticonSetting === true) {
+        ignoredNames.add('emoticons')
+      } else {
+        backFields.emoticons = JSON.stringify(this.form.emoticons)
+      }
       let query = { ...frontFields }
       for (let name in this.form) {
         if (!(name in frontFields || name in backFields || ignoredNames.has(name))) {
           query[name] = this.form[name]
         }
       }
+
       Object.assign(query, backFields)
 
       // 去掉和默认值相同的字段，缩短URL长度
@@ -1101,6 +1106,7 @@ export default {
           return value !== defaultValue
         }
       ))
+      
 
       let resolved
       if (isTestRoom) {

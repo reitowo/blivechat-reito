@@ -104,7 +104,7 @@ export default {
 
       if (this.config.useLocalEmoticonSetting) {
         // 使用本地json设置
-        console.log("使用本地 json 文件设置表情包")
+        // console.log("使用本地 json 文件设置表情包")
         danmu_emoticons = this.danmu_pic_json
       } else {
         // 使用网页设置
@@ -203,9 +203,6 @@ export default {
       cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
       
       cfg.customCss = cfg.customCss.toString()
-      // print info of custom css
-      console.log('custom css:')
-      console.log(cfg.customCss)
 
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
