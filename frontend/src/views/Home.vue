@@ -4,7 +4,11 @@
       <el-form :model="form" ref="form" label-width="150px">
         <el-tabs type="border-card">
           <el-tab-pane :label="$t('home.general')">
-            <el-form-item v-if="form.roomKeyType === 1"
+            <template v-if="form.roomKeyType === 1">
+              <p>
+                <el-alert :title="$t('home.useAuthCodeWarning')" type="warning" show-icon :closable="false"></el-alert>
+              </p>
+              <el-form-item
                 :label="$t('home.room')" prop="roomId" :rules="[
                   { required: true, message: $t('home.roomIdEmpty') },
                   { type: 'integer', min: 1, message: $t('home.roomIdInteger') }
@@ -21,20 +25,15 @@
                     <el-input v-model.number="form.roomId" type="number" min="1"></el-input>
                   </el-col>
                 </el-row>
-              <el-row style="color: red">{{ $t('home.useAuthCodeWarning') }}</el-row>
-            </el-form-item>
+              </el-form-item>
+            </template>
 
             <el-form-item v-else-if="form.roomKeyType === 2"
               :label="$t('home.room')" prop="authCode" :rules="[
                 { required: true, message: $t('home.authCodeEmpty') },
-                { pattern: AUTH_CODE_REG, message: $t('home.authCodeFormatError') }
+                { pattern: /^[0-9A-Z]{12,14}$/, message: $t('home.authCodeFormatError') }
               ]"
             >
-              <template slot="label">{{ $t('home.room') }}
-                <router-link :to="{ name: 'help' }">
-                  <i class="el-icon-question"></i>
-                </router-link>
-              </template>
               <el-row>
                 <el-col :span="6">
                   <el-select v-model="form.roomKeyType" style="width: 100%">
@@ -807,10 +806,25 @@
     <p>
       <el-card class="top-card">
         <el-form :model="form" label-width="150px">
+          <p v-if="obsRoomUrl.length > 1024">
+            <el-alert :title="$t('home.urlTooLong')" type="warning" show-icon :closable="false"></el-alert>
+          </p>
           <el-form-item :label="$t('home.roomUrl')">
             <el-input ref="roomUrlInput" readonly :value="obsRoomUrl" style="width: calc(100% - 8em); margin-right: 1em;"></el-input>
             <el-button type="primary" icon="el-icon-copy-document" @click="copyUrl"></el-button>
           </el-form-item>
+          <el-form-item :label="$t('home.customCss')">
+            <el-input v-model="form.customCss" style="width: calc(100% - 16em); margin-right: 1em;"></el-input>
+            <el-button-group>
+              <!-- check button -->
+                <el-button type="primary" icon="el-icon-check" @click="confirmCustomCSS" style="background: #bed742; border-color: #bed742;"></el-button>
+                <el-button type="primary" icon="el-icon-upload2" :disabled="!serverConfig.enableUploadFile"
+                  @click="uploadCustomCSS"
+                ></el-button>
+                <!-- delete css setting -->
+                <el-button type="danger" icon="el-icon-minus" @click="deleteCustomCSS"></el-button>
+              </el-button-group>
+            </el-form-item>
           <el-form-item :label="$t('home.useLoaderUrl')">
             <el-switch v-model="useLoaderUrl"></el-switch>
           </el-form-item>
@@ -821,6 +835,7 @@
             <el-button @click="enterTestRoom">{{$t('home.enterTestRoom')}}</el-button>
             <el-button @click="exportConfig">{{$t('home.exportConfig')}}</el-button>
             <el-button @click="importConfig">{{$t('home.importConfig')}}</el-button>
+            <el-button type="danger" @click="resetConfig">{{$t('home.resetConfig')}}</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -899,8 +914,6 @@ export default {
   name: 'Home',
   data() {
     return {
-      AUTH_CODE_REG: /^[0-9A-Z]{12,14}$/,
-
       serverConfig: {
         enableTranslate: true,
         enableUploadFile: true,
@@ -912,7 +925,11 @@ export default {
         roomKeyType: parseInt(window.localStorage.roomKeyType || '2'),
         roomId: parseInt(window.localStorage.roomId || '1'),
         authCode: window.localStorage.authCode || '',
+        customCss: window.localStorage.customCss || '',
       },
+      // 因为$refs.form.validate是异步的所以不能直接用计算属性
+      // getUnvalidatedRoomUrl -> unvalidatedRoomUrl -> updateRoomUrl -> roomUrl
+      roomUrl: '',
       login: {
         image: '',
         isLogin: false,
@@ -928,8 +945,8 @@ export default {
         return this.form.authCode
       }
     },
-    roomUrl() {
-      return this.getRoomUrl(false)
+    unvalidatedRoomUrl() {
+      return this.getUnvalidatedRoomUrl(false)
     },
     obsRoomUrl() {
       if (this.roomUrl === '') {
@@ -944,16 +961,19 @@ export default {
     }
   },
   watch: {
+    unvalidatedRoomUrl: 'updateRoomUrl',
     roomUrl: _.debounce(function() {
       window.localStorage.roomKeyType = this.form.roomKeyType
       window.localStorage.roomId = this.form.roomId
       window.localStorage.authCode = this.form.authCode
+      window.localStorage.customCss = this.form.customCss
       chatConfig.setLocalConfig(this.form)
     }, 500)
   },
   mounted() {
     this.updateLoginStatus()
     this.updateServerConfig()
+    this.updateRoomUrl()
   },
   methods: {
     async updateServerConfig() {
@@ -963,6 +983,18 @@ export default {
         this.$message.error(`Failed to fetch server information: ${e}`)
         throw e
       }
+    },
+    async updateRoomUrl() {
+      // 防止切换roomKeyType时校验的还是老规则
+      await this.$nextTick()
+      try {
+        await this.$refs.form.validate()
+      } catch {
+        this.roomUrl = ''
+        return
+      }
+      // 没有异步的校验规则，应该不需要考虑竞争条件
+      this.roomUrl = this.unvalidatedRoomUrl
     },
 
     enterBilibili() {
@@ -1031,25 +1063,91 @@ export default {
       }
       input.click()
     },
+    confirmCustomCSS() {
+      window.localStorage.customCss = this.form.customCss
+      chatConfig.setLocalConfig(this.form)
+    },
+    uploadCustomCSS() {
+      let input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'text/css'
+      input.onchange = async() => {
+        let file = input.files[0]
+        if (file.size > 10240 * 10240 * 3) { // 300MB
+          this.$message.error(this.$t('home.cssFileTooLarge'))
+          return
+        }
 
+        let res
+        try {
+          res = await mainApi.uploadCustomCSS(file)
+        } catch (e) {
+          this.$message.error(`Failed to upload: ${e}`)
+          throw e
+        }
+        this.form.customCss = res.url
+        window.localStorage.customCss = this.form.customCss
+        chatConfig.setLocalConfig(this.form)
+      }
+      input.click()
+    },
+    deleteCustomCSS() {
+      this.$confirm('确定删除自定义CSS吗 ?你可以在 blivechat/data/custom_css 找到你上传的 CSS', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        confirmButtonClass: 'del-all-confirm-button'
+      })
+        .then(() => {
+          this.form.customCss = ''
+          window.localStorage.customCss = this.form.customCss
+          chatConfig.setLocalConfig(this.form)
+        })
+        .catch(() => {})
+    },
     enterRoom() {
       window.open(this.roomUrl, `room ${this.roomKeyValue}`, 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
     },
     enterTestRoom() {
-      window.open(this.getRoomUrl(true), 'test room', 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
+      window.open(this.getUnvalidatedRoomUrl(true), 'test room', 'menubar=0,location=0,scrollbars=0,toolbar=0,width=600,height=600')
     },
-    getRoomUrl(isTestRoom) {
-      if (!isTestRoom && !this.validateForm()) {
-        return ''
+    getUnvalidatedRoomUrl(isTestRoom) {
+      // 重要的字段放在前面，因为如果被截断就连接不了房间了
+      let frontFields = {
+        roomKeyType: this.form.roomKeyType
+      }
+      let backFields = {
+        lang: this.$i18n.locale,
+      }
+      let ignoredNames = new Set(['roomId', 'authCode'])
+      if (this.form.useLocalEmoticonSetting === true) {
+        ignoredNames.add('emoticons')
+      } else {
+        backFields.emoticons = JSON.stringify(this.form.emoticons)
+      }
+      let query = { ...frontFields }
+      for (let name in this.form) {
+        if (!(name in frontFields || name in backFields || ignoredNames.has(name))) {
+          query[name] = this.form[name]
+        }
       }
 
-      let query = {
-        ...this.form,
-        emoticons: JSON.stringify(this.form.emoticons),
-        lang: this.$i18n.locale
-      }
-      delete query.roomId
-      delete query.authCode
+      Object.assign(query, backFields)
+
+      // 去掉和默认值相同的字段，缩短URL长度
+      query = Object.fromEntries(Object.entries(query).filter(
+        ([name, value]) => {
+          let defaultValue = chatConfig.DEFAULT_CONFIG[name]
+          if (defaultValue === undefined) {
+            return true
+          }
+          if (typeof defaultValue === 'object') {
+            defaultValue = JSON.stringify(defaultValue)
+          }
+          return value !== defaultValue
+        }
+      ))
+
 
       let resolved
       if (isTestRoom) {
@@ -1059,18 +1157,28 @@ export default {
       }
       return `${window.location.protocol}//${window.location.host}${resolved.href}`
     },
-    // 因为要用在计算属性里，所以不能用this.$refs.form.validate
-    validateForm() {
-      if (this.form.roomKeyType === 1) {
-        return this.roomKeyValue > 0
-      } else if (this.form.roomKeyType === 2) {
-        return this.AUTH_CODE_REG.test(this.roomKeyValue)
-      }
-      return true
-    },
     copyUrl() {
       this.$refs.roomUrlInput.select()
       document.execCommand('Copy')
+    },
+    resetConfig() {
+      this.$confirm('确定重置配置吗 ?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        confirmButtonClass: 'del-all-confirm-button'
+      })
+        .then(() => {
+          let cfg = {
+            ...chatConfig.deepCloneDefaultConfig(),
+            roomKeyType: this.form.roomKeyType ? this.form.roomKeyType : '2',
+            roomId: this.form.roomId ? this.form.roomId : '1',
+            authCode: this.form.authCode ? this.form.authCode : '',
+          }
+          chatConfig.sanitizeConfig(cfg)
+          this.form = cfg
+        })
+        .catch(() => {})
     },
     exportConfig() {
       let cfg = mergeConfig(this.form, chatConfig.DEFAULT_CONFIG)

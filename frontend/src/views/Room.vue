@@ -13,6 +13,7 @@
   :maxNumber="config.maxNumber"
   :fadeOutNum="config.fadeOutNum"
   :pinTime="config.pinTime"
+  :customCss="config.customCss"
   >
   </chat-renderer>
 </template>
@@ -103,7 +104,7 @@ export default {
 
       if (this.config.useLocalEmoticonSetting) {
         // 使用本地json设置
-        console.log("使用本地 json 文件设置表情包")
+        // console.log("使用本地 json 文件设置表情包")
         danmu_emoticons = this.danmu_pic_json
       } else {
         // 使用网页设置
@@ -140,6 +141,7 @@ export default {
   mounted() {
     if (document.visibilityState === 'visible') {
       this.init()
+      this.setCustomCss()
     } else {
       // 当前窗口不可见，延迟到可见时加载，防止OBS中一次并发太多请求（OBS中浏览器不可见时也会加载网页，除非显式设置）
       document.addEventListener('visibilitychange', this.onVisibilityChange)
@@ -152,6 +154,26 @@ export default {
     }
   },
   methods: {
+    setCustomCss() {
+      // check if custom css already exists
+      console.log('custom css is')
+      console.log(this.config.customCss)
+      let customCss = document.querySelector('#custom-css')
+      if (customCss) {
+        customCss.href = this.config.customCss
+        if (this.config.customCss === '') {
+          customCss.remove()
+        }
+      } else {
+        // create custom css, add to yt-live-chat-renderer
+        let link = document.createElement('link')
+        link.id = 'custom-css'
+        link.rel = 'stylesheet'
+        link.href = this.config.customCss
+        document.head.appendChild(link)
+      }
+     
+    },
     onVisibilityChange() {
       if (document.visibilityState !== 'visible') {
         return
@@ -200,6 +222,8 @@ export default {
       //* 若上次预设值有留空，则使用默认值
       // cfg = mergeConfig(cfg, chatConfig.DEFAULT_CONFIG)
       cfg = mergeConfig(cfg, chatConfig.deepCloneDefaultConfig())
+      
+      cfg.customCss = cfg.customCss.toString()
 
       cfg.minGiftPrice = toFloat(cfg.minGiftPrice, chatConfig.DEFAULT_CONFIG.minGiftPrice)
       cfg.minTickerPrice = toFloat(cfg.minTickerPrice, chatConfig.DEFAULT_CONFIG.minTickerPrice)
@@ -322,7 +346,6 @@ export default {
       this.chatClient.stop()
     },
 
-    // TODO: 前端显示欢迎入场
     onInteractWord(data) {
       // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
 
@@ -909,6 +932,9 @@ export default {
           } else if (this.config.autoRenderStreamerEmoji === true && data.emoticon.startsWith('http://i0.hdslb.com/bfs/emote')) {
             // 只能区分是否是用户自己购买的表情
             richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `room-${data.content}`, data.emoticon, 64))
+            return richContent
+          } else {
+            richContent.push(this.generateEmoticonData(constants.CONTENT_TYPE_EMOTICON, data.content, `other-${data.content}`, data.emoticon, 64))
             return richContent
           }
         }

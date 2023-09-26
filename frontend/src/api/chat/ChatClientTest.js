@@ -200,40 +200,42 @@ function randGuardInfo() {
 }
 
 const GIFT_INFO_LIST = [
-  { giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', num: 10 },
-  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 24 },
-  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', num: 1 },
-  { giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', num: 1 },
-  { giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', num: 1 },
-  { giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', num: 2 },
-  { giftName: '吃瓜', price: 0.1, totalCoin: 500, coinType: 'gold', num: 5 },
-  { giftName: '比心', price: 0.5, totalCoin: 500, coinType: 'gold', num: 1 },
-  { giftName: '比心', price: 0.5, totalCoin: 1000, coinType: 'gold', num: 2 },
-  { giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', num: 1 },
-  { giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', num: 3 },
-  { giftName: '冰阔落', price: 1, totalCoin: 5000, coinType: 'gold', num: 5 },
-  { giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', num: 5 },
-  { giftName: '给大佬递茶', price: 2, totalCoin: 20000, coinType: 'gold', num: 10 },
-  { giftName: '打榜', price: 2, totalCoin: 2000, coinType: 'gold', num: 1 },
-  { giftName: '打榜', price: 2, totalCoin: 6000, coinType: 'gold', num: 3 },
-  { giftName: '打榜', price: 2, totalCoin: 26000, coinType: 'gold', num: 13 },
-  { giftName: '喵娘', price: 5.2, totalCoin: 5200, coinType: 'gold', num: 1 },
-  { giftName: '喵娘', price: 5.2, totalCoin: 52000, coinType: 'gold', num: 10 },
-  { giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', num: 1 },
-  { giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', num: 1 },
-  { giftName: '礼花', price: 28, totalCoin: 280000, coinType: 'gold', num: 10 },
-  { giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', num: 1 },
-  { giftName: '花式夸夸', price: 39, totalCoin: 390000, coinType: 'gold', num: 10 },
-  { giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', num: 1 },
-  { giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', num: 1 },
-  { giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', num: 1 },
-  { giftName: '小电视飞船', price: 1245, totalCoin: 12450000, coinType: 'gold', num: 10 }
+  { giftName: '辣条', price: 0, totalCoin: 100, coinType: 'silver', paid: false, num: 10 },
+  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', paid: false, num: 24 },
+  { giftName: '小心心', price: 0, totalCoin: 0, coinType: 'silver', paid: false, num: 1 },
+  { giftName: 'B坷垃', price: 0, totalCoin: 9900, coinType: 'silver', paid: false, num: 1 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 100, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 200, coinType: 'gold', paid: true, num: 2 },
+  { giftName: '吃瓜', price: 0.1, totalCoin: 500, coinType: 'gold', paid: true, num: 5 },
+  { giftName: '比心', price: 0.5, totalCoin: 500, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '比心', price: 0.5, totalCoin: 1000, coinType: 'gold', paid: true, num: 2 },
+  { giftName: '冰阔落', price: 1, totalCoin: 1000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '冰阔落', price: 1, totalCoin: 3000, coinType: 'gold', paid: true, num: 3 },
+  { giftName: '冰阔落', price: 1, totalCoin: 5000, coinType: 'gold', paid: true, num: 5 },
+  { giftName: '给大佬递茶', price: 2, totalCoin: 10000, coinType: 'gold', paid: true, num: 5 },
+  { giftName: '给大佬递茶', price: 2, totalCoin: 20000, coinType: 'gold', paid: true, num: 10 },
+  { giftName: '打榜', price: 2, totalCoin: 2000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '打榜', price: 2, totalCoin: 6000, coinType: 'gold', paid: true, num: 3 },
+  { giftName: '打榜', price: 2, totalCoin: 26000, coinType: 'gold', paid: true, num: 13 },
+  { giftName: '喵娘', price: 5.2, totalCoin: 5200, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '喵娘', price: 5.2, totalCoin: 52000, coinType: 'gold', paid: true, num: 10 },
+  { giftName: 'B坷垃', price: 9.9, totalCoin: 9900, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '礼花', price: 28, totalCoin: 28000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '礼花', price: 28, totalCoin: 280000, coinType: 'gold', paid: true, num: 10 },
+  { giftName: '花式夸夸', price: 39, totalCoin: 39000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '花式夸夸', price: 39, totalCoin: 390000, coinType: 'gold', paid: true, num: 10 },
+  { giftName: '天空之翼', price: 100, totalCoin: 100000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '摩天大楼', price: 450, totalCoin: 450000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '小电视飞船', price: 1245, totalCoin: 1245000, coinType: 'gold', paid: true, num: 1 },
+  { giftName: '小电视飞船', price: 1245, totalCoin: 12450000, coinType: 'gold', paid: true, num: 10 }
 
 ]
 
 const SC_PRICES = [
   30, 50, 100, 200, 500, 1000, 2000
 ]
+
+const GUARD_UNIT = ['月', '年']
 
 const MESSAGE_GENERATORS = [
   // 进场
@@ -354,7 +356,9 @@ const MESSAGE_GENERATORS = [
           avatarUrl: chat.DEFAULT_AVATAR_URL,
           timestamp: new Date().getTime() / 1000,
           authorName: randomChoose(NAMES),
-          privilegeType: randInt(1, 3)
+          privilegeType: randInt(1, 3),
+          guardNum: randInt(1, 100),
+          guardUnit: randomChoose(GUARD_UNIT)
         }
       }
     }

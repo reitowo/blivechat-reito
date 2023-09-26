@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 EMOTICON_UPLOAD_PATH = os.path.join(config.DATA_PATH, 'emoticons')
 EMOTICON_BASE_URL = '/emoticons'
+CSS_UPLOAD_PATH = os.path.join(config.DATA_PATH, 'custom_css')
+CSS_BASE_URL = '/custom_css'
 
 
 class MainHandler(tornado.web.StaticFileHandler):
@@ -84,13 +86,49 @@ class UploadEmoticonHandler(api.base.ApiHandler):
 
         return f'{EMOTICON_BASE_URL}/{filename}'
 
+class UploadCSSHandler(api.base.ApiHandler):
+    async def post(self):
+        cfg = config.get_config()
+        if not cfg.enable_upload_file:
+            raise tornado.web.HTTPError(403)
+
+        try:
+            file = self.request.files['file'][0]
+        except LookupError:
+            raise tornado.web.MissingArgumentError('file')
+        if len(file.body) > 10240 * 10240:
+            raise tornado.web.HTTPError(413, 'file is too large, size=%d', len(file.body))
+        if not file.content_type.lower().startswith('text/'):
+            raise tornado.web.HTTPError(415)
+
+        url = await asyncio.get_running_loop().run_in_executor(
+            None, self._save_file, file.body, self.request.remote_ip
+        )
+        self.write({'url': url})
+
+    @staticmethod
+    def _save_file(body, client):
+        md5 = hashlib.md5(body).hexdigest()
+        filename = md5 + '.css'
+        path = os.path.join(CSS_UPLOAD_PATH, filename)
+        logger.info('client=%s uploaded file, path=%s, size=%d', client, path, len(body))
+
+        tmp_path = path + '.tmp'
+        with open(tmp_path, 'wb') as f:
+            f.write(body)
+        os.replace(tmp_path, path)
+
+        return f'{CSS_BASE_URL}/{filename}'
+
 
 ROUTES = [
     (r'/api/server_info', ServerInfoHandler),
     (r'/api/emoticon', UploadEmoticonHandler),
+    (r'/api/custom_css', UploadCSSHandler),
 ]
 # 通配的放在最后
 LAST_ROUTES = [
     (rf'{EMOTICON_BASE_URL}/(.*)', tornado.web.StaticFileHandler, {'path': EMOTICON_UPLOAD_PATH}),
+    (rf'{CSS_BASE_URL}/(.*)', tornado.web.StaticFileHandler, {'path': CSS_UPLOAD_PATH}),
     (r'/(.*)', MainHandler, {'path': config.WEB_ROOT}),
 ]

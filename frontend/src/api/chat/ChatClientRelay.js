@@ -133,21 +133,22 @@ export default class ChatClientRelay {
         emoticon = contentTypeParams[0]
       }
 
+      let content = data[4]
       data = {
         avatarUrl: data[0],
         timestamp: data[1],
         authorName: data[2],
         authorType: data[3],
-        content: data[4],
+        content: content,
         privilegeType: data[5],
-        isGiftDanmaku: Boolean(data[6]),
+        isGiftDanmaku: Boolean(data[6]) || chat.isGiftDanmakuByContent(content),
         authorLevel: data[7],
         isNewbie: Boolean(data[8]),
         isMobileVerified: Boolean(data[9]),
         medalLevel: data[10],
         id: data[11],
         translation: data[12],
-        emoticon: emoticon,
+        emoticon: emoticon
       }
       this.onAddText(data)
       break

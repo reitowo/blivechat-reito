@@ -160,8 +160,12 @@ export default {
     addEmoticon: 'スタンプ追加（後で付け）',
     addPicture: '画像追加（新たな行）',
     delAllEmoticon: '全部スタンプを消す',
+    emoticonFileTooLarge: 'スタンプファイルが大きすぎます',
 
+    urlTooLong: 'ルームのURLが長すぎて、直播姬によって切り詰められます（ただし、OBSでは切り詰められません）',
     roomUrl: 'ルームのURL',
+    customCss: 'カスタムCSS',
+    cssFileTooLarge: 'CSSファイルが大きすぎます',
     copy: 'コピー',
     enterBilibili: 'Bilibiliルームに入る',
     openTutorial: '使用教程',
@@ -170,6 +174,7 @@ export default {
     enterTestRoom: 'テストルームに入る',
     exportConfig: 'コンフィグの導出',
     importConfig: 'コンフィグの導入',
+    resetConfig: 'コンフィグのリセット',
     exportEmoticonConfig: 'スタンプコンフィグの導出',
 
     failedToParseConfig: 'コンフィグ解析に失敗しました'

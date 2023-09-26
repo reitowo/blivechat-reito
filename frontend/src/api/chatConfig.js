@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { mergeConfig } from '@/utils'
 
 export const DEFAULT_CONFIG = {
+  customCss: '',
   minGiftPrice: 0, // ￥0.0
   minTickerPrice: 0.1, // ￥0.1
   showDanmaku: true,

@@ -85,14 +85,15 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
     }
 
     let authorName = info[2][1]
+    let content = info[1]
     let data = {
       avatarUrl: await chat.getAvatarUrl(uid, authorName, command.dm_v2),
       timestamp: info[0][4] / 1000,
       authorName: authorName,
       authorType: authorType,
-      content: info[1],
+      content: content,
       privilegeType: privilegeType,
-      isGiftDanmaku: Boolean(info[0][9]),
+      isGiftDanmaku: Boolean(info[0][9]) || chat.isGiftDanmakuByContent(content),
       authorLevel: info[4][0],
       isNewbie: info[2][5] < 10000,
       isMobileVerified: Boolean(info[2][6]),
@@ -180,7 +181,6 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
     this.onDelSuperChat({ ids })
   }
 
-  // TODO: 欢迎入场 ws 的信息，然后给到 Room.vue
   async interactWordCallback(command) {
     if (!this.onInteractWord) {
       return
