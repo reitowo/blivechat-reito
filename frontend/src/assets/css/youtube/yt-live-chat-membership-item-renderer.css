@@ -250,7 +250,7 @@ yt-live-chat-membership-item-renderer[dashboard-money-feed] yt-live-chat-author-
 }
 
 yt-live-chat-membership-item-renderer #header-subtext::before {
-  content: "\6b22\8fce";
+  content: "";
 }
 
 yt-live-chat-membership-item-renderer #header-subtext::after {

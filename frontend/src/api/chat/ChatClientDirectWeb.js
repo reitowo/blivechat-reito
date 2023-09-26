@@ -186,7 +186,6 @@ export default class ChatClientDirectWeb extends ChatClientOfficialBase {
     this.onDelSuperChat({ ids })
   }
 
-  // TODO: 欢迎入场 ws 的信息，然后给到 Room.vue
   async interactWordCallback(command) {
     if (!this.onInteractWord) {
       return

@@ -193,8 +193,8 @@ export default {
     showAvatars: 'Show avatars',
     avatarSize: 'Avatar size',
 
-    // FIXME: 注意不要删除其他命名，其他命名仍用于其他tab页面
-    // TODO: Normal Message
+    // NOTE: 注意不要删除其他命名，其他命名仍用于其他tab页面
+    // NOTE: Normal Message
     textMessage: 'Normal Message',
 
     textMessageAvatar: 'Normal Message Avatar',
@@ -282,7 +282,7 @@ export default {
     textMessageSlide: 'slide',
     textMessageReverseSlide: 'reverse slide',
 
-    // TODO: Super Chat
+    // NOTE: Super Chat
     paidMessage: 'Super Chat / Gift',
 
     paidMessageAvatar: 'Super Chat Avatar',
@@ -325,7 +325,7 @@ export default {
     paidMessageSlide: 'slide',
     paidMessageReverseSlide: 'reverse slide',
     
-    // TODO: Membership
+    // NOTE: Membership
     membershipMessage: 'Membership',
 
     membershipMessageAvatar: 'Membership Avatar',
@@ -364,7 +364,7 @@ export default {
     membershipMessageSlide: 'slide',
     membershipMessageReverseSlide: 'reverse slide',
 
-    // TODO: Interact Message
+    // NOTE: Interact Message
     interactMessage: 'Interact Message (Enter, Follow stream)',
 
     interactMessageAvatar: 'Interact Message Avatar',
@@ -438,28 +438,28 @@ export default {
     interactMessageSlide: 'slide',
     interactMessageReverseSlide: 'reverse slide',
 
-    // TODO: Global Padding
+    // NOTE: Global Padding
     globalPadding: 'Global Padding',
     globalPaddingTop: 'Global Padding - Top',
     globalPaddingBottom: 'Global Padding - Bottom',
     globalPaddingLeft: 'Global Padding - Left',
     globalPaddingRight: 'Global Padding - Right',
 
-    // TODO: Global Margin
+    // NOTE: Global Margin
     globalMargin: 'Global Margin',
     globalMarginTop: 'Global Margin - Top',
     globalMarginBottom: 'Global Margin - Bottom',
     globalMarginLeft: 'Global Margin - Left',
     globalMarginRight: 'Global Margin - Right',
 
-    // TODO: Global Border Radius
+    // NOTE: Global Border Radius
     globalBorderRadius: 'Global Border Radius',
     globalBorderRadiusTopLeft: 'Global Border Radius - Top Left',
     globalBorderRadiusTopRight: 'Global Border Radius - Top Right',
     globalBorderRadiusBottomLeft: 'Global Border Radius - Bottom Left',
     globalBorderRadiusBottomRight: 'Global Border Radius - Bottom Right',
 
-    // TODO: TickerMessage
+    // NOTE: TickerMessage
     Ticker: 'Paid Ticker',
     TickerShowTicker: 'Show Paid Ticker',
     TickerShowThingsOtherThanTicker: 'Show Things Other than Ticker',

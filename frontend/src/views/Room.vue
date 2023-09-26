@@ -346,7 +346,6 @@ export default {
       this.chatClient.stop()
     },
 
-    // TODO: 前端显示欢迎入场
     onInteractWord(data) {
       // console.log(`${data.authorName} 进入房间，data 是 ${JSON.stringify(data, null, 4)}`)
 
