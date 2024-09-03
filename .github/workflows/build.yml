@@ -54,7 +54,7 @@ jobs:
           submodules: recursive
 
       - name: Download Frontend
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: frontend
           path: frontend/dist
@@ -99,7 +99,7 @@ jobs:
       contents: write
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
